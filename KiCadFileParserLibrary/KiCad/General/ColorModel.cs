@@ -5,32 +5,36 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Pcb;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
-namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
+namespace KiCadFileParserLibrary.KiCad.General
 {
-   [SExprNode("size")]
-   public class SizeModel : IKiCadReadable
+   [SExprSubNode("color")]
+   public class ColorModel : IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(0)]
-      public double Width { get; set; }
+      public double? Red { get; set; }
 
-      [SExprProperty(1)]
-      public double Height { get; set; }
+      public double? Green { get; set; }
+
+      public double? Blue { get; set; }
+
+      public double? Alpha { get; set; }
       #endregion
 
       #region Constructors
-      public SizeModel() { }
+      public ColorModel() { }
       #endregion
 
       #region Methods
       public void ParseNode(Node node)
       {
-         var props = GetType().GetProperties();
          if (node.Properties != null)
          {
+            var props = GetType().GetProperties();
+
             KiCadParseUtils.ParseProperties(props, node, this);
          }
       }

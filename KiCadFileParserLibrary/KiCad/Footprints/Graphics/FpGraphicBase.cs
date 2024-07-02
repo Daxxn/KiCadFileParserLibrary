@@ -9,10 +9,10 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
 {
-   public class FpGraphicBase
+   public abstract class FpGraphicBase : IKiCadReadable
    {
       #region Local Props
-      public string Name { get; set; }
+      public string? Name { get; set; }
       #endregion
 
       #region Constructors
@@ -20,6 +20,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #endregion
 
       #region Methods
+      public abstract void ParseNode(Node node);
       #endregion
 
       #region Full Props

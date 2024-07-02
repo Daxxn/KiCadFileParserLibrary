@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb
 {
@@ -142,14 +143,18 @@ namespace KiCadFileParserLibrary.KiCad.Pcb
 
       #region Constructors
       public PcbplotParameters() { }
-
       #endregion
 
       #region Methods
       public void ParseNode(Node node)
       {
-      }
+         if (node.Children != null)
+         {
+            var props = GetType().GetProperties();
 
+            KiCadParseUtils.ParseSubNodes(props, node, this);
+         }
+      }
       #endregion
 
       #region Full Props

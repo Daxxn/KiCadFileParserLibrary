@@ -24,17 +24,18 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
          if (node.Properties != null)
          {
             var props = GetType().GetProperties();
-            foreach (var prop in props)
-            {
-               var attr = prop.GetCustomAttribute<SExprPropertyAttribute>();
-               if (attr != null)
-               {
-                  if (node.Properties.Count > attr.PropertyIndex)
-                  {
-                     prop.SetValue(this, PropertyParser.Parse(node.Properties[attr.PropertyIndex], prop));
-                  }
-               }
-            }
+            KiCadParseUtils.ParseProperties(props, node, this);
+            //foreach (var prop in props)
+            //{
+            //   var attr = prop.GetCustomAttribute<SExprPropertyAttribute>();
+            //   if (attr != null)
+            //   {
+            //      if (node.Properties.Count > attr.PropertyIndex)
+            //      {
+            //         prop.SetValue(this, PropertyParser.Parse(node.Properties[attr.PropertyIndex], prop));
+            //      }
+            //   }
+            //}
          }
       }
    }

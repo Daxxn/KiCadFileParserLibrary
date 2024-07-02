@@ -11,7 +11,7 @@ namespace KiCadFileParserLibrary.Utils
    {
       public static object? Parse(string value, PropertyInfo prop)
       {
-         switch (prop.PropertyType.Name)
+         switch (GetTypeName(prop))
          {
             case "String":
                return value;
@@ -50,6 +50,16 @@ namespace KiCadFileParserLibrary.Utils
                }
                return null;
          }
+      }
+
+      private static string GetTypeName(PropertyInfo prop)
+      {
+         if (prop.PropertyType.Name == "Nullable`1")
+         {
+            var newName = prop.PropertyType.FullName!.Replace("System.Nullable`1[[System.", "");
+            return newName.Remove(newName.IndexOf(","));
+         }
+         return prop.PropertyType.Name;
       }
    }
 }

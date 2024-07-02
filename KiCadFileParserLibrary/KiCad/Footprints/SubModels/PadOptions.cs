@@ -5,28 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Pcb;
 using KiCadFileParserLibrary.SExprParser;
 
-namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
+namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-   [SExprNode("effects")]
-   public class EffectsModel : IKiCadReadable
+   [SExprNode("options")]
+   public class PadOptions : IKiCadReadable
    {
       #region Local Props
-      public FontModel? Font { get; set; }
+      [SExprSubNode("clearance")]
+      public CustomPadClearance Clearance { get; set; }
 
-      [SExprSubNode("justify")]
-      public List<TextJustify> Justify { get; set; }
+      [SExprSubNode("anchor")]
+      public CustomPadAnchor Anchor { get; set; }
       #endregion
 
       #region Constructors
-      public EffectsModel() { }
+      public PadOptions() { }
       #endregion
 
       #region Methods
       public void ParseNode(Node node)
       {
-
+         throw new NotImplementedException();
       }
       #endregion
 

@@ -83,6 +83,8 @@ namespace KiCadFileParserLibrary.SExprParser
          }
          return nodes.Count != 0 ? nodes : null;
       }
+
+      public override string ToString() => $"Node - {Type} - Ch: {Children?.Count}";
       #endregion
 
       #region Full Props

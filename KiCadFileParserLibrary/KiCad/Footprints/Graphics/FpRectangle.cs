@@ -4,9 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.SExprParser;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
 {
-   internal class FpRectangle
+   [SExprNode("fp_rect")]
+   public class FpRectangle : FpGraphicBase
    {
+      #region Local Props
+
+      #endregion
+
+      #region Constructors
+      public FpRectangle() { }
+      #endregion
+
+      #region Methods
+      public override void ParseNode(Node node)
+      {
+
+      }
+      #endregion
+
+      #region Full Props
+
+      #endregion
    }
 }

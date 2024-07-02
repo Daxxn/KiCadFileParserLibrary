@@ -11,15 +11,19 @@ using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
 {
-    public class LayerModel : IKiCadReadable
+   [SExprNode("layer")]
+   public class LayerModel : IKiCadReadable
    {
       #region Local Props
       [SExprProperty(0)]
       public int Index { get; set; } = -1;
+
       [SExprProperty(1)]
       public string? Name { get; set; }
+
       [SExprProperty(2)]
       public LayerType Type { get; set; }
+
       [SExprProperty(3)]
       public string? FullName { get; set; }
       #endregion
@@ -31,17 +35,18 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
       {
          if (node.Properties is null) return;
          var props = GetType().GetProperties();
-         foreach (var p in props)
-         {
-            var attr = p.GetCustomAttribute<SExprPropertyAttribute>();
-            if (attr != null)
-            {
-               if (node.Properties.Count > attr.PropertyIndex)
-               {
-                  p.SetValue(this, PropertyParser.Parse(node.Properties[attr.PropertyIndex], p));
-               }
-            }
-         }
+         KiCadParseUtils.ParseProperties(props, node, this);
+         //foreach (var p in props)
+         //{
+         //   var attr = p.GetCustomAttribute<SExprPropertyAttribute>();
+         //   if (attr != null)
+         //   {
+         //      if (node.Properties.Count > attr.PropertyIndex)
+         //      {
+         //         p.SetValue(this, PropertyParser.Parse(node.Properties[attr.PropertyIndex], p));
+         //      }
+         //   }
+         //}
       }
       #endregion
 

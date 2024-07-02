@@ -16,10 +16,13 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
       #region Local Props
       [SExprSubNode("title")]
       public string? Title { get; set; }
+
       [SExprSubNode("date")]
       public DateTime? Date { get; set; }
+
       [SExprSubNode("rev")]
       public string? Revision { get; set; }
+
       [SExprSubNode("company")]
       public string? Company { get; set; }
 
@@ -37,20 +40,24 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
          if (node.Children != null)
          {
             var props = GetType().GetProperties();
-            var subNodeProps = props.Where(p => p.GetCustomAttribute<SExprSubNodeAttribute>() != null);
-            foreach (var prop in subNodeProps)
-            {
-               var propAttr = prop.GetCustomAttribute<SExprSubNodeAttribute>();
-               var pNode = node.GetNode(propAttr!.XPath);
-               if (pNode != null)
-               {
-                  if (pNode.Properties != null)
-                  {
-                     prop.SetValue(this, PropertyParser.Parse(pNode.Properties[1], prop));
-                  }
-               }
-            }
 
+            KiCadParseUtils.ParseSubNodes(props, node, this);
+
+            //var subNodeProps = props.Where(p => p.GetCustomAttribute<SExprSubNodeAttribute>() != null);
+            //foreach (var prop in subNodeProps)
+            //{
+            //   var propAttr = prop.GetCustomAttribute<SExprSubNodeAttribute>();
+            //   var pNode = node.GetNode(propAttr!.XPath);
+            //   if (pNode != null)
+            //   {
+            //      if (pNode.Properties != null)
+            //      {
+            //         prop.SetValue(this, PropertyParser.Parse(pNode.Properties[1], prop));
+            //      }
+            //   }
+            //}
+
+            // Using this instead of KiCadParseUtils.ParseNodes() due to wierdness with comments.
             var nodeProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprNodeAttribute>() != null);
             foreach (var prop in nodeProps)
             {

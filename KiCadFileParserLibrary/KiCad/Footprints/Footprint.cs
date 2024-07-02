@@ -7,9 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Footprints.Collections;
 using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
+using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Pcb;
-using KiCadFileParserLibrary.KiCad.Pcb.SubModels;
+using KiCadFileParserLibrary.KiCad.Pcb.Collections;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
@@ -34,7 +36,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
       [SExprSubNode("uuid")]
       public string? ID { get; set; }
 
-      [SExprSubNode("at")]
+      //[SExprSubNode("at")]
       public LocationModel? Coordinates { get; set; }
 
       [SExprSubNode("descr")]
@@ -43,8 +45,10 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
       [SExprSubNode("tags")]
       public string? Tags { get; set; }
 
-      [SExprSubNode("uuid")]
-      public List<PropertyModel>? Properties { get; set; }
+      //[SExprSubNode("uuid")]
+      //public List<PropertyModel>? Properties { get; set; }
+
+      public PropertyCollection? Properties { get; set; }
 
       [SExprSubNode("path")]
       public string? Path { get; set; }
@@ -81,6 +85,14 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
       public PrivateLayersModel? PrivateLayers { get; set; }
 
       public NetTieGroupModel? NetTieGroups { get; set; }
+
+      public FpGraphicsCollection? Graphics { get; set; }
+
+      public PadCollection? Pads { get; set; }
+
+      public GroupCollection? Groups { get; set; }
+
+      public ModelCollection? Models { get; set; }
       #endregion
 
       #region Constructors
@@ -90,30 +102,40 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
       #region Methods
       public void ParseNode(Node node)
       {
-         var props = GetType().GetProperties();
-         if (node.Properties != null)
+         if (node.Properties != null && node.Children != null)
          {
-            var exprProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
-            foreach (var prop in exprProps)
-            {
-               var attr = prop.GetCustomAttribute<SExprPropertyAttribute>();
-               if (node.Properties.Count > attr!.PropertyIndex)
-               {
-                  prop.SetValue(this, PropertyParser.Parse(node.Properties[attr!.PropertyIndex], prop));
-               }
-            }
-            if (node.Properties.Count > 2)
-            {
-               var tProps = props.Where(p => p.GetCustomAttribute<SExprTokenAttribute>() != null);
-               foreach (var prop in tProps)
-               {
-                  if (node.Properties.Contains(prop.GetCustomAttribute<SExprTokenAttribute>()!.TokenName))
-                  {
-                     prop.SetValue(this, true);
-                  }
+            var props = GetType().GetProperties();
 
-               }
-            }
+            KiCadParseUtils.ParseProperties(props, node, this);
+            KiCadParseUtils.ParseSubNodes(props, node, this);
+            KiCadParseUtils.ParseNodes(props, node, this);
+            KiCadParseUtils.ParseTokens(props, node, this);
+            KiCadParseUtils.ParseListNodes(props, node, this);
+            
+
+            //var 
+
+            //var exprProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
+            //foreach (var prop in exprProps)
+            //{
+            //   var attr = prop.GetCustomAttribute<SExprPropertyAttribute>();
+            //   if (node.Properties.Count > attr!.PropertyIndex)
+            //   {
+            //      prop.SetValue(this, PropertyParser.Parse(node.Properties[attr!.PropertyIndex], prop));
+            //   }
+            //}
+            //if (node.Properties.Count > 2)
+            //{
+            //   var tProps = props.Where(p => p.GetCustomAttribute<SExprTokenAttribute>() != null);
+            //   foreach (var prop in tProps)
+            //   {
+            //      if (node.Properties.Contains(prop.GetCustomAttribute<SExprTokenAttribute>()!.TokenName))
+            //      {
+            //         prop.SetValue(this, true);
+            //      }
+
+            //   }
+            //}
          }
       }
       #endregion

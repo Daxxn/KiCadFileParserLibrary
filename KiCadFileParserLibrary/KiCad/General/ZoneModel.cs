@@ -5,25 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Pcb;
 using KiCadFileParserLibrary.SExprParser;
 
-namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
+namespace KiCadFileParserLibrary.KiCad.General
 {
-   [SExprNode("fp_poly")]
-   public class FpPolygon : FpGraphicBase
+   [SExprNode("zone")]
+   public class ZoneModel : IKiCadReadable
    {
       #region Local Props
 
       #endregion
 
       #region Constructors
-      public FpPolygon() { }
+      public ZoneModel() { }
       #endregion
 
       #region Methods
-      public override void ParseNode(Node node)
+      public void ParseNode(Node node)
       {
-
       }
       #endregion
 

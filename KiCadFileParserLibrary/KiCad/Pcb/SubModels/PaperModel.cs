@@ -17,11 +17,15 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
       #region Local Props
       [SExprProperty(1)]
       public string? Name { get; set; }
+
       public bool IsCustomSize { get; set; }
+
       [SExprProperty(2)]
       public double Width { get; set; }
+
       [SExprProperty(3)]
       public double Height { get; set; }
+
       [SExprToken("portrait")]
       public bool IsPortrait { get; set; }
       #endregion
@@ -41,24 +45,28 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
             }
 
             var props = GetType().GetProperties();
-            var mainProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
-            foreach (var prop in mainProps)
-            {
-               var propAttr = prop.GetCustomAttribute<SExprPropertyAttribute>();
-               if (node.Properties.Count > propAttr!.PropertyIndex)
-               {
-                  prop.SetValue(this, PropertyParser.Parse(node.Properties[propAttr!.PropertyIndex], prop));
-               }
-            }
 
-            var tokenProps = props.Where(p => p.GetCustomAttribute<SExprTokenAttribute>() != null);
-            foreach (var tProp in tokenProps)
-            {
-               if (node.Properties.Contains(tProp.GetCustomAttribute<SExprTokenAttribute>()!.TokenName))
-               {
-                  tProp.SetValue(this, true);
-               }
-            }
+            KiCadParseUtils.ParseProperties(props, node, this);
+            KiCadParseUtils.ParseTokens(props, node, this);
+
+            //var mainProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
+            //foreach (var prop in mainProps)
+            //{
+            //   var propAttr = prop.GetCustomAttribute<SExprPropertyAttribute>();
+            //   if (node.Properties.Count > propAttr!.PropertyIndex)
+            //   {
+            //      prop.SetValue(this, PropertyParser.Parse(node.Properties[propAttr!.PropertyIndex], prop));
+            //   }
+            //}
+
+            //var tokenProps = props.Where(p => p.GetCustomAttribute<SExprTokenAttribute>() != null);
+            //foreach (var tProp in tokenProps)
+            //{
+            //   if (node.Properties.Contains(tProp.GetCustomAttribute<SExprTokenAttribute>()!.TokenName))
+            //   {
+            //      tProp.SetValue(this, true);
+            //   }
+            //}
          }
       }
       #endregion

@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Pcb;
-using KiCadFileParserLibrary.KiCad.Pcb.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
 {
-   [SExprNode("fp_text")]
-   public class FpText : FpGraphicBase, IKiCadReadable
+    [SExprNode("fp_text")]
+   public class FpText : FpGraphicBase
    {
       #region Local Props
       [SExprProperty(1)]
@@ -32,8 +32,10 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
 
       [SExprSubNode("layer")]
       public string? Layer { get; set; }
+
       [SExprSubNode("uuid")]
       public string? ID { get; set; }
+
       public EffectsModel? Effects { get; set; }
       #endregion
 
@@ -42,22 +44,25 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #endregion
 
       #region Methods
-      public void ParseNode(Node node)
+      public override void ParseNode(Node node)
       {
-         var props = GetType().GetProperties();
-         if (node.Properties != null)
+         if (node.Children != null && node.Properties != null)
          {
-            var pProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
-            foreach (var prop in pProps)
-            {
-               var propAttr = prop.GetCustomAttribute<SExprPropertyAttribute>();
-               if (node.Properties.Count > propAttr!.PropertyIndex)
-               {
-                  prop.SetValue(this, PropertyParser.Parse(node.Properties[propAttr!.PropertyIndex], prop));
-               }
-            }
+            var props = GetType().GetProperties();
 
-            var nProps = 
+            KiCadParseUtils.ParseNodes(props, node, this);
+            KiCadParseUtils.ParseSubNodes(props, node, this);
+            KiCadParseUtils.ParseProperties(props, node, this);
+
+            // Added check for knockout param.
+            // For some stupid reason, its in the "layer" node...
+            var layerNode = node.GetNode("layer");
+            if (layerNode?.Properties is null) return;
+            if (layerNode?.Properties.Contains("Knockout") == true)
+            {
+               var knockoutProp = props.FirstOrDefault(p => p.Name == "Knockout");
+               knockoutProp?.SetValue(this, layerNode.Properties[2]);
+            }
          }
       }
       #endregion

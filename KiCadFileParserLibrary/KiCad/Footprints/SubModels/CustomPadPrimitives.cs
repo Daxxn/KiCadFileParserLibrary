@@ -5,47 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
-using KiCadFileParserLibrary.KiCad.General;
+using KiCadFileParserLibrary.KiCad.Footprints.Collections;
 using KiCadFileParserLibrary.KiCad.Pcb;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
-namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
+namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-   [SExprNode("fp_curve")]
-   public class FpCurve : FpGraphicBase
+   [SExprNode("primitives")]
+   public class CustomPadPrimitives : IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("layer")]
-      public string? Layer { get; set; }
-
       [SExprSubNode("width")]
       public double? Width { get; set; }
 
-      [SExprToken("locked")]
-      public bool? Locked { get; set; }
+      [SExprSubNode("fill")]
+      public bool IsFilled { get; set; }
 
-      [SExprSubNode("uuid")]
-      public string? ID { get; set; }
-
-      public CoordinateModel? Coordinates { get; set; }
-
-      public StrokeModel? Stroke { get; set; }
+      [SExprSubNode("primitives")]
+      public FpGraphicsCollection? Primitives { get; set; }
       #endregion
 
       #region Constructors
-      public FpCurve() { }
-
+      public CustomPadPrimitives() { }
       #endregion
 
       #region Methods
-      public override void ParseNode(Node node)
+      public void ParseNode(Node node)
       {
          if (node.Children != null)
          {
             var props = GetType().GetProperties();
-            KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
       }

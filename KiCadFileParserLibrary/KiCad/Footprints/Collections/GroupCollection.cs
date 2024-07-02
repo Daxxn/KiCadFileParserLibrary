@@ -4,9 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.General;
+using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.SExprParser;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
-   internal class GroupCollection
+   [SExprListNode("group")]
+   public class GroupCollection : IKiCadReadable
    {
+      #region Local Props
+      public List<GroupModel>? Groups { get; set; }
+      #endregion
+
+      #region Constructors
+      public GroupCollection() { }
+      #endregion
+
+      #region Methods
+      public void ParseNode(Node node)
+      {
+         var children = node.GetNodes("group");
+         if (children is null) return;
+         Groups = [];
+         foreach (var child in children)
+         {
+            GroupModel fp = new();
+            fp.ParseNode(child);
+            Groups.Add(fp);
+         }
+      }
+      #endregion
+
+      #region Full Props
+
+      #endregion
    }
 }
