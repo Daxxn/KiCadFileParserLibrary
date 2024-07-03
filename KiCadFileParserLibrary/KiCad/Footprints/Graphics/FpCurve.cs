@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.General;
+using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.KiCad.Pcb;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
@@ -14,7 +15,7 @@ using KiCadFileParserLibrary.Utils;
 namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
 {
    [SExprNode("fp_curve")]
-   public class FpCurve : FpGraphicBase
+   public class FpCurve : GraphicBase
    {
       #region Local Props
       [SExprSubNode("layer")]

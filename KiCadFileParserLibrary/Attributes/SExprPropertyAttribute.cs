@@ -12,16 +12,13 @@ namespace KiCadFileParserLibrary.Attributes
    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
    sealed class SExprPropertyAttribute : Attribute
    {
-      readonly int _propIndex;
-      readonly bool _useQuotes;
+      private readonly Index _propIndex;
 
-      public SExprPropertyAttribute(int propertyIndex, bool useQuotes = false)
+      public SExprPropertyAttribute(int propertyIndex, bool fromEnd = false)
       {
-         _propIndex = propertyIndex;
-         _useQuotes = useQuotes;
+         _propIndex = new Index(propertyIndex, fromEnd);
       }
 
-      public int PropertyIndex => _propIndex;
-      public bool UseQuotes => _useQuotes;
+      public Index PropertyIndex => _propIndex;
    }
 }

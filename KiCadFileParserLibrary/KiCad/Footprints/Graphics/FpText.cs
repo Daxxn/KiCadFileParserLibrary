@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
+using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.KiCad.Pcb;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
@@ -14,7 +15,7 @@ using KiCadFileParserLibrary.Utils;
 namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
 {
     [SExprNode("fp_text")]
-   public class FpText : FpGraphicBase
+   public class FpText : GraphicBase
    {
       #region Local Props
       [SExprProperty(1)]
@@ -37,6 +38,8 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       public string? ID { get; set; }
 
       public EffectsModel? Effects { get; set; }
+
+      public RenderCacheModel? RenderCache { get; set; }
       #endregion
 
       #region Constructors

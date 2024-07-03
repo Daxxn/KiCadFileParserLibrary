@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Pcb.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb.Collections
 {
-   [SExprListNode("net")]
+    [SExprListNode("net")]
    public class NetCollection : IKiCadReadable
    {
       #region Local Props

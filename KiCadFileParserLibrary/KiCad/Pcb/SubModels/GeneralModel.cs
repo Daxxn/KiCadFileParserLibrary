@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
 {
-   [SExprNode("general")]
+    [SExprNode("general")]
    public class GeneralModel : IKiCadReadable
    {
       [SExprSubNode("thickness")]
@@ -27,18 +28,6 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
             var props = GetType().GetProperties();
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
-         //var props = GetType().GetProperties().Where(p => p.GetCustomAttribute<SExprSubNodeAttribute>() != null);
-         //foreach (var prop in props)
-         //{
-         //   var subNode = node.GetNode(prop.GetCustomAttribute<SExprSubNodeAttribute>()!.XPath);
-         //   if (subNode != null)
-         //   {
-         //      if (subNode.Properties != null)
-         //      {
-         //         prop.SetValue(this, PropertyParser.Parse(subNode.Properties[1], prop));
-         //      }
-         //   }
-         //}
       }
    }
 }

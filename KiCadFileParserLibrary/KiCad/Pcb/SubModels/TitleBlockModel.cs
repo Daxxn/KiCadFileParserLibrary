@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
 {
-   public class TitleBlockModel : IKiCadReadable
+    public class TitleBlockModel : IKiCadReadable
    {
       #region Local Props
       [SExprSubNode("title")]
@@ -42,20 +43,6 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
             var props = GetType().GetProperties();
 
             KiCadParseUtils.ParseSubNodes(props, node, this);
-
-            //var subNodeProps = props.Where(p => p.GetCustomAttribute<SExprSubNodeAttribute>() != null);
-            //foreach (var prop in subNodeProps)
-            //{
-            //   var propAttr = prop.GetCustomAttribute<SExprSubNodeAttribute>();
-            //   var pNode = node.GetNode(propAttr!.XPath);
-            //   if (pNode != null)
-            //   {
-            //      if (pNode.Properties != null)
-            //      {
-            //         prop.SetValue(this, PropertyParser.Parse(pNode.Properties[1], prop));
-            //      }
-            //   }
-            //}
 
             // Using this instead of KiCadParseUtils.ParseNodes() due to wierdness with comments.
             var nodeProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprNodeAttribute>() != null);

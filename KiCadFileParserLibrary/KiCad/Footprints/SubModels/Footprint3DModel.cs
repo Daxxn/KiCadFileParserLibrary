@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Pcb.SubModels;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-   [SExprNode("model")]
+    [SExprNode("model")]
    public class Footprint3DModel : IKiCadReadable
    {
       #region Local Props
@@ -22,13 +23,13 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       [SExprSubNode("opacity")]
       public double Opacity { get; set; }
 
-      [SExprSubNode("offset/xyz")]
+      [SExprNode("offset/xyz")]
       public XyzModel? Offset { get; set; }
 
-      [SExprSubNode("scale/xyz")]
+      [SExprNode("scale/xyz")]
       public XyzModel? Scale { get; set; }
 
-      [SExprSubNode("rotate/xyz")]
+      [SExprNode("rotate/xyz")]
       public XyzModel? Rotation { get; set; }
       #endregion
 
@@ -39,7 +40,13 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #region Methods
       public void ParseNode(Node node)
       {
-
+         if (node.Children != null && node.Properties != null)
+         {
+            var props = GetType().GetProperties();
+            KiCadParseUtils.ParseProperties(props, node, this);
+            KiCadParseUtils.ParseSubNodes(props, node, this);
+            KiCadParseUtils.ParseNodes(props, node, this);
+         }
       }
       #endregion
 

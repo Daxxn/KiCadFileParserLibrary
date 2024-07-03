@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-   [SExprNode("net")]
+    [SExprNode("net")]
    public class NetModel : IKiCadReadable
    {
       #region Local Props

@@ -54,6 +54,10 @@ namespace KiCadFileParserLibrary.Utils
 
       private static string GetTypeName(PropertyInfo prop)
       {
+         if (prop.PropertyType.IsEnum)
+         {
+
+         }
          if (prop.PropertyType.Name == "Nullable`1")
          {
             var newName = prop.PropertyType.FullName!.Replace("System.Nullable`1[[System.", "");

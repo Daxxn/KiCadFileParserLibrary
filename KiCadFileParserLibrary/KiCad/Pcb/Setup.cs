@@ -6,24 +6,41 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.General;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb
 {
-   [SExprNode("setup")]
+    [SExprNode("setup")]
    public class Setup : IKiCadReadable
    {
       #region Local Props
+      public Stackup? Stackup { get; set; }
+
       [SExprSubNode("pad_to_mask_clearance")]
       public double? PadToMaskClearance { get; set; }
+
+      [SExprSubNode("solder_mask_min_width")]
+      public double? SolderMaskMinWidth { get; set; }
+
+      [SExprSubNode("pad_to_paste_clearance")]
+      public double? PadToPasteClearance { get; set; }
+
+      [SExprSubNode("pad_to_paste_clearance_ratio")]
+      public double? PadToPasteRatio { get; set; }
+
+      [SExprNode("aux_axis_origin")]
+      public XyModel? AuxAxisOrigin { get; set; }
+
+      [SExprNode("grid_origin")]
+      public XyModel? GridOrigin { get; set; }
 
       [SExprSubNode("allow_soldermask_bridges_in_footprints")]
       public bool AllowMaskBridgeInFp { get; set; }
 
-      public Stackup? Stackup { get; set; }
-
-      public PcbplotParameters? PlotParams { get; set; }
+      public PcbPlotParameters? PlotParams { get; set; }
       #endregion
 
       #region Constructors
@@ -37,37 +54,8 @@ namespace KiCadFileParserLibrary.KiCad.Pcb
          {
             var props = GetType().GetProperties();
 
-            KiCadParseUtils.ParseSubNodes(props, node, this);
             KiCadParseUtils.ParseNodes(props, node, this);
-
-            //var subNodeProps = props.Where(p => p.GetCustomAttribute<SExprSubNodeAttribute>() != null);
-            //foreach (var subNodeProp in subNodeProps)
-            //{
-            //   var attr = subNodeProp.GetCustomAttribute<SExprSubNodeAttribute>();
-            //   var subNode = node.GetNode(attr!.XPath);
-            //   if (subNode != null)
-            //   {
-            //      if (subNode.Properties != null)
-            //      {
-            //         subNodeProp.SetValue(this, PropertyParser.Parse(subNode.Properties[1], subNodeProp));
-            //      }
-            //   }
-            //}
-            //var nodeProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprNodeAttribute>() != null);
-            //foreach (var nodeProp in nodeProps)
-            //{
-            //   var attr = nodeProp.GetCustomAttribute<SExprNodeAttribute>();
-            //   var n = node.GetNode(attr!.XPath);
-            //   if (n != null)
-            //   {
-            //      var newObj = nodeProp.PropertyType.GetConstructor([])!.Invoke(null);
-            //      if (newObj is IKiCadReadable readable)
-            //      {
-            //         readable.ParseNode(n);
-            //      }
-            //      nodeProp.SetValue(this, newObj);
-            //   }
-            //}
+            KiCadParseUtils.ParseSubNodes(props, node, this);
          }
       }
       #endregion

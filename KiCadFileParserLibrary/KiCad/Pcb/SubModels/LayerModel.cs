@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
 {
-   [SExprNode("layer")]
+    [SExprNode("layer")]
    public class LayerModel : IKiCadReadable
    {
       #region Local Props
@@ -43,7 +44,7 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
          //   {
          //      if (node.Properties.Count > attr.PropertyIndex)
          //      {
-         //         p.SetValue(this, PropertyParser.Parse(node.Properties[attr.PropertyIndex], p));
+         //         p.SetValue(this, PropertyParser.ParsePCB(node.Properties[attr.PropertyIndex], p));
          //      }
          //   }
          //}

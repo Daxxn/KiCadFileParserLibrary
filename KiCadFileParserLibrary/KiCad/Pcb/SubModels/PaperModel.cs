@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
 {
-   [SExprNode("paper")]
+    [SExprNode("paper")]
    public class PaperModel : IKiCadReadable
    {
       #region Local Props
@@ -48,25 +49,6 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
 
             KiCadParseUtils.ParseProperties(props, node, this);
             KiCadParseUtils.ParseTokens(props, node, this);
-
-            //var mainProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
-            //foreach (var prop in mainProps)
-            //{
-            //   var propAttr = prop.GetCustomAttribute<SExprPropertyAttribute>();
-            //   if (node.Properties.Count > propAttr!.PropertyIndex)
-            //   {
-            //      prop.SetValue(this, PropertyParser.Parse(node.Properties[propAttr!.PropertyIndex], prop));
-            //   }
-            //}
-
-            //var tokenProps = props.Where(p => p.GetCustomAttribute<SExprTokenAttribute>() != null);
-            //foreach (var tProp in tokenProps)
-            //{
-            //   if (node.Properties.Contains(tProp.GetCustomAttribute<SExprTokenAttribute>()!.TokenName))
-            //   {
-            //      tProp.SetValue(this, true);
-            //   }
-            //}
          }
       }
       #endregion

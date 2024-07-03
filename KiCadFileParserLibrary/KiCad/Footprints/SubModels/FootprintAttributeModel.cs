@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
@@ -45,25 +45,28 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          if (node.Properties != null)
          {
             var props = GetType().GetProperties();
-            var expProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
-            foreach (var prop in expProps)
-            {
-               var attr = prop.GetCustomAttribute<SExprPropertyAttribute>();
-               if (node.Properties.Count > attr!.PropertyIndex)
-               {
-                  prop.SetValue(this, PropertyParser.Parse(node.Properties[attr!.PropertyIndex], prop));
-               }
-            }
+            KiCadParseUtils.ParseProperties(props, node, this);
+            KiCadParseUtils.ParseTokens(props, node, this);
 
-            var tokenProps = props.Where(p => p.GetCustomAttribute<SExprTokenAttribute>() != null);
-            foreach (var prop in tokenProps)
-            {
-               var token = prop.GetCustomAttribute<SExprTokenAttribute>()!.TokenName;
-               if (node.Properties.Contains(token))
-               {
-                  prop.SetValue(this, true);
-               }
-            }
+            //var expProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
+            //foreach (var prop in expProps)
+            //{
+            //   var attr = prop.GetCustomAttribute<SExprPropertyAttribute>();
+            //   if (node.Properties.Count > attr!.PropertyIndex)
+            //   {
+            //      prop.SetValue(this, PropertyParser.ParsePCB(node.Properties[attr!.PropertyIndex], prop));
+            //   }
+            //}
+
+            //var tokenProps = props.Where(p => p.GetCustomAttribute<SExprTokenAttribute>() != null);
+            //foreach (var prop in tokenProps)
+            //{
+            //   var token = prop.GetCustomAttribute<SExprTokenAttribute>()!.TokenName;
+            //   if (node.Properties.Contains(token))
+            //   {
+            //      prop.SetValue(this, true);
+            //   }
+            //}
          }
       }
       #endregion

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Footprints.Collections;
+using KiCadFileParserLibrary.KiCad.General.Collections;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Pcb.Collections;
 using KiCadFileParserLibrary.KiCad.Pcb.SubModels;
 using KiCadFileParserLibrary.SExprParser;
@@ -14,7 +16,7 @@ using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb
 {
-    [SExprNode("kicad_pcb")]
+   [SExprNode("kicad_pcb")]
    public class PcbModel : IKiCadReadable
    {
       #region Local Props
@@ -33,13 +35,27 @@ namespace KiCadFileParserLibrary.KiCad.Pcb
 
       public TitleBlockModel? TitleBlock { get; set; }
 
-      public Layers? Layers { get; set; }
+      public LayerDefCollection? Layers { get; set; }
 
       public Setup? Setup { get; set; }
 
       public NetCollection? Nets { get; set; }
 
       public FootprintCollection? Footprints { get; set; }
+
+      public GrGraphicsCollection? Graphics { get; set; }
+
+      public ImageCollection? Images { get; set; }
+
+      public TraceCollection? Traces { get; set; }
+
+      public ZoneCollection? Zones { get; set; }
+
+      public GroupCollection? Groups { get; set; }
+
+      public PropertyCollection? TextVariables { get; set; }
+
+      public TunedLengthCollection? TunedLengths { get; set; }
       #endregion
 
       #region Constructors
@@ -47,52 +63,37 @@ namespace KiCadFileParserLibrary.KiCad.Pcb
       #endregion
 
       #region Methods
+      public static PcbModel? Parse(string filePath)
+      {
+         var reader = new SExprFileReader();
+         var rootNode = reader.Read(filePath);
+         if (rootNode is null) return null;
+         PcbModel model = new();
+         var pcbNode = rootNode.GetNode(model.GetType().GetCustomAttribute<SExprNodeAttribute>()!.XPath);
+         if (pcbNode is null) return null;
+         model.ParseNode(pcbNode);
+         return model;
+      }
+
       public void ParseNode(Node node)
       {
          var props = GetType().GetProperties();
          if (node.Children != null)
          {
             KiCadParseUtils.ParseSubNodes(props, node, this);
-            //var subNodeProps = props.Where(p => p.GetCustomAttribute<SExprSubNodeAttribute>() != null);
-            //foreach (var prop in subNodeProps)
-            //{
-            //   var subNodeAttr = prop.GetCustomAttribute<SExprSubNodeAttribute>()!;
-            //   var subNode = node.GetNode(subNodeAttr.XPath);
-            //   if (subNode != null)
-            //   {
-            //      if (subNode.Properties != null)
-            //      {
-            //         prop.SetValue(this, PropertyParser.Parse(subNode.Properties[1], prop));
-            //      }
-            //   }
-            //}
-
             KiCadParseUtils.ParseNodes(props, node, this);
-            //var classProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprNodeAttribute>() != null);
-            //foreach (var cProp in classProps)
-            //{
-            //   var objNode = node.GetNode(cProp.PropertyType.GetCustomAttribute<SExprNodeAttribute>()!.XPath);
-            //   if (objNode != null)
-            //   {
-            //      var newObj = cProp.PropertyType.GetConstructor([])!.Invoke(null);
-            //      if (newObj is IKiCadReadable readableProp)
-            //      {
-            //         readableProp.ParseNode(objNode);
-            //      }
-            //      cProp.SetValue(this, newObj);
-            //   }
-            //}
+            KiCadParseUtils.ParseListNodes(props, node, this);
 
-            var listProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprListNodeAttribute>() != null);
-            foreach (var lProp in listProps)
-            {
-               var newObj = lProp.PropertyType.GetConstructor([])!.Invoke(null);
-               if (newObj is IKiCadReadable readableProp)
-               {
-                  readableProp.ParseNode(node);
-               }
-               lProp.SetValue(this, newObj);
-            }
+            //var listProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprListNodeAttribute>() != null);
+            //foreach (var lProp in listProps)
+            //{
+            //   var newObj = lProp.PropertyType.GetConstructor([])!.Invoke(null);
+            //   if (newObj is IKiCadReadable readableProp)
+            //   {
+            //      readableProp.ParseNode(node);
+            //   }
+            //   lProp.SetValue(this, newObj);
+            //}
          }
       }
 

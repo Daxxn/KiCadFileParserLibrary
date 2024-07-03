@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-   [SExprNode("property")]
+    [SExprNode("property")]
    public class PropertyModel : IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(0)]
-      public string? Name { get; set; }
-
       [SExprProperty(1)]
+      public string? Key { get; set; }
+
+      [SExprProperty(2)]
       public string? Value { get; set; }
 
       public LocationModel? Coordinates { get; set; }
@@ -30,7 +31,6 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       [SExprSubNode("uuid")]
       public string? ID { get; set; }
 
-      [SExprSubNode("effects")]
       public EffectsModel? Effects { get; set; }
       #endregion
 
@@ -41,7 +41,13 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #region Methods
       public void ParseNode(Node node)
       {
-
+         if (node.Properties != null && node.Children != null)
+         {
+            var props = GetType().GetProperties();
+            KiCadParseUtils.ParseProperties(props, node, this);
+            KiCadParseUtils.ParseNodes(props, node, this);
+            KiCadParseUtils.ParseSubNodes(props, node, this);
+         }
       }
       #endregion
 

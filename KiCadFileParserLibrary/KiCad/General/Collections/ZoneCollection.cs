@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.General;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
-namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
+namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
-   [SExprListNode("zone")]
+    [SExprListNode("zone")]
    public class ZoneCollection : IKiCadReadable
    {
       #region Local Props
@@ -21,23 +19,21 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 
       #region Constructors
       public ZoneCollection() { }
-
-      public void ParseNode(Node node)
-      {
-         var children = node.GetNodes("zone");
-         if (children is null) return;
-         Zones = [];
-         foreach (var child in children)
-         {
-            ZoneModel zone = new();
-            zone.ParseNode(child);
-            Zones.Add(zone);
-         }
-      }
       #endregion
 
       #region Methods
-
+      public void ParseNode(Node node)
+      {
+         var zoneNodes = node.GetNodes("zone");
+         if (zoneNodes is null) return;
+         Zones = [];
+         foreach (var zoneNode in zoneNodes)
+         {
+            ZoneModel zone = new();
+            zone.ParseNode(zoneNode);
+            Zones.Add(zone);
+         }
+      }
       #endregion
 
       #region Full Props

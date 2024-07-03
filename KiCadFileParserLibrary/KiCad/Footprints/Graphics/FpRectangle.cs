@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
 {
    [SExprNode("fp_rect")]
-   public class FpRectangle : FpGraphicBase
+   public class FpRectangle : GraphicBase
    {
       #region Local Props
 

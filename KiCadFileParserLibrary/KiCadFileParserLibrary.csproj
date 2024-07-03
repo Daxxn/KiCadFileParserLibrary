@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="KiCad\Schematic\" />
-    <Folder Include="KiCad\Symbol\" />
+    <Folder Include="KiCad\Schematic\Collections\" />
+    <Folder Include="KiCad\Schematic\SubModels\" />
   </ItemGroup>
 
 </Project>

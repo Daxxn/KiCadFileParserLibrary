@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Footprints;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-   [SExprNode("group")]
+    [SExprNode("group")]
    public class GroupModel : IKiCadReadable
    {
       #region Local Props
@@ -37,24 +37,16 @@ namespace KiCadFileParserLibrary.KiCad.General
          if (node.Properties != null && node.Children != null)
          {
             var props = GetType().GetProperties();
-
             KiCadParseUtils.ParseProperties(props, node, this);
             KiCadParseUtils.ParseSubNodes(props, node, this);
 
-            var arrProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprPropArrayAttribute>() != null);
-            foreach (var cProp in arrProps)
+            var memberNode = node.GetNode("members");
+            if (memberNode is null) return;
+            if (memberNode.Properties is null || memberNode.Properties?.Count > 1) return;
+            Members = [];
+            foreach (var p in memberNode.Properties![1..])
             {
-               var n = node.GetNode(cProp.GetCustomAttribute<SExprPropArrayAttribute>()!.XPath);
-               if (n != null)
-               {
-                  if (n.Properties is null) break;
-                  var newArr = new List<string>();
-                  foreach (var p in n.Properties)
-                  {
-                     newArr.Add(p);
-                  }
-                  cProp.SetValue(this, newArr);
-               }
+               Members.Add(p);
             }
          }
       }

@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
 {
-   [SExprNode("comment")]
+    [SExprNode("comment")]
    public class CommentModel : IKiCadReadable
    {
       [SExprProperty(1)]
@@ -32,7 +33,7 @@ namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
             //   {
             //      if (node.Properties.Count > attr.PropertyIndex)
             //      {
-            //         prop.SetValue(this, PropertyParser.Parse(node.Properties[attr.PropertyIndex], prop));
+            //         prop.SetValue(this, PropertyParser.ParsePCB(node.Properties[attr.PropertyIndex], prop));
             //      }
             //   }
             //}

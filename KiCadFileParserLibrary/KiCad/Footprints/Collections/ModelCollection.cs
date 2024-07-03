@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.General;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
-   [SExprListNode("model")]
+    [SExprListNode("model")]
    public class ModelCollection : IKiCadReadable
    {
       #region Local Props

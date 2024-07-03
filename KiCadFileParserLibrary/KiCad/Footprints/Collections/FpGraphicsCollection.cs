@@ -7,21 +7,17 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Footprints.Graphics;
 using KiCadFileParserLibrary.KiCad.General;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.General.Graphics;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
-   [SExprListNode("fp_")]
+    [SExprListNode("fp_*")]
    public class FpGraphicsCollection : IKiCadReadable
    {
       #region Local Props
-      private static readonly string[] GraphicsNodeNames =
-      {
-         "fp_line", "fp_circle", "fp_rect", "fp_arc", "fp_curve", "fp_poly", "fp_text", "fp_text_box", "dimension"
-      };
-
-      private static readonly Dictionary<string, Func<FpGraphicBase>> GraphicsNodes = new()
+      private static readonly Dictionary<string, Func<GraphicBase>> GraphicsNodes = new()
       {
          { "fp_text", () => new FpText() },
          { "fp_text_box", () => new FpTextBox() },
@@ -33,7 +29,8 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
          { "fp_curve", () => new FpCurve() },
          { "dimension", () => new DimensionModel() },
       };
-      public List<FpGraphicBase>? Graphics { get; set; }
+
+      public List<GraphicBase>? Graphics { get; set; }
       #endregion
 
       #region Constructors
@@ -48,9 +45,9 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             Graphics = [];
             foreach (var child in node.Children)
             {
-               if (GraphicsNodes.ContainsKey(child.Type))
+               if (GraphicsNodes.TryGetValue(child.Type, out Func<GraphicBase>? value))
                {
-                  var newItem = GraphicsNodes[child.Type]();
+                  var newItem = value();
                   newItem.ParseNode(child);
                   Graphics.Add(newItem);
                }

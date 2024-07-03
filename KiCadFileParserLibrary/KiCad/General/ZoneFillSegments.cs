@@ -5,41 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Footprints.Graphics;
 using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
-using KiCadFileParserLibrary.KiCad.General.Graphics;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-   [SExprNode("dimension")]
-   public class DimensionModel : FpGraphicBase
+    [SExprNode("fill_segments")]
+   public class ZoneFillSegments : IKiCadReadable
    {
       #region Local Props
-      public bool? Locked { get; set; }
-
+      [SExprSubNode("layer")]
       public string? Layer { get; set; }
 
-      public double? Height { get; set; }
-
       public CoordinateModel? Points { get; set; }
-
-      public double? LeaderLength { get; set; }
-
-      public GeneralTextModel? Text { get; set; }
-
-      public DimensionStyleModel? Style { get; set; }
       #endregion
 
       #region Constructors
-      public DimensionModel() { }
+      public ZoneFillSegments() { }
       #endregion
 
       #region Methods
-      public override void ParseNode(Node node)
+      public void ParseNode(Node node)
       {
-         throw new NotImplementedException();
+         if (node.Properties != null && node.Children != null)
+         {
+            var props = GetType().GetProperties();
+
+            KiCadParseUtils.ParseNodes(props, node, this);
+            KiCadParseUtils.ParseSubNodes(props, node, this);
+         }
       }
       #endregion
 

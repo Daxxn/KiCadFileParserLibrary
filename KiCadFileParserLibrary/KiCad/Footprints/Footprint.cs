@@ -10,7 +10,8 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Footprints.Collections;
 using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.General;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.General.Collections;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Pcb.Collections;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
@@ -93,6 +94,8 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
       public GroupCollection? Groups { get; set; }
 
       public ModelCollection? Models { get; set; }
+
+      public ZoneCollection? zones { get; set; }
       #endregion
 
       #region Constructors
@@ -111,31 +114,6 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
             KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseTokens(props, node, this);
             KiCadParseUtils.ParseListNodes(props, node, this);
-            
-
-            //var 
-
-            //var exprProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
-            //foreach (var prop in exprProps)
-            //{
-            //   var attr = prop.GetCustomAttribute<SExprPropertyAttribute>();
-            //   if (node.Properties.Count > attr!.PropertyIndex)
-            //   {
-            //      prop.SetValue(this, PropertyParser.Parse(node.Properties[attr!.PropertyIndex], prop));
-            //   }
-            //}
-            //if (node.Properties.Count > 2)
-            //{
-            //   var tProps = props.Where(p => p.GetCustomAttribute<SExprTokenAttribute>() != null);
-            //   foreach (var prop in tProps)
-            //   {
-            //      if (node.Properties.Contains(prop.GetCustomAttribute<SExprTokenAttribute>()!.TokenName))
-            //      {
-            //         prop.SetValue(this, true);
-            //      }
-
-            //   }
-            //}
          }
       }
       #endregion

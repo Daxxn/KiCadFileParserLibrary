@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-   [SExprNode("stroke")]
+    [SExprNode("stroke")]
    public class StrokeModel : IKiCadReadable
    {
       #region Local Props
@@ -20,7 +20,7 @@ namespace KiCadFileParserLibrary.KiCad.General
       public double? Width { get; set; }
 
       [SExprSubNode("type")]
-      public StrokeType? Type { get; set; }
+      public StrokeType Type { get; set; }
 
       public ColorModel? Color { get; set; }
       #endregion
@@ -34,19 +34,9 @@ namespace KiCadFileParserLibrary.KiCad.General
       {
          if (node.Children != null)
          {
-            var subNodeProps = GetType().GetProperties().Where(p => p.GetCustomAttribute<SExprSubNodeAttribute>() != null);
-            foreach (var prop in subNodeProps)
-            {
-               var subNodeAttr = prop.GetCustomAttribute<SExprSubNodeAttribute>()!;
-               var subNode = node.GetNode(subNodeAttr.XPath);
-               if (subNode != null)
-               {
-                  if (subNode.Properties != null)
-                  {
-                     prop.SetValue(this, PropertyParser.Parse(subNode.Properties[1], prop));
-                  }
-               }
-            }
+            var props = GetType().GetProperties();
+            KiCadParseUtils.ParseSubNodes(props, node, this);
+            KiCadParseUtils.ParseNodes(props, node, this);
          }
       }
       #endregion

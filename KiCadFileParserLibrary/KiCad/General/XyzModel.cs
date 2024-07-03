@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-   [SExprNode("xyz")]
+    [SExprNode("xyz")]
    public class XyzModel : IKiCadReadable
    {
       #region Local Props
@@ -36,15 +36,7 @@ namespace KiCadFileParserLibrary.KiCad.General
          if (node.Properties != null)
          {
             var props = GetType().GetProperties();
-            var pProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
-            foreach (var prop in pProps)
-            {
-               var index = prop.GetCustomAttribute<SExprPropertyAttribute>()!.PropertyIndex;
-               if (node.Properties.Count > index)
-               {
-                  prop.SetValue(this, PropertyParser.Parse(node.Properties[index], prop));
-               }
-            }
+            KiCadParseUtils.ParseProperties(props, node, this);
          }
       }
       #endregion

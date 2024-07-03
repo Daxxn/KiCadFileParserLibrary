@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb
 {
-   [SExprNode("stackup")]
+    [SExprNode("stackup")]
    public class Stackup : IKiCadReadable
    {
       public List<Layer>? Layers { get; set; }

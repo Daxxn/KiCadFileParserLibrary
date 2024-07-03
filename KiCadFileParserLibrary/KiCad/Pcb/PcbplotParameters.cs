@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb
 {
-   [SExprNode("pcbplotparams")]
-   public class PcbplotParameters : IKiCadReadable
+    [SExprNode("pcbplotparams")]
+   public class PcbPlotParameters : IKiCadReadable
    {
       #region Local Props
       /// <summary>
@@ -138,11 +139,11 @@ namespace KiCadFileParserLibrary.KiCad.Pcb
       public int ScaleSelection { get; set; }
 
       [SExprSubNode("outputdirectory")]
-      public int OutputDirectory { get; set; }
+      public string? OutputDirectory { get; set; }
       #endregion
 
       #region Constructors
-      public PcbplotParameters() { }
+      public PcbPlotParameters() { }
       #endregion
 
       #region Methods

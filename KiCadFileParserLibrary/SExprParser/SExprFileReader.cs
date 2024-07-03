@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.Exceptions;
+using KiCadFileParserLibrary.KiCad.Footprints;
+using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Pcb;
 
 namespace KiCadFileParserLibrary.SExprParser
@@ -42,6 +44,17 @@ namespace KiCadFileParserLibrary.SExprParser
                if (ch == '"')
                {
                   openQuotes = !openQuotes;
+                  if (!openQuotes)
+                  {
+                     //if (data[index - 1] == '"')
+                     //{
+                     //   currentNode.Properties ??= new();
+                     //   currentNode.Properties.Add("");
+                     //}
+                     currentNode.Properties ??= new();
+                     currentNode.Properties.Add(sb.ToString());
+                     sb.Clear();
+                  }
                }
                else if (ch == Options.OpenDelimiter && !openQuotes)
                {
@@ -94,6 +107,15 @@ namespace KiCadFileParserLibrary.SExprParser
                         sb.Append(ch);
                      }
                   }
+                  else
+                  {
+                     if (sb.Length > 0)
+                     {
+                        currentNode.Properties ??= new();
+                        currentNode.Properties.Add(sb.ToString());
+                        sb.Clear();
+                     }
+                  }
                }
                index++;
             }
@@ -101,16 +123,24 @@ namespace KiCadFileParserLibrary.SExprParser
          }
       }
 
-      public PcbModel Parse(Node rootNode)
-      {
-         PcbModel model = new();
+      //public PcbModel? ParsePCB(Node rootNode)
+      //{
+      //   PcbModel model = new();
 
-         var pcbNode = rootNode.GetNode(model.GetType().GetCustomAttribute<SExprNodeAttribute>()!.XPath);
-         if (pcbNode is null) throw new Exception("Unable to find PCB node. Check KiCad save file.");
-         model.ParseNode(pcbNode);
+      //   var pcbNode = rootNode.GetNode(model.GetType().GetCustomAttribute<SExprNodeAttribute>()!.XPath);
+      //   if (pcbNode is null) return null;
+      //   model.ParseNode(pcbNode);
 
-         return model;
-      }
+      //   return model;
+      //}
+
+      //public FootprintLibrary? ParseFootprint(Node rootNode)
+      //{
+      //   FootprintLibrary footprint = new();
+      //   var fpNode = rootNode.GetNode(footprint.GetType().GetCustomAttribute<SExprNodeAttribute>()!.XPath);
+      //   if (fpNode is null) return null;
+      //   footprint.ParseNode(fpNode);
+      //}
       #endregion
 
       #region Full Props

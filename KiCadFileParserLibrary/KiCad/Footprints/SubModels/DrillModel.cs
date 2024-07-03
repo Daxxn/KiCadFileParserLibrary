@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
-using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-   [SExprNode("drill")]
+    [SExprNode("drill")]
    public class DrillModel : IKiCadReadable
    {
       #region Local Props
@@ -22,6 +21,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 
       public double? Width { get; set; }
 
+      [SExprNode("offset")]
       public XyModel? Offset { get; set; }
       #endregion
 
@@ -34,18 +34,29 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       {
          if (node.Children != null && node.Properties != null)
          {
-            if (node.Properties[1] == "oval")
+            if (node.Properties.Count > 1)
             {
-               if (node.Properties.Count > 3)
+               if (node.Properties[1] == "oval")
                {
-                  IsOval = true;
+                  if (node.Properties.Count > 3)
+                  {
+                     IsOval = true;
+                     if (double.TryParse(node.Properties[1], out double diam))
+                     {
+                        Diameter = diam;
+                     }
+                     if (double.TryParse(node.Properties[2], out double width))
+                     {
+                        Width = width;
+                     }
+                  }
+               }
+               else
+               {
+                  IsOval = false;
                   if (double.TryParse(node.Properties[1], out double diam))
                   {
                      Diameter = diam;
-                  }
-                  if (double.TryParse(node.Properties[2], out double width))
-                  {
-                     Width = width;
                   }
                }
             }
@@ -54,14 +65,17 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 
             if (offsetNode.Properties != null)
             {
-               Offset = new();
-               if (double.TryParse(node.Properties[1], out double x))
+               if (offsetNode.Properties.Count == 3)
                {
-                  Offset.X = x;
-               }
-               if (double.TryParse(node.Properties[2], out double y))
-               {
-                  Offset.Y = y;
+                  Offset = new();
+                  if (double.TryParse(offsetNode.Properties[1], out double x))
+                  {
+                     Offset.X = x;
+                  }
+                  if (double.TryParse(offsetNode.Properties[2], out double y))
+                  {
+                     Offset.Y = y;
+                  }
                }
             }
          }

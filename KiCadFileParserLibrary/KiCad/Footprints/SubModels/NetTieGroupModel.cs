@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-   [SExprNode("net_tie_pad_groups")]
+    [SExprNode("net_tie_pad_groups")]
    public class NetTieGroupModel : IKiCadReadable
    {
       #region Local Props

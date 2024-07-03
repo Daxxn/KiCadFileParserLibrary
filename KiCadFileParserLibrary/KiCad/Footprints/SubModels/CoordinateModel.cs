@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-   [SExprNode("pts")]
+    [SExprNode("pts")]
    public class CoordinateModel : IKiCadReadable
    {
       #region Local Props

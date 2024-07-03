@@ -5,22 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-   [SExprSubNode("color")]
+    [SExprNode("color")]
    public class ColorModel : IKiCadReadable
    {
       #region Local Props
+      [SExprProperty(1)]
       public double? Red { get; set; }
 
+      [SExprProperty(2)]
       public double? Green { get; set; }
 
+      [SExprProperty(3)]
       public double? Blue { get; set; }
 
+      [SExprProperty(4)]
       public double? Alpha { get; set; }
       #endregion
 

@@ -8,14 +8,14 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Footprints.Collections;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.General.Collections;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Pcb.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-   [SExprNode("pad")]
+    [SExprNode("pad")]
    public class PadModel : IKiCadReadable
    {
       #region Local Props
@@ -31,7 +31,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       public LocationModel? Location { get; set; }
 
       [SExprSubNode("property")]
-      public PadPropertyType? PropertyType { get; set; }
+      public PadPropertyType PropertyType { get; set; }
 
       [SExprToken("locked")]
       public bool Locked { get; set; }
@@ -55,7 +55,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       public double? ChamferRatio { get; set; }
 
       [SExprSubNode("chamfer")]
-      public ChamferType? ChamferType { get; set; }
+      public ChamferType ChamferType { get; set; }
 
       [SExprSubNode("die_length")]
       public double? DieLength { get; set; }
@@ -88,8 +88,8 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 
       //public CustomPadPrimitives? Primitives { get; set; }
 
-      [SExprSubNode("primitives")]
-      public FpGraphicsCollection? Primitives { get; set; }
+      //[SExprSubNode("primitives")]
+      public FpGraphicsCollection? CustomPadPrimitives { get; set; }
       #endregion
 
       #region Constructors

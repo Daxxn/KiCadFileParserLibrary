@@ -8,7 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.Utils
@@ -18,10 +18,10 @@ namespace KiCadFileParserLibrary.Utils
       #region Methods
       public static void ParseNodes(PropertyInfo[] props, Node node, object obj)
       {
-         var classProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprNodeAttribute>() != null);
+         var classProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprNodeAttribute>() != null).ToArray();
          foreach (var cProp in classProps)
          {
-            var objNode = node.GetNode(cProp.PropertyType.GetCustomAttribute<SExprNodeAttribute>()!.XPath);
+            var objNode = node.GetNode(GetXPath(cProp));
             if (objNode != null)
             {
                var newObj = cProp.PropertyType.GetConstructor([])!.Invoke(null);
@@ -31,6 +31,20 @@ namespace KiCadFileParserLibrary.Utils
                }
                cProp.SetValue(obj, newObj);
             }
+         }
+      }
+
+      public static void ParseListNodes(PropertyInfo[] props, Node node, object obj)
+      {
+         var classProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprListNodeAttribute>() != null).ToArray();
+         foreach (var cProp in classProps)
+         {
+            var newObj = cProp.PropertyType.GetConstructor([])!.Invoke(null);
+            if (newObj is IKiCadReadable readableProp)
+            {
+               readableProp.ParseNode(node);
+            }
+            cProp.SetValue(obj, newObj);
          }
       }
 
@@ -58,7 +72,7 @@ namespace KiCadFileParserLibrary.Utils
             var attr = prop.GetCustomAttribute<SExprPropertyAttribute>();
             if (attr != null)
             {
-               if (node.Properties!.Count > attr.PropertyIndex)
+               if (node.Properties!.Count > attr.PropertyIndex.Value)
                {
                   prop.SetValue(obj, PropertyParser.Parse(node.Properties[attr.PropertyIndex], prop));
                }
@@ -77,22 +91,18 @@ namespace KiCadFileParserLibrary.Utils
             }
          }
       }
+      #endregion
 
-      public static void ParseListNodes(PropertyInfo[] props, Node node, object obj)
+      #region Helper Methods
+      private static string GetXPath(PropertyInfo prop)
       {
-         var classProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprListNodeAttribute>() != null);
-         foreach (var cProp in classProps)
+         if (prop.GetCustomAttribute<SExprNodeAttribute>() is null)
          {
-            //var objNode = node.GetNode(cProp.PropertyType.GetCustomAttribute<SExprListNodeAttribute>()!.Name);
-            //if (objNode != null)
-            //{
-               var newObj = cProp.PropertyType.GetConstructor([])!.Invoke(null);
-               if (newObj is IKiCadReadable readableProp)
-               {
-                  readableProp.ParseNode(node);
-               }
-               cProp.SetValue(obj, newObj);
-            //}
+            return prop.PropertyType.GetCustomAttribute<SExprNodeAttribute>()!.XPath;
+         }
+         else
+         {
+            return prop.GetCustomAttribute<SExprNodeAttribute>()!.XPath;
          }
       }
       #endregion

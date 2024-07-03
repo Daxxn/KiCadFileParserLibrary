@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
 {
-   [SExprNode("size")]
+    [SExprNode("size")]
    public class SizeModel : IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(0)]
+      [SExprProperty(1)]
       public double Width { get; set; }
 
-      [SExprProperty(1)]
+      [SExprProperty(2)]
       public double Height { get; set; }
       #endregion
 

@@ -5,25 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb
 {
-   [SExprNode("layer")]
+    [SExprNode("layer")]
    public class Layer : IKiCadReadable
    {
       [SExprProperty(1)]
-      public string Name { get; set; }
+      public string? Name { get; set; }
 
       [SExprSubNode("type")]
-      public string Type { get; set; }
+      public string? Type { get; set; }
 
       [SExprSubNode("color")]
-      public string Color { get; set; }
+      public string? Color { get; set; }
 
       [SExprSubNode("material")]
-      public string Material { get; set; }
+      public string? Material { get; set; }
 
       [SExprSubNode("thickness")]
       public double Thickness { get; set; }

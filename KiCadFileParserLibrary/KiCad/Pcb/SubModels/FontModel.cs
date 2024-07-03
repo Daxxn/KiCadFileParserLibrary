@@ -6,16 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Pcb.SubModels
 {
-   [SExprNode("font")]
+    [SExprNode("font")]
    public class FontModel : IKiCadReadable
    {
       [SExprSubNode("face")]
-      public string? Name { get; set; }
+      public string? Family { get; set; }
 
       public SizeModel? Size { get; set; }
 

@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
-   [SExprSubNode("layers")]
+    [SExprListNode("layers")]
    public class LayerCollection : IKiCadReadable
    {
       #region Local Props
@@ -22,10 +22,11 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
 
       public void ParseNode(Node node)
       {
-         if (node.Properties is null) return;
-
+         var layerNode = node.GetNode("layers");
+         if (layerNode is null) return;
+         if (layerNode.Properties is null) return;
          Layers = [];
-         foreach (var layer in node.Properties[1..])
+         foreach (var layer in layerNode.Properties[1..])
          {
             Layers.Add(layer);
          }

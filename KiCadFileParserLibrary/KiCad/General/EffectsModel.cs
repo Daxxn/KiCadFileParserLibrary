@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Pcb.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-   [SExprNode("effects")]
+    [SExprNode("effects")]
    public class EffectsModel : IKiCadReadable
    {
       #region Local Props
@@ -36,6 +36,7 @@ namespace KiCadFileParserLibrary.KiCad.General
          {
             var props = GetType().GetProperties();
             KiCadParseUtils.ParseNodes(props, node, this);
+            KiCadParseUtils.ParseTokens(props, node, this);
 
             var justNode = node.GetNode("justify");
             if (justNode is null) return;

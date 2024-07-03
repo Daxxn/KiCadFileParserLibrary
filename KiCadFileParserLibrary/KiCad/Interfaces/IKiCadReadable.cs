@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using KiCadFileParserLibrary.SExprParser;
 
-namespace KiCadFileParserLibrary.KiCad.Pcb
+namespace KiCadFileParserLibrary.KiCad.Interfaces
 {
-   public interface IKiCadReadable
-   {
-      void ParseNode(Node node);
-   }
+    internal interface IKiCadReadable
+    {
+        void ParseNode(Node node);
+    }
 }

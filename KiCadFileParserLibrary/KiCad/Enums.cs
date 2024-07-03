@@ -8,6 +8,7 @@ namespace KiCadFileParserLibrary.KiCad
 {
    public enum LayerType
    {
+      None = 0,
       signal,
       user,
       mixed,
@@ -27,6 +28,7 @@ namespace KiCadFileParserLibrary.KiCad
 
    public enum FootprintType
    {
+      None = 0,
       SMD,
       through_hole
    }
@@ -48,27 +50,27 @@ namespace KiCadFileParserLibrary.KiCad
 
    public enum TextJustify
    {
+      Center = 0,
       Mirror,
       Left,
       Right,
       Top,
       Bottom,
-      Center,
    }
 
    public enum StrokeType
    {
+      Solid = 0,
       Dash,
       Dash_Dot,
       Dash_Dot_Dot,
       Dot,
       Default,
-      Solid
    }
 
    public enum FillType
    {
-      None,
+      None = 0,
       Solid,
    }
 
@@ -112,6 +114,7 @@ namespace KiCadFileParserLibrary.KiCad
 
    public enum PadShapeType
    {
+      None = 0,
       Circle,
       Rect,
       Oval,
@@ -122,6 +125,7 @@ namespace KiCadFileParserLibrary.KiCad
 
    public enum PadPropertyType
    {
+      None = 0,
       Pad_Prop_BGA,
       Pad_Prop_Fiducial_Glob,
       Pad_Prop_Fiducial_Loc,
@@ -132,6 +136,7 @@ namespace KiCadFileParserLibrary.KiCad
 
    public enum ChamferType
    {
+      None = 0,
       Top_Left,
       Top_Right,
       Bottom_Left,
@@ -140,13 +145,128 @@ namespace KiCadFileParserLibrary.KiCad
 
    public enum CustomPadClearance
    {
+      None = 0,
       Outline,
       ConvexHull
    }
 
    public enum CustomPadAnchor
    {
+      None = 0,
       Rect,
       Circle,
+   }
+
+   public enum DimensionType
+   {
+      None = 0,
+      Aligned,
+      Leader,
+      Center,
+      Orthogonal,
+      Radial,
+   }
+
+   public enum HatchType
+   {
+      None = 0,
+      Edge,
+      Full,
+   }
+
+   public enum KeepoutType
+   {
+      None = 0,
+      Not_Allowed,
+      Allowed,
+   }
+
+   public enum FillMode
+   {
+      None = 0,
+      Solid,
+      Hatched,
+   }
+
+   public enum SmoothingStyleType
+   {
+      None = 0,
+      Chamfer,
+      Fillet,
+   }
+
+   public enum IslandRemovalMode
+   {
+      AlwaysRemove = 0,
+      NeverRemove = 1,
+      MinimumArea = 2,
+   }
+
+   public enum HatchSmoothingLevel
+   {
+      NoSmoothing = 0,
+      Fillet = 1,
+      ArcMin = 2,
+      ArcMax = 3,
+   }
+
+   public enum HatchBorderAlgorythmType
+   {
+      None = 0,
+      UseMinThickness,
+      UseHatchThickness,
+   }
+
+   public enum ViaType
+   {
+      Normal = 0,
+      Blind,
+      Micro,
+   }
+
+   public enum GeneratedType
+   {
+      Tuning_Pattern
+   }
+
+   public enum SymbolVisibility
+   {
+      Hiden,
+      Visible,
+   }
+
+   public enum PinElectricalType
+   {
+      Input,
+      Output,
+      Bidirectional,
+      Tri_State,
+      Passive,
+      Free,
+      Unspecified,
+      Power_In,
+      Power_Out,
+      Open_Collector,
+      Open_Emitter,
+      No_Connect
+   }
+
+   public enum PinGraphicStyle
+   {
+      Line,
+      Inverted,
+      Clock,
+      Inverted_Clock,
+      Input_Low,
+      Clock_Low,
+      Output_Low,
+      Edge_Clock_High,
+      Non_Logic
+   }
+
+   public enum SymbolStyleIdentifier
+   {
+      Default_Style = 0,
+
    }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
@@ -32,7 +32,6 @@ namespace KiCadFileParserLibrary.KiCad.General
         public void ParseNode(Node node)
         {
             var props = GetType().GetProperties();
-
             KiCadParseUtils.ParseProperties(props, node, this);
         }
         #endregion

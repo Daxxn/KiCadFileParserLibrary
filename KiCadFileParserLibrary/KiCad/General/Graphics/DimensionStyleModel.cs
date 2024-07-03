@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
+using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General.Graphics
 {
-   [SExprNode("style")]
+    [SExprNode("style")]
    public class DimensionStyleModel : IKiCadReadable
    {
       #region Local Props
