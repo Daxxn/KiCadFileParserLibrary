@@ -11,15 +11,15 @@ using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General.Graphics
 {
-    [SExprNode("format")]
+   [SExprNode("format")]
    public class DimensionFormatModel : IKiCadReadable
    {
       #region Local Props
       [SExprSubNode("prefix")]
-      public string? Prefix { get; set; }
+      public string Prefix { get; set; } = "";
 
       [SExprSubNode("suffix")]
-      public string? Suffix { get; set; }
+      public string Suffix { get; set; } = "";
 
       [SExprSubNode("units")]
       public UnitsType Units { get; set; }
@@ -51,6 +51,42 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
             KiCadParseUtils.ParseSubNodes(props, node, this);
             KiCadParseUtils.ParseTokens(props, node, this);
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine("(format");
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("prefix", Prefix));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("suffix", Suffix));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("units", (int)Units));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("units_format", (int)UnitsFormat));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("precision", Precision));
+
+         if (OverrideValue != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("override_value", OverrideValue));
+         }
+
+         if (SuppressZeros)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("suppress_zeros", SuppressZeros));
+         }
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

@@ -21,7 +21,7 @@ namespace KiCadFileParserLibrary.Utils
          var classProps = props.Where(p => p.PropertyType.GetCustomAttribute<SExprNodeAttribute>() != null).ToArray();
          foreach (var cProp in classProps)
          {
-            var objNode = node.GetNode(GetXPath(cProp));
+            var objNode = node.GetNode(GetXPath(cProp)!);
             if (objNode != null)
             {
                var newObj = cProp.PropertyType.GetConstructor([])!.Invoke(null);
@@ -94,7 +94,7 @@ namespace KiCadFileParserLibrary.Utils
       #endregion
 
       #region Helper Methods
-      private static string GetXPath(PropertyInfo prop)
+      public static string GetXPath(PropertyInfo prop)
       {
          if (prop.GetCustomAttribute<SExprNodeAttribute>() is null)
          {

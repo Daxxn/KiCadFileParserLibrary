@@ -13,16 +13,12 @@ namespace KiCadFileParserLibrary.Attributes
    sealed class SExprSubNodeAttribute : Attribute
    {
       private readonly string _xPath;
-      //private readonly bool _exludeName;
 
-      //public SExprSubNodeAttribute(string xPath, bool exludeName = false)
       public SExprSubNodeAttribute(string xPath)
       {
          _xPath = xPath;
-         //_exludeName = exludeName;
       }
 
       public string XPath => _xPath;
-      //public bool ExludeName => _exludeName;
    }
 }

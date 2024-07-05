@@ -6,27 +6,26 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Footprints.Graphics;
-using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
-    [SExprListNode("fp_*")]
+   [SExprListNode("fp_*")]
    public class FpGraphicsCollection : IKiCadReadable
    {
       #region Local Props
       private static readonly Dictionary<string, Func<GraphicBase>> GraphicsNodes = new()
       {
-         { "fp_text", () => new FpText() },
-         { "fp_text_box", () => new FpTextBox() },
-         { "fp_line", () => new FpLine() },
-         { "fp_rect", () => new FpRectangle() },
-         { "fp_circle", () => new FpCircle() },
-         { "fp_arc", () => new FpArc() },
-         { "fp_poly", () => new FpPolygon() },
-         { "fp_curve", () => new FpCurve() },
+         { "fp_text", () => new FpTextModel() },
+         { "fp_text_box", () => new FpTextBoxModel() },
+         { "fp_line", () => new FpLineModel() },
+         { "fp_rect", () => new FpRectangleModel() },
+         { "fp_circle", () => new FpCircleModel() },
+         { "fp_arc", () => new FpArcModel() },
+         { "fp_poly", () => new FpPolygonModel() },
+         { "fp_curve", () => new FpCurveModel() },
          { "dimension", () => new DimensionModel() },
       };
 
@@ -42,16 +41,29 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
       {
          if (node.Children != null)
          {
-            Graphics = [];
+            List<GraphicBase> graphics = [];
             foreach (var child in node.Children)
             {
                if (GraphicsNodes.TryGetValue(child.Type, out Func<GraphicBase>? value))
                {
                   var newItem = value();
                   newItem.ParseNode(child);
-                  Graphics.Add(newItem);
+                  graphics.Add(newItem);
                }
             }
+            if (graphics.Count > 0)
+            {
+               Graphics = graphics;
+            }
+         }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         if (Graphics is null) return;
+         foreach (var gr in Graphics)
+         {
+            gr.WriteNode(builder, indent);
          }
       }
       #endregion

@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
+
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-    [SExprNode("options")]
+   [SExprNode("options")]
    public class PadOptions : IKiCadReadable
    {
       #region Local Props
@@ -28,7 +31,26 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #region Methods
       public void ParseNode(Node node)
       {
-         throw new NotImplementedException();
+         if (node.Children != null)
+         {
+            var props = GetType().GetProperties();
+            KiCadParseUtils.ParseSubNodes(props, node, this);
+         }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine("(options");
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("clearance", Clearance));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("anchor", Anchor));
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

@@ -5,14 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Footprints.Graphics;
 using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
-    [SExprListNode("gr_*")]
+   [SExprListNode("gr_*")]
    public class GrGraphicsCollection : IKiCadReadable
    {
       #region Local Props
@@ -41,16 +40,29 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
       {
          if (node.Children != null)
          {
-            Graphics = [];
+            List<GraphicBase> graphics = [];
             foreach (var child in node.Children)
             {
                if (GraphicsNodes.ContainsKey(child.Type))
                {
                   var newItem = GraphicsNodes[child.Type]();
                   newItem.ParseNode(child);
-                  Graphics.Add(newItem);
+                  graphics.Add(newItem);
                }
             }
+            if (graphics.Count > 0)
+            {
+               Graphics = graphics;
+            }
+         }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         if (Graphics == null) return;
+         foreach (var graphic in Graphics)
+         {
+            graphic.WriteNode(builder, indent);
          }
       }
       #endregion

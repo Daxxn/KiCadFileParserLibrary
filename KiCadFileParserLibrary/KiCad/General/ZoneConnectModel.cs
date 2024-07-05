@@ -11,7 +11,7 @@ using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-    [SExprNode("connect_pads")]
+   [SExprNode("connect_pads")]
    public class ZoneConnectModel : IKiCadReadable
    {
       #region Local Props
@@ -36,6 +36,11 @@ namespace KiCadFileParserLibrary.KiCad.General
             KiCadParseUtils.ParseProperties(props, node, this);
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         throw new NotImplementedException();
       }
       #endregion
 

@@ -15,18 +15,28 @@ namespace KiCadFileParserLibrary.Utils
          {
             case "String":
                return value;
-            case "Int32":
-               if (int.TryParse(value, out int i))
-               {
-                  return i;
-               }
-               return -1;
             case "Double":
                if (double.TryParse(value, out double d))
                {
                   return d;
                }
                return 0;
+            case "Int32":
+               if (int.TryParse(value, out int i))
+               {
+                  return i;
+               }
+               return -1;
+            case "UInt64":
+               try
+               {
+                  var cleaned = value.Replace("_", "");
+                  return Convert.ToUInt64(cleaned, 16);
+               }
+               catch (Exception)
+               {
+                  return null;
+               }
             case "Boolean":
                return value == "yes";
             case "DateTime":

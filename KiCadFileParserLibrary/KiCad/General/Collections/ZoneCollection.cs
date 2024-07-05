@@ -10,11 +10,11 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
-    [SExprListNode("zone")]
+   [SExprListNode("zone")]
    public class ZoneCollection : IKiCadReadable
    {
       #region Local Props
-      public List<ZoneModel>? Zones { get; set; }
+      public List<ZoneModel> Zones { get; set; } = [];
       #endregion
 
       #region Constructors
@@ -32,6 +32,14 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
             ZoneModel zone = new();
             zone.ParseNode(zoneNode);
             Zones.Add(zone);
+         }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         foreach (var zone in Zones)
+         {
+            zone.WriteNode(builder, indent);
          }
       }
       #endregion

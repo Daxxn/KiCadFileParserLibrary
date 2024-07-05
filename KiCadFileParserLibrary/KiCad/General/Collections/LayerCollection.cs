@@ -10,16 +10,18 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
-    [SExprListNode("layers")]
+   [SExprListNode("layers")]
    public class LayerCollection : IKiCadReadable
    {
       #region Local Props
-      public List<string>? Layers { get; set; }
+      public List<string> Layers { get; set; } = [];
       #endregion
 
       #region Constructors
       public LayerCollection() { }
+      #endregion
 
+      #region Methods
       public void ParseNode(Node node)
       {
          var layerNode = node.GetNode("layers");
@@ -31,10 +33,17 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
             Layers.Add(layer);
          }
       }
-      #endregion
 
-      #region Methods
-
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.Append("(layers");
+         foreach (var layer in Layers)
+         {
+            builder.Append($" \"{layer}\"");
+         }
+         builder.AppendLine(")");
+      }
       #endregion
 
       #region Full Props

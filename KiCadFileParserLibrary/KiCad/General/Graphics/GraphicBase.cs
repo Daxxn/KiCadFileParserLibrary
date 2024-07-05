@@ -12,5 +12,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    public abstract class GraphicBase : IKiCadReadable
    {
       public abstract void ParseNode(Node node);
+
+      public abstract void WriteNode(StringBuilder builder, int indent, string? auxName = null);
    }
 }

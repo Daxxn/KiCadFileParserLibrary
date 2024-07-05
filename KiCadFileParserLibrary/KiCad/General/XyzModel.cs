@@ -12,7 +12,7 @@ using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-    [SExprNode("xyz")]
+   [SExprNode("xyz")]
    public class XyzModel : IKiCadReadable
    {
       #region Local Props
@@ -38,6 +38,12 @@ namespace KiCadFileParserLibrary.KiCad.General
             var props = GetType().GetProperties();
             KiCadParseUtils.ParseProperties(props, node, this);
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine($"({(auxName ?? "xyz")} {X} {Y} {Z})");
       }
       #endregion
 

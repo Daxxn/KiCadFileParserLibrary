@@ -13,11 +13,11 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
-    [SExprListNode("model")]
+   [SExprListNode("model")]
    public class ModelCollection : IKiCadReadable
    {
       #region Local Props
-      public List<Footprint3DModel>? Models { get; set; }
+      public List<Footprint3DModel> Models { get; set; } = [];
       #endregion
 
       #region Constructors
@@ -35,6 +35,14 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             Footprint3DModel fpm = new();
             fpm.ParseNode(child);
             Models.Add(fpm);
+         }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         foreach (var model in Models)
+         {
+            model.WriteNode(builder, indent);
          }
       }
       #endregion

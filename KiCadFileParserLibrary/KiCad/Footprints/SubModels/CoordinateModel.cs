@@ -11,11 +11,11 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-    [SExprNode("pts")]
+   [SExprNode("pts")]
    public class CoordinateModel : IKiCadReadable
    {
       #region Local Props
-      public List<XyModel>? Points { get; set; }
+      public List<XyModel> Points { get; set; } = [];
       #endregion
 
       #region Constructors
@@ -36,6 +36,18 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
                Points.Add(xy);
             }
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine($"({auxName ?? "pts"}");
+         foreach (var point in Points)
+         {
+            point.WriteNode(builder, indent + 1);
+         }
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

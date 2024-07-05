@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Pcb;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General.Graphics
 {
+   [SExprNode("gr_text")]
    public class GrTextModel : GraphicBase
    {
       #region Local Props
@@ -18,15 +18,15 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       public bool Locked { get; set; }
 
       [SExprProperty(1)]
-      public string? Text { get; set; }
+      public string Text { get; set; } = "";
 
       [SExprSubNode("layer")]
-      public string? Layer { get; set; }
+      public string Layer { get; set; } = "";
 
       public LocationModel? Location { get; set; }
 
       [SExprSubNode("uuid")]
-      public string? ID { get; set; }
+      public string ID { get; set; } = "";
 
       public EffectsModel? Effects { get; set; }
 
@@ -48,6 +48,25 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
             KiCadParseUtils.ParseSubNodes(props, node, this);
             KiCadParseUtils.ParseProperties(props, node, this);
          }
+      }
+
+      public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine($"(gr_text \"{Text}\"");
+
+         Location?.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+
+         Effects?.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

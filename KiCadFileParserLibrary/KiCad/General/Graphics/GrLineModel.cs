@@ -15,18 +15,18 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    {
       #region Local Props
       [SExprNode("start")]
-      public XyModel? Start { get; set; }
+      public XyModel Start { get; set; } = new();
 
       [SExprNode("end")]
-      public XyModel? End { get; set; }
+      public XyModel End { get; set; } = new();
+
+      [SExprSubNode("layer")]
+      public string Layer { get; set; } = "";
 
       public StrokeModel? Stroke { get; set; }
 
       [SExprSubNode("uuid")]
-      public string? ID { get; set; }
-
-      [SExprSubNode("layer")]
-      public string? Layer { get; set; }
+      public string ID { get; set; } = "";
 
       [SExprSubNode("angle")]
       public double? Angle { get; set; }
@@ -46,6 +46,32 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
             KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
+      }
+
+      public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine($"(gr_line");
+
+         Start.WriteNode(builder, indent + 1, "start");
+         End.WriteNode(builder, indent + 1, "end");
+
+         if (Angle != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("angle", Angle));
+         }
+
+         Stroke?.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

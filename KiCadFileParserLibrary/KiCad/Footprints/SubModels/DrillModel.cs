@@ -11,7 +11,7 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-    [SExprNode("drill")]
+   [SExprNode("drill")]
    public class DrillModel : IKiCadReadable
    {
       #region Local Props
@@ -41,11 +41,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
                   if (node.Properties.Count > 3)
                   {
                      IsOval = true;
-                     if (double.TryParse(node.Properties[1], out double diam))
+                     if (double.TryParse(node.Properties[2], out double diam))
                      {
                         Diameter = diam;
                      }
-                     if (double.TryParse(node.Properties[2], out double width))
+                     if (double.TryParse(node.Properties[3], out double width))
                      {
                         Width = width;
                      }
@@ -78,6 +78,23 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
                   }
                }
             }
+         }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         if (Offset != null)
+         {
+            builder.Append('\t', indent);
+            builder.AppendLine($"(drill {(IsOval ? $"oval {Diameter} {Width}" : Diameter)}");
+            Offset.WriteNode(builder, indent + 1, "offset");
+            builder.Append('\t', indent);
+            builder.AppendLine(")");
+         }
+         else
+         {
+            builder.Append('\t', indent);
+            builder.AppendLine($"(drill {(IsOval ? $"oval {Diameter} {Width}" : Diameter)})");
          }
       }
       #endregion

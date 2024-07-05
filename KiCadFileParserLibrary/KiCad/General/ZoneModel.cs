@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.General.Collections;
-using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
@@ -19,12 +17,15 @@ namespace KiCadFileParserLibrary.KiCad.General
    {
       #region Local Props
       [SExprSubNode("net")]
-      public string? Net { get; set; }
+      public int Net { get; set; } = -1;
 
       [SExprSubNode("net_name")]
-      public string? NetName { get; set; }
+      public string NetName { get; set; } = "";
 
-      public LayerCollection? Layer { get; set; }
+      [SExprSubNode("layer")]
+      public string? Layer { get; set; }
+
+      public LayerCollection? Layers { get; set; }
 
       [SExprSubNode("uuid")]
       public string? ID { get; set; }
@@ -32,10 +33,12 @@ namespace KiCadFileParserLibrary.KiCad.General
       [SExprSubNode("name")]
       public string? Name { get; set; }
 
+      public HatchModel? Hatch { get; set; }
+
       [SExprSubNode("priority")]
       public int Priority { get; set; } = 0;
 
-      public HatchModel? Hatch { get; set; }
+      public ConnectPadsModel? ConnectPads { get; set; }
 
       [SExprSubNode("min_thickness")]
       public double? MinThickness { get; set; }
@@ -43,9 +46,9 @@ namespace KiCadFileParserLibrary.KiCad.General
       [SExprSubNode("filled_areas_thickness")]
       public bool FilledAreasThickness { get; set; }
 
-      public ZoneKeepoutModel? Keepout { get; set; }
-
       public ZoneFillSettingsModel? Fill { get; set; }
+
+      public ZoneKeepoutModel? Keepout { get; set; }
 
       public PolygonModel? Polygon { get; set; }
 
@@ -67,7 +70,74 @@ namespace KiCadFileParserLibrary.KiCad.General
 
             KiCadParseUtils.ParseSubNodes(props, node, this);
             KiCadParseUtils.ParseNodes(props, node, this);
+            KiCadParseUtils.ParseListNodes(props, node, this);
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine("(zone");
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net", Net));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net_name", NetName));
+
+         if (Layer != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+         }
+         else
+         {
+            Layers?.WriteNode(builder, indent + 1);
+         }
+
+         if (ID != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+         }
+
+         if (Name != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("name", Name));
+         }
+
+         Hatch?.WriteNode(builder, indent + 1);
+
+         if (Priority != 0)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("priority", Priority));
+         }
+
+         ConnectPads?.WriteNode(builder, indent + 1);
+
+         if (MinThickness != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("min_thickness", MinThickness));
+         }
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("filled_areas_thickness", FilledAreasThickness));
+
+         Keepout?.WriteNode(builder, indent + 1);
+
+         Fill?.WriteNode(builder, indent + 1);
+
+         Polygon?.WriteNode(builder, indent + 1);
+
+         PolygonFill?.WriteNode(builder, indent + 1);
+
+         Segments?.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

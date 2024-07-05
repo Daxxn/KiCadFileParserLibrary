@@ -15,15 +15,18 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    public class GrPolygonModel : GraphicBase
    {
       #region Local Props
-      public CoordinateModel? Points { get; set; }
+      public CoordinateModel Points { get; set; } = new();
 
       [SExprSubNode("locked")]
       public bool Locked { get; set; }
 
       public StrokeModel? Stroke { get; set; }
 
+      [SExprSubNode("width")]
+      public double? Width { get; set; }
+
       [SExprSubNode("fill")]
-      public FillType Fill { get; set; }
+      public bool Fill { get; set; }
 
       [SExprSubNode("layer")]
       public string? Layer { get; set; }
@@ -46,6 +49,46 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
             KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
+      }
+
+      public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine($"(gr_poly");
+
+         Points?.WriteNode(builder, indent + 1);
+
+         if (Locked)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
+         }
+
+         Stroke?.WriteNode(builder, indent + 1);
+
+         if (Width != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("width", Width));
+         }
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("fill", Fill));
+
+         if (Layer != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+         }
+
+         if (ID != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+         }
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

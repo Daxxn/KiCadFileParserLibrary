@@ -5,12 +5,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.Exceptions;
-using KiCadFileParserLibrary.KiCad.Footprints;
-using KiCadFileParserLibrary.KiCad.General;
-using KiCadFileParserLibrary.KiCad.Pcb;
-
 namespace KiCadFileParserLibrary.SExprParser
 {
    public class SExprFileReader
@@ -46,11 +40,6 @@ namespace KiCadFileParserLibrary.SExprParser
                   openQuotes = !openQuotes;
                   if (!openQuotes)
                   {
-                     //if (data[index - 1] == '"')
-                     //{
-                     //   currentNode.Properties ??= new();
-                     //   currentNode.Properties.Add("");
-                     //}
                      currentNode.Properties ??= new();
                      currentNode.Properties.Add(sb.ToString());
                      sb.Clear();
@@ -122,25 +111,6 @@ namespace KiCadFileParserLibrary.SExprParser
             return rootNode;
          }
       }
-
-      //public PcbModel? ParsePCB(Node rootNode)
-      //{
-      //   PcbModel model = new();
-
-      //   var pcbNode = rootNode.GetNode(model.GetType().GetCustomAttribute<SExprNodeAttribute>()!.XPath);
-      //   if (pcbNode is null) return null;
-      //   model.ParseNode(pcbNode);
-
-      //   return model;
-      //}
-
-      //public FootprintLibrary? ParseFootprint(Node rootNode)
-      //{
-      //   FootprintLibrary footprint = new();
-      //   var fpNode = rootNode.GetNode(footprint.GetType().GetCustomAttribute<SExprNodeAttribute>()!.XPath);
-      //   if (fpNode is null) return null;
-      //   footprint.ParseNode(fpNode);
-      //}
       #endregion
 
       #region Full Props

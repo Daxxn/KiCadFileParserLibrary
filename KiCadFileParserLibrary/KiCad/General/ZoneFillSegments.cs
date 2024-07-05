@@ -12,12 +12,12 @@ using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-    [SExprNode("fill_segments")]
+   [SExprNode("fill_segments")]
    public class ZoneFillSegments : IKiCadReadable
    {
       #region Local Props
       [SExprSubNode("layer")]
-      public string? Layer { get; set; }
+      public string Layer { get; set; } = "";
 
       public CoordinateModel? Points { get; set; }
       #endregion
@@ -36,6 +36,20 @@ namespace KiCadFileParserLibrary.KiCad.General
             KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine("(fill_segments");
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+
+         Points?.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

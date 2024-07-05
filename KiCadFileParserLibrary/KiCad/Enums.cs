@@ -6,6 +6,19 @@ using System.Threading.Tasks;
 
 namespace KiCadFileParserLibrary.KiCad
 {
+   public enum ProjectFileType
+   {
+      Schematic,
+      PCB,
+      Project,
+   }
+
+   public enum LibraryFileType
+   {
+      Footprints,
+      Symbols,
+   }
+
    public enum LayerType
    {
       None = 0,
@@ -24,6 +37,13 @@ namespace KiCadFileParserLibrary.KiCad
       DXF = 3,
       PDF = 4,
       SVG = 5,
+   }
+
+   public enum EdgeConnectorType
+   {
+      No,
+      Yes,
+      Bevelled,
    }
 
    public enum FootprintType

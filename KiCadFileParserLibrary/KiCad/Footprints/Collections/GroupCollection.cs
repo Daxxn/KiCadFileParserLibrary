@@ -11,11 +11,11 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
-    [SExprListNode("group")]
+   [SExprListNode("group")]
    public class GroupCollection : IKiCadReadable
    {
       #region Local Props
-      public List<GroupModel>? Groups { get; set; }
+      public List<GroupModel> Groups { get; set; } = [];
       #endregion
 
       #region Constructors
@@ -33,6 +33,14 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             GroupModel fp = new();
             fp.ParseNode(child);
             Groups.Add(fp);
+         }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         foreach (var group in Groups)
+         {
+            group.WriteNode(builder, indent);
          }
       }
       #endregion

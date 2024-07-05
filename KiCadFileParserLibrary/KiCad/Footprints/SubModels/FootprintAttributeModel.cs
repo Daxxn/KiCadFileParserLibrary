@@ -12,7 +12,7 @@ using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-    [SExprSubNode("attr")]
+   [SExprNode("attr")]
    public class FootprintAttributeModel : IKiCadReadable
    {
       #region Local Props
@@ -23,16 +23,19 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       public bool BoardOnly { get; set; }
 
       [SExprToken("exclude_from_pos_files")]
-      public bool ExludeFromposFiles { get; set; }
+      public bool ExcludeFromposFiles { get; set; }
 
       [SExprToken("exclude_from_bom")]
-      public bool ExludeFromBom { get; set; }
+      public bool ExcludeFromBom { get; set; }
 
       [SExprToken("allow_missing_courtyard")]
       public bool AllowMissingCourtyard { get; set; }
 
       [SExprToken("allow_soldermask_bridges")]
       public bool AllowSoldermaskBridges { get; set; }
+
+      [SExprToken("dnp")]
+      public bool DontPopulate { get; set; }
       #endregion
 
       #region Constructors
@@ -68,6 +71,46 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
             //   }
             //}
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.Append("(attr");
+
+         builder.Append($" {Type.ToString().ToLower()}");
+
+         if (BoardOnly)
+         {
+            builder.Append($" board_only");
+         }
+
+         if (ExcludeFromposFiles)
+         {
+            builder.Append($" exclude_from_pos_files");
+         }
+
+         if (ExcludeFromBom)
+         {
+            builder.Append($" exclude_from_bom");
+         }
+
+         if (AllowMissingCourtyard)
+         {
+            builder.Append($" allow_missing_courtyard");
+         }
+
+         if (DontPopulate)
+         {
+            builder.Append($" dnp");
+         }
+
+         if (AllowSoldermaskBridges)
+         {
+            builder.Append($" allow_soldermask_bridges");
+         }
+
+         builder.AppendLine(")");
       }
       #endregion
 

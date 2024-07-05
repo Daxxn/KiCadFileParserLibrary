@@ -13,11 +13,11 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
-    [SExprListNode("pad")]
+   [SExprListNode("pad")]
    public class PadCollection : IKiCadReadable
    {
       #region Local Props
-      public List<PadModel>? Pads { get; set; }
+      public List<PadModel> Pads { get; set; } = [];
       #endregion
 
       #region Constructors
@@ -35,6 +35,14 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             PadModel pad = new();
             pad.ParseNode(child);
             Pads.Add(pad);
+         }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         foreach (var pad in Pads)
+         {
+            pad.WriteNode(builder, indent);
          }
       }
       #endregion

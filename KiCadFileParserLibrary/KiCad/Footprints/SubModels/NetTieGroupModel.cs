@@ -10,7 +10,7 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-    [SExprNode("net_tie_pad_groups")]
+   [SExprNode("net_tie_pad_groups")]
    public class NetTieGroupModel : IKiCadReadable
    {
       #region Local Props
@@ -31,6 +31,21 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          {
             Groups.Add(group);
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         if (Groups is null) return;
+
+         builder.Append('\t', indent);
+         builder.Append("(net_tie_pad_groups");
+
+         foreach (var grp in Groups)
+         {
+            builder.Append($" \"{grp}\"");
+         }
+
+         builder.AppendLine(")");
       }
       #endregion
 

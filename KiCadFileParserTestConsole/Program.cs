@@ -1,51 +1,122 @@
 ﻿using KiCadFileParserLibrary.KiCad.Footprints;
-using KiCadFileParserLibrary.KiCad.Pcb;
-using KiCadFileParserLibrary.KiCad.Symbol;
-using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.KiCad.Boards;
+using KiCadFileParserLibrary.KiCad.Project;
+using KiCadFileParserLibrary.KiCad.Schematics;
+using KiCadFileParserLibrary.KiCad.Symbols;
+using KiCadFileParserLibrary.KiCad;
+using System.Text;
 
 namespace KiCadFileParserTestConsole
 {
    public enum TestMode
    {
-      PCB_SAVE_FILE,
-      SCHEMATIC_SAVE_FILE,
+      PCB_FILE,
+      SCHEMATIC_FILE,
+      PROJECT_FILE,
       FOOTPRINT_LIBRARY,
       SYMBOL_LIBRARY,
+      FULL_PROJECT,
    };
 
    internal class Program
    {
-      private static string KiCadPcbFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_pcb";
+      private static string PcbFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_pcb";
+      private static string PcbOutFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB_OUT.kicad_pcb";
       private static string SchematicFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_sch";
+      private static string SchematicOutputFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB_OUT.kicad_sch";
       private static string FootprintFolder = @"F:\Electrical\KiCad\Libraries\Footprints\Daxxn_TestLibrary.pretty";
       private static string SymbolLibFile = @"F:\Electrical\KiCad\Libraries\Symbols\Daxxn_Testing.kicad_sym";
-      private static TestMode Test;
+      private static string ProjectFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_pro";
+      private static string ProjectOutputFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB_Output.kicad_pro";
+      private static string ProjectFolder = @"F:\Electrical\Designs\Testing\ParserTestPCB";
+      private static TestMode Test = TestMode.PCB_FILE;
+
+      private static PcbModel? pcb;
+      private static Schematic? schematic;
+      private static FootprintLibrary? footprints;
+      private static SymbolLibrary? symbols;
+      private static ProjectSettings? projectSettings;
+      private static KiCadProject? project;
 
       static void Main(string[] args)
       {
          Console.WriteLine("KiCad File Parser Testing");
 
+         Console.WriteLine($"Reading {Test}");
          switch (Test)
          {
-            case TestMode.PCB_SAVE_FILE:
-               var pcb = PcbModel.Parse(KiCadPcbFile);
-               Console.WriteLine(pcb);
+            case TestMode.PCB_FILE:
+               pcb = PcbModel.Parse(PcbFile);
                break;
-            case TestMode.SCHEMATIC_SAVE_FILE:
-               var schematic = Schem
+            case TestMode.SCHEMATIC_FILE:
+               schematic = Schematic.Parse(SchematicFile);
                break;
             case TestMode.FOOTPRINT_LIBRARY:
-               var footprintLib = FootprintLibrary.ParseLibrary(FootprintFolder);
+               footprints = FootprintLibrary.ParseLibrary(FootprintFolder);
                break;
             case TestMode.SYMBOL_LIBRARY:
-               var symbolLibrary = SymbolLibrary.ParseLibrary(SymbolLibFile);
+               symbols = SymbolLibrary.ParseLibrary(SymbolLibFile);
+               break;
+            case TestMode.PROJECT_FILE:
+               projectSettings = ProjectSettings.Parse(ProjectFile);
+
+               projectSettings?.Write(ProjectOutputFile);
+               break;
+            case TestMode.FULL_PROJECT:
+               project = KiCadProject.Build(ProjectFolder);
                break;
             default:
                break;
          }
 
-         Console.WriteLine("Done!");
-         Console.ReadKey();
+         Console.WriteLine($"Writing {Test}");
+         switch (Test)
+         {
+            case TestMode.PCB_FILE:
+               Console.WriteLine(pcb);
+               Console.WriteLine();
+               if (pcb is null) break;
+               StringBuilder pcbBuilder = new();
+               pcb.WriteNode(pcbBuilder, 0);
+               Console.WriteLine(pcbBuilder.ToString());
+               WriteFile(PcbOutFile, pcbBuilder.ToString());
+               break;
+            case TestMode.SCHEMATIC_FILE:
+               Console.WriteLine(schematic);
+               Console.WriteLine();
+               if (schematic is null) break;
+               StringBuilder schBuilder = new();
+               schematic.WriteNode(schBuilder, 0);
+               Console.WriteLine(schBuilder.ToString());
+               WriteFile(SchematicOutputFile, schBuilder.ToString());
+               break;
+            case TestMode.PROJECT_FILE:
+               Console.WriteLine(projectSettings);
+               Console.WriteLine();
+               if (projectSettings is null) break;
+               break;
+            case TestMode.FOOTPRINT_LIBRARY:
+               Console.WriteLine(footprints);
+               Console.WriteLine();
+               if (footprints is null) break;
+               footprints.WriteLibrary();
+               Console.WriteLine("Written Footprint Library");
+               break;
+            case TestMode.SYMBOL_LIBRARY:
+               break;
+            case TestMode.FULL_PROJECT:
+               break;
+            default:
+               break;
+         }
+
+         //Console.WriteLine("Done!");
+         //Console.ReadKey();
+      }
+
+      private static void WriteFile(string path, string data)
+      {
+         File.WriteAllText(path, data);
       }
    }
 }

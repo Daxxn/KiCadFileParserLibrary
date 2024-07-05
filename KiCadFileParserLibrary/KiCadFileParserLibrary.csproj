@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="KiCad\Schematic\Collections\" />
-    <Folder Include="KiCad\Schematic\SubModels\" />
+    <PackageReference Include="JsonReaderLibrary" Version="1.1.1" />
   </ItemGroup>
 
 </Project>

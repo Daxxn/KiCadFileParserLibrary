@@ -15,7 +15,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
    public class FootprintCollection : IKiCadReadable
    {
       #region Local Props
-      public List<Footprint>? Footprints { get; set; }
+      public List<Footprint> Footprints { get; set; } = [];
       #endregion
 
       #region Constructors
@@ -33,6 +33,14 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             Footprint fp = new();
             fp.ParseNode(child);
             Footprints.Add(fp);
+         }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         foreach (var fp in Footprints)
+         {
+            fp.WriteNode(builder, indent);
          }
       }
       #endregion

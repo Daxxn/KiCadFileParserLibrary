@@ -6,24 +6,18 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Footprints.Collections;
+using KiCadFileParserLibrary.KiCad.General.Collections;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-    [SExprNode("primitives")]
+   [SExprNode("primitives")]
    public class CustomPadPrimitives : IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("width")]
-      public double? Width { get; set; }
-
-      [SExprSubNode("fill")]
-      public bool IsFilled { get; set; }
-
-      [SExprSubNode("primitives")]
-      public FpGraphicsCollection? Primitives { get; set; }
+      public GrGraphicsCollection Primitives { get; set; } = new();
       #endregion
 
       #region Constructors
@@ -36,8 +30,19 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          if (node.Children != null)
          {
             var props = GetType().GetProperties();
-            KiCadParseUtils.ParseSubNodes(props, node, this);
+            KiCadParseUtils.ParseListNodes(props, node, this);
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine("(primitives");
+
+         Primitives?.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

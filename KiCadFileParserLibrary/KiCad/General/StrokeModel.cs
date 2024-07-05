@@ -12,12 +12,12 @@ using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-    [SExprNode("stroke")]
+   [SExprNode("stroke")]
    public class StrokeModel : IKiCadReadable
    {
       #region Local Props
       [SExprSubNode("width")]
-      public double? Width { get; set; }
+      public double Width { get; set; }
 
       [SExprSubNode("type")]
       public StrokeType Type { get; set; }
@@ -38,6 +38,24 @@ namespace KiCadFileParserLibrary.KiCad.General
             KiCadParseUtils.ParseSubNodes(props, node, this);
             KiCadParseUtils.ParseNodes(props, node, this);
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine("(stroke");
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("width", Width));
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("type", Type));
+
+         if (Color != null)
+         {
+            Color.WriteNode(builder, indent + 1);
+         }
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

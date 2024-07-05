@@ -10,7 +10,7 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
-    [SExprListNode("image")]
+   [SExprListNode("image")]
    public class ImageCollection : IKiCadReadable
    {
       #region Local Props
@@ -32,6 +32,15 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
             ImageModel image = new();
             image.ParseNode(child);
             Images.Add(image);
+         }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         if (Images is null) return;
+         foreach (var img in Images)
+         {
+            img.WriteNode(builder, indent);
          }
       }
       #endregion

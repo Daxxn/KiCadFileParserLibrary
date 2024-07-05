@@ -9,21 +9,26 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using static System.Net.Mime.MediaTypeNames;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
-    [SExprNode("image")]
+   [SExprNode("image")]
    public class ImageModel : IKiCadReadable
    {
       #region Local Props
-      public LocationModel? Location { get; set; }
+      public LocationModel Location { get; set; } = new();
 
       [SExprSubNode("layer")]
-      public string? Layer { get; set; }
+      public string Layer { get; set; } = "";
+
+      [SExprSubNode("scale")]
+      public double? Scale { get; set; }
 
       [SExprSubNode("uuid")]
-      public string? ID { get; set; }
+      public string ID { get; set; } = "";
 
-      public List<string>? Data { get; set; }
+      public List<string> Data { get; set; } = [];
       #endregion
 
       #region Constructors
@@ -54,6 +59,41 @@ namespace KiCadFileParserLibrary.KiCad.General
                }
             }
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine($"(image");
+
+         Location.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+
+         if (Scale != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("scale", Scale)); 
+         }
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine("(data");
+         foreach (var d in Data)
+         {
+            builder.Append('\t', indent + 2);
+            builder.Append('"');
+            builder.Append(d);
+            builder.AppendLine("\"");
+         }
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(")");
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

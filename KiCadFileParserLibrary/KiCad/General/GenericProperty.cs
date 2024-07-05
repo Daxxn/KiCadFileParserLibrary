@@ -33,6 +33,12 @@ namespace KiCadFileParserLibrary.KiCad.General
          var props = GetType().GetProperties();
          KiCadParseUtils.ParseProperties(props, node, this);
       }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine($"(property \"{Key}\" \"{Value}\")");
+      }
       #endregion
 
       #region Full Props

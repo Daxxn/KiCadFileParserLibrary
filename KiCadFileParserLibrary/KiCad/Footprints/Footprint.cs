@@ -12,18 +12,18 @@ using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.General.Collections;
 using KiCadFileParserLibrary.KiCad.Interfaces;
-using KiCadFileParserLibrary.KiCad.Pcb.Collections;
+using KiCadFileParserLibrary.KiCad.Boards.Collections;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints
 {
-    [SExprNode("footprint")]
+   [SExprNode("footprint")]
    public class Footprint : IKiCadReadable
    {
       #region Local Props
       [SExprProperty(1)]
-      public string? LibraryPath { get; set; }
+      public string LibraryPath { get; set; } = "";
 
       [SExprToken("locked")]
       public bool Locked { get; set; }
@@ -32,13 +32,13 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
       public bool Placed { get; set; }
 
       [SExprSubNode("layer")]
-      public string? LayerName { get; set; }
+      public string LayerName { get; set; } = "";
 
       [SExprSubNode("uuid")]
       public string? ID { get; set; }
 
       //[SExprSubNode("at")]
-      public LocationModel? Coordinates { get; set; }
+      public LocationModel Coordinates { get; set; } = new();
 
       [SExprSubNode("descr")]
       public string? Description { get; set; }
@@ -53,6 +53,12 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
 
       [SExprSubNode("path")]
       public string? Path { get; set; }
+
+      [SExprSubNode("sheetname")]
+      public string? SheetName { get; set; }
+
+      [SExprSubNode("sheetfile")]
+      public string? SheetFile { get; set; }
 
       [SExprSubNode("autoplace_cost90")]
       public double? AutoplaceCostHorz { get; set; }
@@ -73,7 +79,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
       public double? Clearance { get; set; }
 
       [SExprSubNode("zone_connect")]
-      public ZoneConnectType ZoneConnect { get; set; } = ZoneConnectType.ThermalReleif;
+      public ZoneConnectType ZoneConnect { get; set; } = ZoneConnectType.None;
 
       [SExprSubNode("thermal_width")]
       public double? ThermalWidth { get; set; }
@@ -95,7 +101,9 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
 
       public ModelCollection? Models { get; set; }
 
-      public ZoneCollection? zones { get; set; }
+      public ZoneCollection? Zones { get; set; }
+
+      public ImageCollection? Images { get; set; }
       #endregion
 
       #region Constructors
@@ -115,6 +123,127 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
             KiCadParseUtils.ParseTokens(props, node, this);
             KiCadParseUtils.ParseListNodes(props, node, this);
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine($"(footprint \"{LibraryPath}\"");
+
+         if(Locked)
+         {
+            builder.Append(" locked");
+         }
+         if (Placed)
+         {
+            builder.Append(" placed");
+         }
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", LayerName));
+
+         if (ID != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+         }
+
+         Coordinates.WriteNode(builder, indent + 1);
+
+         if (Description != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("descr", Description));
+         }
+
+         if (Tags != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("tags", Tags));
+         }
+
+         Properties?.WriteNode(builder, indent + 1);
+
+         if (Path != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("path", Path));
+         }
+
+         if (AutoplaceCostHorz != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("autoplace_cost90", AutoplaceCostHorz));
+         }
+
+         if (AutoplaceCostVert != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("autoplace_cost180", AutoplaceCostVert));
+         }
+
+         if (SolderMaskMargin != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_mask_margin", SolderMaskMargin));
+         }
+
+         if (SolderPasteMargin != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_paste_margin", SolderPasteMargin));
+         }
+
+         if (SolderPasteRatio != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_paste_ratio", SolderPasteRatio));
+         }
+
+         if (Clearance != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("clearance", Clearance));
+         }
+
+         if (ZoneConnect != ZoneConnectType.None)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("zone_connect", (int)ZoneConnect));
+         }
+
+         if (SheetName != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("sheetname", SheetName));
+         }
+
+         if (SheetFile != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("sheetfile", SheetFile));
+         }
+
+         Attributes?.WriteNode(builder, indent + 1);
+
+         PrivateLayers?.WriteNode(builder, indent + 1);
+
+         NetTieGroups?.WriteNode(builder, indent + 1);
+
+         Graphics?.WriteNode(builder, indent + 1);
+
+         Images?.WriteNode(builder, indent + 1);
+
+         Pads?.WriteNode(builder, indent + 1);
+
+         Zones?.WriteNode(builder, indent + 1);
+
+         Groups?.WriteNode(builder, indent + 1);
+
+         Models?.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

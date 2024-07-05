@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,21 +17,24 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    {
       #region Local Props
       [SExprNode("start")]
-      public XyModel? Start { get; set; }
+      public XyModel Start { get; set; } = new();
 
       [SExprNode("end")]
-      public XyModel? End { get; set; }
+      public XyModel End { get; set; } = new();
+
+      [SExprSubNode("locked")]
+      public bool Locked { get; set; }
 
       [SExprSubNode("layer")]
-      public string? Layer { get; set; }
+      public string Layer { get; set; } = "";
 
-      public StrokeModel? Stroke { get; set; }
+      public StrokeModel Stroke { get; set; } = new();
 
       [SExprSubNode("fill")]
       public FillType Fill { get; set; }
 
       [SExprSubNode("uuid")]
-      public string? ID { get; set; }
+      public string ID { get; set; } = "";
       #endregion
 
       #region Constructors
@@ -46,6 +51,34 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
             KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
+      }
+
+      public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine($"(gr_rect");
+
+         Start.WriteNode(builder, indent + 1, "start");
+         End.WriteNode(builder, indent + 1, "end");
+
+         if (Locked)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
+         }
+
+         Stroke.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("fill", Fill));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

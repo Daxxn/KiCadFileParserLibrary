@@ -11,7 +11,7 @@ using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General.Graphics
 {
-    [SExprNode("render_cache")]
+   [SExprNode("render_cache")]
    public class RenderCacheModel : IKiCadReadable
    {
       #region Local Props
@@ -19,9 +19,9 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       public string? Text { get; set; }
 
       [SExprProperty(2)]
-      public int Index { get; set; }
+      public int Angle { get; set; }
 
-      public PolygonModel? Polygon { get; set; }
+      public List<PolygonModel> Polygon { get; set; } = [];
       #endregion
 
       #region Constructors
@@ -36,8 +36,30 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
             var props = GetType().GetProperties();
 
             KiCadParseUtils.ParseProperties(props, node, this);
-            KiCadParseUtils.ParseNodes(props, node, this);
+
+            var polygons = node.GetNodes("polygon");
+            if (polygons is null) return;
+            foreach (var poly in polygons)
+            {
+               PolygonModel newPoly = new();
+               newPoly.ParseNode(poly);
+               Polygon.Add(newPoly);
+            }
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine($"(render_cache \"{Text}\" {Angle}");
+
+         foreach (var polys in Polygon)
+         {
+            polys.WriteNode(builder, indent + 1);
+         }
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

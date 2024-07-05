@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Footprints.Graphics;
 using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
-using KiCadFileParserLibrary.KiCad.Pcb;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
@@ -24,18 +22,18 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       public DimensionType Type { get; set; }
 
       [SExprSubNode("layer")]
-      public string? Layer { get; set; }
+      public string Layer { get; set; } = "";
 
       [SExprSubNode("height")]
-      public double? Height { get; set; }
+      public double Height { get; set; }
 
       [SExprSubNode("uuid")]
-      public string? ID { get; set; }
+      public string ID { get; set; } = "";
 
       public CoordinateModel? Points { get; set; }
 
       [SExprSubNode("leader_length")]
-      public double? LeaderLength { get; set; }
+      public double LeaderLength { get; set; }
 
       public GrTextModel? Text { get; set; }
 
@@ -58,6 +56,35 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
             KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseTokens(props, node, this);
          }
+      }
+
+      public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine("(dimension");
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("type", Type));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+
+         Points?.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("height", Height));
+
+         Text?.WriteNode(builder, indent + 1);
+
+         Format?.WriteNode(builder, indent + 1);
+
+         Style?.WriteNode(builder, indent + 1);
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

@@ -11,7 +11,7 @@ using KiCadFileParserLibrary.Utils;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
-    [SExprNode("keepout")]
+   [SExprNode("keepout")]
    public class ZoneKeepoutModel : IKiCadReadable
    {
       #region Local Props
@@ -43,6 +43,30 @@ namespace KiCadFileParserLibrary.KiCad.General
             var props = GetType().GetProperties();
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
+      }
+
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine("(keepout");
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("tracks", Tracks));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("vias", Vias));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("pads", Pads));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("copperpour", Copper));
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("footprints", Footprints));
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

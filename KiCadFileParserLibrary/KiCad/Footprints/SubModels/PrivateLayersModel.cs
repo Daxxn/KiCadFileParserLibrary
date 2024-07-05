@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
@@ -10,7 +11,7 @@ using KiCadFileParserLibrary.SExprParser;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
-    [SExprNode("private_layers")]
+   [SExprNode("private_layers")]
    public class PrivateLayersModel : IKiCadReadable
    {
       #region Local Props
@@ -19,7 +20,9 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 
       #region Constructors
       public PrivateLayersModel() { }
+      #endregion
 
+      #region Methods
       public void ParseNode(Node node)
       {
          if (node.Properties is null) return;
@@ -32,10 +35,21 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
             }
          }
       }
-      #endregion
 
-      #region Methods
+      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         if (Layers is null) return;
 
+         builder.Append('\t', indent);
+         builder.Append("(private_layers");
+
+         foreach (var layer in Layers)
+         {
+            builder.Append($" \"{layer}\"");
+         }
+
+         builder.AppendLine(")");
+      }
       #endregion
 
       #region Full Props
