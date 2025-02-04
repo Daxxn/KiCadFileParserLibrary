@@ -25,10 +25,10 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
 
       public StrokeModel Stroke { get; set; } = new();
 
-      [SExprNode("layer")]
+      [SExprSubNode("layer")]
       public string Layer { get; set; } = "";
 
-      [SExprNode("uuid")]
+      [SExprSubNode("uuid")]
       public string ID { get; set; } = "";
 
       [SExprSubNode("locked")]
@@ -70,6 +70,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
 
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
 

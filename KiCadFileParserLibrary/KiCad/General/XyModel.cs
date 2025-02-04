@@ -39,8 +39,23 @@ namespace KiCadFileParserLibrary.KiCad.General
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
+         //if (auxName != null)
+         //{
+         //   builder.Append('\t', indent);
+         //   builder.AppendLine($"({(auxName ?? "xy")} {Math.Round(X, 6)} {Math.Round(Y, 6)})");
+         //}
+         //else
+         //{
+         //   builder.Append($"({(auxName ?? "xy")} {Math.Round(X, 6)} {Math.Round(Y, 6)})");
+         //}
+
          builder.Append('\t', indent);
          builder.AppendLine($"({(auxName ?? "xy")} {Math.Round(X, 6)} {Math.Round(Y, 6)})");
+      }
+
+      public override string ToString()
+      {
+         return $"XY - X: {X} - Y: {Y}";
       }
       #endregion
 

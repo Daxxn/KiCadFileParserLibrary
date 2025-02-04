@@ -41,7 +41,7 @@ namespace KiCadFileParserLibrary.KiCad.General
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
          builder.Append('\t', indent);
-         builder.AppendLine("(polygon");
+         builder.AppendLine("(filled_polygon");
 
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));

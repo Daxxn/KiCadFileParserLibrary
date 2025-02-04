@@ -55,6 +55,8 @@ namespace KiCadFileParserLibrary.KiCad.General
       public ZoneFillPolygonModel? PolygonFill { get; set; }
 
       public ZoneFillSegments? Segments { get; set; }
+
+      public ZoneAttributesModel? Attributes { get; set; }
       #endregion
 
       #region Constructors
@@ -114,6 +116,8 @@ namespace KiCadFileParserLibrary.KiCad.General
             builder.Append('\t', indent + 1);
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("priority", Priority));
          }
+
+         Attributes?.WriteNode(builder, indent + 1);
 
          ConnectPads?.WriteNode(builder, indent + 1);
 

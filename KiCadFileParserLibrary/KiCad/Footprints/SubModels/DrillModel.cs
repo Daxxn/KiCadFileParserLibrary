@@ -32,7 +32,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #region Methods
       public void ParseNode(Node node)
       {
-         if (node.Children != null && node.Properties != null)
+         if (node.Properties != null)
          {
             if (node.Properties.Count > 1)
             {

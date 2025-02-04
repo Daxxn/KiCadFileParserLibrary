@@ -40,11 +40,17 @@ namespace KiCadFileParserLibrary.KiCad.General
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
          builder.Append('\t', indent);
-         builder.AppendLine("(connect_pads");
+         builder.Append("(connect_pads");
+
          if (Connected)
          {
             builder.AppendLine($" yes");
          }
+         else
+         {
+            builder.AppendLine();
+         }
+
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("clearance", Clearance));
 

@@ -65,6 +65,11 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
             graphic.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"Graphics - {Graphics?.Count}";
+      }
       #endregion
 
       #region Full Props

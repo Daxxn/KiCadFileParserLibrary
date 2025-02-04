@@ -45,6 +45,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             pad.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"Pads - {Pads.Count}";
+      }
       #endregion
 
       #region Full Props

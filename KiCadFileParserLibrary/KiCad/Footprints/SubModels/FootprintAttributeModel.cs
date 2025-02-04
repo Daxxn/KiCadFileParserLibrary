@@ -112,6 +112,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 
          builder.AppendLine(")");
       }
+
+      public override string ToString()
+      {
+         return $"FP Attributes - Type: {Type} - Board-Only: {BoardOnly} - Exclude-From-PosFile: {ExcludeFromposFiles} - Exclude-From-BOM: {ExcludeFromBom} - Allow-Miss-Crtyd: {AllowMissingCourtyard} - Dont-Pop: {DontPopulate} - Allow-Mask-Bridge: {AllowSoldermaskBridges}";
+      }
       #endregion
 
       #region Full Props

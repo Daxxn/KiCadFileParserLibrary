@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Footprints.Graphics;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
@@ -20,8 +21,11 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       [SExprProperty(1)]
       public string Text { get; set; } = "";
 
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
+      //[SExprSubNode("layer")]
+      //public string Layer { get; set; } = "";
+      public FpTextLayerModel Layer { get; set; } = new();
+
+      private bool Knockout { get; set; } = false;
 
       public LocationModel? Location { get; set; }
 
@@ -47,6 +51,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
             KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseSubNodes(props, node, this);
             KiCadParseUtils.ParseProperties(props, node, this);
+            KiCadParseUtils.ParseListNodes(props, node, this);
          }
       }
 
@@ -55,15 +60,24 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
          builder.Append('\t', indent);
          builder.AppendLine($"(gr_text \"{Text}\"");
 
+         if (Locked)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
+         }
+
          Location?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+         Layer?.WriteNode(builder, indent + 1);
+         //builder.Append('\t', indent + 1);
+         //builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
 
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
 
          Effects?.WriteNode(builder, indent + 1);
+
+         RenderCache?.WriteNode(builder, indent + 1);
 
          builder.Append('\t', indent);
          builder.AppendLine(")");

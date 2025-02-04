@@ -63,6 +63,12 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("bold", Bold));
          }
 
+         if (Italic)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("italic", Italic));
+         }
+
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }

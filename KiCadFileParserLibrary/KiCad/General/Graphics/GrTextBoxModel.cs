@@ -22,10 +22,12 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       [SExprProperty(1, true)]
       public string Text { get; set; } = "";
 
-      [SExprSubNode("start")]
+      //[SExprSubNode("start")]
+      [SExprNode("start")]
       public XyModel? Start { get; set; }
 
-      [SExprSubNode("end")]
+      //[SExprSubNode("end")]
+      [SExprNode("end")]
       public XyModel? End { get; set; }
 
       public CoordinateModel? Points { get; set; }
@@ -77,8 +79,8 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
          }
 
-         Start?.WriteNode(builder, indent + 1);
-         End?.WriteNode(builder, indent + 1);
+         Start?.WriteNode(builder, indent + 1, "start");
+         End?.WriteNode(builder, indent + 1, "end");
 
          Points?.WriteNode(builder, indent + 1);
 

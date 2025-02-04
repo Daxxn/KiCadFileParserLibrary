@@ -17,6 +17,8 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
    {
       #region Local Props
       public List<string> Members { get; set; } = [];
+
+      private bool UseQuotes { get; set; }
       #endregion
 
       #region Constructors
@@ -35,6 +37,11 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
             {
                Members.Add(member);
             }
+
+            if (node.Type == "group")
+            {
+               UseQuotes = true;
+            }
          }
       }
 
@@ -45,7 +52,14 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          foreach (var member in Members)
          {
             builder.Append('\t', indent + 1);
-            builder.AppendLine($"\"{member}\"");
+            if (UseQuotes)
+            {
+               builder.AppendLine($"\"{member}\"");
+            }
+            else
+            {
+               builder.AppendLine(member);
+            }
          }
          builder.Append('\t', indent);
          builder.AppendLine(")");

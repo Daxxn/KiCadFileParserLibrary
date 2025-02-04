@@ -60,6 +60,10 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
          {
             builder.AppendLine(" keep_text_aligned");
          }
+         else
+         {
+            builder.AppendLine();
+         }
 
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thickness", Thickness));
@@ -79,7 +83,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
          if (TextFrame != TextFrameType.NoFrame)
          {
             builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("text_frame", TextFrame));
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("text_frame", (int)TextFrame));
          }
 
          if (ExtensionOffset != null)

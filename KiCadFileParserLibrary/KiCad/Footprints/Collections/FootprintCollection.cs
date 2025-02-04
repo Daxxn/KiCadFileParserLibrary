@@ -43,6 +43,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             fp.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"Footprints - {Footprints.Count}";
+      }
       #endregion
 
       #region Full Props

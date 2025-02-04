@@ -41,6 +41,11 @@ namespace KiCadFileParserLibrary.KiCad.General
          builder.Append('\t', indent);
          builder.AppendLine($"(net {NetIndex} \"{NetName}\")");
       }
+
+      public override string ToString()
+      {
+         return $"Net - {NetIndex} - {NetName}";
+      }
       #endregion
 
       #region Full Props

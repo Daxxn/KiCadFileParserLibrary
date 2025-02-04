@@ -39,5 +39,10 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }
+
+      public override string ToString()
+      {
+         return $"Layers: {LayerList.Count}";
+      }
    }
 }

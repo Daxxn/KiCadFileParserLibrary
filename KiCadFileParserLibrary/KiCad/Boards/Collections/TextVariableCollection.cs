@@ -44,6 +44,11 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
             txtVar.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"Properties - {TextVars?.Count}";
+      }
       #endregion
 
       #region Full Props

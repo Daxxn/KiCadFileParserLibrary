@@ -60,7 +60,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
          builder.Append('\t', indent);
-         builder.Append($"(teardrops");
+         builder.AppendLine($"(teardrops");
 
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("best_length_ratio", BestLengthRatio));

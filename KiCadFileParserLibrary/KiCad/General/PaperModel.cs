@@ -68,6 +68,18 @@ namespace KiCadFileParserLibrary.KiCad.General
             builder.AppendLine($"\"{Name}\")");
          }
       }
+
+      public override string ToString()
+      {
+         if (IsCustomSize)
+         {
+            return $"Paper - Name: {Name} - W: {Width} - H: {Height} - Portrait: {IsPortrait}";
+         }
+         else
+         {
+            return $"Paper - Name: {Name} - Portrait: {IsPortrait}";
+         }
+      }
       #endregion
 
       #region Full Props

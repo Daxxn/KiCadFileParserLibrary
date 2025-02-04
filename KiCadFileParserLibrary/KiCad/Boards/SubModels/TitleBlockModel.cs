@@ -106,6 +106,11 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }
+
+      public override string ToString()
+      {
+         return $"Title - {Title} - Rev: {Revision} - Date: {Date:MM-dd-yy} - Comp: {Company} - Comm {Comments?.Count}";
+      }
       #endregion
 
       #region Full Props

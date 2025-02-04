@@ -92,6 +92,8 @@ namespace KiCadFileParserLibrary.KiCad
    {
       None = 0,
       Solid,
+      Yes,
+      No,
    }
 
    public enum TextPositionMode
@@ -233,8 +235,8 @@ namespace KiCadFileParserLibrary.KiCad
    public enum HatchBorderAlgorythmType
    {
       None = 0,
-      UseMinThickness,
-      UseHatchThickness,
+      Min_Thickness,
+      Hatch_Thickness,
    }
 
    public enum ViaType
@@ -288,5 +290,17 @@ namespace KiCadFileParserLibrary.KiCad
    {
       Default_Style = 0,
 
+   }
+
+   public enum ZoneFillMode
+   {
+      Solid = 0,
+      Hatch = 1,
+   }
+
+   public enum TeardropType
+   {
+      None,
+      PadVia,
    }
 }

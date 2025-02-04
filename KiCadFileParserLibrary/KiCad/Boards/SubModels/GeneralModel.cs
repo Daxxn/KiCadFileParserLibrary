@@ -44,5 +44,10 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }
+
+      public override string ToString()
+      {
+         return $"General - Thick: {Thickness} - UseLegTD: {UseLegacyTeardrop}";
+      }
    }
 }

@@ -16,12 +16,13 @@ namespace KiCadFileParserTestConsole
       FOOTPRINT_LIBRARY,
       SYMBOL_LIBRARY,
       FULL_PROJECT,
+      PCB_OUTPUT_DEBUG
    };
 
    internal class Program
    {
       private static string PcbFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_pcb";
-      private static string PcbOutFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB_OUT.kicad_pcb";
+      private static string PcbOutFile = @"F:\Electrical\Designs\Testing\ParserTestPCBOutput\ParserTestPCBOutput.kicad_pcb";
       private static string SchematicFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_sch";
       private static string SchematicOutputFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB_OUT.kicad_sch";
       private static string FootprintFolder = @"F:\Electrical\KiCad\Libraries\Footprints\Daxxn_TestLibrary.pretty";
@@ -64,6 +65,16 @@ namespace KiCadFileParserTestConsole
                break;
             case TestMode.FULL_PROJECT:
                project = KiCadProject.Build(ProjectFolder);
+               break;
+            case TestMode.PCB_OUTPUT_DEBUG:
+               var pcbA = PcbModel.Parse(PcbFile);
+               var pcbB = PcbModel.Parse(PcbOutFile);
+               if (ComparePCBs(pcbA, pcbB)) {
+                  Console.WriteLine("PCBs Match");
+               } else
+               {
+                  Console.WriteLine("PCBs DONT Match!!");
+               }
                break;
             default:
                break;
@@ -117,6 +128,11 @@ namespace KiCadFileParserTestConsole
       private static void WriteFile(string path, string data)
       {
          File.WriteAllText(path, data);
+      }
+
+      private static bool ComparePCBs(PcbModel? pcbA, PcbModel? pcbB)
+      {
+         return pcbA == pcbB;
       }
    }
 }

@@ -41,13 +41,13 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       public bool IsFree { get; set; }
 
       [SExprSubNode("zone_layer_connections")]
-      public string? ZoneLayerConnections { get; set; }
+      public string ZoneLayerConnections { get; set; } = "";
 
       [SExprSubNode("net")]
-      public string Net { get; set; } = "";
+      public int Net { get; set; } = -1;
 
       [SExprSubNode("uuid")]
-      public string? ID { get; set; }
+      public string ID { get; set; } = "";
 
       public TeardropModel? Teardrops { get; set; }
       #endregion
@@ -66,6 +66,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
             KiCadParseUtils.ParseTokens(props, node, this);
             KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseSubNodes(props, node, this);
+            KiCadParseUtils.ParseListNodes(props, node, this);
          }
       }
 
@@ -102,7 +103,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("free", IsFree));
          }
 
-         if (ZoneLayerConnections != null)
+         if (!string.IsNullOrEmpty(ZoneLayerConnections))
          {
             builder.Append('\t', indent + 1);
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("zone_layer_connections", ZoneLayerConnections));

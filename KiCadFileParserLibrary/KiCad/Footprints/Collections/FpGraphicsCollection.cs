@@ -66,6 +66,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             gr.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"FP Graphics - {Graphics?.Count}";
+      }
       #endregion
 
       #region Full Props

@@ -43,6 +43,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             group.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"Groups - {Groups.Count}";
+      }
       #endregion
 
       #region Full Props

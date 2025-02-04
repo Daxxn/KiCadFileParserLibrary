@@ -245,6 +245,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }
+
+      public override string ToString()
+      {
+         return $"Footprint - Lib: {LibraryPath} - Locked: {Locked} - Placed: {Placed} - Layer: {LayerName} - ID: {ID} - Private-Layers: {PrivateLayers?.Layers?.Count} - Net-Ties: {NetTieGroups?.Groups?.Count} - Graphics: {Graphics?.Graphics?.Count} - Imgs: {Images?.Images?.Count} - Pads: {Pads?.Pads.Count} - Zones: {Zones?.Zones.Count} - Groups: {Groups?.Groups.Count} - Models: {Models?.Models.Count}";
+      }
       #endregion
 
       #region Full Props

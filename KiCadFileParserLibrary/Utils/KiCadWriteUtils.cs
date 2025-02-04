@@ -56,6 +56,10 @@ namespace KiCadFileParserLibrary.Utils
          }
          else if (value is double fl)
          {
+            if (Math.Floor(fl) == fl && Math.Floor(fl) > 1)
+            {
+               return $"({name} {fl:F6})";
+            }
             return $"({name} {fl})";
          }
          else if (value is DateOnly date)

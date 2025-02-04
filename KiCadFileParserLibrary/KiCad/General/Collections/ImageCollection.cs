@@ -43,6 +43,11 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
             img.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"Images - {Images?.Count}";
+      }
       #endregion
 
       #region Full Props

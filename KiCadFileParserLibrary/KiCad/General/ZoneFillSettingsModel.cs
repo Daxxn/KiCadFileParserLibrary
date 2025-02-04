@@ -19,7 +19,7 @@ namespace KiCadFileParserLibrary.KiCad.General
       public bool IsFilled { get; set; }
 
       [SExprSubNode("mode")]
-      public bool FillMode { get; set; }
+      public ZoneFillMode FillMode { get; set; }
 
       [SExprSubNode("thermal_gap")]
       public double ThermalGap { get; set; }
@@ -89,7 +89,7 @@ namespace KiCadFileParserLibrary.KiCad.General
          }
          builder.AppendLine();
 
-         if (FillMode)
+         if (FillMode != ZoneFillMode.Solid)
          {
             builder.Append('\t', indent + 1);
             builder.AppendLine($"(mode hatch)");

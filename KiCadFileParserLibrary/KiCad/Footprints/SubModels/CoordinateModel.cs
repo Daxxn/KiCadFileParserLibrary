@@ -42,10 +42,66 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       {
          builder.Append('\t', indent);
          builder.AppendLine($"({auxName ?? "pts"}");
+         //if (auxName is null)
+         //{
+         //   var extraPoints = Points.Count % 4;
+         //   var div = Math.Floor(Points.Count / 4.0);
+         //   for (int i = 0; i < Points.Count - 4; i += 4)
+         //   {
+         //      builder.Append('\t', indent + 1);
+         //      Points[i].WriteNode(builder, indent + 1);
+         //      builder.Append(' ');
+         //      Points[i + 1].WriteNode(builder, indent + 1);
+         //      builder.Append(' ');
+         //      Points[i + 2].WriteNode(builder, indent + 1);
+         //      builder.Append(' ');
+         //      Points[i + 3].WriteNode(builder, indent + 1);
+         //      builder.AppendLine();
+         //   }
+         //   if (extraPoints != 0)
+         //   {
+         //      for (int i = 0; i < extraPoints; i++)
+         //      {
+         //         builder.Append('\t', indent + 1);
+         //         Points[(int)(div * 4) + i].WriteNode(builder, indent + 1);
+         //         if (i != extraPoints - 1)
+         //         {
+         //            builder.Append(' ');
+         //         }
+         //      }
+         //      builder.AppendLine();
+         //   }
+         //   else
+         //   {
+         //      for (int i = Points.Count - 4; i < Points.Count; i += 4)
+         //      {
+         //         builder.Append('\t', indent + 1);
+         //         Points[i].WriteNode(builder, indent + 1);
+         //         builder.Append(' ');
+         //         Points[i + 1].WriteNode(builder, indent + 1);
+         //         builder.Append(' ');
+         //         Points[i + 2].WriteNode(builder, indent + 1);
+         //         builder.Append(' ');
+         //         Points[i + 3].WriteNode(builder, indent + 1);
+         //         builder.AppendLine();
+         //      }
+         //   }
+         //}
+         //else
+         //{
+         //   foreach (var point in Points)
+         //   {
+         //      point.WriteNode(builder, indent + 1);
+         //      builder.AppendLine();
+         //   }
+         //}
+
          foreach (var point in Points)
          {
             point.WriteNode(builder, indent + 1);
+            //builder.AppendLine();
          }
+
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }

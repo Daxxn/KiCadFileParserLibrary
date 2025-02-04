@@ -74,8 +74,11 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
 
          Points?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("height", Height));
+         if (Height != 0)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("height", Height));
+         }
 
          Text?.WriteNode(builder, indent + 1);
 

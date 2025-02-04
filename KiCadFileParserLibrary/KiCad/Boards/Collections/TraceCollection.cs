@@ -87,6 +87,11 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
             }
          }
       }
+
+      public override string ToString()
+      {
+         return $"Traces - Arks: {Arcs?.Count} - Segments: {Segments?.Count} - Vias: {Vias?.Count}";
+      }
       #endregion
 
       #region Full Props

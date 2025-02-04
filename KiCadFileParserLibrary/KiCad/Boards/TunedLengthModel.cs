@@ -139,11 +139,23 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine("(base_line");
-         BaseLine?.WriteNode(builder, indent + 2);
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(")");
+         if (BaseLine != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine("(base_line");
+            BaseLine?.WriteNode(builder, indent + 2);
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(")");
+         }
+
+         if (BaseLineCoupled != null)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine("(base_line_coupled");
+            BaseLineCoupled?.WriteNode(builder, indent + 2);
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(")");
+         }
 
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("corner_radius_percent", CornerRadiusPerc));

@@ -7,50 +7,42 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
-namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
+namespace KiCadFileParserLibrary.KiCad.General
 {
-   [SExprNode("net_tie_pad_groups")]
-   public class NetTieGroupModel : IKiCadReadable
+   [SExprNode("teardrop")]
+   public class ZoneTeardropModel : IKiCadReadable
    {
       #region Local Props
-      public List<string>? Groups { get; set; }
+      [SExprSubNode("type")]
+      public TeardropType Type { get; set; }
       #endregion
 
       #region Constructors
-      public NetTieGroupModel() { }
+      public ZoneTeardropModel() { }
       #endregion
 
       #region Methods
       public void ParseNode(Node node)
       {
-         if (node.Properties is null) return;
-
-         Groups = [];
-         foreach (var group in node.Properties[1..])
+         if (node.Children != null)
          {
-            Groups.Add(group);
+            var props = GetType().GetProperties();
+            KiCadParseUtils.ParseSubNodes(props, node, this);
          }
       }
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
-         if (Groups is null) return;
+         builder.Append('\t', indent);
+         builder.AppendLine("(teardrop");
+
+         builder.Append('\t', indent + 1);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("type", Type));
 
          builder.Append('\t', indent);
-         builder.Append("(net_tie_pad_groups");
-
-         foreach (var grp in Groups)
-         {
-            builder.Append($" \"{grp}\"");
-         }
-
          builder.AppendLine(")");
-      }
-
-      public override string ToString()
-      {
-         return $"Net-Ties - {Groups?.Count}";
       }
       #endregion
 

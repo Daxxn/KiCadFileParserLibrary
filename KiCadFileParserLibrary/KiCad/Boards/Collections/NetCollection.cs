@@ -43,6 +43,11 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
             net.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"Nets - {Nets.Count}";
+      }
       #endregion
 
       #region Full Props

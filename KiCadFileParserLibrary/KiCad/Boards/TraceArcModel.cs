@@ -68,24 +68,24 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          End?.WriteNode(builder, indent + 1, "end");
 
          builder.Append('\t', indent + 1);
-         KiCadWriteUtils.WriteSubNodeData("width", Width);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("width", Width));
 
          if (Locked)
          {
             builder.Append('\t', indent + 1);
-            KiCadWriteUtils.WriteSubNodeData("locked", Locked);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
          }
 
          builder.Append('\t', indent + 1);
-         KiCadWriteUtils.WriteSubNodeData("layer", Layer);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
 
          builder.Append('\t', indent + 1);
-         KiCadWriteUtils.WriteSubNodeData("net", Net);
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net", Net));
 
          if (ID != null)
          {
             builder.Append('\t', indent + 1);
-            KiCadWriteUtils.WriteSubNodeData("uuid", ID);
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
          }
          builder.Append('\t', indent);
          builder.AppendLine(")");

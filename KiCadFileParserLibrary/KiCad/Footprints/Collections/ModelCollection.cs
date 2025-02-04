@@ -45,6 +45,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             model.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"Models - {Models.Count}";
+      }
       #endregion
 
       #region Full Props

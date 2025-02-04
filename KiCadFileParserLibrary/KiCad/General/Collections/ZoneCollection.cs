@@ -42,6 +42,11 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
             zone.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"Zones - {Zones.Count}";
+      }
       #endregion
 
       #region Full Props

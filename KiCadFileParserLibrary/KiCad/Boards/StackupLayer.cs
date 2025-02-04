@@ -101,5 +101,10 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }
+
+      public override string ToString()
+      {
+         return $"Stackup-Layer - {Name} - Type: {Type} - Color: {Color} - Material: {Material} - Thickness: {Thickness} - eR: {EpsilonR} - Loss-Tan: {LossTangent} - Locked: {Locked}";
+      }
    }
 }

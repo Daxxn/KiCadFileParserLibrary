@@ -50,6 +50,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 
          builder.AppendLine(")");
       }
+
+      public override string ToString()
+      {
+         return $"Private-Layers - {Layers?.Count}";
+      }
       #endregion
 
       #region Full Props

@@ -45,6 +45,11 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
             tl.WriteNode(builder, indent);
          }
       }
+
+      public override string ToString()
+      {
+         return $"Tuned-Lengths - {TunedLengths.Count}";
+      }
       #endregion
 
       #region Full Props

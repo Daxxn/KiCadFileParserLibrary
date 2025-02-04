@@ -26,7 +26,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       public double? Width { get; set; }
 
       [SExprSubNode("fill")]
-      public bool Fill { get; set; }
+      public FillType Fill { get; set; }
 
       [SExprSubNode("layer")]
       public string? Layer { get; set; }

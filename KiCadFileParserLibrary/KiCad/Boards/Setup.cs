@@ -99,6 +99,11 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }
+
+      public override string ToString()
+      {
+         return $"Setup - Pad-Mask: {PadToMaskClearance} - Mask-Min-Width: {SolderMaskMinWidth} - Pad-Paste: {PadToPasteClearance} - Pad-Paste-Ratio: {PadToPasteRatio} - Allow-Mask-Bridge: {AllowMaskBridgeInFp}";
+      }
       #endregion
 
       #region Full Props

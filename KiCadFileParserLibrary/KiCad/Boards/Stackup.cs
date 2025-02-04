@@ -84,5 +84,10 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }
+
+      public override string ToString()
+      {
+         return $"Stackup - Finish: {Copperfinish} - Impedance: {ImpedanceControlled} - Castellated-Pads: {CastellatedPads} - Edge-Pating: {EdgePlating} - Edge-Conn: {EdgeConnector}";
+      }
    }
 }

@@ -72,6 +72,10 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       #endregion
 
       #region Methods
+      public override string ToString()
+      {
+         return $"PCB - Ver: {Version} - Gen: {Generator} - GenVer: {GeneratorVersion}";
+      }
       public static PcbModel? Parse(string filePath)
       {
          var reader = new SExprFileReader();
@@ -132,8 +136,8 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          Groups?.WriteNode(builder, indent + 1);
          TunedLengths?.WriteNode(builder, indent + 1);
 
-         builder.AppendLine();
-         builder.Append(")");
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
 
          //var props = GetType().GetProperties();
 
