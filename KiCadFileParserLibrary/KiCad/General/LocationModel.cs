@@ -40,7 +40,7 @@ namespace KiCadFileParserLibrary.KiCad.General
          if (Angle != null)
          {
             builder.Append(' ');
-            builder.Append(Math.Round((double)Angle));
+            builder.Append((double)Angle);
          }
 
          builder.AppendLine(")");

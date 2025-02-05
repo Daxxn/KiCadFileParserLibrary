@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.SExprParser;
 
-namespace KiCadFileParserLibrary.KiCad.Interfaces
+namespace KiCadFileParserLibrary.KiCad.Interfaces;
+
+internal interface IKiCadReadable
 {
-   internal interface IKiCadReadable
-   {
-      void ParseNode(Node node);
-      void WriteNode(StringBuilder builder, int indent, string? auxName = null);
-   }
+   void ParseNode(Node node);
+   void WriteNode(StringBuilder builder, int indent, string? auxName = null);
 }

@@ -26,8 +26,10 @@ namespace KiCadFileParserLibrary.KiCad.Symbols
       private PinNamesModel? _pinNames;
       private bool _inBom;
       private bool _onBoard;
-      private PropertyCollection? _props;
+      private PropertyCollection _props = new();
       private SubSymbolCollection? _subSymbols;
+      private SyGraphicsCollection? _graphics;
+      private PinCollection? _pins;
       #endregion
 
       #region Constructors
@@ -49,7 +51,18 @@ namespace KiCadFileParserLibrary.KiCad.Symbols
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
-         throw new NotImplementedException();
+         builder.Append($"(symbol \"{SymbolName}\"");
+
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("exclude_from_sim", ExcludeFromSim));
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("in_bom", InBom));
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("on_board", OnBoard));
+         PinNames?.WriteNode(builder, indent + 1);
+
+         Properties.WriteNode(builder, indent + 1);
+
+         SubSymbols?.WriteNode(builder, indent + 1);
+         Graphics?.WriteNode(builder, indent + 1);
+         Pins?.WriteNode(builder, indent + 1);
       }
       #endregion
 
@@ -131,7 +144,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols
          }
       }
 
-      public PropertyCollection? Properties
+      public PropertyCollection Properties
       {
          get => _props;
          set
@@ -147,6 +160,26 @@ namespace KiCadFileParserLibrary.KiCad.Symbols
          set
          {
             _subSymbols = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public SyGraphicsCollection? Graphics
+      {
+         get => _graphics;
+         set
+         {
+            _graphics = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public PinCollection? Pins
+      {
+         get => _pins;
+         set
+         {
+            _pins = value;
             OnPropertyChanged();
          }
       }

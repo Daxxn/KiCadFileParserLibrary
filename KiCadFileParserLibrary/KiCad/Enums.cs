@@ -253,7 +253,13 @@ public enum GeneratedType
 
 public enum SymbolVisibility
 {
-   Hiden,
+   Hidden,
+   Visible,
+}
+
+public enum PinVisibility
+{
+   Hide,
    Visible,
 }
 
