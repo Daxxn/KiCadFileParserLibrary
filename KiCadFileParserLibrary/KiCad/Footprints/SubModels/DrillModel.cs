@@ -9,20 +9,18 @@ using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
    [SExprNode("drill")]
-   public class DrillModel : IKiCadReadable
+   public class DrillModel : Model, IKiCadReadable
    {
       #region Local Props
-      public bool IsOval { get; set; }
-
-      public double? Diameter { get; set; }
-
-      public double? Width { get; set; }
-
-      [SExprNode("offset")]
-      public XyModel? Offset { get; set; }
+      private bool _isOval;
+      private double? _diameter = null;
+      private double? _width = null;
+      private XyModel? _offset = null;
       #endregion
 
       #region Constructors
@@ -100,7 +98,46 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #endregion
 
       #region Full Props
+      public bool IsOval
+      {
+         get => _isOval;
+         set
+         {
+            _isOval = value;
+            OnPropertyChanged();
+         }
+      }
 
+      public double? Diameter
+      {
+         get => _diameter;
+         set
+         {
+            _diameter = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public double? Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("offset")]
+      public XyModel? Offset
+      {
+         get => _offset;
+         set
+         {
+            _offset = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

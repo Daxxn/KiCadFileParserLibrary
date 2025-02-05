@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,13 +10,15 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
    [SExprNode("private_layers")]
-   public class PrivateLayersModel : IKiCadReadable
+   public class PrivateLayersModel : Model, IKiCadReadable
    {
       #region Local Props
-      public List<string>? Layers { get; set; }
+      private ObservableCollection<string>? _layers;
       #endregion
 
       #region Constructors
@@ -58,7 +61,15 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<string>? Layers
+      {
+         get => _layers;
+         set
+         {
+            _layers = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

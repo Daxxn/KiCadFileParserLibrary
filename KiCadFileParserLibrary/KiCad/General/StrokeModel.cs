@@ -10,19 +10,17 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("stroke")]
-   public class StrokeModel : IKiCadReadable
+   public class StrokeModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("width")]
-      public double Width { get; set; }
-
-      [SExprSubNode("type")]
-      public StrokeType Type { get; set; }
-
-      public ColorModel? Color { get; set; }
+      private double _width;
+      private StrokeType _type;
+      private ColorModel? _color;
       #endregion
 
       #region Constructors
@@ -60,7 +58,37 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      [SExprSubNode("width")]
+      public double Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("type")]
+      public StrokeType Type
+      {
+         get => _type;
+         set
+         {
+            _type = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public ColorModel? Color
+      {
+         get => _color;
+         set
+         {
+            _color = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

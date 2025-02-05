@@ -10,25 +10,19 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("paper")]
-   public class PaperModel : IKiCadReadable
+   public class PaperModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public string? Name { get; set; }
-
-      public bool IsCustomSize { get; set; }
-
-      [SExprProperty(2, true)]
-      public double? Width { get; set; }
-
-      [SExprProperty(1, true)]
-      public double? Height { get; set; }
-
-      [SExprToken("portrait")]
-      public bool IsPortrait { get; set; }
+      private string? _name;
+      private bool _isCustomSize;
+      private double? _width;
+      private double? _height;
+      private bool _isPortrait;
       #endregion
 
       #region Constructors
@@ -83,7 +77,59 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public string? Name
+      {
+         get => _name;
+         set
+         {
+            _name = value;
+            OnPropertyChanged();
+         }
+      }
 
+      public bool IsCustomSize
+      {
+         get => _isCustomSize;
+         set
+         {
+            _isCustomSize = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprProperty(2, true)]
+      public double? Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprProperty(1, true)]
+      public double? Height
+      {
+         get => _height;
+         set
+         {
+            _height = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("portrait")]
+      public bool IsPortrait
+      {
+         get => _isPortrait;
+         set
+         {
+            _isPortrait = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

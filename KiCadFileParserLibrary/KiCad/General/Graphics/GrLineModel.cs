@@ -14,22 +14,13 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    public class GrLineModel : GraphicBase
    {
       #region Local Props
-      [SExprNode("start")]
-      public XyModel Start { get; set; } = new();
+      private XyModel _start = new();
+      private XyModel _end = new();
+      private string _layer = "";
+      private StrokeModel? _stroke;
+      private string _id = "";
+      private double? _angle;
 
-      [SExprNode("end")]
-      public XyModel End { get; set; } = new();
-
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      public StrokeModel? Stroke { get; set; }
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      [SExprSubNode("angle")]
-      public double? Angle { get; set; }
       #endregion
 
       #region Constructors
@@ -76,7 +67,70 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprNode("start")]
+      public XyModel Start
+      {
+         get => _start;
+         set
+         {
+            _start = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprNode("end")]
+      public XyModel End
+      {
+         get => _end;
+         set
+         {
+            _end = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public StrokeModel? Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("angle")]
+      public double? Angle
+      {
+         get => _angle;
+         set
+         {
+            _angle = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

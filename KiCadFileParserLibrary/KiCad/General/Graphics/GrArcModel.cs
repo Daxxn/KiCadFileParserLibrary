@@ -14,25 +14,13 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    public class GrArcModel : GraphicBase
    {
       #region Local Props
-      [SExprNode("start")]
-      public XyModel Start { get; set; } = new();
-
-      [SExprNode("mid")]
-      public XyModel Middle { get; set; } = new();
-
-      [SExprNode("end")]
-      public XyModel End { get; set; } = new();
-
-      public StrokeModel Stroke { get; set; } = new();
-
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      [SExprSubNode("locked")]
-      public bool Locked { get; set; }
+      private XyModel _start = new();
+      private XyModel _middle = new();
+      private XyModel _end = new();
+      private StrokeModel _stroke = new();
+      private string _layer = "";
+      private string _id = "";
+      private bool _locked;
       #endregion
 
       #region Constructors
@@ -80,7 +68,81 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprNode("start")]
+      public XyModel Start
+      {
+         get => _start;
+         set
+         {
+            _start = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprNode("mid")]
+      public XyModel Middle
+      {
+         get => _middle;
+         set
+         {
+            _middle = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("end")]
+      public XyModel End
+      {
+         get => _end;
+         set
+         {
+            _end = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public StrokeModel Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("locked")]
+      public bool Locked
+      {
+         get => _locked;
+         set
+         {
+            _locked = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

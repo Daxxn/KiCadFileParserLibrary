@@ -11,13 +11,15 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
    [SExprNode("primitives")]
-   public class CustomPadPrimitives : IKiCadReadable
+   public class CustomPadPrimitives : Model, IKiCadReadable
    {
       #region Local Props
-      public GrGraphicsCollection Primitives { get; set; } = new();
+      private GrGraphicsCollection _primitives;
       #endregion
 
       #region Constructors
@@ -47,7 +49,15 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #endregion
 
       #region Full Props
-
+      public GrGraphicsCollection Primitives
+      {
+         get => _primitives;
+         set
+         {
+            _primitives = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

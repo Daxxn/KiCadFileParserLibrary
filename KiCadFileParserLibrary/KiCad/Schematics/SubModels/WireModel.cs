@@ -8,10 +8,12 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels
 {
    [SExprNode("wire")]
-   public class WireModel : IKiCadReadable
+   public class WireModel : Model, IKiCadReadable
    {
       #region Local Props
 

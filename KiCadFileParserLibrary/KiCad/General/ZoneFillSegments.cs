@@ -10,16 +10,16 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("fill_segments")]
-   public class ZoneFillSegments : IKiCadReadable
+   public class ZoneFillSegments : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      public CoordinateModel? Points { get; set; }
+      private string _layer = "";
+      private CoordinateModel? _points;
       #endregion
 
       #region Constructors
@@ -54,7 +54,26 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
 
+      public CoordinateModel? Points
+      {
+         get => _points;
+         set
+         {
+            _points = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

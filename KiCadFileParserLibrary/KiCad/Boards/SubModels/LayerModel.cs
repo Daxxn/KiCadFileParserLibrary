@@ -10,23 +10,18 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("layer")]
-   public class LayerModel : IKiCadReadable
+   public class LayerModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(0)]
-      public int Index { get; set; } = -1;
-
-      [SExprProperty(1)]
-      public string? Name { get; set; }
-
-      [SExprProperty(2)]
-      public LayerType Type { get; set; }
-
-      [SExprProperty(3)]
-      public string? UserName { get; set; }
+      private int _index = -1;
+      private string? _name = null;
+      private LayerType _type;
+      private string? _userName = null;
       #endregion
 
       #region Constructors
@@ -64,7 +59,49 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
       #endregion
 
       #region Full Props
+      [SExprProperty(0)]
+      public int Index
+      {
+         get => _index;
+         set
+         {
+            _index = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(1)]
+      public string? Name
+      {
+         get => _name;
+         set
+         {
+            _name = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprProperty(2)]
+      public LayerType Type
+      {
+         get => _type;
+         set
+         {
+            _type = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprProperty(3)]
+      public string? UserName
+      {
+         get => _userName;
+         set
+         {
+            _userName = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

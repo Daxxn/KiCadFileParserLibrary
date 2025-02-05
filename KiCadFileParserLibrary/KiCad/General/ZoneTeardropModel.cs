@@ -9,14 +9,15 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("teardrop")]
-   public class ZoneTeardropModel : IKiCadReadable
+   public class ZoneTeardropModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("type")]
-      public TeardropType Type { get; set; }
+      private TeardropType _type;
       #endregion
 
       #region Constructors
@@ -47,7 +48,16 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
-
+      [SExprSubNode("type")]
+      public TeardropType Type
+      {
+         get => _type;
+         set
+         {
+            _type = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

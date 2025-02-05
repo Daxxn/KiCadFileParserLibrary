@@ -10,19 +10,19 @@ using KiCadFileParserLibrary.KiCad.Symbols.Collections;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
 {
    [SExprNode("symbol")]
-   public class SubSymbolModel : IKiCadReadable
+   public class SubSymbolModel : Model, IKiCadReadable
    {
       #region Local Props
       private string? _name;
-      public int Unit { get; set; }
-      public SymbolStyleIdentifier StyleID { get; set; }
-
-      public PinCollection? Pins { get; set; }
-
-      public SyGraphicsCollection? Graphics { get; set; }
+      private int _version;
+      private SymbolStyleIdentifier _styleID;
+      private PinCollection? _pins;
+      private SyGraphicsCollection? _graphics;
       #endregion
 
       #region Constructors
@@ -73,6 +73,45 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
                   throw new Exception("Symbol name doesnt follow the [NAME_UNIT_STYLE] format. Check the save file.");
                }
             }
+         }
+      }
+      public int Unit
+      {
+         get => _version;
+         set
+         {
+            _version = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public SymbolStyleIdentifier StyleID
+      {
+         get => _styleID;
+         set
+         {
+            _styleID = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public PinCollection? Pins
+      {
+         get => _pins;
+         set
+         {
+            _pins = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public SyGraphicsCollection? Graphics
+      {
+         get => _graphics;
+         set
+         {
+            _graphics = value;
+            OnPropertyChanged();
          }
       }
       #endregion

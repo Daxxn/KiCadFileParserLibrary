@@ -9,17 +9,16 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("hatch")]
-   public class HatchModel : IKiCadReadable
+   public class HatchModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public HatchType Type { get; set; }
-
-      [SExprProperty(2)]
-      public double? Spacing { get; set; }
+      private HatchType _type;
+      private double? _spacing;
       #endregion
 
       #region Constructors
@@ -44,7 +43,27 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public HatchType Type
+      {
+         get => _type;
+         set
+         {
+            _type = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(2)]
+      public double? Spacing
+      {
+         get => _spacing;
+         set
+         {
+            _spacing = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

@@ -8,14 +8,16 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.KiCad.Interfaces;
+using MVVMLibrary;
+using System.Collections.ObjectModel;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
    [SExprListNode("footprint")]
-   public class FootprintCollection : IKiCadReadable
+   public class FootprintCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<Footprint> Footprints { get; set; } = [];
+      private ObservableCollection<Footprint> _footprints = [];
       #endregion
 
       #region Constructors
@@ -51,7 +53,15 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<Footprint> Footprints
+      {
+         get => _footprints;
+         set
+         {
+            _footprints = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

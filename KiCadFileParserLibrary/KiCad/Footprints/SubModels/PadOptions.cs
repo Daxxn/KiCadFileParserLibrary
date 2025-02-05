@@ -9,19 +9,18 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
    [SExprNode("options")]
-   public class PadOptions : IKiCadReadable
+   public class PadOptions : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("clearance")]
-      public CustomPadClearance Clearance { get; set; }
-
-      [SExprSubNode("anchor")]
-      public CustomPadAnchor Anchor { get; set; }
+      private CustomPadClearance _clearance;
+      private CustomPadAnchor _anchor;
       #endregion
 
       #region Constructors
@@ -55,7 +54,27 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #endregion
 
       #region Full Props
+      [SExprSubNode("clearance")]
+      public CustomPadClearance Clearance
+      {
+         get => _clearance;
+         set
+         {
+            _clearance = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("anchor")]
+      public CustomPadAnchor Anchor
+      {
+         get => _anchor;
+         set
+         {
+            _anchor = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

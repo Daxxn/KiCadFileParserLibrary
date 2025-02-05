@@ -15,16 +15,10 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    public class GrCurveModel : GraphicBase
    {
       #region Local Props
-      public CoordinateModel? Points { get; set; }
-
-      [SExprSubNode("layer")]
-      public string? Layer { get; set; }
-
-      [SExprSubNode("width")]
-      public double? Width { get; set; }
-
-      [SExprSubNode("uuid")]
-      public string? ID { get; set; }
+      private CoordinateModel? _points;
+      private string? _layer;
+      private double? _width;
+      private string? _id;
       #endregion
 
       #region Constructors
@@ -49,7 +43,48 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      public CoordinateModel? Points
+      {
+         get => _points;
+         set
+         {
+            _points = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("layer")]
+      public string? Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("width")]
+      public double? Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string? ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

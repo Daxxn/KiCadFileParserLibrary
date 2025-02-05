@@ -11,45 +11,26 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Boards.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
+using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards
 {
    [SExprNode("via")]
-   public class ViaModel : IKiCadReadable
+   public class ViaModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("type")]
-      public ViaType Type { get; set; }
-
-      public LocationModel? Location { get; set; }
-
-      [SExprSubNode("size")]
-      public double Size { get; set; }
-
-      [SExprSubNode("drill")]
-      public double Drill { get; set; }
-
-      public LayerCollection? Layers { get; set; }
-
-      [SExprToken("remove_unused_layers")]
-      public bool RemoveUnusedLayers { get; set; }
-
-      [SExprToken("keep_end_layers")]
-      public bool KeepEndLayers { get; set; }
-
-      [SExprSubNode("free")]
-      public bool IsFree { get; set; }
-
-      [SExprSubNode("zone_layer_connections")]
-      public string ZoneLayerConnections { get; set; } = "";
-
-      [SExprSubNode("net")]
-      public int Net { get; set; } = -1;
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      public TeardropModel? Teardrops { get; set; }
+      private ViaType _type;
+      private LocationModel? _location;
+      private double _size;
+      private double _drill;
+      private LayerCollection? _layers;
+      private bool _removeUnusedLayers;
+      private bool _keepEndLayers;
+      private bool _isFree;
+      private string _zoneLayerConnections;
+      private int _net;
+      private string _id;
+      private TeardropModel? _teardrops;
       #endregion
 
       #region Constructors
@@ -126,7 +107,134 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       #endregion
 
       #region Full Props
+      [SExprSubNode("type")]
+      public ViaType Type
+      {
+         get => _type;
+         set
+         {
+            _type = value;
+            OnPropertyChanged();
+         }
+      }
 
+      public LocationModel? Location
+      {
+         get => _location;
+         set
+         {
+            _location = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("size")]
+      public double Size
+      {
+         get => _size;
+         set
+         {
+            _size = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("drill")]
+      public double Drill
+      {
+         get => _drill;
+         set
+         {
+            _drill = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public LayerCollection? Layers
+      {
+         get => _layers;
+         set
+         {
+            _layers = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("remove_unused_layers")]
+      public bool RemoveUnusedLayers
+      {
+         get => _removeUnusedLayers;
+         set
+         {
+            _removeUnusedLayers = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("keep_end_layers")]
+      public bool KeepEndLayers
+      {
+         get => _keepEndLayers;
+         set
+         {
+            _keepEndLayers = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("free")]
+      public bool IsFree
+      {
+         get => _isFree;
+         set
+         {
+            _isFree = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("zone_layer_connections")]
+      public string ZoneLayerConnections
+      {
+         get => _zoneLayerConnections;
+         set
+         {
+            _zoneLayerConnections = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("net")]
+      public int Net
+      {
+         get => _net;
+         set
+         {
+            _net = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public TeardropModel? Teardrops
+      {
+         get => _teardrops;
+         set
+         {
+            _teardrops = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

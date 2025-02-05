@@ -11,36 +11,23 @@ using KiCadFileParserLibrary.KiCad.Symbols.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Symbols
 {
    [SExprNode("symbol")]
-   public class Symbol : IKiCadReadable
+   public class Symbol : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public string? SymbolName { get; set; }
-
-      [SExprSubNode("extends")]
-      public string? ExtendsSymbol { get; set; }
-
-      [SExprSubNode("exclude_from_sim")]
-      public bool ExcludeFromSim { get; set; }
-
-      [SExprSubNode("pin_numbers")]
-      public SymbolVisibility PinVisibility { get; set; }
-
-      [SExprNode("pin_names")]
-      public PinNamesModel? PinNames { get; set; }
-
-      [SExprSubNode("in_bom")]
-      public bool InBom { get; set; }
-
-      [SExprSubNode("on_board")]
-      public bool OnBoard { get; set; }
-
-      public PropertyCollection? Properties { get; set; }
-
-      public SubSymbolCollection? SubSymbols { get; set; }
+      private string? _symbolName;
+      private string? _extendsSymbol;
+      private bool _excludeFromSim;
+      private SymbolVisibility _pinVis;
+      private PinNamesModel? _pinNames;
+      private bool _inBom;
+      private bool _onBoard;
+      private PropertyCollection? _props;
+      private SubSymbolCollection? _subSymbols;
       #endregion
 
       #region Constructors
@@ -67,7 +54,102 @@ namespace KiCadFileParserLibrary.KiCad.Symbols
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public string? SymbolName
+      {
+         get => _symbolName;
+         set
+         {
+            _symbolName = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("extends")]
+      public string? ExtendsSymbol
+      {
+         get => _extendsSymbol;
+         set
+         {
+            _extendsSymbol = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("exclude_from_sim")]
+      public bool ExcludeFromSim
+      {
+         get => _excludeFromSim;
+         set
+         {
+            _excludeFromSim = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("pin_numbers")]
+      public SymbolVisibility PinVisibility
+      {
+         get => _pinVis;
+         set
+         {
+            _pinVis = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("pin_names")]
+      public PinNamesModel? PinNames
+      {
+         get => _pinNames;
+         set
+         {
+            _pinNames = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("in_bom")]
+      public bool InBom
+      {
+         get => _inBom;
+         set
+         {
+            _inBom = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("on_board")]
+      public bool OnBoard
+      {
+         get => _onBoard;
+         set
+         {
+            _onBoard = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public PropertyCollection? Properties
+      {
+         get => _props;
+         set
+         {
+            _props = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public SubSymbolCollection? SubSymbols
+      {
+         get => _subSymbols;
+         set
+         {
+            _subSymbols = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

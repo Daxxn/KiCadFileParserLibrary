@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,15 @@ using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprListNode("net")]
-   public class NetCollection : IKiCadReadable
+   public class NetCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<NetModel> Nets { get; set; } = [];
+      private ObservableCollection<NetModel> _nets = [];
       #endregion
 
       #region Constructors
@@ -51,7 +54,15 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<NetModel> Nets
+      {
+         get => _nets;
+         set
+         {
+            _nets = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

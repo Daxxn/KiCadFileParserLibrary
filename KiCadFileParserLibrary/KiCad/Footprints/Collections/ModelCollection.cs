@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,13 +12,15 @@ using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
    [SExprListNode("model")]
-   public class ModelCollection : IKiCadReadable
+   public class ModelCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<Footprint3DModel> Models { get; set; } = [];
+      private ObservableCollection<Footprint3DModel> _models = [];
       #endregion
 
       #region Constructors
@@ -53,7 +56,15 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<Footprint3DModel> Models
+      {
+         get => _models;
+         set
+         {
+            _models = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

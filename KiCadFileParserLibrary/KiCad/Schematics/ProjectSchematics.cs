@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Schematics
 {
-   public class ProjectSchematics : IList<Schematic>
+   public class ProjectSchematics : Model
    {
       #region Local Props
-      private List<Schematic>? Schematics { get; set; }
-      public int Count { get; }
-      public bool IsReadOnly { get; }
-
+      private ObservableCollection<Schematic>? _schematics;
+      public int Count => _schematics?.Count ?? 0;
+      public bool IsReadOnly => false;
       #endregion
 
       #region Constructors
@@ -26,47 +28,37 @@ namespace KiCadFileParserLibrary.KiCad.Schematics
 
       public void Insert(int index, Schematic item)
       {
-         throw new NotImplementedException();
+         Schematics?.Insert(index, item);
       }
 
       public void RemoveAt(int index)
       {
-         throw new NotImplementedException();
+         Schematics?.RemoveAt(index);
       }
 
       public void Add(Schematic item)
       {
-         throw new NotImplementedException();
+         Schematics?.Add(item);
       }
 
       public void Clear()
       {
-         throw new NotImplementedException();
+         Schematics?.Clear();
       }
 
       public bool Contains(Schematic item)
       {
-         throw new NotImplementedException();
+         return Schematics?.Contains(item) == true;
       }
 
       public void CopyTo(Schematic[] array, int arrayIndex)
       {
-         throw new NotImplementedException();
+         Schematics?.CopyTo(array, arrayIndex);
       }
 
       public bool Remove(Schematic item)
       {
-         throw new NotImplementedException();
-      }
-
-      public IEnumerator<Schematic> GetEnumerator()
-      {
-         throw new NotImplementedException();
-      }
-
-      IEnumerator IEnumerable.GetEnumerator()
-      {
-         throw new NotImplementedException();
+         return Schematics?.Remove(item) == true;
       }
       #endregion
 
@@ -87,6 +79,15 @@ namespace KiCadFileParserLibrary.KiCad.Schematics
          }
       }
 
+      public ObservableCollection<Schematic>? Schematics
+      {
+         get => _schematics;
+         set
+         {
+            _schematics = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

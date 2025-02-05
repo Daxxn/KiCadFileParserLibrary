@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -11,25 +12,23 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("title_block")]
-   public class TitleBlockModel : IKiCadReadable
+   public class TitleBlockModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("title")]
-      public string? Title { get; set; }
+      private string? _title;
 
-      [SExprSubNode("date")]
-      public DateOnly? Date { get; set; }
+      private DateOnly? _date;
 
-      [SExprSubNode("rev")]
-      public string? Revision { get; set; }
+      private string? _rev;
 
-      [SExprSubNode("company")]
-      public string? Company { get; set; }
+      private string? _company;
 
-      public List<CommentModel>? Comments { get; set; }
+      private ObservableCollection<CommentModel>? _comments;
       #endregion
 
       #region Constructors
@@ -114,7 +113,59 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
       #endregion
 
       #region Full Props
+      [SExprSubNode("title")]
+      public string? Title
+      {
+         get => _title;
+         set
+         {
+            _title = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("date")]
+      public DateOnly? Date
+      {
+         get => _date;
+         set
+         {
+            _date = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("rev")]
+      public string? Revision
+      {
+         get => _rev;
+         set
+         {
+            _rev = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("company")]
+      public string? Company
+      {
+         get => _company;
+         set
+         {
+            _company = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public ObservableCollection<CommentModel>? Comments
+      {
+         get => _comments;
+         set
+         {
+            _comments = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

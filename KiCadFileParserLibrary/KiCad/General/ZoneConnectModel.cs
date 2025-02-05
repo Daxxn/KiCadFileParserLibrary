@@ -9,17 +9,16 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("connect_pads")]
-   public class ZoneConnectModel : IKiCadReadable
+   public class ZoneConnectModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public bool IsConnected { get; set; }
-
-      [SExprSubNode("clearance")]
-      public double? Clearance { get; set; }
+      private bool _isConnected;
+      private double? _clearance;
       #endregion
 
       #region Constructors
@@ -45,7 +44,27 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public bool IsConnected
+      {
+         get => _isConnected;
+         set
+         {
+            _isConnected = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("clearance")]
+      public double? Clearance
+      {
+         get => _clearance;
+         set
+         {
+            _clearance = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

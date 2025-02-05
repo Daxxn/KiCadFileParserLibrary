@@ -15,26 +15,14 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    public class GrTextModel : GraphicBase
    {
       #region Local Props
-      [SExprSubNode("locked")]
-      public bool Locked { get; set; }
-
-      [SExprProperty(1)]
-      public string Text { get; set; } = "";
-
-      //[SExprSubNode("layer")]
-      //public string Layer { get; set; } = "";
-      public FpTextLayerModel Layer { get; set; } = new();
-
-      private bool Knockout { get; set; } = false;
-
-      public LocationModel? Location { get; set; }
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      public EffectsModel? Effects { get; set; }
-
-      public RenderCacheModel? RenderCache { get; set; }
+      private bool _locked;
+      private string _text = "";
+      private FpTextLayerModel _layer = new();
+      private bool _knockout;
+      private LocationModel? _location;
+      private string _id = "";
+      private EffectsModel? _effect;
+      private RenderCacheModel? _renderCache;
       #endregion
 
       #region Constructors
@@ -85,7 +73,88 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprSubNode("locked")]
+      public bool Locked
+      {
+         get => _locked;
+         set
+         {
+            _locked = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(1)]
+      public string Text
+      {
+         get => _text;
+         set
+         {
+            _text = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public FpTextLayerModel Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      private bool Knockout
+      {
+         get => _knockout;
+         set
+         {
+            _knockout = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public LocationModel? Location
+      {
+         get => _location;
+         set
+         {
+            _location = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public EffectsModel? Effects
+      {
+         get => _effect;
+         set
+         {
+            _effect = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public RenderCacheModel? RenderCache
+      {
+         get => _renderCache;
+         set
+         {
+            _renderCache = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

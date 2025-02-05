@@ -17,21 +17,12 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
    public class FpCurveModel : GraphicBase
    {
       #region Local Props
-      [SExprSubNode("layer")]
-      public string? Layer { get; set; }
-
-      [SExprSubNode("width")]
-      public double? Width { get; set; }
-
-      [SExprToken("locked")]
-      public bool? Locked { get; set; }
-
-      [SExprSubNode("uuid")]
-      public string? ID { get; set; }
-
-      public CoordinateModel? Coordinates { get; set; }
-
-      public StrokeModel? Stroke { get; set; }
+      private string? _layer;
+      private double? _width;
+      private bool? _locked;
+      private string? _id;
+      private CoordinateModel? _coordinates;
+      private StrokeModel? _stroke;
       #endregion
 
       #region Constructors
@@ -57,7 +48,69 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #endregion
 
       #region Full Props
+      [SExprSubNode("layer")]
+      public string? Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("width")]
+      public double? Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("locked")]
+      public bool? Locked
+      {
+         get => _locked;
+         set
+         {
+            _locked = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string? ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public CoordinateModel? Coordinates
+      {
+         get => _coordinates;
+         set
+         {
+            _coordinates = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public StrokeModel? Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

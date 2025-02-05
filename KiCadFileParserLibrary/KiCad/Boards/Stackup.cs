@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,28 +10,27 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards
 {
    [SExprNode("stackup")]
-   public class Stackup : IKiCadReadable
+   public class Stackup : Model, IKiCadReadable
    {
-      public List<StackupLayer> Layers { get; set; } = [];
+      #region Local Props
+      private ObservableCollection<StackupLayer> _layers = [];
+      private string? _copperFinish;
+      private bool _impedanceControlled;
+      private bool _castellatedPads;
+      private bool _edgePlating;
+      private EdgeConnectorType _edgeConnector;
+      #endregion
 
-      [SExprSubNode("copper_finish")]
-      public string? Copperfinish { get; set; }
+      #region Constructors
+      public Stackup() { }
+      #endregion
 
-      [SExprSubNode("dielectric_constraints")]
-      public bool ImpedanceControlled { get; set; }
-
-      [SExprSubNode("castellated_pads")]
-      public bool CastellatedPads { get; set; }
-
-      [SExprSubNode("edge_plating")]
-      public bool EdgePlating { get; set; }
-
-      [SExprSubNode("edge_connector")]
-      public EdgeConnectorType EdgeConnector { get; set; }
-
+      #region Methods
       public void ParseNode(Node node)
       {
          if (node.Children is null) return;
@@ -56,10 +56,10 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          {
             layer.WriteNode(builder, indent + 1);
          }
-         if (Copperfinish != null)
+         if (CopperFinish != null)
          {
             builder.Append('\t', indent + 1);
-            builder.AppendLine($"(copper_finish \"{Copperfinish}\")");
+            builder.AppendLine($"(copper_finish \"{CopperFinish}\")");
          }
          if (ImpedanceControlled)
          {
@@ -87,7 +87,75 @@ namespace KiCadFileParserLibrary.KiCad.Boards
 
       public override string ToString()
       {
-         return $"Stackup - Finish: {Copperfinish} - Impedance: {ImpedanceControlled} - Castellated-Pads: {CastellatedPads} - Edge-Pating: {EdgePlating} - Edge-Conn: {EdgeConnector}";
+         return $"Stackup - Finish: {CopperFinish} - Impedance: {ImpedanceControlled} - Castellated-Pads: {CastellatedPads} - Edge-Pating: {EdgePlating} - Edge-Conn: {EdgeConnector}";
       }
+      #endregion
+
+      #region Full Props
+      public ObservableCollection<StackupLayer> Layers
+      {
+         get => _layers;
+         set
+         {
+            _layers = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("copper_finish")]
+      public string? CopperFinish
+      {
+         get => _copperFinish;
+         set
+         {
+            _copperFinish = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("dielectric_constraints")]
+      public bool ImpedanceControlled
+      {
+         get => _impedanceControlled;
+         set
+         {
+            _impedanceControlled = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("castellated_pads")]
+      public bool CastellatedPads
+      {
+         get => _castellatedPads;
+         set
+         {
+            _castellatedPads = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("edge_plating")]
+      public bool EdgePlating
+      {
+         get => _edgePlating;
+         set
+         {
+            _edgePlating = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("edge_connector")]
+      public EdgeConnectorType EdgeConnector
+      {
+         get => _edgeConnector;
+         set
+         {
+            _edgeConnector = value;
+            OnPropertyChanged();
+         }
+      }
+      #endregion
    }
 }

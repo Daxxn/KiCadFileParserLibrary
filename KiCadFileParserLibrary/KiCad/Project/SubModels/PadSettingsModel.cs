@@ -4,21 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using MVVMLibrary;
+
 using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels
 {
-   public class PadSettingsModel
+   public class PadSettingsModel : Model
    {
       #region Local Props
-      [JsonProperty(PropertyName = "drill")]
-      public double Drill { get; set; }
-
-      [JsonProperty(PropertyName = "height")]
-      public double Height { get; set; }
-
-      [JsonProperty(PropertyName = "width")]
-      public double Width { get; set; }
+      private double _drill;
+      private double _height;
+      private double _width;
       #endregion
 
       #region Constructors
@@ -30,7 +27,38 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       #endregion
 
       #region Full Props
+      [JsonProperty(PropertyName = "drill")]
+      public double Drill
+      {
+         get => _drill;
+         set
+         {
+            _drill = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [JsonProperty(PropertyName = "height")]
+      public double Height
+      {
+         get => _height;
+         set
+         {
+            _height = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [JsonProperty(PropertyName = "width")]
+      public double Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

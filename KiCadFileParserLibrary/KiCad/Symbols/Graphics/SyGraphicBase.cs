@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
 {
-   public abstract class SyGraphicBase : IKiCadReadable
+   public abstract class SyGraphicBase : Model, IKiCadReadable
    {
       public abstract void ParseNode(Node node);
 

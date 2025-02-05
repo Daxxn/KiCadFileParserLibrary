@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,15 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprListNode("generated")]
-   public class TunedLengthCollection : IKiCadReadable
+   public class TunedLengthCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<TunedLengthModel> TunedLengths { get; set; } = [];
+      private ObservableCollection<TunedLengthModel> _tunedLengths = [];
       #endregion
 
       #region Constructors
@@ -53,7 +56,15 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<TunedLengthModel> TunedLengths
+      {
+         get => _tunedLengths;
+         set
+         {
+            _tunedLengths = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

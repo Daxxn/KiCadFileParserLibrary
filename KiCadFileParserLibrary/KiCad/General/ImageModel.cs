@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,26 +10,21 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 using static System.Net.Mime.MediaTypeNames;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("image")]
-   public class ImageModel : IKiCadReadable
+   public class ImageModel : Model, IKiCadReadable
    {
       #region Local Props
-      public LocationModel Location { get; set; } = new();
-
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      [SExprSubNode("scale")]
-      public double? Scale { get; set; }
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      public List<string> Data { get; set; } = [];
+      private LocationModel _location = new();
+      private string _layer = "";
+      private double? _scale;
+      private string _id = "";
+      private ObservableCollection<string> _data = [];
       #endregion
 
       #region Constructors
@@ -98,7 +94,58 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      public LocationModel Location
+      {
+         get => _location;
+         set
+         {
+            _location = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("scale")]
+      public double? Scale
+      {
+         get => _scale;
+         set
+         {
+            _scale = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public ObservableCollection<string> Data
+      {
+         get => _data;
+         set
+         {
+            _data = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

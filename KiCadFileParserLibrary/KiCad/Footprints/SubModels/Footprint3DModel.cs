@@ -10,26 +10,19 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
    [SExprNode("model")]
-   public class Footprint3DModel : IKiCadReadable
+   public class Footprint3DModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public string? Path { get; set; }
-
-      [SExprSubNode("opacity")]
-      public double? Opacity { get; set; }
-
-      [SExprNode("offset/xyz")]
-      public XyzModel Offset { get; set; } = new();
-
-      [SExprNode("scale/xyz")]
-      public XyzModel Scale { get; set; } = new();
-
-      [SExprNode("rotate/xyz")]
-      public XyzModel Rotation { get; set; } = new();
+      private string? _path;
+      private double? _opacity;
+      private XyzModel _offset = new();
+      private XyzModel _scale = new();
+      private XyzModel _rotation = new();
       #endregion
 
       #region Constructors
@@ -83,7 +76,60 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public string? Path
+      {
+         get => _path;
+         set
+         {
+            _path = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("opacity")]
+      public double? Opacity
+      {
+         get => _opacity;
+         set
+         {
+            _opacity = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("offset/xyz")]
+      public XyzModel Offset
+      {
+         get => _offset;
+         set
+         {
+            _offset = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("scale/xyz")]
+      public XyzModel Scale
+      {
+         get => _scale;
+         set
+         {
+            _scale = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("rotate/xyz")]
+      public XyzModel Rotation
+      {
+         get => _rotation;
+         set
+         {
+            _rotation = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

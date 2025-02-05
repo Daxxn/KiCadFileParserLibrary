@@ -10,32 +10,21 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
    [SExprNode("attr")]
-   public class FootprintAttributeModel : IKiCadReadable
+   public class FootprintAttributeModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public FootprintType Type { get; set; }
-
-      [SExprToken("board_only")]
-      public bool BoardOnly { get; set; }
-
-      [SExprToken("exclude_from_pos_files")]
-      public bool ExcludeFromposFiles { get; set; }
-
-      [SExprToken("exclude_from_bom")]
-      public bool ExcludeFromBom { get; set; }
-
-      [SExprToken("allow_missing_courtyard")]
-      public bool AllowMissingCourtyard { get; set; }
-
-      [SExprToken("allow_soldermask_bridges")]
-      public bool AllowSoldermaskBridges { get; set; }
-
-      [SExprToken("dnp")]
-      public bool DontPopulate { get; set; }
+      private FootprintType _type;
+      private bool _boardOnly;
+      private bool _excludeFromposFiles;
+      private bool _excludeFromBom;
+      private bool _allowMissingCourtyard;
+      private bool _allowSoldermaskBridges;
+      private bool _dontPopulate;
       #endregion
 
       #region Constructors
@@ -120,7 +109,82 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public FootprintType Type
+      {
+         get => _type;
+         set
+         {
+            _type = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprToken("board_only")]
+      public bool BoardOnly
+      {
+         get => _boardOnly;
+         set
+         {
+            _boardOnly = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("exclude_from_pos_files")]
+      public bool ExcludeFromposFiles
+      {
+         get => _excludeFromposFiles;
+         set
+         {
+            _excludeFromposFiles = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("exclude_from_bom")]
+      public bool ExcludeFromBom
+      {
+         get => _excludeFromBom;
+         set
+         {
+            _excludeFromBom = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("allow_missing_courtyard")]
+      public bool AllowMissingCourtyard
+      {
+         get => _allowMissingCourtyard;
+         set
+         {
+            _allowMissingCourtyard = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("allow_soldermask_bridges")]
+      public bool AllowSoldermaskBridges
+      {
+         get => _allowSoldermaskBridges;
+         set
+         {
+            _allowSoldermaskBridges = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("dnp")]
+      public bool DontPopulate
+      {
+         get => _dontPopulate;
+         set
+         {
+            _dontPopulate = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

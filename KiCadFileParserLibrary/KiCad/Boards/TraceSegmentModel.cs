@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,32 +11,22 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards
 {
    [SExprNode("segment")]
-   public class TraceSegmentModel : IKiCadReadable
+   public class TraceSegmentModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprNode("start")]
-      public LocationModel Start { get; set; } = new();
+      private LocationModel _start;
+      private LocationModel _end;
+      private double _width;
+      private string _layer;
+      private bool _locked;
+      private int _netIndex = -1;
+      private string _id;
 
-      [SExprNode("end")]
-      public LocationModel End { get; set; } = new();
-
-      [SExprSubNode("width")]
-      public double Width { get; set; }
-
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      [SExprSubNode("locked")]
-      public bool Locked { get; set; }
-
-      [SExprSubNode("net")]
-      public int NetIndex { get; set; } = -1;
-
-      [SExprSubNode("uuid")]
-      public string? ID { get; set; }
       #endregion
 
       #region Constructors
@@ -89,7 +80,82 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       #endregion
 
       #region Full Props
+      [SExprNode("start")]
+      public LocationModel Start
+      {
+         get => _start;
+         set
+         {
+            _start = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprNode("end")]
+      public LocationModel End
+      {
+         get => _end;
+         set
+         {
+            _end = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("width")]
+      public double Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("locked")]
+      public bool Locked
+      {
+         get => _locked;
+         set
+         {
+            _locked = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("net")]
+      public int NetIndex
+      {
+         get => _netIndex;
+         set
+         {
+            _netIndex = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string? ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

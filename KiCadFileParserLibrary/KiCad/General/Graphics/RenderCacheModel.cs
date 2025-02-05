@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,19 +10,17 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General.Graphics
 {
    [SExprNode("render_cache")]
-   public class RenderCacheModel : IKiCadReadable
+   public class RenderCacheModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public string? Text { get; set; }
-
-      [SExprProperty(2)]
-      public int Angle { get; set; }
-
-      public List<PolygonModel> Polygon { get; set; } = [];
+      private string? _text = "";
+      private int _angle = 0;
+      private ObservableCollection<PolygonModel> _polygon = [];
       #endregion
 
       #region Constructors
@@ -64,7 +63,37 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public string? Text
+      {
+         get => _text;
+         set
+         {
+            _text = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(2)]
+      public int Angle
+      {
+         get => _angle;
+         set
+         {
+            _angle = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public ObservableCollection<PolygonModel> Polygon
+      {
+         get => _polygon;
+         set
+         {
+            _polygon = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

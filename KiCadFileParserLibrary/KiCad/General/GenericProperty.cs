@@ -9,17 +9,16 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("property")]
-   public class GenericProperty : IKiCadReadable
+   public class GenericProperty : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public string? Key { get; set; }
-
-      [SExprProperty(2)]
-      public string? Value { get; set; }
+      private string? _key;
+      private string? _value;
       #endregion
 
       #region Constructors
@@ -42,7 +41,27 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public string? Key
+      {
+         get => _key;
+         set
+         {
+            _key = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(2)]
+      public string? Value
+      {
+         get => _value;
+         set
+         {
+            _value = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

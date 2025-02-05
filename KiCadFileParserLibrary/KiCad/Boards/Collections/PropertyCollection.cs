@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,15 +10,17 @@ using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprListNode("property")]
-   public class PropertyCollection : IKiCadReadable
+   public class PropertyCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<PropertyModel> Properties { get; set; } = [];
+      private ObservableCollection<PropertyModel> _properties = [];
 
-      public string FilterProp { get; set; } = "";
+      private string _filterProp = "";
       #endregion
 
       #region Constructors
@@ -58,7 +61,25 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       #endregion
 
       #region Full Props
+      public ObservableCollection<PropertyModel> Properties
+      {
+         get => _properties;
+         set
+         {
+            _properties = value;
+            OnPropertyChanged();
+         }
+      }
 
+      public string FilterProp
+      {
+         get => _filterProp;
+         set
+         {
+            _filterProp = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

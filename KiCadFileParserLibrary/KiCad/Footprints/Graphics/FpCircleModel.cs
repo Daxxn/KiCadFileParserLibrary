@@ -18,25 +18,13 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
    public class FpCircleModel : GraphicBase
    {
       #region Local Props
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      [SExprSubNode("width")]
-      public double Width { get; set; } = 0;
-
-      [SExprSubNode("Fill")]
-      public FillType Fill { get; set; } = FillType.None;
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      [SExprNode("center")]
-      public XyModel Center { get; set; } = new();
-
-      [SExprNode("end")]
-      public XyModel End { get; set; } = new();
-
-      public StrokeModel Stroke { get; set; } = new();
+      private string _layer = "";
+      private double _width;
+      private FillType _fill = FillType.None;
+      private string _id = "";
+      private XyModel _center = new();
+      private XyModel _end = new();
+      private StrokeModel _stroke = new();
       #endregion
 
       #region Constructors
@@ -81,7 +69,81 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #endregion
 
       #region Full Props
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("width")]
+      public double Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("Fill")]
+      public FillType Fill
+      {
+         get => _fill;
+         set
+         {
+            _fill = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("center")]
+      public XyModel Center
+      {
+         get => _center;
+         set
+         {
+            _center = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("end")]
+      public XyModel End
+      {
+         get => _end;
+         set
+         {
+            _end = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public StrokeModel Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

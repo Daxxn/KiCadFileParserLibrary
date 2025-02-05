@@ -10,28 +10,20 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
 {
    [SExprNode("pin")]
-   public class PinModel : IKiCadReadable
+   public class PinModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public PinElectricalType ElectricalType { get; set; }
-
-      [SExprProperty(2)]
-      public PinGraphicStyle GraphicalStyle { get; set; }
-
-      public LocationModel? Location { get; set; }
-
-      [SExprSubNode("length")]
-      public double? Length { get; set; }
-
-      [SExprNode("name")]
-      public PinTextModel? Name { get; set; }
-
-      [SExprNode("number")]
-      public PinTextModel? Number { get; set; }
+      private PinElectricalType _electType;
+      private PinGraphicStyle _graphStyle;
+      private LocationModel? _location;
+      private double? _len;
+      private PinTextModel? _name;
+      private PinTextModel? _number;
       #endregion
 
       #region Constructors
@@ -57,7 +49,70 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public PinElectricalType ElectricalType
+      {
+         get => _electType;
+         set
+         {
+            _electType = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(2)]
+      public PinGraphicStyle GraphicalStyle
+      {
+         get => _graphStyle;
+         set
+         {
+            _graphStyle = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public LocationModel? Location
+      {
+         get => _location;
+         set
+         {
+            _location = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("length")]
+      public double? Length
+      {
+         get => _len;
+         set
+         {
+            _len = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("name")]
+      public PinTextModel? Name
+      {
+         get => _name;
+         set
+         {
+            _name = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("number")]
+      public PinTextModel? Number
+      {
+         get => _number;
+         set
+         {
+            _number = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

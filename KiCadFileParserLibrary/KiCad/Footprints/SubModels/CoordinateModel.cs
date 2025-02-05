@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,24 @@ using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
    [SExprNode("pts")]
-   public class CoordinateModel : IKiCadReadable
+   public class CoordinateModel : Model, IKiCadReadable
    {
       #region Local Props
-      public List<XyModel> Points { get; set; } = [];
+      private ObservableCollection<XyModel> _points = [];
+      public ObservableCollection<XyModel> Points
+      {
+         get => _points;
+         set
+         {
+            _points = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
 
       #region Constructors

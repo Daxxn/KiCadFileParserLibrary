@@ -8,25 +8,17 @@ using KiCadFileParserLibrary.KiCad.Boards;
 using KiCadFileParserLibrary.KiCad.Project;
 using KiCadFileParserLibrary.KiCad.Schematics;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad
 {
-   public class KiCadProject
+   public class KiCadProject : Model
    {
       #region Local Props
-      //public static readonly Dictionary<string, ProjectFileType> KiCadProjectFileTypes = new()
-      //{
-      //   { "kicad_sch", ProjectFileType.Schematic },
-      //   { "kicad_pcb", ProjectFileType.PCB },
-      //   { "kicad_pro", ProjectFileType.Project },
-      //};
-
-      public string? ProjectFolder { get; set; }
-
-      public ProjectSettings? ProjectSettings { get; set; }
-
-      public PcbModel? PCB { get; set; }
-
-      public ProjectSchematics? Schematics { get; set; }
+      private string? _projFolder;
+      private ProjectSettings? _projSettings;
+      private PcbModel? _pcb;
+      private ProjectSchematics? _schematics;
       #endregion
 
       #region Constructors
@@ -71,7 +63,6 @@ namespace KiCadFileParserLibrary.KiCad
          get
          {
             if (ProjectFolder == null) return null;
-            //return Path.GetFileNameWithoutExtension(ProjectFolder);
             return Path.GetDirectoryName(ProjectFolder);
          }
       }
@@ -100,6 +91,45 @@ namespace KiCadFileParserLibrary.KiCad
          {
             if (ProjectFolder == null) return null;
             return Path.Combine(ProjectFolder, $"{ProjectName}.kicad_pcb");
+         }
+      }
+      public string? ProjectFolder
+      {
+         get => _projFolder;
+         set
+         {
+            _projFolder = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public ProjectSettings? ProjectSettings
+      {
+         get => _projSettings;
+         set
+         {
+            _projSettings = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public PcbModel? PCB
+      {
+         get => _pcb;
+         set
+         {
+            _pcb = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public ProjectSchematics? Schematics
+      {
+         get => _schematics;
+         set
+         {
+            _schematics = value;
+            OnPropertyChanged();
          }
       }
       #endregion

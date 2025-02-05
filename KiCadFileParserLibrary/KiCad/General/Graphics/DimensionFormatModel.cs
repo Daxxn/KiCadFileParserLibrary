@@ -9,32 +9,21 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General.Graphics
 {
    [SExprNode("format")]
-   public class DimensionFormatModel : IKiCadReadable
+   public class DimensionFormatModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("prefix")]
-      public string Prefix { get; set; } = "";
-
-      [SExprSubNode("suffix")]
-      public string Suffix { get; set; } = "";
-
-      [SExprSubNode("units")]
-      public UnitsType Units { get; set; }
-
-      [SExprSubNode("units_format")]
-      public UnitsFormat UnitsFormat { get; set; }
-
-      [SExprSubNode("precision")]
-      public int Precision { get; set; }
-
-      [SExprSubNode("override_value")]
-      public string? OverrideValue { get; set; }
-
-      [SExprToken("suppress_zeros")]
-      public bool SuppressZeros { get; set; }
+      private string _prefix = "";
+      private string _suffix = "";
+      private UnitsType _units;
+      private UnitsFormat _unitsFormat;
+      private int _precision;
+      private string? _overrideValue;
+      private bool _suppressZeros;
       #endregion
 
       #region Constructors
@@ -91,7 +80,82 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprSubNode("prefix")]
+      public string Prefix
+      {
+         get => _prefix;
+         set
+         {
+            _prefix = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("suffix")]
+      public string Suffix
+      {
+         get => _suffix;
+         set
+         {
+            _suffix = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("units")]
+      public UnitsType Units
+      {
+         get => _units;
+         set
+         {
+            _units = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("units_format")]
+      public UnitsFormat UnitsFormat
+      {
+         get => _unitsFormat;
+         set
+         {
+            _unitsFormat = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("precision")]
+      public int Precision
+      {
+         get => _precision;
+         set
+         {
+            _precision = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("override_value")]
+      public string? OverrideValue
+      {
+         get => _overrideValue;
+         set
+         {
+            _overrideValue = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("suppress_zeros")]
+      public bool SuppressZeros
+      {
+         get => _suppressZeros;
+         set
+         {
+            _suppressZeros = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

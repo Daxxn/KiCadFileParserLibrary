@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using MVVMLibrary;
 
 using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels
 {
-   public class LibrariesModel
+   public class LibrariesModel : Model
    {
       #region Local Props
-      [JsonProperty(PropertyName = "pinned_footprint_libs")]
-      public List<string>? PinnedFootprintLibs { get; set; }
-
-      [JsonProperty(PropertyName = "pinned_symbol_libs")]
-      public List<string>? PinnedSymbolLibs { get; set; }
+      private ObservableCollection<string>? _pinnedFootprintLibs;
+      private ObservableCollection<string>? _pinnedSymbolLibs;
       #endregion
 
       #region Constructors
@@ -27,7 +27,27 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       #endregion
 
       #region Full Props
+      [JsonProperty(PropertyName = "pinned_footprint_libs")]
+      public ObservableCollection<string>? PinnedFootprintLibs
+      {
+         get => _pinnedFootprintLibs;
+         set
+         {
+            _pinnedFootprintLibs = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [JsonProperty(PropertyName = "pinned_symbol_libs")]
+      public ObservableCollection<string>? PinnedSymbolLibs
+      {
+         get => _pinnedSymbolLibs;
+         set
+         {
+            _pinnedSymbolLibs = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

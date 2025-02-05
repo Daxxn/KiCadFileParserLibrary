@@ -10,17 +10,16 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
 {
    [SExprNode("pin_names")]
-   public class PinNamesModel : IKiCadReadable
+   public class PinNamesModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprToken("hide")]
-      public SymbolVisibility Visible { get; set; }
-
-      [SExprSubNode("offset")]
-      public double? Offset { get; set; }
+      private SymbolVisibility _vis;
+      private double? _offset;
       #endregion
 
       #region Constructors
@@ -45,7 +44,27 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
       #endregion
 
       #region Full Props
+      [SExprToken("hide")]
+      public SymbolVisibility Visible
+      {
+         get => _vis;
+         set
+         {
+            _vis = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("offset")]
+      public double? Offset
+      {
+         get => _offset;
+         set
+         {
+            _offset = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

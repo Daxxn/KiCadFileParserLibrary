@@ -9,20 +9,17 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("at")]
-   public class LocationModel : IKiCadReadable
+   public class LocationModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public double? X { get; set; }
-
-      [SExprProperty(2)]
-      public double? Y { get; set; }
-
-      [SExprProperty(3)]
-      public double? Angle { get; set; }
+      private double? _x;
+      private double? _y;
+      private double? _angle;
       #endregion
 
       #region Constructors
@@ -51,7 +48,38 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public double? X
+      {
+         get => _x;
+         set
+         {
+            _x = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(2)]
+      public double? Y
+      {
+         get => _y;
+         set
+         {
+            _y = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprProperty(3)]
+      public double? Angle
+      {
+         get => _angle;
+         set
+         {
+            _angle = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

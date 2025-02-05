@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,15 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections
 {
    [SExprListNode("junction")]
-   public class JunctionCollection : IKiCadReadable
+   public class JunctionCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<JunctionModel>? Junctions { get; set; }
+      private ObservableCollection<JunctionModel>? _junctions;
       #endregion
 
       #region Constructors
@@ -43,7 +46,15 @@ namespace KiCadFileParserLibrary.KiCad.Schematics.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<JunctionModel>? Junctions
+      {
+         get => _junctions;
+         set
+         {
+            _junctions = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

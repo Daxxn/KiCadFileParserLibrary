@@ -4,27 +4,74 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using MVVMLibrary;
+
 using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels
 {
-   public class IPC2581SettingsModel
+   public class IPC2581SettingsModel : Model
    {
       #region Local Props
       [JsonProperty(PropertyName = "dist")]
-      public string? Dist { get; set; }
+      public string? Dist
+      {
+         get => _dist;
+         set
+         {
+            _dist = value;
+            OnPropertyChanged();
+         }
+      }
+      private string? _dist;
 
       [JsonProperty(PropertyName = "distpn")]
-      public string? DistPn { get; set; }
+      public string? DistPn
+      {
+         get => _distPn;
+         set
+         {
+            _distPn = value;
+            OnPropertyChanged();
+         }
+      }
+      private string? _distPn;
 
       [JsonProperty(PropertyName = "internal_id")]
-      public string? InternalID { get; set; }
+      public string? InternalID
+      {
+         get => _internalID;
+         set
+         {
+            _internalID = value;
+            OnPropertyChanged();
+         }
+      }
+      private string? _internalID;
 
       [JsonProperty(PropertyName = "mfg")]
-      public string? MFG { get; set; }
+      public string? MFG
+      {
+         get => _mfg;
+         set
+         {
+            _mfg = value;
+            OnPropertyChanged();
+         }
+      }
+      private string? _mfg;
 
       [JsonProperty(PropertyName = "mpn")]
-      public string? MPN { get; set; }
+      public string? MPN
+      {
+         get => _mpn;
+         set
+         {
+            _mpn = value;
+            OnPropertyChanged();
+         }
+      }
+      private string? _mpn;
       #endregion
 
       #region Constructors

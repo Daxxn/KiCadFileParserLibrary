@@ -8,10 +8,12 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels
 {
    [SExprNode("netclass_flag")]
-   public class NetClassModel : IKiCadReadable
+   public class NetClassModel : Model, IKiCadReadable
    {
       #region Local Props
 

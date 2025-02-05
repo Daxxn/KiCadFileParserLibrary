@@ -10,21 +10,18 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
 {
    [SExprNode("property")]
-   public class SymbolProperty : IKiCadReadable
+   public class SymbolProperty : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public string? Key { get; set; }
-
-      [SExprProperty(2)]
-      public string? Value { get; set; }
-
-      public LocationModel? Location { get; set; }
-
-      public EffectsModel? Effects { get; set; }
+      private string? _key;
+      private string? _value;
+      private LocationModel? _location;
+      private EffectsModel? _effects;
       #endregion
 
       #region Constructors
@@ -51,7 +48,47 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public string? Key
+      {
+         get => _key;
+         set
+         {
+            _key = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(2)]
+      public string? Value
+      {
+         get => _value;
+         set
+         {
+            _value = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public LocationModel? Location
+      {
+         get => _location;
+         set
+         {
+            _location = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public EffectsModel? Effects
+      {
+         get => _effects;
+         set
+         {
+            _effects = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

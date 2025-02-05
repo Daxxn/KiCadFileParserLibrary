@@ -9,38 +9,23 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("teardrops")]
-   public class TeardropModel : IKiCadReadable
+   public class TeardropModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("best_length_ratio")]
-      public double BestLengthRatio { get; set; }
-
-      [SExprSubNode("max_length")]
-      public double MaxLength { get; set; }
-
-      [SExprSubNode("best_width_ratio")]
-      public double BestWidthRatio { get; set; }
-
-      [SExprSubNode("max_width")]
-      public double MaxWidth { get; set; }
-
-      [SExprSubNode("curve_points")]
-      public int CurvePoints { get; set; }
-
-      [SExprSubNode("filter_ratio")]
-      public double FilterRatio { get; set; }
-
-      [SExprSubNode("enabled")]
-      public bool Enable { get; set; }
-
-      [SExprSubNode("allow_two_segments")]
-      public bool AllowTwoSegments { get; set; }
-
-      [SExprSubNode("prefer_zone_connections")]
-      public bool PreferZoneConn { get; set; }
+      private double _bestLengthRatio;
+      private double _maxLength;
+      private double _bestWidthRatio;
+      private double _maxWidth;
+      private int _curvePoints;
+      private double _filterRatio;
+      private bool _enable;
+      private bool _allowTwoSeg;
+      private bool _preferZoneConn;
       #endregion
 
       #region Constructors
@@ -95,7 +80,104 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
       #endregion
 
       #region Full Props
+      [SExprSubNode("best_length_ratio")]
+      public double BestLengthRatio
+      {
+         get => _bestLengthRatio;
+         set
+         {
+            _bestLengthRatio = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("max_length")]
+      public double MaxLength
+      {
+         get => _maxLength;
+         set
+         {
+            _maxLength = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("max_width")]
+      public double MaxWidth
+      {
+         get => _maxWidth;
+         set
+         {
+            _maxWidth = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("best_width_ratio")]
+      public double BestWidthRatio
+      {
+         get => _bestWidthRatio;
+         set
+         {
+            _bestWidthRatio = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("curve_points")]
+      public int CurvePoints
+      {
+         get => _curvePoints;
+         set
+         {
+            _curvePoints = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("filter_ratio")]
+      public double FilterRatio
+      {
+         get => _filterRatio;
+         set
+         {
+            _filterRatio = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("enabled")]
+      public bool Enable
+      {
+         get => _enable;
+         set
+         {
+            _enable = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("allow_two_segments")]
+      public bool AllowTwoSegments
+      {
+         get => _allowTwoSeg;
+         set
+         {
+            _allowTwoSeg = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("prefer_zone_connections")]
+      public bool PreferZoneConn
+      {
+         get => _preferZoneConn;
+         set
+         {
+            _preferZoneConn = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

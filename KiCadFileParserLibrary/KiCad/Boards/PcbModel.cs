@@ -14,57 +14,32 @@ using KiCadFileParserLibrary.KiCad.Boards.Collections;
 using KiCadFileParserLibrary.KiCad.Boards.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
+using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards
 {
    [SExprNode("kicad_pcb")]
-   public class PcbModel : IKiCadReadable
+   public class PcbModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("version")]
-      [SExprIndex(0)]
-      public int Version { get; set; } = -1;
+      private int _version = -1;
+      private string _generator = "";
+      private string _generatorVersion = "";
+      private GeneralModel _general = new();
+      private PaperModel _paper = new();
+      private TitleBlockModel? _titleBlock;
+      private LayerDefCollection _layers = new();
+      private Setup _setup = new();
+      private NetCollection? _nets;
+      private FootprintCollection? _footprints;
+      private GrGraphicsCollection? _graphics;
+      private ImageCollection? _images;
+      private TraceCollection? _traces;
+      private ZoneCollection? _zones;
+      private GroupCollection? _groups;
+      private TextVariableCollection? _textVariables;
+      private TunedLengthCollection? _tunedLengths;
 
-      [SExprSubNode("generator")]
-      [SExprIndex(1)]
-      public string Generator { get; set; } = "";
-
-      [SExprSubNode("generator_version")]
-      [SExprIndex(2)]
-      public string GeneratorVersion { get; set; } = "";
-
-      [SExprIndex(3)]
-      public GeneralModel General { get; set; } = new();
-
-      [SExprIndex(4)]
-      public PaperModel Paper { get; set; } = new();
-
-      [SExprIndex(5)]
-      public TitleBlockModel? TitleBlock { get; set; }
-
-      [SExprIndex(6)]
-      public LayerDefCollection Layers { get; set; } = new();
-
-      [SExprIndex(7)]
-      public Setup Setup { get; set; } = new();
-
-      public NetCollection? Nets { get; set; }
-
-      public FootprintCollection? Footprints { get; set; }
-
-      public GrGraphicsCollection? Graphics { get; set; }
-
-      public ImageCollection? Images { get; set; }
-
-      public TraceCollection? Traces { get; set; }
-
-      public ZoneCollection? Zones { get; set; }
-
-      public GroupCollection? Groups { get; set; }
-
-      public TextVariableCollection? TextVariables { get; set; }
-
-      public TunedLengthCollection? TunedLengths { get; set; }
       #endregion
 
       #region Constructors
@@ -174,7 +149,185 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       #endregion
 
       #region Full Props
+      [SExprSubNode("version")]
+      [SExprIndex(0)]
+      public int Version
+      {
+         get => _version;
+         set
+         {
+            _version = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("generator")]
+      [SExprIndex(1)]
+      public string Generator
+      {
+         get => _generator;
+         set
+         {
+            _generator = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("generator_version")]
+      [SExprIndex(2)]
+      public string GeneratorVersion
+      {
+         get => _generatorVersion;
+         set
+         {
+            _generatorVersion = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprIndex(3)]
+      public GeneralModel General
+      {
+         get => _general;
+         set
+         {
+            _general = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprIndex(4)]
+      public PaperModel Paper
+      {
+         get => _paper;
+         set
+         {
+            _paper = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprIndex(5)]
+      public TitleBlockModel? TitleBlock
+      {
+         get => _titleBlock;
+         set
+         {
+            _titleBlock = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprIndex(6)]
+      public LayerDefCollection? Layers
+      {
+         get => _layers;
+         set
+         {
+            _layers = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprIndex(7)]
+      public Setup Setup
+      {
+         get => _setup;
+         set
+         {
+            _setup = value;
+            OnPropertyChanged();
+         }
+      }
+      public NetCollection Nets
+      {
+         get => _nets;
+         set
+         {
+            _nets = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public FootprintCollection? Footprints
+      {
+         get => _footprints;
+         set
+         {
+            _footprints = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public GrGraphicsCollection? Graphics
+      {
+         get => _graphics;
+         set
+         {
+            _graphics = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public ImageCollection? Images
+      {
+         get => _images;
+         set
+         {
+            _images = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public TraceCollection? Traces
+      {
+         get => _traces;
+         set
+         {
+            _traces = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public ZoneCollection? Zones
+      {
+         get => _zones;
+         set
+         {
+            _zones = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public GroupCollection? Groups
+      {
+         get => _groups;
+         set
+         {
+            _groups = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public TextVariableCollection? TextVariables
+      {
+         get => _textVariables;
+         set
+         {
+            _textVariables = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public TunedLengthCollection? TunedLengths
+      {
+         get => _tunedLengths;
+         set
+         {
+            _tunedLengths = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

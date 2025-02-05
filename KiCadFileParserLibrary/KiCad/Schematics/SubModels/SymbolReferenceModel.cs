@@ -8,10 +8,12 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels
 {
    [SExprNode("symbol")]
-   public class SymbolReferenceModel : IKiCadReadable
+   public class SymbolReferenceModel : Model, IKiCadReadable
    {
       #region Local Props
 

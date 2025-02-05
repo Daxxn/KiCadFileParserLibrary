@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,15 +9,17 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    // Not Used. Keep just in case the via "zone_layer_connections" node is actually an array.
    // Nothing is documented so good luck!!
    [SExprNode("zone_layer_connections")]
-   public class ZoneLayerCollection : IKiCadReadable
+   public class ZoneLayerCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<string> Layers { get; set; } = [];
+      private ObservableCollection<string> _layers = [];
       #endregion
 
       #region Constructors
@@ -51,7 +54,15 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<string> Layers
+      {
+         get => _layers;
+         set
+         {
+            _layers = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

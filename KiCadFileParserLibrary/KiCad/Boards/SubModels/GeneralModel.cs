@@ -10,17 +10,23 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("general")]
-   public class GeneralModel : IKiCadReadable
+   public class GeneralModel : Model, IKiCadReadable
    {
-      [SExprSubNode("thickness")]
-      public double Thickness { get; set; }
+      #region Local Props
+      private double _thick = 0;
+      private bool _useLegacyTd = false;
+      #endregion
 
-      [SExprSubNode("legacy_teardrops")]
-      public bool UseLegacyTeardrop { get; set; }
+      #region Constructors
+      public GeneralModel() { }
+      #endregion
 
+      #region Methods
       public void ParseNode(Node node)
       {
          if (node.Children != null)
@@ -49,5 +55,30 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
       {
          return $"General - Thick: {Thickness} - UseLegTD: {UseLegacyTeardrop}";
       }
+      #endregion
+
+      #region Full Props
+      [SExprSubNode("thickness")]
+      public double Thickness
+      {
+         get => _thick;
+         set
+         {
+            _thick = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("legacy_teardrops")]
+      public bool UseLegacyTeardrop
+      {
+         get => _useLegacyTd;
+         set
+         {
+            _useLegacyTd = value;
+            OnPropertyChanged();
+         }
+      }
+      #endregion
    }
 }

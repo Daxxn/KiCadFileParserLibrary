@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,15 @@ using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprListNode("property")]
-   public class TextVariableCollection : IKiCadReadable
+   public class TextVariableCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<GenericProperty>? TextVars { get; set; }
+      private ObservableCollection<GenericProperty>? _textVars { get; set; }
       #endregion
 
       #region Constructors
@@ -52,7 +55,15 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<GenericProperty> TextVars
+      {
+         get => _textVars;
+         set
+         {
+            _textVars = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

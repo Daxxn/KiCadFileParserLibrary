@@ -15,15 +15,10 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
    public class SyTextModel : SyGraphicBase
    {
       #region Local Props
-      [SExprProperty(1, true)]
-      public string? Text { get; set; }
-
-      [SExprToken("private")]
-      public bool IsPrivate { get; set; }
-
-      public LocationModel? Location { get; set; }
-
-      public EffectsModel? Effects { get; set; }
+      private string? _text;
+      private bool _isPrivate;
+      private LocationModel? _location;
+      private EffectsModel? _effects;
       #endregion
 
       #region Constructors
@@ -49,7 +44,47 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
       #endregion
 
       #region Full Props
+      [SExprProperty(1, true)]
+      public string? Text
+      {
+         get => _text;
+         set
+         {
+            _text = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprToken("private")]
+      public bool IsPrivate
+      {
+         get => _isPrivate;
+         set
+         {
+            _isPrivate = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public LocationModel? Location
+      {
+         get => _location;
+         set
+         {
+            _location = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public EffectsModel? Effects
+      {
+         get => _effects;
+         set
+         {
+            _effects = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

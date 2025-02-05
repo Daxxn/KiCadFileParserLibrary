@@ -8,13 +8,15 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Boards.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
+using MVVMLibrary;
+using System.Collections.ObjectModel;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprNode("layers")]
-   public class LayerDefCollection : IKiCadReadable
+   public class LayerDefCollection : Model, IKiCadReadable
    {
-      public List<LayerModel> LayerList { get; set; } = [];
+      private ObservableCollection<LayerModel> _layerList { get; set; } = [];
 
       public void ParseNode(Node node)
       {
@@ -43,6 +45,16 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       public override string ToString()
       {
          return $"Layers: {LayerList.Count}";
+      }
+
+      public ObservableCollection<LayerModel> LayerList
+      {
+         get => _layerList;
+         set
+         {
+            _layerList = value;
+            OnPropertyChanged();
+         }
       }
    }
 }

@@ -11,36 +11,23 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards
 {
    [SExprNode("setup")]
-   public class Setup : IKiCadReadable
+   public class Setup : Model, IKiCadReadable
    {
       #region Local Props
-      public Stackup? Stackup { get; set; }
-
-      [SExprSubNode("pad_to_mask_clearance")]
-      public double PadToMaskClearance { get; set; }
-
-      [SExprSubNode("solder_mask_min_width")]
-      public double? SolderMaskMinWidth { get; set; }
-
-      [SExprSubNode("pad_to_paste_clearance")]
-      public double? PadToPasteClearance { get; set; }
-
-      [SExprSubNode("pad_to_paste_clearance_ratio")]
-      public double? PadToPasteRatio { get; set; }
-
-      [SExprNode("aux_axis_origin")]
-      public XyModel? AuxAxisOrigin { get; set; }
-
-      [SExprNode("grid_origin")]
-      public XyModel? GridOrigin { get; set; }
-
-      [SExprSubNode("allow_soldermask_bridges_in_footprints")]
-      public bool AllowMaskBridgeInFp { get; set; }
-
-      public PcbPlotParameters PlotParams { get; set; } = new();
+      private Stackup? _stackup;
+      private double _padToMaskClearance;
+      private double? _solderMaskMinWidth;
+      private double? _padToPasteClearance;
+      private double? _padToPasteRatio;
+      private XyModel? _auxAxisOrigin;
+      private XyModel? _gridOrigin;
+      private bool _allowMaskBridgeInFp;
+      private PcbPlotParameters _plotParams = new();
       #endregion
 
       #region Constructors
@@ -107,7 +94,102 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       #endregion
 
       #region Full Props
+      public Stackup? Stackup
+      {
+         get => _stackup;
+         set
+         {
+            _stackup = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("pad_to_mask_clearance")]
+      public double PadToMaskClearance
+      {
+         get => _padToMaskClearance;
+         set
+         {
+            _padToMaskClearance = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("solder_mask_min_width")]
+      public double? SolderMaskMinWidth
+      {
+         get => _solderMaskMinWidth;
+         set
+         {
+            _solderMaskMinWidth = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("pad_to_paste_clearance")]
+      public double? PadToPasteClearance
+      {
+         get => _padToPasteClearance;
+         set
+         {
+            _padToPasteClearance = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("pad_to_paste_clearance_ratio")]
+      public double? PadToPasteRatio
+      {
+         get => _padToPasteRatio;
+         set
+         {
+            _padToPasteRatio = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("aux_axis_origin")]
+      public XyModel? AuxAxisOrigin
+      {
+         get => _auxAxisOrigin;
+         set
+         {
+            _auxAxisOrigin = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("grid_origin")]
+      public XyModel? GridOrigin
+      {
+         get => _gridOrigin;
+         set
+         {
+            _gridOrigin = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("allow_soldermask_bridges_in_footprints")]
+      public bool AllowMaskBridgeInFp
+      {
+         get => _allowMaskBridgeInFp;
+         set
+         {
+            _allowMaskBridgeInFp = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public PcbPlotParameters PlotParams
+      {
+         get => _plotParams;
+         set
+         {
+            _plotParams = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

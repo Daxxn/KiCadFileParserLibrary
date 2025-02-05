@@ -11,28 +11,20 @@ using KiCadFileParserLibrary.KiCad.Symbols.Collections;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Schematics
 {
    [SExprNode("kicad_sch")]
-   public class Schematic : IKiCadReadable
+   public class Schematic : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("version")]
-      public int Version { get; set; }
-
-      [SExprSubNode("generator")]
-      public string? Generator { get; set; }
-
-      [SExprSubNode("generator_version")]
-      public string? GeneratorVersion { get; set; }
-
-      [SExprSubNode("uuid")]
-      public string? ID { get; set; }
-
-      public PaperModel? Paper { get; set; }
-
-      [SExprListNode("lib_symbols")]
-      public SymbolCollection? Symbols { get; set; }
+      private int _version;
+      private string _generator;
+      private string? _generatorVersion;
+      private string? _id;
+      private PaperModel? _paper;
+      private SymbolCollection? _symbols;
       #endregion
 
       #region Constructors
@@ -73,7 +65,70 @@ namespace KiCadFileParserLibrary.KiCad.Schematics
       #endregion
 
       #region Full Props
+      [SExprSubNode("version")]
+      public int Version
+      {
+         get => _version;
+         set
+         {
+            _version = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("generator")]
+      public string? Generator
+      {
+         get => _generator;
+         set
+         {
+            _generator = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("generator_version")]
+      public string? GeneratorVersion
+      {
+         get => _generatorVersion;
+         set
+         {
+            _generatorVersion = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string? ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public PaperModel? Paper
+      {
+         get => _paper;
+         set
+         {
+            _paper = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprListNode("lib_symbols")]
+      public SymbolCollection? Symbols
+      {
+         get => _symbols;
+         set
+         {
+            _symbols = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

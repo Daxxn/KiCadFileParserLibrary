@@ -11,26 +11,26 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("font")]
-   public class FontModel : IKiCadReadable
+   public class FontModel : Model, IKiCadReadable
    {
-      [SExprSubNode("face")]
-      public string? Family { get; set; }
+      #region Local Props
+      private string? _family = null;
+      private XyModel _size = new();
+      private double _thickness = 0;
+      private bool _bold = false;
+      private bool _italic = false;
+      #endregion
 
-      [SExprNode("size")]
-      public XyModel Size { get; set; } = new();
+      #region Constructors
+      public FontModel() { }
+      #endregion
 
-      [SExprSubNode("thickness")]
-      public double Thickness { get; set; }
-
-      [SExprSubNode("bold")]
-      public bool Bold { get; set; }
-
-      [SExprSubNode("italic")]
-      public bool Italic { get; set; }
-
+      #region Methods
       public void ParseNode(Node node)
       {
          if (node.Children != null)
@@ -72,5 +72,63 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }
+      #endregion
+
+      #region Full Props
+      [SExprSubNode("face")]
+      public string? Family
+      {
+         get => _family;
+         set
+         {
+            _family = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("size")]
+      public XyModel Size
+      {
+         get => _size;
+         set
+         {
+            _size = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("thickness")]
+      public double Thickness
+      {
+         get => _thickness;
+         set
+         {
+            _thickness = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("bold")]
+      public bool Bold
+      {
+         get => _bold;
+         set
+         {
+            _bold = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("italic")]
+      public bool Italic
+      {
+         get => _italic;
+         set
+         {
+            _italic = value;
+            OnPropertyChanged();
+         }
+      }
+      #endregion
    }
 }

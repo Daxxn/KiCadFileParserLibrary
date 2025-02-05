@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,15 +9,17 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprListNode("arc|segment|via")]
-   public class TraceCollection : IKiCadReadable
+   public class TraceCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<TraceArcModel>? Arcs { get; set; }
-      public List<TraceSegmentModel>? Segments { get; set; }
-      public List<ViaModel>? Vias { get; set; }
+      private ObservableCollection<TraceArcModel>? _arcs;
+      private ObservableCollection<TraceSegmentModel>? _segments;
+      private ObservableCollection<ViaModel>? _vias;
       #endregion
 
       #region Constructors
@@ -95,7 +98,35 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       #endregion
 
       #region Full Props
+      public ObservableCollection<TraceArcModel>? Arcs
+      {
+         get => _arcs;
+         set
+         {
+            _arcs = value;
+            OnPropertyChanged();
+         }
+      }
 
+      public ObservableCollection<TraceSegmentModel>? Segments
+      {
+         get => _segments;
+         set
+         {
+            _segments = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public ObservableCollection<ViaModel>? Vias
+      {
+         get => _vias;
+         set
+         {
+            _vias = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

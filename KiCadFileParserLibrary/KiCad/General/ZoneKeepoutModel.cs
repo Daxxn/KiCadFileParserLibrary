@@ -9,26 +9,19 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("keepout")]
-   public class ZoneKeepoutModel : IKiCadReadable
+   public class ZoneKeepoutModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("tracks")]
-      public KeepoutType Tracks { get; set; }
-
-      [SExprSubNode("vias")]
-      public KeepoutType Vias { get; set; }
-
-      [SExprSubNode("pads")]
-      public KeepoutType Pads { get; set; }
-
-      [SExprSubNode("copperpour")]
-      public KeepoutType Copper { get; set; }
-
-      [SExprSubNode("footprints")]
-      public KeepoutType Footprints { get; set; }
+      private KeepoutType _tracks;
+      private KeepoutType _vias;
+      private KeepoutType _pads;
+      private KeepoutType _copper;
+      private KeepoutType _footprints;
       #endregion
 
       #region Constructors
@@ -60,7 +53,7 @@ namespace KiCadFileParserLibrary.KiCad.General
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("pads", Pads));
 
          builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("copperpour", Copper));
+         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("copperpour", CopperPour));
 
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("footprints", Footprints));
@@ -71,7 +64,60 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      [SExprSubNode("tracks")]
+      public KeepoutType Tracks
+      {
+         get => _tracks;
+         set
+         {
+            _tracks = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("vias")]
+      public KeepoutType Vias
+      {
+         get => _vias;
+         set
+         {
+            _vias = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("pads")]
+      public KeepoutType Pads
+      {
+         get => _pads;
+         set
+         {
+            _pads = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("copperpour")]
+      public KeepoutType CopperPour
+      {
+         get => _copper;
+         set
+         {
+            _copper = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("footprints")]
+      public KeepoutType Footprints
+      {
+         get => _footprints;
+         set
+         {
+            _footprints = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

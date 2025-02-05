@@ -13,92 +13,44 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 {
    [SExprNode("pad")]
-   public class PadModel : IKiCadReadable
+   public class PadModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public string? Number { get; set; }
+      private string? _number;
+      private PadType _type;
+      private PadShapeType _shape;
+      private LocationModel _location;
+      private PadPropertyType _propertyType;
+      private bool _locked;
+      private XyModel _size;
+      private DrillModel? _drill;
+      private LayerCollection? _layers;
+      private bool? _removeUnusedLayers;
+      private bool? _keepEndLayers;
+      private double? _thermalBridgeAngle;
+      private double? _roundedRectRatio;
+      private double? _chamferRatio;
+      private ChamferType _chamferType;
+      private string? _pinFunction;
+      private string? _pinType;
+      private double? _dieLength;
+      private string _id;
+      private NetModel? _net;
+      private double? _maskMargin;
+      private double? _pasteMargin;
+      private double? _pasteRatio;
+      private double? _clearance;
+      private ZoneConnectType _zoneConnection;
+      private double? _thermalWidth;
+      private double? _thermalGap;
+      private PadOptions? _customPadOptions;
+      private CustomPadPrimitives? _customPadPrimitives;
 
-      [SExprProperty(2)]
-      public PadType Type { get; set; }
-
-      [SExprProperty(3)]
-      public PadShapeType Shape { get; set; }
-
-      public LocationModel Location { get; set; } = new();
-
-      [SExprSubNode("property")]
-      public PadPropertyType PropertyType { get; set; }
-
-      [SExprToken("locked")]
-      public bool Locked { get; set; }
-
-      [SExprNode("size")]
-      public XyModel Size { get; set; } = new();
-
-      public DrillModel? Drill { get; set; }
-
-      public LayerCollection? Layers { get; set; }
-
-      [SExprSubNode("remove_unused_layers")]
-      public bool? RemoveUnusedLayers { get; set; }
-
-      [SExprSubNode("keep_end_layers")]
-      public bool? KeepEndLayers { get; set; }
-
-      [SExprSubNode("thermal_bridge_angle")]
-      public double? ThermalBridgeAngle { get; set; }
-
-      [SExprSubNode("roundrect_rratio")]
-      public double? RoundedRectRatio { get; set; }
-
-      [SExprSubNode("chamfer_ratio")]
-      public double? ChamferRatio { get; set; }
-
-      [SExprSubNode("chamfer")]
-      public ChamferType ChamferType { get; set; }
-
-      [SExprSubNode("pinfunction")]
-      public string? PinFunction { get; set; }
-
-      [SExprSubNode("pintype")]
-      public string? PinType { get; set; }
-
-      [SExprSubNode("die_length")]
-      public double? DieLength { get; set; }
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      public NetModel? Net { get; set; }
-
-      [SExprSubNode("solder_mask_margin")]
-      public double? MaskMargin { get; set; }
-
-      [SExprSubNode("solder_paste_margin")]
-      public double? PasteMargin { get; set; }
-
-      [SExprSubNode("solder_paste_margin_ratio")]
-      public double? PasteRatio { get; set; }
-
-      [SExprSubNode("clearance")]
-      public double? Clearance { get; set; }
-
-      [SExprSubNode("zone_connection")]
-      public ZoneConnectType ZoneConnection { get; set; }
-
-      [SExprSubNode("thermal_width")]
-      public double? ThermalWidth { get; set; }
-
-      [SExprSubNode("thermal_gap")]
-      public double? ThermalGap { get; set; }
-
-      public PadOptions? CustomPadOptions { get; set; }
-
-      public CustomPadPrimitives? CustomPadPrimitives { get; set; }
       #endregion
 
       #region Constructors
@@ -253,7 +205,318 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public string? Number
+      {
+         get => _number;
+         set
+         {
+            _number = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(2)]
+      public PadType Type
+      {
+         get => _type;
+         set
+         {
+            _type = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprProperty(3)]
+      public PadShapeType Shape
+      {
+         get => _shape;
+         set
+         {
+            _shape = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public LocationModel Location
+      {
+         get => _location;
+         set
+         {
+            _location = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("property")]
+      public PadPropertyType PropertyType
+      {
+         get => _propertyType;
+         set
+         {
+            _propertyType = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("locked")]
+      public bool Locked
+      {
+         get => _locked;
+         set
+         {
+            _locked = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("size")]
+      public XyModel Size
+      {
+         get => _size;
+         set
+         {
+            _size = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public DrillModel? Drill
+      {
+         get => _drill;
+         set
+         {
+            _drill = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public LayerCollection? Layers
+      {
+         get => _layers;
+         set
+         {
+            _layers = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("remove_unused_layers")]
+      public bool? RemoveUnusedLayers
+      {
+         get => _removeUnusedLayers;
+         set
+         {
+            _removeUnusedLayers = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("keep_end_layers")]
+      public bool? KeepEndLayers
+      {
+         get => _keepEndLayers;
+         set
+         {
+            _keepEndLayers = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("thermal_bridge_angle")]
+      public double? ThermalBridgeAngle
+      {
+         get => _thermalBridgeAngle;
+         set
+         {
+            _thermalBridgeAngle = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("roundrect_rratio")]
+      public double? RoundedRectRatio
+      {
+         get => _roundedRectRatio;
+         set
+         {
+            _roundedRectRatio = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("chamfer_ratio")]
+      public double? ChamferRatio
+      {
+         get => _chamferRatio;
+         set
+         {
+            _chamferRatio = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("chamfer")]
+      public ChamferType ChamferType
+      {
+         get => _chamferType;
+         set
+         {
+            _chamferType = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("pinfunction")]
+      public string? PinFunction
+      {
+         get => _pinFunction;
+         set
+         {
+            _pinFunction = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("pintype")]
+      public string? PinType
+      {
+         get => _pinType;
+         set
+         {
+            _pinType = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("die_length")]
+      public double? DieLength
+      {
+         get => _dieLength;
+         set
+         {
+            _dieLength = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public NetModel? Net
+      {
+         get => _net;
+         set
+         {
+            _net = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("solder_mask_margin")]
+      public double? MaskMargin
+      {
+         get => _maskMargin;
+         set
+         {
+            _maskMargin = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("solder_paste_margin")]
+      public double? PasteMargin
+      {
+         get => _pasteMargin;
+         set
+         {
+            _pasteMargin = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("solder_paste_margin_ratio")]
+      public double? PasteRatio
+      {
+         get => _pasteRatio;
+         set
+         {
+            _pasteRatio = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("clearance")]
+      public double? Clearance
+      {
+         get => _clearance;
+         set
+         {
+            _clearance = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("zone_connection")]
+      public ZoneConnectType ZoneConnection
+      {
+         get => _zoneConnection;
+         set
+         {
+            _zoneConnection = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("thermal_width")]
+      public double? ThermalWidth
+      {
+         get => _thermalWidth;
+         set
+         {
+            _thermalWidth = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("thermal_gap")]
+      public double? ThermalGap
+      {
+         get => _thermalGap;
+         set
+         {
+            _thermalGap = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public PadOptions? CustomPadOptions
+      {
+         get => _customPadOptions;
+         set
+         {
+            _customPadOptions = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public CustomPadPrimitives? CustomPadPrimitives
+      {
+         get => _customPadPrimitives;
+         set
+         {
+            _customPadPrimitives = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

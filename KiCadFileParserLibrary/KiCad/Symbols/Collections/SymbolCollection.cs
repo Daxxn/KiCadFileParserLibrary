@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,15 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
 {
    [SExprListNode("symbol")]
-   public class SymbolCollection : IKiCadReadable
+   public class SymbolCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<Symbol>? Symbols { get; set; }
+      private ObservableCollection<Symbol>? _symbols;
       #endregion
 
       #region Constructors
@@ -45,7 +48,15 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<Symbol>? Symbols
+      {
+         get => _symbols;
+         set
+         {
+            _symbols = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

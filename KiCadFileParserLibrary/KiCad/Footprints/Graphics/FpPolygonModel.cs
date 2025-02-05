@@ -19,18 +19,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
    public class FpPolygonModel : GraphicBase
    {
       #region Local Props
-      public CoordinateModel Points { get; set; } = new();
-
-      public StrokeModel Stroke { get; set; } = new();
-
-      [SExprSubNode("fill")]
-      public FillType Fill { get; set; }
-
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
+      private CoordinateModel _points = new();
+      private StrokeModel _stroke = new();
+      private FillType _fill;
+      private string _layer = "";
+      private string _id = "";
       #endregion
 
       #region Constructors
@@ -75,7 +68,58 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #endregion
 
       #region Full Props
+      public CoordinateModel Points
+      {
+         get => _points;
+         set
+         {
+            _points = value;
+            OnPropertyChanged();
+         }
+      }
 
+      public StrokeModel Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("fill")]
+      public FillType Fill
+      {
+         get => _fill;
+         set
+         {
+            _fill = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

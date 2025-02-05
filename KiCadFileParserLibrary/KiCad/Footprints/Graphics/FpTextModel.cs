@@ -18,28 +18,15 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
    public class FpTextModel : GraphicBase
    {
       #region Local Props
-      [SExprProperty(1)]
-      public FootprintTextType Type { get; set; }
-
-      [SExprProperty(2)]
-      public string Text { get; set; } = "";
-
-      public LocationModel? Location { get; set; }
-
-      [SExprSubNode("unlocked")]
-      public bool IsUnlocked { get; set; }
-
-      public bool Knockout { get; set; }
-
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      public EffectsModel? Effects { get; set; }
-
-      public RenderCacheModel? RenderCache { get; set; }
+      private FootprintTextType _type;
+      private string _text = "";
+      private LocationModel? _location;
+      private bool _isUnlocked;
+      private bool _knockout;
+      private string _layer;
+      private string _id;
+      private EffectsModel? _effects;
+      private RenderCacheModel? _renderCache;
       #endregion
 
       #region Constructors
@@ -106,7 +93,100 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public FootprintTextType Type
+      {
+         get => _type;
+         set
+         {
+            _type = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(2)]
+      public string Text
+      {
+         get => _text;
+         set
+         {
+            _text = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public LocationModel? Location
+      {
+         get => _location;
+         set
+         {
+            _location = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("unlocked")]
+      public bool IsUnlocked
+      {
+         get => _isUnlocked;
+         set
+         {
+            _isUnlocked = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public bool Knockout
+      {
+         get => _knockout;
+         set
+         {
+            _knockout = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public EffectsModel? Effects
+      {
+         get => _effects;
+         set
+         {
+            _effects = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public RenderCacheModel? RenderCache
+      {
+         get => _renderCache;
+         set
+         {
+            _renderCache = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

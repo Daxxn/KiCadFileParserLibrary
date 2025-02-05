@@ -14,25 +14,13 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    public class GrCircleModel : GraphicBase
    {
       #region Local Props
-      [SExprNode("center")]
-      public XyModel Center { get; set; } = new();
-
-      [SExprNode("end")]
-      public XyModel End { get; set; } = new();
-
-      [SExprSubNode("locked")]
-      public bool Locked { get; set; }
-
-      public StrokeModel? Stroke { get; set; }
-
-      [SExprSubNode("fill")]
-      public FillType Fill { get; set; }
-
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
+      private XyModel _center = new();
+      private XyModel _end = new();
+      private bool _locked;
+      private StrokeModel? _stroke;
+      private FillType _fill;
+      private string _layer;
+      private string _id = "";
       #endregion
 
       #region Constructors
@@ -82,7 +70,81 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprNode("center")]
+      public XyModel Center
+      {
+         get => _center;
+         set
+         {
+            _center = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprNode("end")]
+      public XyModel End
+      {
+         get => _end;
+         set
+         {
+            _end = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("locked")]
+      public bool Locked
+      {
+         get => _locked;
+         set
+         {
+            _locked = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public StrokeModel? Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("fill")]
+      public FillType Fill
+      {
+         get => _fill;
+         set
+         {
+            _fill = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

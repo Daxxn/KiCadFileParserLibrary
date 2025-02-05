@@ -16,39 +16,18 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    public class GrTextBoxModel : GraphicBase
    {
       #region Local Props
-      [SExprSubNode("locked")]
-      public bool Locked { get; set; }
-
-      [SExprProperty(1, true)]
-      public string Text { get; set; } = "";
-
-      //[SExprSubNode("start")]
-      [SExprNode("start")]
-      public XyModel? Start { get; set; }
-
-      //[SExprSubNode("end")]
-      [SExprNode("end")]
-      public XyModel? End { get; set; }
-
-      public CoordinateModel? Points { get; set; }
-
-      [SExprSubNode("angle")]
-      public double? Angle { get; set; }
-
-      [SExprSubNode("border")]
-      public bool HasBorder { get; set; }
-
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      public EffectsModel Effects { get; set; } = new();
-
-      public StrokeModel? Stroke { get; set; }
-
-      public RenderCacheModel? RenderCache { get; set; }
+      private bool _locked;
+      private string _text = "";
+      private XyModel? _start;
+      private XyModel? _end;
+      private CoordinateModel? _points;
+      private double? _angle;
+      private bool _hasBorder;
+      private string _layer;
+      private string _id;
+      private EffectsModel _effect = new();
+      private StrokeModel? _stroke;
+      private RenderCacheModel? _renderCache;
       #endregion
 
       #region Constructors
@@ -114,7 +93,133 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprSubNode("locked")]
+      public bool Locked
+      {
+         get => _locked;
+         set
+         {
+            _locked = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(1, true)]
+      public string Text
+      {
+         get => _text;
+         set
+         {
+            _text = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("start")]
+      public XyModel? Start
+      {
+         get => _start;
+         set
+         {
+            _start = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("end")]
+      public XyModel? End
+      {
+         get => _end;
+         set
+         {
+            _end = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public CoordinateModel? Points
+      {
+         get => _points;
+         set
+         {
+            _points = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("angle")]
+      public double? Angle
+      {
+         get => _angle;
+         set
+         {
+            _angle = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("border")]
+      public bool HasBorder
+      {
+         get => _hasBorder;
+         set
+         {
+            _hasBorder = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public EffectsModel Effects
+      {
+         get => _effect;
+         set
+         {
+            _effect = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public StrokeModel? Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public RenderCacheModel? RenderCache
+      {
+         get => _renderCache;
+         set
+         {
+            _renderCache = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

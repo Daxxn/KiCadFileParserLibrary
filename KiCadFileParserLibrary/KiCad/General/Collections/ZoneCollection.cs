@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,15 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
    [SExprListNode("zone")]
-   public class ZoneCollection : IKiCadReadable
+   public class ZoneCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<ZoneModel> Zones { get; set; } = [];
+      private ObservableCollection<ZoneModel> _zones = [];
       #endregion
 
       #region Constructors
@@ -50,7 +53,15 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<ZoneModel> Zones
+      {
+         get => _zones;
+         set
+         {
+            _zones = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

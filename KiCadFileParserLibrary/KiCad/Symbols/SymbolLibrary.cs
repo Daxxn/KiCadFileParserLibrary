@@ -10,22 +10,18 @@ using KiCadFileParserLibrary.KiCad.Symbols.Collections;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Symbols
 {
    [SExprNode("kicad_symbol_lib")]
-   public class SymbolLibrary : IKiCadReadable
+   public class SymbolLibrary : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprSubNode("version")]
-      public int Version { get; set; }
-
-      [SExprSubNode("generator")]
-      public string? Generator { get; set; }
-
-      [SExprSubNode("generator_version")]
-      public string? GeneratorVersion { get; set; }
-
-      public SymbolCollection? Symbols { get; set; }
+      private int _version;
+      private string _generator;
+      private string _generatorVersion;
+      private SymbolCollection? _symbols;
       #endregion
 
       #region Constructors
@@ -57,7 +53,48 @@ namespace KiCadFileParserLibrary.KiCad.Symbols
       #endregion
 
       #region Full Props
+      [SExprSubNode("version")]
+      public int Version
+      {
+         get => _version;
+         set
+         {
+            _version = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("generator")]
+      public string? Generator
+      {
+         get => _generator;
+         set
+         {
+            _generator = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("generator_version")]
+      public string? GeneratorVersion
+      {
+         get => _generatorVersion;
+         set
+         {
+            _generatorVersion = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public SymbolCollection? Symbols
+      {
+         get => _symbols;
+         set
+         {
+            _symbols = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

@@ -9,32 +9,21 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General.Graphics
 {
    [SExprNode("style")]
-   public class DimensionStyleModel : IKiCadReadable
+   public class DimensionStyleModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprToken("keep_text_aligned")]
-      public bool KeepTextAligned { get; set; }
-
-      [SExprSubNode("thickness")]
-      public double Thickness { get; set; }
-
-      [SExprSubNode("arrow_length")]
-      public double ArrowLength { get; set; }
-
-      [SExprSubNode("text_position_mode")]
-      public TextPositionMode TextPosition { get; set; }
-
-      [SExprSubNode("extension_height")]
-      public double? ExtensionHeight { get; set; }
-
-      [SExprSubNode("text_frame")]
-      public TextFrameType TextFrame { get; set; }
-
-      [SExprSubNode("extension_offset")]
-      public double? ExtensionOffset { get; set; }
+      private bool _keepTextAlign;
+      private double _thickness;
+      private double _arrowLength;
+      private TextPositionMode _textPosition;
+      private double? _extensionHeight;
+      private TextFrameType _textFrame;
+      private double? _extOffset;
       #endregion
 
       #region Constructors
@@ -98,7 +87,82 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprToken("keep_text_aligned")]
+      public bool KeepTextAligned
+      {
+         get => _keepTextAlign;
+         set
+         {
+            _keepTextAlign = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("thickness")]
+      public double Thickness
+      {
+         get => _thickness;
+         set
+         {
+            _thickness = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("arrow_length")]
+      public double ArrowLength
+      {
+         get => _arrowLength;
+         set
+         {
+            _arrowLength = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("text_position_mode")]
+      public TextPositionMode TextPosition
+      {
+         get => _textPosition;
+         set
+         {
+            _textPosition = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("extension_height")]
+      public double? ExtensionHeight
+      {
+         get => _extensionHeight;
+         set
+         {
+            _extensionHeight = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("text_frame")]
+      public TextFrameType TextFrame
+      {
+         get => _textFrame;
+         set
+         {
+            _textFrame = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("extension_offset")]
+      public double? ExtensionOffset
+      {
+         get => _extOffset;
+         set
+         {
+            _extOffset = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

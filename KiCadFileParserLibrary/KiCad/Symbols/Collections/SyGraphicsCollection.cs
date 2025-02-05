@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +10,12 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Symbols.Graphics;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
 {
    [SExprListNode("graphics")]
-   public class SyGraphicsCollection : IKiCadReadable
+   public class SyGraphicsCollection : Model, IKiCadReadable
    {
       #region Local Props
       private static readonly Dictionary<string, Func<SyGraphicBase>> GraphicsNodes = new()
@@ -26,7 +29,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
          { "bezier", () => new SyCurveModel() },
       };
 
-      public List<SyGraphicBase>? Graphics { get; set; }
+      private ObservableCollection<SyGraphicBase>? _graphics;
       #endregion
 
       #region Constructors
@@ -58,7 +61,15 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<SyGraphicBase>? Graphics
+      {
+         get => _graphics;
+         set
+         {
+            _graphics = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

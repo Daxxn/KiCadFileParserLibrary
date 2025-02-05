@@ -15,31 +15,16 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    public class DimensionModel : GraphicBase
    {
       #region Local Props
-      [SExprToken("locked")]
-      public bool Locked { get; set; }
-
-      [SExprSubNode("type")]
-      public DimensionType Type { get; set; }
-
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      [SExprSubNode("height")]
-      public double Height { get; set; }
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      public CoordinateModel? Points { get; set; }
-
-      [SExprSubNode("leader_length")]
-      public double LeaderLength { get; set; }
-
-      public GrTextModel? Text { get; set; }
-
-      public DimensionStyleModel? Style { get; set; }
-
-      public DimensionFormatModel? Format { get; set; }
+      private bool _locked;
+      private DimensionType _type;
+      private string _layer;
+      private double _height;
+      private string _id;
+      private CoordinateModel? _points;
+      private double _leaderLength;
+      private GrTextModel? _text;
+      private DimensionStyleModel? _style;
+      private DimensionFormatModel? _format;
       #endregion
 
       #region Constructors
@@ -92,7 +77,111 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprToken("locked")]
+      public bool Locked
+      {
+         get => _locked;
+         set
+         {
+            _locked = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("type")]
+      public DimensionType Type
+      {
+         get => _type;
+         set
+         {
+            _type = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("height")]
+      public double Height
+      {
+         get => _height;
+         set
+         {
+            _height = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public CoordinateModel? Points
+      {
+         get => _points;
+         set
+         {
+            _points = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("leader_length")]
+      public double LeaderLength
+      {
+         get => _leaderLength;
+         set
+         {
+            _leaderLength = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public GrTextModel? Text
+      {
+         get => _text;
+         set
+         {
+            _text = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public DimensionStyleModel? Style
+      {
+         get => _style;
+         set
+         {
+            _style = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public DimensionFormatModel? Format
+      {
+         get => _format;
+         set
+         {
+            _format = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

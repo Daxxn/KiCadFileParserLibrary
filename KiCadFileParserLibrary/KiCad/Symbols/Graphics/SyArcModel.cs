@@ -16,22 +16,12 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
    public class SyArcModel : SyGraphicBase
    {
       #region Local Props
-      [SExprNode("start")]
-      public XyModel? Start { get; set; }
-
-      [SExprNode("mid")]
-      public XyModel? Middle { get; set; }
-
-      [SExprNode("end")]
-      public XyModel? End { get; set; }
-
-      [SExprToken("private")]
-      public bool IsPrivate { get; set; }
-
-      public StrokeModel? Stroke { get; set; }
-
-      [SExprSubNode("fill")]
-      public FillType Fill { get; set; }
+      private XyModel? _start;
+      private XyModel? _middle;
+      private XyModel? _end;
+      private bool _isPrivate;
+      private StrokeModel? _stroke;
+      private FillType _fill;
       #endregion
 
       #region Constructors
@@ -58,7 +48,70 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
       #endregion
 
       #region Full Props
+      [SExprNode("start")]
+      public XyModel? Start
+      {
+         get => _start;
+         set
+         {
+            _start = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprNode("mid")]
+      public XyModel? Middle
+      {
+         get => _middle;
+         set
+         {
+            _middle = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("end")]
+      public XyModel? End
+      {
+         get => _end;
+         set
+         {
+            _end = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("private")]
+      public bool IsPrivate
+      {
+         get => _isPrivate;
+         set
+         {
+            _isPrivate = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public StrokeModel? Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("fill")]
+      public FillType Fill
+      {
+         get => _fill;
+         set
+         {
+            _fill = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

@@ -14,11 +14,8 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    public class GrBBoxModel : GraphicBase
    {
       #region Local Props
-      [SExprNode("start")]
-      public XyModel? Start { get; set; }
-
-      [SExprNode("end")]
-      public XyModel? End { get; set; }
+      private XyModel? _start;
+      private XyModel? _end;
       #endregion
 
       #region Constructors
@@ -43,7 +40,27 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprNode("start")]
+      public XyModel? Start
+      {
+         get => _start;
+         set
+         {
+            _start = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprNode("end")]
+      public XyModel? End
+      {
+         get => _end;
+         set
+         {
+            _end = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

@@ -16,29 +16,14 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
    public class FpRectangleModel : GraphicBase
    {
       #region Local Props
-      [SExprNode("start")]
-      public XyModel Start { get; set; } = new();
-
-      [SExprNode("end")]
-      public XyModel End { get; set; } = new();
-
-      [SExprSubNode("layer")]
-      public string Layer { get; set; } = "";
-
-      [SExprSubNode("width")]
-      public double Width { get; set; } = 0;
-
-      [SExprNode("stroke")]
-      public StrokeModel Stroke { get; set; } = new();
-
-      [SExprSubNode("fill")]
-      public FillType Fill { get; set; }
-
-      [SExprToken("locked")]
-      public bool Locked { get; set; }
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
+      private XyModel _start = new();
+      private XyModel _end = new();
+      private string _layer = "";
+      private double _width;
+      private StrokeModel _stroke = new();
+      private FillType _fill = FillType.None;
+      private bool _locked;
+      private string _id = "";
       #endregion
 
       #region Constructors
@@ -83,7 +68,93 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #endregion
 
       #region Full Props
+      [SExprNode("start")]
+      public XyModel Start
+      {
+         get => _start;
+         set
+         {
+            _start = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprNode("end")]
+      public XyModel End
+      {
+         get => _end;
+         set
+         {
+            _end = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("layer")]
+      public string Layer
+      {
+         get => _layer;
+         set
+         {
+            _layer = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("width")]
+      public double Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprNode("stroke")]
+      public StrokeModel Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("fill")]
+      public FillType Fill
+      {
+         get => _fill;
+         set
+         {
+            _fill = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("locked")]
+      public bool Locked
+      {
+         get => _locked;
+         set
+         {
+            _locked = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

@@ -4,18 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using MVVMLibrary;
+
 using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels
 {
-   public class MetadataModel
+   public class MetadataModel : Model
    {
       #region Local Props
-      [JsonProperty(PropertyName = "filename", NullValueHandling = NullValueHandling.Ignore)]
-      public string? FileName { get; set; }
-
-      [JsonProperty(PropertyName = "version")]
-      public int Version { get; set; }
+      private string? _fileName;
+      private int _version;
       #endregion
 
       #region Constructors
@@ -27,7 +26,27 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       #endregion
 
       #region Full Props
+      [JsonProperty(PropertyName = "filename", NullValueHandling = NullValueHandling.Ignore)]
+      public string? FileName
+      {
+         get => _fileName;
+         set
+         {
+            _fileName = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [JsonProperty(PropertyName = "version")]
+      public int Version
+      {
+         get => _version;
+         set
+         {
+            _version = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

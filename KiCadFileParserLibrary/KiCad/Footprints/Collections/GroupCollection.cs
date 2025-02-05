@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,15 @@ using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
    [SExprListNode("group")]
-   public class GroupCollection : IKiCadReadable
+   public class GroupCollection : Model, IKiCadReadable
    {
       #region Local Props
-      public List<GroupModel> Groups { get; set; } = [];
+      private ObservableCollection<GroupModel> _groups = [];
       #endregion
 
       #region Constructors
@@ -51,7 +54,15 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<GroupModel> Groups
+      {
+         get => _groups;
+         set
+         {
+            _groups = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

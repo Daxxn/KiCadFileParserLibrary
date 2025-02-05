@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints
 {
-   public class FootprintLibrary
+   public class FootprintLibrary : Model
    {
       #region Local Props
-      public string LibraryPath { get; set; }
+      private string _libPath;
       public Dictionary<string, Footprint>? Footprints { get; set; }
       #endregion
 
@@ -58,7 +60,15 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
       #endregion
 
       #region Full Props
-
+      public string LibraryPath
+      {
+         get => _libPath;
+         set
+         {
+            _libPath = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

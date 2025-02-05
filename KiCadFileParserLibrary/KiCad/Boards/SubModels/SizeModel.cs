@@ -9,17 +9,16 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("size")]
-   public class SizeModel : IKiCadReadable
+   public class SizeModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public double Width { get; set; }
-
-      [SExprProperty(2)]
-      public double Height { get; set; }
+      private double _width;
+      private double _height;
       #endregion
 
       #region Constructors
@@ -43,7 +42,27 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public double Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprProperty(2)]
+      public double Height
+      {
+         get => _height;
+         set
+         {
+            _height = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

@@ -11,19 +11,17 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("group")]
-   public class GroupModel : IKiCadReadable
+   public class GroupModel : Model, IKiCadReadable
    {
       #region Local Props
-      [SExprProperty(1)]
-      public string Name { get; set; } = "";
-
-      [SExprSubNode("uuid")]
-      public string ID { get; set; } = "";
-
-      public MemberCollection Members { get; set; } = new();
+      private string _name;
+      private string _id;
+      private MemberCollection _members = new();
       #endregion
 
       #region Constructors
@@ -58,7 +56,37 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      [SExprProperty(1)]
+      public string Name
+      {
+         get => _name;
+         set
+         {
+            _name = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("uuid")]
+      public string ID
+      {
+         get => _id;
+         set
+         {
+            _id = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public MemberCollection Members
+      {
+         get => _members;
+         set
+         {
+            _members = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

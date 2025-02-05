@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,12 @@ using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
    [SExprListNode("fp_*")]
-   public class FpGraphicsCollection : IKiCadReadable
+   public class FpGraphicsCollection : Model, IKiCadReadable
    {
       #region Local Props
       private static readonly Dictionary<string, Func<GraphicBase>> GraphicsNodes = new()
@@ -29,7 +32,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
          { "dimension", () => new DimensionModel() },
       };
 
-      public List<GraphicBase>? Graphics { get; set; }
+      private ObservableCollection<GraphicBase>? _graphics;
       #endregion
 
       #region Constructors
@@ -53,7 +56,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
             }
             if (graphics.Count > 0)
             {
-               Graphics = graphics;
+               Graphics = new(graphics);
             }
          }
       }
@@ -74,7 +77,15 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
       #endregion
 
       #region Full Props
-
+      public ObservableCollection<GraphicBase>? Graphics
+      {
+         get => _graphics;
+         set
+         {
+            _graphics = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

@@ -16,19 +16,11 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
    public class SyCircleModel : SyGraphicBase
    {
       #region Local Props
-      [SExprNode("center")]
-      public XyModel? Center { get; set; }
-
-      [SExprSubNode("radius")]
-      public double? Radius { get; set; }
-
-      [SExprToken("private")]
-      public bool IsPrivate { get; set; }
-
-      public StrokeModel? Stroke { get; set; }
-
-      [SExprSubNode("fill")]
-      public FillType Fill { get; set; }
+      private XyModel? _center;
+      private double? _radius;
+      private bool _isPrivate;
+      private StrokeModel? _stroke;
+      private FillType _fill;
       #endregion
 
       #region Constructors
@@ -55,7 +47,59 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
       #endregion
 
       #region Full Props
+      [SExprNode("center")]
+      public XyModel? Center
+      {
+         get => _center;
+         set
+         {
+            _center = value;
+            OnPropertyChanged();
+         }
+      }
 
+      [SExprSubNode("radius")]
+      public double? Radius
+      {
+         get => _radius;
+         set
+         {
+            _radius = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("private")]
+      public bool IsPrivate
+      {
+         get => _isPrivate;
+         set
+         {
+            _isPrivate = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public StrokeModel? Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("fill")]
+      public FillType Fill
+      {
+         get => _fill;
+         set
+         {
+            _fill = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

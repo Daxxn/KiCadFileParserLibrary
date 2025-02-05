@@ -8,10 +8,12 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels
 {
    [SExprNode("label")]
-   public class NetLabelModel : IKiCadReadable
+   public class NetLabelModel : Model, IKiCadReadable
    {
       #region Local Props
 

@@ -9,20 +9,49 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Boards.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
+using System.Collections.ObjectModel;
+using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("effects")]
-   public class EffectsModel : IKiCadReadable
+   public class EffectsModel : Model, IKiCadReadable
    {
       #region Local Props
-      public FontModel? Font { get; set; }
+      public FontModel? Font
+      {
+         get => _fonts;
+         set
+         {
+            _fonts = value;
+            OnPropertyChanged();
+         }
+      }
+      private FontModel? _fonts;
 
       [SExprSubNode("justify")]
-      public List<TextJustify>? Justify { get; set; }
+      public ObservableCollection<TextJustify>? Justify
+      {
+         get => _justify;
+         set
+         {
+            _justify = value;
+            OnPropertyChanged();
+         }
+      }
+      private ObservableCollection<TextJustify>? _justify;
 
       [SExprToken("hide")]
-      public bool Hide { get; set; } // I cant find prop this anymore...
+      public bool Hide // I cant find this prop anymore...
+      {
+         get => _hide;
+         set
+         {
+            _hide = value;
+            OnPropertyChanged();
+         }
+      }
+      private bool _hide;
       #endregion
 
       #region Constructors

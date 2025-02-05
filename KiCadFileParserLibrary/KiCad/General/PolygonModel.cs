@@ -10,13 +10,15 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("polygon")]
-   public class PolygonModel : IKiCadReadable
+   public class PolygonModel : Model, IKiCadReadable
    {
       #region Local Props
-      public CoordinateModel Points { get; set; } = new();
+      private CoordinateModel _points = new();
       #endregion
 
       #region Constructors
@@ -45,7 +47,15 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
-
+      public CoordinateModel Points
+      {
+         get => _points;
+         set
+         {
+            _points = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

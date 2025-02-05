@@ -9,17 +9,23 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics;
 
 [SExprNode("layer")]
-public class FpTextLayerModel : IKiCadReadable
+public class FpTextLayerModel : Model, IKiCadReadable
 {
-   [SExprProperty(1)]
-   public string LayerName { get; set; } = "";
+   #region Local Props
+   private string _layerName = "";
+   private bool _knockout;
+   #endregion
 
-   [SExprProperty(2)]
-   public bool Knockout { get; set; } = false;
+   #region Constructors
+   public FpTextLayerModel() { }
+   #endregion
 
+   #region Methods
    public void ParseNode(Node node)
    {
       if (node.Properties != null)
@@ -40,4 +46,30 @@ public class FpTextLayerModel : IKiCadReadable
       }
       builder.AppendLine(")");
    }
+   #endregion
+
+   #region Full Props
+   [SExprProperty(1)]
+   public string LayerName
+   {
+      get => _layerName;
+      set
+      {
+         _layerName = value;
+         OnPropertyChanged();
+      }
+   }
+
+   [SExprProperty(2)]
+   public bool Knockout
+   {
+      get => _knockout;
+      set
+      {
+         _knockout = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
+
 }

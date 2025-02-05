@@ -9,35 +9,29 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
+using MVVMLibrary;
+
 namespace KiCadFileParserLibrary.KiCad.Boards
 {
    [SExprNode("layer")]
-   public class StackupLayer : IKiCadReadable
+   public class StackupLayer : Model, IKiCadReadable
    {
-      [SExprProperty(1)]
-      public string? Name { get; set; }
+      #region Local Props
+      private string? _name;
+      private string? _type;
+      private string? _color;
+      private string? _material;
+      private double? _thickness;
+      private double? _epsilon;
+      private double? _loss;
+      private bool _locked;
+      #endregion
 
-      [SExprSubNode("type")]
-      public string? Type { get; set; }
+      #region Constructors
+      public StackupLayer() { }
+      #endregion
 
-      [SExprSubNode("color")]
-      public string? Color { get; set; }
-
-      [SExprSubNode("material")]
-      public string? Material { get; set; }
-
-      [SExprSubNode("thickness")]
-      public double? Thickness { get; set; }
-
-      [SExprSubNode("epsilon_r")]
-      public double? EpsilonR { get; set; }
-
-      [SExprSubNode("loss_tangent")]
-      public double? LossTangent { get; set; }
-
-      [SExprToken("locked")]
-      public bool Locked { get; set; }
-
+      #region Methods
       public void ParseNode(Node node)
       {
          if (node.Properties != null && node.Children != null)
@@ -106,5 +100,96 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       {
          return $"Stackup-Layer - {Name} - Type: {Type} - Color: {Color} - Material: {Material} - Thickness: {Thickness} - eR: {EpsilonR} - Loss-Tan: {LossTangent} - Locked: {Locked}";
       }
+      #endregion
+
+      #region Full Props
+      [SExprProperty(1)]
+      public string? Name
+      {
+         get => _name;
+         set
+         {
+            _name = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("type")]
+      public string? Type
+      {
+         get => _type;
+         set
+         {
+            _type = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("color")]
+      public string? Color
+      {
+         get => _color;
+         set
+         {
+            _color = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("material")]
+      public string? Material
+      {
+         get => _material;
+         set
+         {
+            _material = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("thickness")]
+      public double? Thickness
+      {
+         get => _thickness;
+         set
+         {
+            _thickness = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("epsilon_r")]
+      public double? EpsilonR
+      {
+         get => _epsilon;
+         set
+         {
+            _epsilon = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("loss_tangent")]
+      public double? LossTangent
+      {
+         get => _loss;
+         set
+         {
+            _loss = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("locked")]
+      public bool Locked
+      {
+         get => _locked;
+         set
+         {
+            _locked = value;
+            OnPropertyChanged();
+         }
+      }
+      #endregion
    }
 }

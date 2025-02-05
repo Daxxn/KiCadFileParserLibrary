@@ -17,15 +17,10 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
    public class SyLineModel : SyGraphicBase
    {
       #region Local Props
-      public CoordinateModel? Points { get; set; }
-
-      public StrokeModel? Stroke { get; set; }
-
-      [SExprSubNode("fill")]
-      public FillType Fill { get; set; }
-
-      [SExprToken("private")]
-      public bool IsPrivate { get; set; }
+      private CoordinateModel? _points;
+      private StrokeModel? _stroke;
+      private FillType _fill;
+      private bool _isPrivate;
       #endregion
 
       #region Constructors
@@ -52,7 +47,47 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
       #endregion
 
       #region Full Props
+      public CoordinateModel? Points
+      {
+         get => _points;
+         set
+         {
+            _points = value;
+            OnPropertyChanged();
+         }
+      }
 
+      public StrokeModel? Stroke
+      {
+         get => _stroke;
+         set
+         {
+            _stroke = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("fill")]
+      public FillType Fill
+      {
+         get => _fill;
+         set
+         {
+            _fill = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("private")]
+      public bool IsPrivate
+      {
+         get => _isPrivate;
+         set
+         {
+            _isPrivate = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }
