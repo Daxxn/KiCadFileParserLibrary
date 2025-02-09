@@ -14,7 +14,5 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
    public abstract class SyGraphicBase : Model, IKiCadReadable
    {
       public abstract void ParseNode(Node node);
-
-      public abstract void WriteNode(StringBuilder builder, int indent, string? auxName = null);
    }
 }

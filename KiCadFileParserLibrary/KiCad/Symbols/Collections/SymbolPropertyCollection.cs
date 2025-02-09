@@ -9,20 +9,21 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Symbols.SubModels;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
 {
    [SExprListNode("property")]
-   public class PropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   public class SymbolPropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<SymbolProperty>? _props;
       #endregion
 
       #region Constructors
-      public PropertyCollection() { }
+      public SymbolPropertyCollection() { }
       #endregion
 
       #region Methods
@@ -39,14 +40,13 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         throw new NotImplementedException();
-      }
-
       public void WriteCollection(StringBuilder builder, int indent)
       {
-         throw new NotImplementedException();
+         if (Properties is null) return;
+         foreach (var prop in Properties)
+         {
+            KiCadWriteUtils2.WriteNode(prop, builder, indent + 1);
+         }
       }
       #endregion
 

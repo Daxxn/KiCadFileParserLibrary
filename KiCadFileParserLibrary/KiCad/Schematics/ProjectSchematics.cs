@@ -21,6 +21,14 @@ namespace KiCadFileParserLibrary.KiCad.Schematics
       #region Constructors
       public ProjectSchematics() { }
 
+      #endregion
+
+      #region Methods
+      public void Read(string path)
+      {
+
+      }
+
       public int IndexOf(Schematic item)
       {
          return Schematics?.IndexOf(item) ?? -1;
@@ -60,9 +68,6 @@ namespace KiCadFileParserLibrary.KiCad.Schematics
       {
          return Schematics?.Remove(item) == true;
       }
-      #endregion
-
-      #region Methods
       #endregion
 
       #region Full Props

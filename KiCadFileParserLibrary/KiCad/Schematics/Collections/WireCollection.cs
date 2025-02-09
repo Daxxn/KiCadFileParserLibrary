@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
@@ -28,17 +30,25 @@ namespace KiCadFileParserLibrary.KiCad.Schematics.Collections
       #region Methods
       public void ParseNode(Node node)
       {
-         throw new NotImplementedException();
-      }
-
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         throw new NotImplementedException();
+         if (node is null) return;
+         var wireNodes = node.GetNodes(GetType().GetCustomAttribute<SExprListNodeAttribute>()!.Name);
+         if (wireNodes == null) return;
+         Wires = [];
+         foreach ( var wireNode in wireNodes )
+         {
+            var wire = new WireModel();
+            wire.ParseNode(wireNode);
+            Wires.Add(wire);
+         }
       }
 
       public void WriteCollection(StringBuilder builder, int indent)
       {
-         throw new NotImplementedException();
+         if (Wires is null) return;
+         foreach (var wire in Wires)
+         {
+            KiCadWriteUtils2.WriteNode(wire, builder, indent);
+         }
       }
       #endregion
 

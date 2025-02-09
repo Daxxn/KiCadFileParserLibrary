@@ -326,3 +326,27 @@ public enum KnockoutText
 {
    Knockout
 }
+
+public enum LabelShape
+{
+   Input,
+   Output,
+   Bidirectional,
+   Tri_State,
+   Passive,
+}
+
+public enum SymbolFillType
+{
+   None,
+   Outline,
+   Background,
+}
+
+public enum NetClassShape
+{
+   Dot,
+   Circle,
+   Diamond,
+   Rectangle,
+}

@@ -44,6 +44,12 @@ namespace KiCadFileParserLibrary.KiCad.General
                   KiCadParseUtils.ParseProperties(props, node, this);
                   KiCadParseUtils.ParseTokens(props, node, this);
                }
+               else
+               {
+                  var props = GetType().GetProperties();
+
+                  KiCadParseUtils.ParseProperties(props, node, this);
+               }
             }
          }
       }

@@ -18,7 +18,7 @@ namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels
    public class JunctionModel : Model, IKiCadReadable
    {
       #region Local Props
-      private XyModel _position = new();
+      private LocationModel _position = new();
       private double _diameter = 0;
       private ColorModel _color = new();
       private string _id = "";
@@ -35,19 +35,14 @@ namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels
          {
             var props = GetType().GetProperties();
 
+            KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
-      }
-
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         throw new NotImplementedException();
       }
       #endregion
 
       #region Full Props
-      [SExprSubNode("at")]
-      public XyModel Position
+      public LocationModel Position
       {
          get => _position;
          set

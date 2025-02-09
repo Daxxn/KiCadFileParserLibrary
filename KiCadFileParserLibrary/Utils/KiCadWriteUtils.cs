@@ -10,6 +10,11 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 
 namespace KiCadFileParserLibrary.Utils
 {
+   /// <summary>
+   /// Depreciated!!
+   /// <para/>
+   /// Remove Soon.
+   /// </summary>
    internal static class KiCadWriteUtils
    {
       #region Methods
@@ -36,7 +41,7 @@ namespace KiCadFileParserLibrary.Utils
             if (value is IKiCadReadable val)
             {
                IndentNode(sb, indent);
-               val.WriteNode(sb, indent++);
+               //val.WriteNode(sb, indent++);
                sb.AppendLine();
             }
          }

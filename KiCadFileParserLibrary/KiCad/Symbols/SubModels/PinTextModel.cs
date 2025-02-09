@@ -38,15 +38,15 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.AppendLine($"({auxName ?? "name"} \"{Value}\"");
-         builder.Append('\t', indent + 1);
-         Effects?.WriteNode(builder, indent + 1);
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.AppendLine($"({auxName ?? "name"} \"{Value}\"");
+      //   builder.Append('\t', indent + 1);
+      //   Effects?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

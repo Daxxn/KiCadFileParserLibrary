@@ -9,6 +9,7 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Symbols.SubModels;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
@@ -46,7 +47,12 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
 
       public void WriteCollection(StringBuilder builder, int indent)
       {
-         throw new NotImplementedException();
+         if (SubSymbols is null) return;
+
+         foreach (var sub in SubSymbols)
+         {
+            KiCadWriteUtils2.WriteNode(sub, builder, indent);
+         }
       }
       #endregion
 

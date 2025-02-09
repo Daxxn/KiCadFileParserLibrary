@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
@@ -29,7 +31,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
       {
          if (node.Children != null)
          {
-            var children = node.GetNodes("symbol");
+            var children = node.GetNodes(GetType().GetCustomAttribute<SExprListNodeAttribute>()!.Name);
             if (children is null) return;
             Symbols = [];
             foreach (var child in children)
@@ -48,7 +50,10 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
 
       public void WriteCollection(StringBuilder builder, int indent)
       {
-         throw new NotImplementedException();
+         foreach (var symbol in Symbols)
+         {
+            KiCadWriteUtils2.WriteNode(symbol, builder, indent + 1);
+         }
       }
       #endregion
 

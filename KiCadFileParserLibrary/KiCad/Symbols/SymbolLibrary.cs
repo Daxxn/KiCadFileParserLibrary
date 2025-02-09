@@ -44,11 +44,12 @@ namespace KiCadFileParserLibrary.KiCad.Symbols
          if (node.Children is null) return;
          var props = GetType().GetProperties();
          KiCadParseUtils.ParseSubNodes(props, node, this);
+         KiCadParseUtils.ParseListNodes(props, node, this);
       }
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
-         throw new NotImplementedException();
+         KiCadWriteUtils2.WriteNode(this, builder, indent);
       }
       #endregion
 

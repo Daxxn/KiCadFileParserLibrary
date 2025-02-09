@@ -21,16 +21,16 @@ namespace KiCadFileParserTestConsole
 
    internal class Program
    {
-      private static string PcbFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_pcb";
-      private static string PcbOutFile = @"F:\Electrical\Designs\Testing\ParserTestPCBOutput\ParserTestPCBOutput.kicad_pcb";
-      private static string SchematicFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_sch";
-      private static string SchematicOutputFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB_OUT.kicad_sch";
-      private static string FootprintFolder = @"F:\Electrical\KiCad\Libraries\Footprints\Daxxn_TestLibrary.pretty";
-      private static string SymbolLibFile = @"F:\Electrical\KiCad\Libraries\Symbols\Daxxn_Testing.kicad_sym";
-      private static string ProjectFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_pro";
-      private static string ProjectOutputFile = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB_Output.kicad_pro";
-      private static string ProjectFolder = @"F:\Electrical\Designs\Testing\ParserTestPCB";
-      private static TestMode Test = TestMode.PCB_FILE;
+      private static string PcbFile             = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_pcb";
+      private static string PcbOutFile          = @"F:\Electrical\Designs\Testing\ParserTestPCBOutput\ParserTestPCBOutput.kicad_pcb";
+      private static string SchematicFile       = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_sch";
+      private static string SchematicOutputFile = @"F:\Electrical\Designs\Testing\ParserTestPCBOutput\ParserTestPCBOutput.kicad_sch";
+      private static string FootprintFolder     = @"F:\Electrical\KiCad\Libraries\Footprints\Daxxn_TestLibrary.pretty";
+      private static string SymbolLibFile       = @"F:\Electrical\KiCad\Libraries\Symbols\Daxxn_Testing.kicad_sym";
+      private static string ProjectFile         = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB.kicad_pro";
+      private static string ProjectOutputFile   = @"F:\Electrical\Designs\Testing\ParserTestPCB\ParserTestPCB_Output.kicad_pro";
+      private static string ProjectFolder       = @"F:\Electrical\Designs\Testing\ParserTestPCB";
+      private static TestMode Test = TestMode.SCHEMATIC_FILE;
 
       private static PcbModel? pcb;
       private static Schematic? schematic;

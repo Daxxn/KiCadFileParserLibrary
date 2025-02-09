@@ -11,5 +11,4 @@ namespace KiCadFileParserLibrary.KiCad.Interfaces;
 internal interface IKiCadReadable
 {
    void ParseNode(Node node);
-   void WriteNode(StringBuilder builder, int indent, string? auxName = null); // Remove soon.
 }

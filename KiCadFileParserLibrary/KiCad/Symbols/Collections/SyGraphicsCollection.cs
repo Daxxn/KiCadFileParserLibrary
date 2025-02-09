@@ -9,6 +9,7 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Symbols.Graphics;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
@@ -54,14 +55,14 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         throw new NotImplementedException();
-      }
-
       public void WriteCollection(StringBuilder builder, int indent)
       {
-         throw new NotImplementedException();
+         if (Graphics is null) return;
+
+         foreach (var gr in Graphics)
+         {
+            KiCadWriteUtils2.WriteNode(gr, builder, indent);
+         }
       }
       #endregion
 

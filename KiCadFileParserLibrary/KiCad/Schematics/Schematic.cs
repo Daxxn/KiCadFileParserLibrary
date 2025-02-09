@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
+using KiCadFileParserLibrary.KiCad.General.Collections;
 using KiCadFileParserLibrary.KiCad.Interfaces;
+using KiCadFileParserLibrary.KiCad.Schematics.Collections;
+using KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 using KiCadFileParserLibrary.KiCad.Symbols.Collections;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
@@ -24,8 +27,20 @@ namespace KiCadFileParserLibrary.KiCad.Schematics
       private string? _generatorVersion;
       private string? _id;
       private PaperModel? _paper;
-      private SymbolCollection? _symbols;
-      private TitleBlockModel? _titleBlock;
+      private TitleBlockModel? _title = new();
+      private SchematicSymbolCollection? _libSymbols;
+      private SymbolReferenceCollection? _symbolRefs;
+      private JunctionCollection? _junctions;
+      private WireCollection? _wires;
+      private BusCollection? _busses;
+      private BusEntryCollection? _busEntries;
+      private NoConnectCollection? _ncs;
+      private SyGraphicsCollection? _graphics;
+      private ImageCollection? _images;
+      private LocalLabelCollection? _localLabels;
+      private GlobalLabelCollection? _globalLabels;
+      private HierarchicalSheetCollection? _sheets;
+      private SchematicSheetInstanceModel _rootInstance = new();
       #endregion
 
       #region Constructors
@@ -61,7 +76,7 @@ namespace KiCadFileParserLibrary.KiCad.Schematics
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
-         throw new NotImplementedException();
+         KiCadWriteUtils2.WriteNode(this, builder, indent);
       }
       #endregion
 
@@ -120,23 +135,142 @@ namespace KiCadFileParserLibrary.KiCad.Schematics
          }
       }
 
-      [SExprListNode("lib_symbols")]
-      public SymbolCollection? Symbols
+      public TitleBlockModel? Title
       {
-         get => _symbols;
+         get => _title;
          set
          {
-            _symbols = value;
+            _title = value;
             OnPropertyChanged();
          }
       }
 
-      public TitleBlockModel TitleBlock
+      public SchematicSymbolCollection? LibSymbols
       {
-         get => _titleBlock;
+         get => _libSymbols;
          set
          {
-            _titleBlock = value;
+            _libSymbols = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public SymbolReferenceCollection SymbolRefs
+      {
+         get => _symbolRefs;
+         set
+         {
+            _symbolRefs = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public JunctionCollection? Junctions
+      {
+         get => _junctions;
+         set
+         {
+            _junctions = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public WireCollection Wires
+      {
+         get => _wires;
+         set
+         {
+            _wires = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public BusCollection? Busses
+      {
+         get => _busses;
+         set
+         {
+            _busses = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public BusEntryCollection? BusEntries
+      {
+         get => _busEntries;
+         set
+         {
+            _busEntries = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public NoConnectCollection? NoConnects
+      {
+         get => _ncs;
+         set
+         {
+            _ncs = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public SyGraphicsCollection? Graphics
+      {
+         get => _graphics;
+         set
+         {
+            _graphics = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public ImageCollection? Images
+      {
+         get => _images;
+         set
+         {
+            _images = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public LocalLabelCollection? LocalLabels
+      {
+         get => _localLabels;
+         set
+         {
+            _localLabels = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public GlobalLabelCollection GlobalLabels
+      {
+         get => _globalLabels;
+         set
+         {
+            _globalLabels = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public HierarchicalSheetCollection? Sheets
+      {
+         get => _sheets;
+         set
+         {
+            _sheets = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public SchematicSheetInstanceModel RootInstance
+      {
+         get => _rootInstance;
+         set
+         {
+            _rootInstance = value;
             OnPropertyChanged();
          }
       }

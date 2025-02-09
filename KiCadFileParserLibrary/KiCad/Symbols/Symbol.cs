@@ -26,7 +26,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols
       private PinNamesModel? _pinNames;
       private bool _inBom;
       private bool _onBoard;
-      private PropertyCollection _props = new();
+      private SymbolPropertyCollection _props = new();
       private SubSymbolCollection? _subSymbols;
       private SyGraphicsCollection? _graphics;
       private PinCollection? _pins;
@@ -49,21 +49,21 @@ namespace KiCadFileParserLibrary.KiCad.Symbols
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append($"(symbol \"{SymbolName}\"");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append($"(symbol \"{SymbolName}\"");
 
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("exclude_from_sim", ExcludeFromSim));
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("in_bom", InBom));
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("on_board", OnBoard));
-         PinNames?.WriteNode(builder, indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("exclude_from_sim", ExcludeFromSim));
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("in_bom", InBom));
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("on_board", OnBoard));
+      //   PinNames?.WriteNode(builder, indent + 1);
 
-         Properties.WriteNode(builder, indent + 1);
+      //   Properties.WriteNode(builder, indent + 1);
 
-         SubSymbols?.WriteNode(builder, indent + 1);
-         Graphics?.WriteNode(builder, indent + 1);
-         Pins?.WriteNode(builder, indent + 1);
-      }
+      //   SubSymbols?.WriteNode(builder, indent + 1);
+      //   Graphics?.WriteNode(builder, indent + 1);
+      //   Pins?.WriteNode(builder, indent + 1);
+      //}
       #endregion
 
       #region Full Props
@@ -144,7 +144,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols
          }
       }
 
-      public PropertyCollection Properties
+      public SymbolPropertyCollection Properties
       {
          get => _props;
          set

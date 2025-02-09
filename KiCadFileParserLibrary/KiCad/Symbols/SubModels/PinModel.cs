@@ -43,24 +43,24 @@ public class PinModel : Model, IKiCadReadable
       }
    }
 
-   public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   {
-      builder.Append($"(pin {ElectricalType.ToString().ToLower()} {GraphicalStyle.ToString().ToLower()}");
-      Location.WriteNode(builder, indent + 1);
-      builder.Append('\t', indent + 1);
-      builder.Append($"(length {Length})");
-      if (Visible == PinVisibility.Hide)
-      {
-         builder.Append(Visible.ToString().ToLower());
-      }
-      builder.AppendLine();
+   //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+   //{
+   //   builder.Append($"(pin {ElectricalType.ToString().ToLower()} {GraphicalStyle.ToString().ToLower()}");
+   //   Location.WriteNode(builder, indent + 1);
+   //   builder.Append('\t', indent + 1);
+   //   builder.Append($"(length {Length})");
+   //   if (Visible == PinVisibility.Hide)
+   //   {
+   //      builder.Append(Visible.ToString().ToLower());
+   //   }
+   //   builder.AppendLine();
 
-      Name.WriteNode(builder, indent + 1, "name");
-      Number.WriteNode(builder, indent + 1, "number");
+   //   Name.WriteNode(builder, indent + 1, "name");
+   //   Number.WriteNode(builder, indent + 1, "number");
 
-      builder.Append('\t', indent);
-      builder.AppendLine(")");
-   }
+   //   builder.Append('\t', indent);
+   //   builder.AppendLine(")");
+   //}
    #endregion
 
    #region Full Props
