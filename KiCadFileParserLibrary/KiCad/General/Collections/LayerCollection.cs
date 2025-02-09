@@ -14,7 +14,7 @@ using MVVMLibrary;
 namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
    [SExprListNode("layers")]
-   public class LayerCollection : Model, IKiCadReadable
+   public class LayerCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<string> _layers = [];
@@ -38,6 +38,17 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
       }
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.Append("(layers");
+         foreach (var layer in Layers)
+         {
+            builder.Append($" \"{layer}\"");
+         }
+         builder.AppendLine(")");
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
       {
          builder.Append('\t', indent);
          builder.Append("(layers");

@@ -58,7 +58,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
 
          Layer?.WriteNode(builder, indent + 1);
          //builder.Append('\t', indent + 1);
-         //builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+         //builder.AppendLine(KiCadWriteUtils.WriteSubNode("layer", Layer));
 
          builder.Append('\t', indent + 1);
          builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));

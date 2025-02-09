@@ -9,13 +9,14 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
    [SExprListNode("group")]
-   public class GroupCollection : Model, IKiCadReadable
+   public class GroupCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<GroupModel> _groups = [];
@@ -50,6 +51,14 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
       public override string ToString()
       {
          return $"Groups - {Groups.Count}";
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         foreach (var group in Groups)
+         {
+            KiCadWriteUtils2.WriteNode(group, builder, indent);
+         }
       }
       #endregion
 

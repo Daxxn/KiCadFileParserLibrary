@@ -18,7 +18,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
    public class FootprintAttributeModel : Model, IKiCadReadable
    {
       #region Local Props
-      private FootprintType _type;
+      private FootprintType? _type;
       private bool _boardOnly;
       private bool _excludeFromposFiles;
       private bool _excludeFromBom;
@@ -110,7 +110,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 
       #region Full Props
       [SExprProperty(1)]
-      public FootprintType Type
+      public FootprintType? Type
       {
          get => _type;
          set

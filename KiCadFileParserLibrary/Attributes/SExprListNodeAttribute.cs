@@ -13,12 +13,19 @@ namespace KiCadFileParserLibrary.Attributes
    sealed class SExprListNodeAttribute : Attribute
    {
       private readonly string _name;
+      private readonly int _index = -1;
 
       public SExprListNodeAttribute(string name)
       {
          _name = name;
       }
+      public SExprListNodeAttribute(string name, int index)
+      {
+         _name = name;
+         _index = index;
+      }
 
       public string Name => _name;
+      public int Index => _index;
    }
 }

@@ -9,13 +9,14 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards.Collections
+namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
    [SExprListNode("property")]
-   public class PropertyCollection : Model, IKiCadReadable
+   public class PropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<PropertyModel> _properties = [];
@@ -36,9 +37,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          foreach (var child in children)
          {
             if (child.Properties![1] == "ki_fp_filters")
-            {
                FilterProp = child.Properties[2];
-            }
             else
             {
                PropertyModel prop = new();
@@ -53,6 +52,18 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          foreach (var prop in Properties)
          {
             prop.WriteNode(builder, indent);
+         }
+         if (string.IsNullOrEmpty(FilterProp)) return;
+         builder.Append('\t', indent);
+         builder.AppendLine($"(property ki_fp_filters \"{FilterProp}\")");
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         foreach (var prop in Properties)
+         {
+            //prop.WriteNode(builder, indent);
+            KiCadWriteUtils2.WriteNode(prop, builder, indent);
          }
          if (string.IsNullOrEmpty(FilterProp)) return;
          builder.Append('\t', indent);

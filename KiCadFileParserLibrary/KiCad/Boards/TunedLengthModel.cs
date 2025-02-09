@@ -13,6 +13,7 @@ using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 using MVVMLibrary;
 using System.Security.Cryptography;
+using KiCadFileParserLibrary.KiCad.Boards.SubModels;
 
 namespace KiCadFileParserLibrary.KiCad.Boards
 {
@@ -44,11 +45,11 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       private double _targetSkewMax;
       private double _targetSkewMin;
       private string _tuningMode;
-      private CoordinateModel? _baseline;
-      private CoordinateModel? _baselineCoupled;
+      private BaselineModel? _baseline;
+      private BaselineCoupledModel? _baselineCoupled;
       private MemberCollection? _members;
-      private XyModel? _origin;
-      private XyModel? _end;
+      private OriginModel? _origin;
+      private OriginModel? _end;
 
       #endregion
 
@@ -448,8 +449,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      [SExprNode("base_line/pts")]
-      public CoordinateModel? BaseLine
+      public BaselineModel? BaseLine
       {
          get => _baseline;
          set
@@ -459,8 +459,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      [SExprNode("base_line_coupled/pts")]
-      public CoordinateModel? BaseLineCoupled
+      public BaselineCoupledModel? BaseLineCoupled
       {
          get => _baselineCoupled;
          set
@@ -480,8 +479,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      [SExprNode("origin/xy")]
-      public XyModel? Origin
+      public OriginModel? Origin
       {
          get => _origin;
          set
@@ -491,8 +489,8 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      [SExprNode("end/xy")]
-      public XyModel? End
+      [SExprNode("end")]
+      public OriginModel? End
       {
          get => _end;
          set

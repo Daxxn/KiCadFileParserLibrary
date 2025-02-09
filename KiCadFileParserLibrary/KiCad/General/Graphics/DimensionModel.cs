@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
@@ -16,7 +15,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
    {
       #region Local Props
       private bool _locked;
-      private DimensionType _type;
+      private DimensionType? _type;
       private string _layer;
       private double _height;
       private string _id;
@@ -89,7 +88,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       }
 
       [SExprSubNode("type")]
-      public DimensionType Type
+      public DimensionType? Type
       {
          get => _type;
          set

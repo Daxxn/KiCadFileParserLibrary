@@ -11,13 +11,14 @@ using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
    [SExprListNode("pad")]
-   public class PadCollection : Model, IKiCadReadable
+   public class PadCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<PadModel> _pads = [];
@@ -52,6 +53,14 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
       public override string ToString()
       {
          return $"Pads - {Pads.Count}";
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         foreach (var pad in Pads)
+         {
+            KiCadWriteUtils2.WriteNode(pad, builder, indent);
+         }
       }
       #endregion
 

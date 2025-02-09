@@ -10,13 +10,14 @@ using KiCadFileParserLibrary.KiCad.Footprints.Graphics;
 using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
    [SExprListNode("fp_*")]
-   public class FpGraphicsCollection : Model, IKiCadReadable
+   public class FpGraphicsCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private static readonly Dictionary<string, Func<GraphicBase>> GraphicsNodes = new()
@@ -73,6 +74,15 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
       public override string ToString()
       {
          return $"FP Graphics - {Graphics?.Count}";
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         if (Graphics is null) return;
+         foreach (var gr in Graphics)
+         {
+            KiCadWriteUtils2.WriteNode(gr, builder, indent);
+         }
       }
       #endregion
 

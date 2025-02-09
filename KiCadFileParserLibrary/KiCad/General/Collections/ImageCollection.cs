@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
    [SExprListNode("image")]
-   public class ImageCollection : Model, IKiCadReadable
+   public class ImageCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<ImageModel>? _images;
@@ -50,6 +51,15 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
       public override string ToString()
       {
          return $"Images - {Images?.Count}";
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         if (Images is null) return;
+         foreach (var img in Images)
+         {
+            KiCadWriteUtils2.WriteNode(img, builder, indent);
+         }
       }
       #endregion
 

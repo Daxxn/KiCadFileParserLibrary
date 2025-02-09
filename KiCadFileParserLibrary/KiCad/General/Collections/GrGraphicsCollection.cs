@@ -9,13 +9,14 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
    [SExprListNode("gr_*")]
-   public class GrGraphicsCollection : Model, IKiCadReadable
+   public class GrGraphicsCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private static readonly Dictionary<string, Func<GraphicBase>> GraphicsNodes = new()
@@ -72,6 +73,15 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
       public override string ToString()
       {
          return $"Graphics - {Graphics?.Count}";
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         if (Graphics == null) return;
+         foreach (var graphic in Graphics)
+         {
+            KiCadWriteUtils2.WriteNode(graphic, builder, indent);
+         }
       }
       #endregion
 

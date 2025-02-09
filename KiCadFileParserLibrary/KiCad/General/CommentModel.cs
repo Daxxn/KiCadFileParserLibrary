@@ -12,7 +12,7 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
+namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("comment")]
    public class CommentModel : Model, IKiCadReadable

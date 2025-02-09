@@ -15,7 +15,7 @@ using MVVMLibrary;
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections
 {
    [SExprListNode("wire")]
-   public class WireCollection : Model, IKiCadReadable
+   public class WireCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<WireModel>? _wires;
@@ -32,6 +32,11 @@ namespace KiCadFileParserLibrary.KiCad.Schematics.Collections
       }
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         throw new NotImplementedException();
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
       {
          throw new NotImplementedException();
       }

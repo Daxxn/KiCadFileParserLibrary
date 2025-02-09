@@ -20,7 +20,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #region Local Props
       private string _layer = "";
       private double _width;
-      private FillType _fill = FillType.None;
+      private FillType? _fill;
       private string _id = "";
       private XyModel _center = new();
       private XyModel _end = new();
@@ -92,7 +92,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       }
 
       [SExprSubNode("Fill")]
-      public FillType Fill
+      public FillType? Fill
       {
          get => _fill;
          set
@@ -113,7 +113,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
          }
       }
 
-      [SExprNode("center")]
+      [SExprNode("center", 0)]
       public XyModel Center
       {
          get => _center;
@@ -124,7 +124,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
          }
       }
 
-      [SExprNode("end")]
+      [SExprNode("end", 1)]
       public XyModel End
       {
          get => _end;

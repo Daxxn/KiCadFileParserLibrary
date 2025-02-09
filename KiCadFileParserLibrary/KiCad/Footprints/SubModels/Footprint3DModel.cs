@@ -20,9 +20,12 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #region Local Props
       private string? _path;
       private double? _opacity;
-      private XyzModel _offset = new();
-      private XyzModel _scale = new();
-      private XyzModel _rotation = new();
+      private Offset3DModel _offset = new();
+      private Scale3DModel _scale = new();
+      private Rotate3DModel _rotation = new();
+      //private XyzModel _offset = new();
+      //private XyzModel _scale = new();
+      //private XyzModel _rotation = new();
       #endregion
 
       #region Constructors
@@ -98,8 +101,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          }
       }
 
-      [SExprNode("offset/xyz")]
-      public XyzModel Offset
+      public Offset3DModel Offset
       {
          get => _offset;
          set
@@ -109,8 +111,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          }
       }
 
-      [SExprNode("scale/xyz")]
-      public XyzModel Scale
+      public Scale3DModel Scale
       {
          get => _scale;
          set
@@ -120,8 +121,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          }
       }
 
-      [SExprNode("rotate/xyz")]
-      public XyzModel Rotation
+      public Rotate3DModel Rotation
       {
          get => _rotation;
          set

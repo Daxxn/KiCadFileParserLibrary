@@ -18,19 +18,19 @@ namespace KiCadFileParserLibrary.KiCad.General
    {
       #region Local Props
       private bool _isFilled;
-      private ZoneFillMode _fillMode;
+      private ZoneFillMode? _fillMode;
       private double _thermalGap;
       private double _thermalBridge;
-      private SmoothingStyleType _smoothing;
+      private SmoothingStyleType? _smoothing;
       private double? _smoothingRadius;
-      private IslandRemovalMode _islandRemovalMode;
+      private IslandRemovalMode? _islandRemovalMode;
       private double? _islandAreaMin;
       private double? _hatchThickness;
       private double? _hatchGap;
       private double? _hatchOrient;
-      private HatchSmoothingLevel _hatchSmoothingLevel;
+      private HatchSmoothingLevel? _hatchSmoothingLevel;
       private double? _hatchSmoothingValue;
-      private HatchBorderAlgorythmType _hatchBorderAl;
+      private HatchBorderAlgorythmType? _hatchBorderAl;
       private double? _hatchMinHoleArea;
       #endregion
 
@@ -86,7 +86,7 @@ namespace KiCadFileParserLibrary.KiCad.General
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("radius", SmoothingRadius));
          }
 
-         if (IslandRemovalMode != IslandRemovalMode.AlwaysRemove)
+         if (IslandRemovalMode != null)
          {
             builder.Append('\t', indent + 1);
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("island_removal_mode", (int)IslandRemovalMode));
@@ -98,7 +98,7 @@ namespace KiCadFileParserLibrary.KiCad.General
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("island_area_min", IslandAreaMin));
          }
 
-         if (HatchThickness != null)
+         if (HatchThickness != 0)
          {
             builder.Append('\t', indent + 1);
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_thickness", HatchThickness));
@@ -116,7 +116,7 @@ namespace KiCadFileParserLibrary.KiCad.General
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_orientation", HatchOrientation));
          }
 
-         if (HatchSmoothingLevel != HatchSmoothingLevel.NoSmoothing)
+         if (HatchSmoothingLevel != null)
          {
             builder.Append('\t', indent + 1);
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_smoothing_level", HatchSmoothingLevel));
@@ -158,7 +158,8 @@ namespace KiCadFileParserLibrary.KiCad.General
       }
 
       [SExprSubNode("mode")]
-      public ZoneFillMode FillMode
+      [SExprFormatting(false, true)]
+      public ZoneFillMode? FillMode
       {
          get => _fillMode;
          set
@@ -191,7 +192,7 @@ namespace KiCadFileParserLibrary.KiCad.General
       }
 
       [SExprSubNode("smoothing")]
-      public SmoothingStyleType Smoothing
+      public SmoothingStyleType? Smoothing
       {
          get => _smoothing;
          set
@@ -213,7 +214,8 @@ namespace KiCadFileParserLibrary.KiCad.General
       }
 
       [SExprSubNode("island_removal_mode")]
-      public IslandRemovalMode IslandRemovalMode
+      [SExprFormatting(true, true)]
+      public IslandRemovalMode? IslandRemovalMode
       {
          get => _islandRemovalMode;
          set
@@ -268,7 +270,8 @@ namespace KiCadFileParserLibrary.KiCad.General
       }
 
       [SExprSubNode("hatch_smoothing_level")]
-      public HatchSmoothingLevel HatchSmoothingLevel
+      [SExprFormatting(true, true)]
+      public HatchSmoothingLevel? HatchSmoothingLevel
       {
          get => _hatchSmoothingLevel;
          set
@@ -290,7 +293,8 @@ namespace KiCadFileParserLibrary.KiCad.General
       }
 
       [SExprSubNode("hatch_border_algorithm")]
-      public HatchBorderAlgorythmType HatchBorderAlgorythm
+      [SExprFormatting(false, true)]
+      public HatchBorderAlgorythmType? HatchBorderAlgorythm
       {
          get => _hatchBorderAl;
          set

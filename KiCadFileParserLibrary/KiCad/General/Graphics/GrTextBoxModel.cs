@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 

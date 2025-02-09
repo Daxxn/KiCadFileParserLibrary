@@ -17,7 +17,7 @@ namespace KiCadFileParserLibrary.KiCad.General
    public class HatchModel : Model, IKiCadReadable
    {
       #region Local Props
-      private HatchType _type;
+      private HatchType? _type;
       private double? _spacing;
       #endregion
 
@@ -44,7 +44,7 @@ namespace KiCadFileParserLibrary.KiCad.General
 
       #region Full Props
       [SExprProperty(1)]
-      public HatchType Type
+      public HatchType? Type
       {
          get => _type;
          set

@@ -19,7 +19,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
    public class ViaModel : Model, IKiCadReadable
    {
       #region Local Props
-      private ViaType _type;
+      private ViaType? _type;
       private LocationModel? _location;
       private double _size;
       private double _drill;
@@ -107,8 +107,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       #endregion
 
       #region Full Props
-      [SExprSubNode("type")]
-      public ViaType Type
+      [SExprSubNode("type", 0)]
+      [SExprFormatting(false, true)]
+      public ViaType? Type
       {
          get => _type;
          set
@@ -118,6 +119,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
+      [SExprNode("at", 1)]
       public LocationModel? Location
       {
          get => _location;
@@ -128,7 +130,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      [SExprSubNode("size")]
+      [SExprSubNode("size", 2)]
       public double Size
       {
          get => _size;
@@ -139,7 +141,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      [SExprSubNode("drill")]
+      [SExprSubNode("drill", 3)]
       public double Drill
       {
          get => _drill;
@@ -150,6 +152,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
+      [SExprListNode("layers", 4)]
       public LayerCollection? Layers
       {
          get => _layers;
@@ -182,7 +185,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      [SExprSubNode("free")]
+      [SExprSubNode("free", 6)]
       public bool IsFree
       {
          get => _isFree;
@@ -204,7 +207,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      [SExprSubNode("net")]
+      [SExprSubNode("net", 5)]
       public int Net
       {
          get => _net;
@@ -215,7 +218,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      [SExprSubNode("uuid")]
+      [SExprSubNode("uuid", 7)]
       public string ID
       {
          get => _id;

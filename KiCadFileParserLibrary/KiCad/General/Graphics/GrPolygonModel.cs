@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
@@ -19,7 +18,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       private bool _locked;
       private StrokeModel? _stroke;
       private double? _width;
-      private FillType _fill;
+      private FillType? _fill;
       private string? _layer;
       private string? _id;
       #endregion
@@ -82,6 +81,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
+      [SExprNode("pts", 0)]
       public CoordinateModel Points
       {
          get => _points;
@@ -125,7 +125,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       }
 
       [SExprSubNode("fill")]
-      public FillType Fill
+      public FillType? Fill
       {
          get => _fill;
          set

@@ -15,7 +15,7 @@ using MVVMLibrary;
 namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
 {
    [SExprListNode("graphics")]
-   public class SyGraphicsCollection : Model, IKiCadReadable
+   public class SyGraphicsCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private static readonly Dictionary<string, Func<SyGraphicBase>> GraphicsNodes = new()
@@ -55,6 +55,11 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
       }
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         throw new NotImplementedException();
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
       {
          throw new NotImplementedException();
       }

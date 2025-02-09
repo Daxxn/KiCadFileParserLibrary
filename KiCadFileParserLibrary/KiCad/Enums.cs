@@ -136,7 +136,6 @@ public enum PadType
 
 public enum PadShapeType
 {
-   None = 0,
    Circle,
    Rect,
    Oval,
@@ -145,9 +144,13 @@ public enum PadShapeType
    Custom
 }
 
+public enum DrillShapeType
+{
+   Oval,
+}
+
 public enum PadPropertyType
 {
-   None = 0,
    Pad_Prop_BGA,
    Pad_Prop_Fiducial_Glob,
    Pad_Prop_Fiducial_Loc,
@@ -158,7 +161,6 @@ public enum PadPropertyType
 
 public enum ChamferType
 {
-   None = 0,
    Top_Left,
    Top_Right,
    Bottom_Left,
@@ -308,4 +310,19 @@ public enum TeardropType
 {
    None,
    PadVia,
+}
+
+public enum PcbOutputFormat
+{
+   Gerber,
+   PostScript,
+   SVG,
+   DXF,
+   HPGL,
+   PDF,
+}
+
+public enum KnockoutText
+{
+   Knockout
 }

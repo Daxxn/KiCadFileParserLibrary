@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprListNode("generated")]
-   public class TunedLengthCollection : Model, IKiCadReadable
+   public class TunedLengthCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<TunedLengthModel> _tunedLengths = [];
@@ -52,6 +53,14 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       public override string ToString()
       {
          return $"Tuned-Lengths - {TunedLengths.Count}";
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         foreach (var tl in TunedLengths)
+         {
+            KiCadWriteUtils2.WriteNode(tl, builder, indent);
+         }
       }
       #endregion
 

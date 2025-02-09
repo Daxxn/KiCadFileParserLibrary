@@ -39,7 +39,6 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       private GroupCollection? _groups;
       private TextVariableCollection? _textVariables;
       private TunedLengthCollection? _tunedLengths;
-
       #endregion
 
       #region Constructors
@@ -83,37 +82,42 @@ namespace KiCadFileParserLibrary.KiCad.Boards
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
-         builder.Append('\t', indent); // Will probably error out...
-         builder.Append("(kicad_pcb");
-         builder.AppendLine();
+         // Manual Method:
+         // Tedious to write and change, but it does work!
+         //builder.Append('\t', indent);
+         //builder.Append("(kicad_pcb");
+         //builder.AppendLine();
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("version", Version));
+         //builder.Append('\t', indent + 1);
+         //builder.AppendLine(KiCadWriteUtils.WriteSubNode("version", Version));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("generator", Generator));
+         //builder.Append('\t', indent + 1);
+         //builder.AppendLine(KiCadWriteUtils.WriteSubNode("generator", Generator));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("generator_version", GeneratorVersion));
+         //builder.Append('\t', indent + 1);
+         //builder.AppendLine(KiCadWriteUtils.WriteSubNode("generator_version", GeneratorVersion));
 
-         General.WriteNode(builder, indent + 1);
-         Paper.WriteNode(builder, indent + 1);
-         TitleBlock?.WriteNode(builder, indent + 1);
-         Layers.WriteNode(builder, indent + 1);
-         Setup.WriteNode(builder, indent + 1);
-         TextVariables?.WriteNode(builder, indent + 1);
-         Nets?.WriteNode(builder, indent + 1);
-         Footprints?.WriteNode(builder, indent + 1);
-         Graphics?.WriteNode(builder, indent + 1);
-         Images?.WriteNode(builder, indent + 1);
-         Traces?.WriteNode(builder, indent + 1);
-         Zones?.WriteNode(builder, indent + 1);
-         Groups?.WriteNode(builder, indent + 1);
-         TunedLengths?.WriteNode(builder, indent + 1);
+         //General.WriteNode(builder, indent + 1);
+         //Paper.WriteNode(builder, indent + 1);
+         //TitleBlock?.WriteNode(builder, indent + 1);
+         //Layers?.WriteNode(builder, indent + 1);
+         //Setup.WriteNode(builder, indent + 1);
+         //TextVariables?.WriteNode(builder, indent + 1);
+         //Nets?.WriteNode(builder, indent + 1);
+         //Footprints?.WriteNode(builder, indent + 1);
+         //Graphics?.WriteNode(builder, indent + 1);
+         //Images?.WriteNode(builder, indent + 1);
+         //Traces?.WriteNode(builder, indent + 1);
+         //Zones?.WriteNode(builder, indent + 1);
+         //Groups?.WriteNode(builder, indent + 1);
+         //TunedLengths?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
+         //builder.Append('\t', indent);
+         //builder.AppendLine(")");
 
+
+         // Old Automatic Method:
+         // Not working. Keep until sure everything useful is extracted.
          //var props = GetType().GetProperties();
 
          //var pProps = props.Where(p => p.GetCustomAttribute<SExprPropertyAttribute>() != null);
@@ -121,7 +125,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          //{
          //   var value = prop.GetValue(this);
          //   if (value is null) continue;
-         //   builder.Append(" ");
+         //   builder.Append(' ');
          //   if (value is string)
          //   {
          //      builder.Append('"');
@@ -145,6 +149,11 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          //      }
          //   }
          //}
+
+
+         // New Automatic Method:
+         // Should write everything without issue. However, the WriteNode methods in ALL properties would be redundant.
+         KiCadWriteUtils2.WriteNode(this, builder, indent);
       }
       #endregion
 

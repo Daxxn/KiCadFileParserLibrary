@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.General.Collections;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
+namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("title_block")]
    public class TitleBlockModel : Model, IKiCadReadable
@@ -28,7 +29,8 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 
       private string? _company;
 
-      private ObservableCollection<CommentModel>? _comments;
+      //private ObservableCollection<CommentModel>? _comments;
+      private CommentCollection _comments = new();
       #endregion
 
       #region Constructors
@@ -49,20 +51,10 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
             if (dateNode.Properties!.Count > 1)
             {
                if (DateOnly.TryParse(dateNode.Properties[1], out DateOnly date))
-               {
                   Date = date;
-               }
             }
 
-            var commentNodes = node.GetNodes("comment");
-            if (commentNodes is null) return;
-            Comments = [];
-            foreach (var commentNode in commentNodes)
-            {
-               var comment = new CommentModel();
-               comment.ParseNode(commentNode);
-               Comments.Add(comment);
-            }
+            Comments.ParseNode(node);
          }
       }
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
@@ -94,13 +86,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("company", Company));
          }
 
-         if (Comments != null)
-         {
-            foreach (var comm in Comments)
-            {
-               comm.WriteNode(builder, indent + 1);
-            }
-         }
+         Comments.WriteNode(builder, indent + 1);
 
          builder.Append('\t', indent);
          builder.AppendLine(")");
@@ -108,7 +94,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 
       public override string ToString()
       {
-         return $"Title - {Title} - Rev: {Revision} - Date: {Date:MM-dd-yy} - Comp: {Company} - Comm {Comments?.Count}";
+         return $"Title - {Title} - Rev: {Revision} - Date: {Date:MM-dd-yy} - Comp: {Company} - Comm {Comments.Count}";
       }
       #endregion
 
@@ -157,7 +143,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          }
       }
 
-      public ObservableCollection<CommentModel>? Comments
+      public CommentCollection Comments
       {
          get => _comments;
          set

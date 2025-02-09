@@ -9,16 +9,17 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprListNode("property")]
-   public class TextVariableCollection : Model, IKiCadReadable
+   public class TextVariableCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
-      private ObservableCollection<GenericProperty>? _textVars { get; set; }
+      private ObservableCollection<GenericProperty>? _textVars;
       #endregion
 
       #region Constructors
@@ -44,7 +45,8 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          if (TextVars is null) return;
          foreach (var txtVar in TextVars)
          {
-            txtVar.WriteNode(builder, indent);
+            //txtVar.WriteNode(builder, indent);
+            KiCadWriteUtils2.WriteNode(txtVar, builder, indent);
          }
       }
 
@@ -52,10 +54,19 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       {
          return $"Properties - {TextVars?.Count}";
       }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         if (TextVars is null) return;
+         foreach (var txtVar in TextVars)
+         {
+            txtVar.WriteNode(builder, indent);
+         }
+      }
       #endregion
 
       #region Full Props
-      public ObservableCollection<GenericProperty> TextVars
+      public ObservableCollection<GenericProperty>? TextVars
       {
          get => _textVars;
          set

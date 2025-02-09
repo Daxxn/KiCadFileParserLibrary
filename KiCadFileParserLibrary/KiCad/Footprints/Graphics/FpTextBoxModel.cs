@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.SExprParser;
@@ -117,7 +116,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
          }
       }
 
-      [SExprNode("start")]
+      [SExprNode("start", 0)]
       public XyModel Start
       {
          get => _start;
@@ -128,7 +127,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
          }
       }
 
-      [SExprNode("end")]
+      [SExprNode("end", 1)]
       public XyModel End
       {
          get => _end;

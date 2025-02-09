@@ -12,7 +12,6 @@ using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.General.Collections;
 using KiCadFileParserLibrary.KiCad.Interfaces;
-using KiCadFileParserLibrary.KiCad.Boards.Collections;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 using MVVMLibrary;
@@ -41,7 +40,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
       private double? _solderPasteMargin;
       private double? _solderPasteRatio;
       private double? _clearance;
-      private ZoneConnectType _type;
+      private int _zoneConnect;
       private double? _thermalWidth;
       private double? _thermalGap;
       private FootprintAttributeModel? _attributes;
@@ -156,7 +155,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("clearance", Clearance));
          }
 
-         if (ZoneConnect != ZoneConnectType.None)
+         if (ZoneConnect != 0)
          {
             builder.Append('\t', indent + 1);
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("zone_connect", (int)ZoneConnect));
@@ -404,12 +403,12 @@ namespace KiCadFileParserLibrary.KiCad.Footprints
       }
 
       [SExprSubNode("zone_connect")]
-      public ZoneConnectType ZoneConnect
+      public int ZoneConnect
       {
-         get => _type;
+         get => _zoneConnect;
          set
          {
-            _type = value;
+            _zoneConnect = value;
             OnPropertyChanged();
          }
       }

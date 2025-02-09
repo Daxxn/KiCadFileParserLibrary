@@ -70,7 +70,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #endregion
 
       #region Full Props
-      [SExprNode("start")]
+      [SExprNode("start", 0)]
       public XyModel Start
       {
          get => _start;
@@ -81,7 +81,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
          }
       }
 
-      [SExprNode("mid")]
+      [SExprNode("mid", 1)]
       public XyModel Middle
       {
          get => _middle;
@@ -92,7 +92,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
          }
       }
 
-      [SExprNode("end")]
+      [SExprNode("end", 2)]
       public XyModel End
       {
          get => _end;

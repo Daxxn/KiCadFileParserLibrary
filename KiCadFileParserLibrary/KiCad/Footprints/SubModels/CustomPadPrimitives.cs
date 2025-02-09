@@ -20,6 +20,8 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
    {
       #region Local Props
       private GrGraphicsCollection _primitives;
+      private double? _width = null;
+      private bool? _fill = null;
       #endregion
 
       #region Constructors
@@ -33,6 +35,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          {
             var props = GetType().GetProperties();
             KiCadParseUtils.ParseListNodes(props, node, this);
+            KiCadParseUtils.ParseSubNodes(props, node, this);
          }
       }
 
@@ -55,6 +58,28 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          set
          {
             _primitives = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("width")]
+      public double? Width
+      {
+         get => _width;
+         set
+         {
+            _width = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprSubNode("fill")]
+      public bool? Fill
+      {
+         get => _fill;
+         set
+         {
+            _fill = value;
             OnPropertyChanged();
          }
       }

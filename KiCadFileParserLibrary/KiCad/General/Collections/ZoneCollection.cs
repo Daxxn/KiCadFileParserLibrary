@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections
 {
    [SExprListNode("zone")]
-   public class ZoneCollection : Model, IKiCadReadable
+   public class ZoneCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<ZoneModel> _zones = [];
@@ -49,6 +50,14 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
       public override string ToString()
       {
          return $"Zones - {Zones.Count}";
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         foreach (var zone in Zones)
+         {
+            KiCadWriteUtils2.WriteNode(zone, builder, indent);
+         }
       }
       #endregion
 

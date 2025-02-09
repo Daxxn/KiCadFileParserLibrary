@@ -11,13 +11,14 @@ using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
 {
    [SExprListNode("model")]
-   public class ModelCollection : Model, IKiCadReadable
+   public class ModelCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<Footprint3DModel> _models = [];
@@ -52,6 +53,14 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
       public override string ToString()
       {
          return $"Models - {Models.Count}";
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         foreach (var model in Models)
+         {
+            KiCadWriteUtils2.WriteNode(model, builder, indent);
+         }
       }
       #endregion
 

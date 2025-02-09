@@ -9,13 +9,14 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.KiCad.Symbols.SubModels;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
 {
    [SExprListNode("pin")]
-   public class PinCollection : Model, IKiCadReadable
+   public class PinCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<PinModel>? _pins;
@@ -42,6 +43,21 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
          throw new NotImplementedException();
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         if (Pins is null) return;
+         builder.Append('\t', indent);
+         builder.AppendLine("(pin");
+
+         foreach (var pin in Pins)
+         {
+            KiCadWriteUtils2.WriteNode(pin, builder, indent + 1);
+         }
+
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
       }
       #endregion
 

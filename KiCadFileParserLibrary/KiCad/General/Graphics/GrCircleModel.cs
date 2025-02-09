@@ -18,7 +18,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       private XyModel _end = new();
       private bool _locked;
       private StrokeModel? _stroke;
-      private FillType _fill;
+      private FillType? _fill;
       private string _layer;
       private string _id = "";
       #endregion
@@ -70,7 +70,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       #endregion
 
       #region Full Props
-      [SExprNode("center")]
+      [SExprNode("center", 0)]
       public XyModel Center
       {
          get => _center;
@@ -81,7 +81,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
          }
       }
 
-      [SExprNode("end")]
+      [SExprNode("end", 1)]
       public XyModel End
       {
          get => _end;
@@ -114,7 +114,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       }
 
       [SExprSubNode("fill")]
-      public FillType Fill
+      public FillType? Fill
       {
          get => _fill;
          set

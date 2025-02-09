@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.General.Graphics;
 using KiCadFileParserLibrary.SExprParser;
@@ -21,7 +20,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #region Local Props
       private CoordinateModel _points = new();
       private StrokeModel _stroke = new();
-      private FillType _fill;
+      private FillType? _fill;
       private string _layer = "";
       private string _id = "";
       #endregion
@@ -68,6 +67,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       #endregion
 
       #region Full Props
+      [SExprNode("pts", 0)]
       public CoordinateModel Points
       {
          get => _points;
@@ -89,7 +89,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
       }
 
       [SExprSubNode("fill")]
-      public FillType Fill
+      public FillType? Fill
       {
          get => _fill;
          set

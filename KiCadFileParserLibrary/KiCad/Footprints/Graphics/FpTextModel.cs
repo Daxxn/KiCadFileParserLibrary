@@ -18,7 +18,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
    public class FpTextModel : GraphicBase
    {
       #region Local Props
-      private FootprintTextType _type;
+      private FootprintTextType? _type;
       private string _text = "";
       private LocationModel? _location;
       private bool _isUnlocked;
@@ -94,7 +94,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
 
       #region Full Props
       [SExprProperty(1)]
-      public FootprintTextType Type
+      public FootprintTextType? Type
       {
          get => _type;
          set

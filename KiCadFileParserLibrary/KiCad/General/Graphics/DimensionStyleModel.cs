@@ -22,7 +22,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       private double _arrowLength;
       private TextPositionMode _textPosition;
       private double? _extensionHeight;
-      private TextFrameType _textFrame;
+      private TextFrameType? _textFrame;
       private double? _extOffset;
       #endregion
 
@@ -121,6 +121,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       }
 
       [SExprSubNode("text_position_mode")]
+      [SExprFormatting(true, false)]
       public TextPositionMode TextPosition
       {
          get => _textPosition;
@@ -143,7 +144,8 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       }
 
       [SExprSubNode("text_frame")]
-      public TextFrameType TextFrame
+      [SExprFormatting(true, true)]
+      public TextFrameType? TextFrame
       {
          get => _textFrame;
          set

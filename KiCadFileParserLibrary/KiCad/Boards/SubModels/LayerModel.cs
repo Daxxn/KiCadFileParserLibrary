@@ -19,7 +19,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
    {
       #region Local Props
       private int _index = -1;
-      private string? _name = null;
+      private string _name = "l";
       private LayerType _type;
       private string? _userName = null;
       #endregion
@@ -71,7 +71,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
       }
 
       [SExprProperty(1)]
-      public string? Name
+      public string Name
       {
          get => _name;
          set

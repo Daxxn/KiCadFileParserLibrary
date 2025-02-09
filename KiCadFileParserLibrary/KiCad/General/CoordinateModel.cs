@@ -6,28 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
-using KiCadFileParserLibrary.KiCad.General;
+using KiCadFileParserLibrary.KiCad.General.Collections;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
+namespace KiCadFileParserLibrary.KiCad.General
 {
    [SExprNode("pts")]
    public class CoordinateModel : Model, IKiCadReadable
    {
       #region Local Props
-      private ObservableCollection<XyModel> _points = [];
-      public ObservableCollection<XyModel> Points
-      {
-         get => _points;
-         set
-         {
-            _points = value;
-            OnPropertyChanged();
-         }
-      }
+      //private ObservableCollection<XyModel> _points = [];
+      private PointCollection _points = new();
       #endregion
 
       #region Constructors
@@ -37,17 +30,23 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #region Methods
       public void ParseNode(Node node)
       {
-         if (node.Children is null) return;
-         Points = [];
-         foreach (var child in node.Children)
+         if (node.Children != null)
          {
-            if (child.Type == "xy")
-            {
-               var xy = new XyModel();
-               xy.ParseNode(child);
-               Points.Add(xy);
-            }
+            var props = GetType().GetProperties();
+
+            KiCadParseUtils.ParseListNodes(props, node, this);
          }
+         //if (node.Children is null) return;
+         //Points = [];
+         //foreach (var child in node.Children)
+         //{
+         //   if (child.Type == "xy")
+         //   {
+         //      var xy = new XyModel();
+         //      xy.ParseNode(child);
+         //      Points.Add(xy);
+         //   }
+         //}
       }
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
@@ -108,11 +107,11 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          //   }
          //}
 
-         foreach (var point in Points)
-         {
-            point.WriteNode(builder, indent + 1);
-            //builder.AppendLine();
-         }
+         //foreach (var point in Points)
+         //{
+         //   point.WriteNode(builder, indent + 1);
+         //   //builder.AppendLine();
+         //}
 
          builder.Append('\t', indent);
          builder.AppendLine(")");
@@ -120,7 +119,15 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       #endregion
 
       #region Full Props
-
+      public PointCollection Points
+      {
+         get => _points;
+         set
+         {
+            _points = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

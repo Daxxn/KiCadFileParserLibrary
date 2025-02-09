@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,13 +10,14 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprListNode("net")]
-   public class NetCollection : Model, IKiCadReadable
+   public class NetCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<NetModel> _nets = [];
@@ -50,6 +52,14 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       public override string ToString()
       {
          return $"Nets - {Nets.Count}";
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         foreach (var net in Nets)
+         {
+            KiCadWriteUtils2.WriteNode(net, builder, indent + 1);
+         }
       }
       #endregion
 

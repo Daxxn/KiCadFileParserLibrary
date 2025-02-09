@@ -25,6 +25,7 @@ namespace KiCadFileParserLibrary.KiCad.Schematics
       private string? _id;
       private PaperModel? _paper;
       private SymbolCollection? _symbols;
+      private TitleBlockModel? _titleBlock;
       #endregion
 
       #region Constructors
@@ -126,6 +127,16 @@ namespace KiCadFileParserLibrary.KiCad.Schematics
          set
          {
             _symbols = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public TitleBlockModel TitleBlock
+      {
+         get => _titleBlock;
+         set
+         {
+            _titleBlock = value;
             OnPropertyChanged();
          }
       }

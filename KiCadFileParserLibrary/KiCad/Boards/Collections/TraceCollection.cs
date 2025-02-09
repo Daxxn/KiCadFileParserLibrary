@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
+using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprListNode("arc|segment|via")]
-   public class TraceCollection : Model, IKiCadReadable
+   public class TraceCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<TraceArcModel>? _arcs;
@@ -94,6 +95,31 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       public override string ToString()
       {
          return $"Traces - Arks: {Arcs?.Count} - Segments: {Segments?.Count} - Vias: {Vias?.Count}";
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
+      {
+         if (Segments != null)
+         {
+            foreach (var segment in Segments)
+            {
+               KiCadWriteUtils2.WriteNode(segment, builder, indent);
+            }
+         }
+         if (Vias != null)
+         {
+            foreach (var via in Vias)
+            {
+               KiCadWriteUtils2.WriteNode(via, builder, indent);
+            }
+         }
+         if (Arcs != null)
+         {
+            foreach (var arc in Arcs)
+            {
+               KiCadWriteUtils2.WriteNode(arc, builder, indent);
+            }
+         }
       }
       #endregion
 

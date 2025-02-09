@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       private PadType _type;
       private PadShapeType _shape;
       private LocationModel _location;
-      private PadPropertyType _propertyType;
+      private PadPropertyType? _propertyType;
       private bool _locked;
       private XyModel _size;
       private DrillModel? _drill;
@@ -35,7 +36,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       private double? _thermalBridgeAngle;
       private double? _roundedRectRatio;
       private double? _chamferRatio;
-      private ChamferType _chamferType;
+      private ObservableCollection<ChamferType> _chamferType;
       private string? _pinFunction;
       private string? _pinType;
       private double? _dieLength;
@@ -45,7 +46,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       private double? _pasteMargin;
       private double? _pasteRatio;
       private double? _clearance;
-      private ZoneConnectType _zoneConnection;
+      private ZoneConnectType? _zoneConnection;
       private double? _thermalWidth;
       private double? _thermalGap;
       private PadOptions? _customPadOptions;
@@ -69,6 +70,23 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
             KiCadParseUtils.ParseProperties(props, node, this);
             KiCadParseUtils.ParseTokens(props, node, this);
             KiCadParseUtils.ParseListNodes(props, node, this);
+            KiCadParseUtils.ParsePropLists(props, node, this);
+
+            //var chamferNode = node.GetNode("chamfer");
+            //if (chamferNode != null)
+            //{
+            //   if (chamferNode.Properties != null)
+            //   {
+            //      ChamferTypes = [];
+            //      foreach (var p in chamferNode.Properties)
+            //      {
+            //         if (Enum.TryParse(p, out ChamferType ch))
+            //         {
+            //            ChamferTypes.Add(ch);
+            //         }
+            //      }
+            //   }
+            //}
          }
       }
 
@@ -87,7 +105,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          Size.WriteNode(builder, indent + 1, "size");
          Drill?.WriteNode(builder, indent + 1);
 
-         if (PropertyType != PadPropertyType.None)
+         if (PropertyType != 0)
          {
             builder.Append('\t', indent + 1);
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("property", PropertyType));
@@ -119,10 +137,10 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
             builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("chamfer_ratio", ChamferRatio));
          }
 
-         if (ChamferType != ChamferType.None)
+         if (ChamferTypes.Count != 0)
          {
             builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("chamfer", ChamferType));
+            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("chamfer", ChamferTypes));
          }
 
          Net?.WriteNode(builder, indent + 1);
@@ -217,6 +235,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       }
 
       [SExprProperty(2)]
+      [SExprFormatting(false, false)]
       public PadType Type
       {
          get => _type;
@@ -228,6 +247,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       }
 
       [SExprProperty(3)]
+      [SExprFormatting(false, false)]
       public PadShapeType Shape
       {
          get => _shape;
@@ -249,7 +269,8 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       }
 
       [SExprSubNode("property")]
-      public PadPropertyType PropertyType
+      [SExprFormatting(false, true)]
+      public PadPropertyType? PropertyType
       {
          get => _propertyType;
          set
@@ -356,8 +377,8 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          }
       }
 
-      [SExprSubNode("chamfer")]
-      public ChamferType ChamferType
+      [SExprPropArray("chamfer")]
+      public ObservableCollection<ChamferType> ChamferTypes
       {
          get => _chamferType;
          set
@@ -465,8 +486,9 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          }
       }
 
-      [SExprSubNode("zone_connection")]
-      public ZoneConnectType ZoneConnection
+      [SExprSubNode("zone_connect")]
+      [SExprFormatting(true, true)]
+      public ZoneConnectType? ZoneConnection
       {
          get => _zoneConnection;
          set

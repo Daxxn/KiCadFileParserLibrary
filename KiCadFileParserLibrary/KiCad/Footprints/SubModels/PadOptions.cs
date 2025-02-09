@@ -55,6 +55,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
 
       #region Full Props
       [SExprSubNode("clearance")]
+      [SExprFormatting(false, false)]
       public CustomPadClearance Clearance
       {
          get => _clearance;
@@ -66,6 +67,7 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
       }
 
       [SExprSubNode("anchor")]
+      [SExprFormatting(false, false)]
       public CustomPadAnchor Anchor
       {
          get => _anchor;

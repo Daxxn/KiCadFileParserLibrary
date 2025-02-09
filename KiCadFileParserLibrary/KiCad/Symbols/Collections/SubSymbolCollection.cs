@@ -15,7 +15,7 @@ using MVVMLibrary;
 namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
 {
    [SExprListNode("symbol")]
-   public class SubSymbolCollection : Model, IKiCadReadable
+   public class SubSymbolCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<SubSymbolModel>? _subSymbols;
@@ -40,6 +40,11 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
       }
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         throw new NotImplementedException();
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
       {
          throw new NotImplementedException();
       }

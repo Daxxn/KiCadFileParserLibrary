@@ -18,7 +18,7 @@ public class FpTextLayerModel : Model, IKiCadReadable
 {
    #region Local Props
    private string _layerName = "";
-   private bool _knockout;
+   private KnockoutText? _knockout;
    #endregion
 
    #region Constructors
@@ -40,7 +40,7 @@ public class FpTextLayerModel : Model, IKiCadReadable
    {
       builder.Append('\t', indent);
       builder.Append($"(layer \"{LayerName}\"");
-      if (Knockout)
+      if (Knockout != null)
       {
          builder.Append(" knockout");
       }
@@ -61,7 +61,7 @@ public class FpTextLayerModel : Model, IKiCadReadable
    }
 
    [SExprProperty(2)]
-   public bool Knockout
+   public KnockoutText? Knockout
    {
       get => _knockout;
       set

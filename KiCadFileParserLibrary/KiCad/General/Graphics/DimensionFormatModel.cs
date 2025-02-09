@@ -103,6 +103,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       }
 
       [SExprSubNode("units")]
+      [SExprFormatting(true, false)]
       public UnitsType Units
       {
          get => _units;
@@ -114,6 +115,7 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
       }
 
       [SExprSubNode("units_format")]
+      [SExprFormatting(true, false)]
       public UnitsFormat UnitsFormat
       {
          get => _unitsFormat;

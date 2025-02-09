@@ -16,7 +16,7 @@ using MVVMLibrary;
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
    [SExprListNode("members")]
-   public class MemberCollection : Model, IKiCadReadable
+   public class MemberCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
       private ObservableCollection<string> _members = [];
@@ -49,6 +49,26 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       }
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      {
+         builder.Append('\t', indent);
+         builder.AppendLine("(members");
+         foreach (var member in Members)
+         {
+            builder.Append('\t', indent + 1);
+            if (UseQuotes)
+            {
+               builder.AppendLine($"\"{member}\"");
+            }
+            else
+            {
+               builder.AppendLine(member);
+            }
+         }
+         builder.Append('\t', indent);
+         builder.AppendLine(")");
+      }
+
+      public void WriteCollection(StringBuilder builder, int indent)
       {
          builder.Append('\t', indent);
          builder.AppendLine("(members");

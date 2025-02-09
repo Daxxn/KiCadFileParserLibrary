@@ -19,7 +19,7 @@ namespace KiCadFileParserLibrary.KiCad.General
    {
       #region Local Props
       private double _width;
-      private StrokeType _type;
+      private StrokeType? _type;
       private ColorModel? _color;
       #endregion
 
@@ -70,7 +70,7 @@ namespace KiCadFileParserLibrary.KiCad.General
       }
 
       [SExprSubNode("type")]
-      public StrokeType Type
+      public StrokeType? Type
       {
          get => _type;
          set

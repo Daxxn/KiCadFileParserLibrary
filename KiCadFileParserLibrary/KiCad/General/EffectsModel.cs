@@ -18,39 +18,8 @@ namespace KiCadFileParserLibrary.KiCad.General
    public class EffectsModel : Model, IKiCadReadable
    {
       #region Local Props
-      public FontModel? Font
-      {
-         get => _fonts;
-         set
-         {
-            _fonts = value;
-            OnPropertyChanged();
-         }
-      }
       private FontModel? _fonts;
-
-      [SExprSubNode("justify")]
-      public ObservableCollection<TextJustify>? Justify
-      {
-         get => _justify;
-         set
-         {
-            _justify = value;
-            OnPropertyChanged();
-         }
-      }
       private ObservableCollection<TextJustify>? _justify;
-
-      [SExprToken("hide")]
-      public bool Hide // I cant find this prop anymore...
-      {
-         get => _hide;
-         set
-         {
-            _hide = value;
-            OnPropertyChanged();
-         }
-      }
       private bool _hide;
       #endregion
 
@@ -66,18 +35,19 @@ namespace KiCadFileParserLibrary.KiCad.General
             var props = GetType().GetProperties();
             KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseTokens(props, node, this);
+            KiCadParseUtils.ParsePropLists(props, node, this);
 
-            var justNode = node.GetNode("justify");
-            if (justNode is null) return;
-            if (justNode.Properties!.Count <= 1) return;
-            Justify = [];
-            foreach (var p in justNode.Properties[1..])
-            {
-               if (Enum.TryParse(p, true, out TextJustify output))
-               {
-                  Justify.Add(output);
-               }
-            }
+            //var justNode = node.GetNode("justify");
+            //if (justNode is null) return;
+            //if (justNode.Properties!.Count <= 1) return;
+            //Justify = [];
+            //foreach (var p in justNode.Properties[1..])
+            //{
+            //   if (Enum.TryParse(p, true, out TextJustify output))
+            //   {
+            //      Justify.Add(output);
+            //   }
+            //}
          }
       }
 
@@ -106,7 +76,38 @@ namespace KiCadFileParserLibrary.KiCad.General
       #endregion
 
       #region Full Props
+      public FontModel? Font
+      {
+         get => _fonts;
+         set
+         {
+            _fonts = value;
+            OnPropertyChanged();
+         }
+      }
 
+      //[SExprSubNode("justify")]
+      [SExprPropArray("justify")]
+      public ObservableCollection<TextJustify>? Justify
+      {
+         get => _justify;
+         set
+         {
+            _justify = value;
+            OnPropertyChanged();
+         }
+      }
+
+      [SExprToken("hide")]
+      public bool Hide // I cant find this prop anymore...
+      {
+         get => _hide;
+         set
+         {
+            _hide = value;
+            OnPropertyChanged();
+         }
+      }
       #endregion
    }
 }

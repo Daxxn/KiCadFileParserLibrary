@@ -13,12 +13,19 @@ namespace KiCadFileParserLibrary.Attributes
    sealed class SExprNodeAttribute : Attribute
    {
       private readonly string _xpath;
+      private readonly int _index = -1;
 
       public SExprNodeAttribute(string xPath)
       {
          _xpath = xPath;
       }
+      public SExprNodeAttribute(string xPath, int index)
+      {
+         _xpath = xPath;
+         _index = index;
+      }
 
       public string XPath => _xpath;
+      public int Index => _index;
    }
 }

@@ -47,7 +47,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       private bool _plotInvisibleText;
       private bool _sketchPadsOnFab;
       private bool _subtractMaskFromSilk;
-      private int _outputFormat;
+      private PcbOutputFormat _outputFormat;
       private bool _mirror;
       private int _drillShape;
       private int _scaleSelection;
@@ -443,7 +443,8 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       }
 
       [SExprSubNode("outputformat")]
-      public int OutputFormat
+      [SExprFormatting(true, false)]
+      public PcbOutputFormat OutputFormat
       {
          get => _outputFormat;
          set

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Boards.Collections;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
@@ -18,7 +19,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
    public class Stackup : Model, IKiCadReadable
    {
       #region Local Props
-      private ObservableCollection<StackupLayer> _layers = [];
+      private StackupLayerCollection _layers = new();
       private string? _copperFinish;
       private bool _impedanceControlled;
       private bool _castellatedPads;
@@ -38,24 +39,14 @@ namespace KiCadFileParserLibrary.KiCad.Boards
 
          KiCadParseUtils.ParseSubNodes(props, node, this);
 
-         var layerNodes = node.GetNodes("layer")!;
-         Layers = [];
-         foreach (var layerNode in layerNodes)
-         {
-            var layer = new StackupLayer();
-            layer.ParseNode(layerNode);
-            Layers.Add(layer);
-         }
+         Layers.ParseNode(node);
       }
 
       public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
       {
          builder.Append('\t', indent);
          builder.AppendLine("(stackup");
-         foreach (var layer in Layers)
-         {
-            layer.WriteNode(builder, indent + 1);
-         }
+         Layers.WriteNode(builder, indent + 1);
          if (CopperFinish != null)
          {
             builder.Append('\t', indent + 1);
@@ -92,7 +83,7 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       #endregion
 
       #region Full Props
-      public ObservableCollection<StackupLayer> Layers
+      public StackupLayerCollection Layers
       {
          get => _layers;
          set
