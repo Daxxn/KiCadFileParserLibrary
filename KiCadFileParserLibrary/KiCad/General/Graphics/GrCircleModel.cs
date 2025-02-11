@@ -39,34 +39,34 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
          }
       }
 
-      public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(gr_circle");
+      //public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(gr_circle");
 
-         Center.WriteNode(builder, indent + 1, "center");
-         End.WriteNode(builder, indent + 1, "end");
+      //   Center.WriteNode(builder, indent + 1, "center");
+      //   End.WriteNode(builder, indent + 1, "end");
 
-         if (Locked)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
-         }
+      //   if (Locked)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
+      //   }
 
-         Stroke?.WriteNode(builder, indent + 1);
+      //   Stroke?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("fill", Fill));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("fill", Fill));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

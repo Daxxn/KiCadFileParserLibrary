@@ -43,16 +43,11 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         throw new NotImplementedException();
-      }
-
       public void WriteCollection(StringBuilder builder, int indent)
       {
          foreach (var symbol in Symbols)
          {
-            KiCadWriteUtils2.WriteNode(symbol, builder, indent + 1);
+            KiCadWriteUtils2.WriteNode(symbol, builder, indent);
          }
       }
       #endregion

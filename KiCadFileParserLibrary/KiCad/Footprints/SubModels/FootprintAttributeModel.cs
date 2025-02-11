@@ -62,45 +62,45 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.Append("(attr");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.Append("(attr");
 
-         builder.Append($" {Type.ToString().ToLower()}");
+      //   builder.Append($" {Type.ToString().ToLower()}");
 
-         if (BoardOnly)
-         {
-            builder.Append($" board_only");
-         }
+      //   if (BoardOnly)
+      //   {
+      //      builder.Append($" board_only");
+      //   }
 
-         if (ExcludeFromposFiles)
-         {
-            builder.Append($" exclude_from_pos_files");
-         }
+      //   if (ExcludeFromposFiles)
+      //   {
+      //      builder.Append($" exclude_from_pos_files");
+      //   }
 
-         if (ExcludeFromBom)
-         {
-            builder.Append($" exclude_from_bom");
-         }
+      //   if (ExcludeFromBom)
+      //   {
+      //      builder.Append($" exclude_from_bom");
+      //   }
 
-         if (AllowMissingCourtyard)
-         {
-            builder.Append($" allow_missing_courtyard");
-         }
+      //   if (AllowMissingCourtyard)
+      //   {
+      //      builder.Append($" allow_missing_courtyard");
+      //   }
 
-         if (DontPopulate)
-         {
-            builder.Append($" dnp");
-         }
+      //   if (DontPopulate)
+      //   {
+      //      builder.Append($" dnp");
+      //   }
 
-         if (AllowSoldermaskBridges)
-         {
-            builder.Append($" allow_soldermask_bridges");
-         }
+      //   if (AllowSoldermaskBridges)
+      //   {
+      //      builder.Append($" allow_soldermask_bridges");
+      //   }
 
-         builder.AppendLine(")");
-      }
+      //   builder.AppendLine(")");
+      //}
 
       public override string ToString()
       {

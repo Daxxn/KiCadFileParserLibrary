@@ -31,7 +31,7 @@ public class SymbolReferenceCollection : Model, IKiCadReadable, IKiCadWriteableC
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
-      var symbolNodes = node.GetNodes(GetType().GetCustomAttribute<SExprListNodeAttribute>()!.Name);
+      var symbolNodes = node.GetNodes("symbol");
       if (symbolNodes is null) return;
       Symbols = [];
       foreach (var symNode in symbolNodes)

@@ -36,16 +36,16 @@ public class FpTextLayerModel : Model, IKiCadReadable
       }
    }
 
-   public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   {
-      builder.Append('\t', indent);
-      builder.Append($"(layer \"{LayerName}\"");
-      if (Knockout != null)
-      {
-         builder.Append(" knockout");
-      }
-      builder.AppendLine(")");
-   }
+   //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+   //{
+   //   builder.Append('\t', indent);
+   //   builder.Append($"(layer \"{LayerName}\"");
+   //   if (Knockout != null)
+   //   {
+   //      builder.Append(" knockout");
+   //   }
+   //   builder.AppendLine(")");
+   //}
    #endregion
 
    #region Full Props

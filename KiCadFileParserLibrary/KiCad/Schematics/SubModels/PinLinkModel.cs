@@ -17,6 +17,7 @@ namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 public class PinLinkModel : Model, IKiCadReadable
 {
    #region Local Props
+   private string _name = "1";
    private string _id = "";
    #endregion
 
@@ -30,18 +31,24 @@ public class PinLinkModel : Model, IKiCadReadable
       if (node.Children != null)
       {
          var props = GetType().GetProperties();
-
+         KiCadParseUtils.ParseProperties(props, node, this);
          KiCadParseUtils.ParseSubNodes(props, node, this);
       }
-   }
-
-   public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   {
-      throw new NotImplementedException();
    }
    #endregion
 
    #region Full Props
+   [SExprProperty(1)]
+   public string Name
+   {
+      get => _name;
+      set
+      {
+         _name = value;
+         OnPropertyChanged();
+      }
+   }
+
    [SExprSubNode("uuid")]
    public string ID
    {

@@ -13,7 +13,7 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("stackup")]
    public class Stackup : Model, IKiCadReadable
@@ -42,39 +42,39 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          Layers.ParseNode(node);
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine("(stackup");
-         Layers.WriteNode(builder, indent + 1);
-         if (CopperFinish != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(copper_finish \"{CopperFinish}\")");
-         }
-         if (ImpedanceControlled)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(dielectric_constraints yes)");
-         }
-         if (EdgeConnector != EdgeConnectorType.No)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(edge_connector {EdgeConnector.ToString()!.ToLower()})");
-         }
-         if (CastellatedPads)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(castellated_pads yes)");
-         }
-         if (EdgePlating)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(edge_plating yes)");
-         }
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine("(stackup");
+      //   Layers.WriteNode(builder, indent + 1);
+      //   if (CopperFinish != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(copper_finish \"{CopperFinish}\")");
+      //   }
+      //   if (ImpedanceControlled)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(dielectric_constraints yes)");
+      //   }
+      //   if (EdgeConnector != EdgeConnectorType.No)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(edge_connector {EdgeConnector.ToString()!.ToLower()})");
+      //   }
+      //   if (CastellatedPads)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(castellated_pads yes)");
+      //   }
+      //   if (EdgePlating)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(edge_plating yes)");
+      //   }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
 
       public override string ToString()
       {

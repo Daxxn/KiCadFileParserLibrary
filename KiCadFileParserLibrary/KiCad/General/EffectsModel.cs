@@ -20,7 +20,7 @@ namespace KiCadFileParserLibrary.KiCad.General
       #region Local Props
       private FontModel? _fonts;
       private ObservableCollection<TextJustify>? _justify;
-      private bool _hide;
+      private bool? _hide;
       #endregion
 
       #region Constructors
@@ -36,6 +36,7 @@ namespace KiCadFileParserLibrary.KiCad.General
             KiCadParseUtils.ParseNodes(props, node, this);
             KiCadParseUtils.ParseTokens(props, node, this);
             KiCadParseUtils.ParsePropLists(props, node, this);
+            KiCadParseUtils.ParseSubNodes(props, node, this);
 
             //var justNode = node.GetNode("justify");
             //if (justNode is null) return;
@@ -51,28 +52,28 @@ namespace KiCadFileParserLibrary.KiCad.General
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(effects");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(effects");
 
-         Font?.WriteNode(builder, indent + 1);
+      //   Font?.WriteNode(builder, indent + 1);
 
-         if (Justify != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.Append($"(justify");
+      //   if (Justify != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.Append($"(justify");
 
-            foreach (var jst in Justify)
-            {
-               builder.Append($" {jst.ToString().ToLower()}");
-            }
-            builder.AppendLine($")");
-         }
+      //      foreach (var jst in Justify)
+      //      {
+      //         builder.Append($" {jst.ToString().ToLower()}");
+      //      }
+      //      builder.AppendLine($")");
+      //   }
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props
@@ -98,8 +99,9 @@ namespace KiCadFileParserLibrary.KiCad.General
          }
       }
 
-      [SExprToken("hide")]
-      public bool Hide // I cant find this prop anymore...
+      //[SExprToken("hide")]
+      [SExprSubNode("hide")]
+      public bool? Hide // I cant find this prop anymore...
       {
          get => _hide;
          set

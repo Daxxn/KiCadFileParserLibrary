@@ -41,13 +41,13 @@ public class CommentCollection : Model, IKiCadReadable, IKiCadWriteableCollectio
       }
    }
 
-   public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   {
-      foreach (var comment in Comments)
-      {
-         comment.WriteNode(builder, indent);
-      }
-   }
+   //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+   //{
+   //   foreach (var comment in Comments)
+   //   {
+   //      comment.WriteNode(builder, indent);
+   //   }
+   //}
 
    public void WriteCollection(StringBuilder builder, int indent)
    {

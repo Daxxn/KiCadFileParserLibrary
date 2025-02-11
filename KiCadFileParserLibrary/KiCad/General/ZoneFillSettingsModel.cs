@@ -51,98 +51,98 @@ namespace KiCadFileParserLibrary.KiCad.General
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.Append("(fill");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.Append("(fill");
 
-         if (IsFilled)
-         {
-            builder.Append(" yes");
-         }
-         builder.AppendLine();
+      //   if (IsFilled)
+      //   {
+      //      builder.Append(" yes");
+      //   }
+      //   builder.AppendLine();
 
-         if (FillMode != ZoneFillMode.Solid)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(mode hatch)");
-         }
+      //   if (FillMode != ZoneFillMode.Solid)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(mode hatch)");
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thermal_gap", ThermalGap));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thermal_gap", ThermalGap));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thermal_bridge_width", ThermalBridge));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thermal_bridge_width", ThermalBridge));
 
-         if (Smoothing != SmoothingStyleType.None)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("smoothing", Smoothing));
-         }
+      //   if (Smoothing != SmoothingStyleType.None)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("smoothing", Smoothing));
+      //   }
 
-         if (SmoothingRadius != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("radius", SmoothingRadius));
-         }
+      //   if (SmoothingRadius != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("radius", SmoothingRadius));
+      //   }
 
-         if (IslandRemovalMode != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("island_removal_mode", (int)IslandRemovalMode));
-         }
+      //   if (IslandRemovalMode != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("island_removal_mode", (int)IslandRemovalMode));
+      //   }
 
-         if (IslandAreaMin != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("island_area_min", IslandAreaMin));
-         }
+      //   if (IslandAreaMin != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("island_area_min", IslandAreaMin));
+      //   }
 
-         if (HatchThickness != 0)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_thickness", HatchThickness));
-         }
+      //   if (HatchThickness != 0)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_thickness", HatchThickness));
+      //   }
 
-         if (HatchGap != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_gap", HatchGap));
-         }
+      //   if (HatchGap != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_gap", HatchGap));
+      //   }
 
-         if (HatchOrientation != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_orientation", HatchOrientation));
-         }
+      //   if (HatchOrientation != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_orientation", HatchOrientation));
+      //   }
 
-         if (HatchSmoothingLevel != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_smoothing_level", HatchSmoothingLevel));
-         }
+      //   if (HatchSmoothingLevel != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_smoothing_level", HatchSmoothingLevel));
+      //   }
 
-         if (HatchSmoothingValue != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_smoothing_value", HatchSmoothingValue));
-         }
+      //   if (HatchSmoothingValue != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_smoothing_value", HatchSmoothingValue));
+      //   }
 
-         if (HatchBorderAlgorythm != HatchBorderAlgorythmType.None)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_border_algorithm", HatchBorderAlgorythm));
-         }
+      //   if (HatchBorderAlgorythm != HatchBorderAlgorythmType.None)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_border_algorithm", HatchBorderAlgorythm));
+      //   }
 
-         if (HatchMinHoleArea != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_min_hole_area", HatchMinHoleArea));
-         }
+      //   if (HatchMinHoleArea != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("hatch_min_hole_area", HatchMinHoleArea));
+      //   }
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

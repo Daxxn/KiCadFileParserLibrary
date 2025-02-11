@@ -23,10 +23,12 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       #endregion
 
       #region Constructors
+      /// <inheritdoc/>
       public TextVariableCollection() { }
       #endregion
 
       #region Methods
+      /// <inheritdoc/>
       public void ParseNode(Node node)
       {
          var children = node.GetNodes("property");
@@ -40,7 +42,17 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   if (TextVars is null) return;
+      //   foreach (var txtVar in TextVars)
+      //   {
+      //      txtVar.WriteNode(builder, indent);
+      //   }
+      //}
+
+      /// <inheritdoc/>
+      public void WriteCollection(StringBuilder builder, int indent)
       {
          if (TextVars is null) return;
          foreach (var txtVar in TextVars)
@@ -50,19 +62,8 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          }
       }
 
-      public override string ToString()
-      {
-         return $"Properties - {TextVars?.Count}";
-      }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         if (TextVars is null) return;
-         foreach (var txtVar in TextVars)
-         {
-            txtVar.WriteNode(builder, indent);
-         }
-      }
+      /// <inheritdoc/>
+      public override string ToString() => $"Property Coll - {TextVars?.Count}";
       #endregion
 
       #region Full Props

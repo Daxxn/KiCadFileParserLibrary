@@ -13,12 +13,26 @@ namespace KiCadFileParserLibrary.Attributes
    sealed class SExprTokenAttribute : Attribute
    {
       private readonly string _tokenName;
+      private readonly bool _addToEnd = false;
+      private readonly int _index = -1;
 
       public SExprTokenAttribute(string tokenName)
       {
          _tokenName = tokenName;
       }
+      public SExprTokenAttribute(string tokenName, int index)
+      {
+         _tokenName = tokenName;
+         _index = index;
+      }
+      public SExprTokenAttribute(string tokenName, bool addToEnd)
+      {
+         _tokenName = tokenName;
+         _addToEnd = addToEnd;
+      }
 
       public string TokenName => _tokenName;
+      public bool AddToEnd => _addToEnd;
+      public int Index => _index;
    }
 }

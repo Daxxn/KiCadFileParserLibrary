@@ -39,32 +39,32 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
          }
       }
 
-      public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(gr_arc");
+      //public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(gr_arc");
 
-         Start.WriteNode(builder, indent + 1, "start");
-         Middle.WriteNode(builder, indent + 1, "mid");
-         End.WriteNode(builder, indent + 1, "end");
+      //   Start.WriteNode(builder, indent + 1, "start");
+      //   Middle.WriteNode(builder, indent + 1, "mid");
+      //   End.WriteNode(builder, indent + 1, "end");
 
-         if (Locked)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
-         }
+      //   if (Locked)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
+      //   }
 
-         Stroke.WriteNode(builder, indent + 1);
+      //   Stroke.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

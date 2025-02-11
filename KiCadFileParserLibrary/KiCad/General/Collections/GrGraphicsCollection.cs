@@ -61,14 +61,14 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         if (Graphics == null) return;
-         foreach (var graphic in Graphics)
-         {
-            graphic.WriteNode(builder, indent);
-         }
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   if (Graphics == null) return;
+      //   foreach (var graphic in Graphics)
+      //   {
+      //      graphic.WriteNode(builder, indent);
+      //   }
+      //}
 
       public override string ToString()
       {

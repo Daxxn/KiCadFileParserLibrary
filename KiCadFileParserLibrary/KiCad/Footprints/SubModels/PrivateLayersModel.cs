@@ -39,20 +39,20 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         if (Layers is null) return;
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   if (Layers is null) return;
 
-         builder.Append('\t', indent);
-         builder.Append("(private_layers");
+      //   builder.Append('\t', indent);
+      //   builder.Append("(private_layers");
 
-         foreach (var layer in Layers)
-         {
-            builder.Append($" \"{layer}\"");
-         }
+      //   foreach (var layer in Layers)
+      //   {
+      //      builder.Append($" \"{layer}\"");
+      //   }
 
-         builder.AppendLine(")");
-      }
+      //   builder.AppendLine(")");
+      //}
 
       public override string ToString()
       {

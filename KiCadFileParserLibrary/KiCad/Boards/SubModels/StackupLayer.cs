@@ -11,7 +11,7 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("layer")]
    public class StackupLayer : Model, IKiCadReadable
@@ -46,55 +46,51 @@ namespace KiCadFileParserLibrary.KiCad.Boards
             if (thickNode.Properties!.Count > 2)
             {
                if (thickNode.Properties[2] == "locked")
-               {
                   Locked = true;
-               }
             }
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(layer \"{Name}\"");
-         builder.Append('\t', indent + 1);
-         builder.AppendLine($"(type \"{Type}\")");
-         if (Color != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(color \"{Color}\")");
-         }
-         if (Thickness != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.Append($"(thickness {Thickness}");
-            if (Locked)
-            {
-               builder.AppendLine($" locked)");
-            }
-            else
-            {
-               builder.AppendLine(")");
-            }
-         }
-         if (Material != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(material \"{Material}\")");
-         }
-         if (EpsilonR != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(epsilon_r {EpsilonR})");
-         }
-         if (LossTangent != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(loss_tangent {LossTangent})");
-         }
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(layer \"{Name}\"");
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine($"(type \"{Type}\")");
+      //   if (Color != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(color \"{Color}\")");
+      //   }
+      //   if (Thickness != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.Append($"(thickness {Thickness}");
+      //      if (Locked)
+      //         builder.AppendLine($" locked)");
+      //      else
+      //      {
+      //         builder.AppendLine(")");
+      //      }
+      //   }
+      //   if (Material != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(material \"{Material}\")");
+      //   }
+      //   if (EpsilonR != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(epsilon_r {EpsilonR})");
+      //   }
+      //   if (LossTangent != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(loss_tangent {LossTangent})");
+      //   }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
 
       public override string ToString()
       {

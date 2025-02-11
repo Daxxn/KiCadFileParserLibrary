@@ -49,27 +49,23 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
          set
          {
             _name = value;
-            if (_name != null)
+            if (value != null)
             {
-               var spl = _name.Split("_");
-               if (spl.Length == 3)
+               if (value?.Length > 4 && value?.Contains('_') == true)
                {
-                  if (int.TryParse(spl[1], out int unit))
+                  if (int.TryParse($"{value[^3]}", out int unit))
                   {
                      Unit = unit;
                   }
-                  if (int.TryParse(spl[2], out int styleID))
+                  if (int.TryParse($"{value[^1]}", out int styleId))
                   {
-                     StyleID = (SymbolStyleIdentifier)styleID;
+                     StyleID = (SymbolStyleIdentifier)styleId;
                   }
-               }
-               else
-               {
-                  throw new Exception("Symbol name doesnt follow the [NAME_UNIT_STYLE] format. Check the save file.");
                }
             }
          }
       }
+
       public int Unit
       {
          get => _version;

@@ -40,30 +40,30 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
          }
       }
 
-      public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(fp_poly");
+      //public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(fp_poly");
 
-         Points.WriteNode(builder, indent + 1);
+      //   Coordinates.WriteNode(builder, indent + 1);
 
-         Stroke.WriteNode(builder, indent + 1);
+      //   Stroke.WriteNode(builder, indent + 1);
 
-         if (Fill != FillType.None)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("fill", Fill));
-         }
+      //   if (Fill != FillType.None)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("fill", Fill));
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

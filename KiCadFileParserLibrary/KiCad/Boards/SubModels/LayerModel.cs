@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
+   /// <summary>
+   /// PCB Layer definition.
+   /// </summary>
    [SExprNode("layer")]
    public class LayerModel : Model, IKiCadReadable
    {
@@ -25,10 +28,12 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
       #endregion
 
       #region Constructors
+      /// <inheritdoc/>
       public LayerModel() { }
       #endregion
 
       #region Methods
+      /// <inheritdoc/>
       public void ParseNode(Node node)
       {
          if (node.Properties is null) return;
@@ -36,29 +41,37 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          KiCadParseUtils.ParseProperties(props, node, this);
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.Append('(');
-         builder.Append(Index);
-         builder.Append(" \"");
-         builder.Append(Name);
-         builder.Append("\" ");
-         builder.Append(Type);
-         if (UserName != null)
-         {
-            builder.Append(" \"");
-            builder.Append(UserName);
-            builder.AppendLine("\")");
-         }
-         else
-         {
-            builder.AppendLine(")");
-         }
-      }
+      /// <inheritdoc/>
+      public override string ToString() => $"Layer {Index} - {Name} - Type: {Type} Username: {UserName}";
+
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.Append('(');
+      //   builder.Append(Index);
+      //   builder.Append(" \"");
+      //   builder.Append(Name);
+      //   builder.Append("\" ");
+      //   builder.Append(Type);
+      //   if (UserName != null)
+      //   {
+      //      builder.Append(" \"");
+      //      builder.Append(UserName);
+      //      builder.AppendLine("\")");
+      //   }
+      //   else
+      //   {
+      //      builder.AppendLine(")");
+      //   }
+      //}
       #endregion
 
       #region Full Props
+      /// <summary>
+      /// Position of the layer in the stackup.
+      /// <para/>
+      /// 0 = top
+      /// </summary>
       [SExprProperty(0)]
       public int Index
       {
@@ -70,6 +83,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          }
       }
 
+      /// <summary>
+      /// Name of the layer.
+      /// </summary>
       [SExprProperty(1)]
       public string Name
       {
@@ -81,6 +97,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          }
       }
 
+      /// <summary>
+      /// Layer type.
+      /// </summary>
       [SExprProperty(2)]
       public LayerType Type
       {
@@ -92,6 +111,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          }
       }
 
+      /// <summary>
+      /// Optional user defined name for the layer.
+      /// </summary>
       [SExprProperty(3)]
       public string? UserName
       {

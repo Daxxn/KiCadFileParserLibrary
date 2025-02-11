@@ -14,12 +14,15 @@ using System.Xml.Linq;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
-   //[SExprNode("layers")]
+   /// <summary>
+   /// List of all the PCB <see cref="LayerModel">Layers.</see>
+   /// </summary>
    [SExprListNode("layers")]
    public class LayerDefCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       private ObservableCollection<LayerModel> _layerList { get; set; } = [];
 
+      /// <inheritdoc/>
       public void ParseNode(Node node)
       {
          if (node.Children is null) return;
@@ -35,23 +38,25 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine("(layers");
-         foreach (var layer in LayerList)
-         {
-            layer.WriteNode(builder, indent + 1);
-         }
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine("(layers");
+      //   foreach (var layer in LayerList)
+      //   {
+      //      layer.WriteNode(builder, indent + 1);
+      //   }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
 
+      /// <inheritdoc/>
       public override string ToString()
       {
-         return $"Layers: {LayerList.Count}";
+         return $"Layer Coll - {LayerList.Count}";
       }
 
+      /// <inheritdoc/>
       public void WriteCollection(StringBuilder builder, int indent)
       {
          builder.Append('\t', indent);

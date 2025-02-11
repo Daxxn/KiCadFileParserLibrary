@@ -30,7 +30,8 @@ public class SchematicSymbolCollection : Model, IKiCadReadable, IKiCadWriteableC
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
-      var symbolNodes = node.GetNodes("symbol");
+      var libSymbolNode = node.GetNode("lib_symbols");
+      var symbolNodes = libSymbolNode?.GetNodes("symbol");
       if (symbolNodes is null) return;
       foreach ( var symbolNode in symbolNodes )
       {

@@ -39,14 +39,14 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         if (Images is null) return;
-         foreach (var img in Images)
-         {
-            img.WriteNode(builder, indent);
-         }
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   if (Images is null) return;
+      //   foreach (var img in Images)
+      //   {
+      //      img.WriteNode(builder, indent);
+      //   }
+      //}
 
       public override string ToString()
       {

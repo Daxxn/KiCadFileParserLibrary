@@ -90,136 +90,136 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(pad \"{Number}\" {Type.ToString().ToLower()} {Shape.ToString().ToLower()}");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(pad \"{Number}\" {Type.ToString().ToLower()} {Shape.ToString().ToLower()}");
 
-         Location.WriteNode(builder, indent + 1);
-         if (Locked)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
-         }
+      //   Location.WriteNode(builder, indent + 1);
+      //   if (Locked)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
+      //   }
 
-         Size.WriteNode(builder, indent + 1, "size");
-         Drill?.WriteNode(builder, indent + 1);
+      //   Size.WriteNode(builder, indent + 1, "size");
+      //   Drill?.WriteNode(builder, indent + 1);
 
-         if (PropertyType != 0)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("property", PropertyType));
-         }
+      //   if (PropertyType != 0)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("property", PropertyType));
+      //   }
 
-         Layers?.WriteNode(builder, indent + 1);
+      //   Layers?.WriteNode(builder, indent + 1);
 
-         if (RemoveUnusedLayers != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("remove_unused_layers", RemoveUnusedLayers));
-         }
+      //   if (RemoveUnusedLayers != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("remove_unused_layers", RemoveUnusedLayers));
+      //   }
 
-         if (KeepEndLayers != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("keep_end_layers", KeepEndLayers));
-         }
+      //   if (KeepEndLayers != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("keep_end_layers", KeepEndLayers));
+      //   }
 
-         if (RoundedRectRatio != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("roundrect_rratio", RoundedRectRatio));
-         }
+      //   if (RoundedRectRatio != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("roundrect_rratio", RoundedRectRatio));
+      //   }
 
-         if (ChamferRatio != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("chamfer_ratio", ChamferRatio));
-         }
+      //   if (ChamferRatio != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("chamfer_ratio", ChamferRatio));
+      //   }
 
-         if (ChamferTypes.Count != 0)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("chamfer", ChamferTypes));
-         }
+      //   if (ChamferTypes.Count != 0)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("chamfer", ChamferTypes));
+      //   }
 
-         Net?.WriteNode(builder, indent + 1);
+      //   Net?.WriteNode(builder, indent + 1);
 
-         if (PinFunction != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("pinfunction", PinFunction));
-         }
+      //   if (PinFunction != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("pinfunction", PinFunction));
+      //   }
 
-         if (PinType != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("pintype", PinType));
-         }
+      //   if (PinType != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("pintype", PinType));
+      //   }
 
-         if (DieLength != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("die_length", DieLength));
-         }
+      //   if (DieLength != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("die_length", DieLength));
+      //   }
 
-         if (MaskMargin != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_mask_margin", MaskMargin));
-         }
+      //   if (MaskMargin != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_mask_margin", MaskMargin));
+      //   }
 
-         if (PasteMargin != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_paste_margin", PasteMargin));
-         }
+      //   if (PasteMargin != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_paste_margin", PasteMargin));
+      //   }
 
-         if (PasteRatio != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_paste_margin_ratio", PasteRatio));
-         }
+      //   if (PasteRatio != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_paste_margin_ratio", PasteRatio));
+      //   }
 
-         if (Clearance != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("clearance", Clearance));
-         }
+      //   if (Clearance != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("clearance", Clearance));
+      //   }
 
-         if (ZoneConnection != ZoneConnectType.None)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("zone_connect", ZoneConnection));
-         }
+      //   if (ZoneConnection != ZoneConnectType.None)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("zone_connect", ZoneConnection));
+      //   }
 
-         if (ThermalWidth != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thermal_width", ThermalWidth));
-         }
+      //   if (ThermalWidth != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thermal_width", ThermalWidth));
+      //   }
 
-         if (ThermalGap != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thermal_gap", ThermalGap));
-         }
+      //   if (ThermalGap != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thermal_gap", ThermalGap));
+      //   }
 
-         if (ThermalBridgeAngle != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thermal_bridge_angle", ThermalBridgeAngle));
-         }
+      //   if (ThermalBridgeAngle != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thermal_bridge_angle", ThermalBridgeAngle));
+      //   }
 
-         CustomPadOptions?.WriteNode(builder, indent + 1);
-         CustomPadPrimitives?.WriteNode(builder, indent + 1);
+      //   CustomPadOptions?.WriteNode(builder, indent + 1);
+      //   CustomPadPrimitives?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

@@ -15,6 +15,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
+   /// <summary>
+   /// List of all the member IDs in a <see cref="General.GroupModel">Group.</see>
+   /// </summary>
    [SExprListNode("members")]
    public class MemberCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
@@ -25,10 +28,12 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       #endregion
 
       #region Constructors
+      /// <inheritdoc/>
       public MemberCollection() { }
       #endregion
 
       #region Methods
+      /// <inheritdoc/>
       public void ParseNode(Node node)
       {
          if (node.Children != null)
@@ -48,26 +53,27 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine("(members");
-         foreach (var member in Members)
-         {
-            builder.Append('\t', indent + 1);
-            if (UseQuotes)
-            {
-               builder.AppendLine($"\"{member}\"");
-            }
-            else
-            {
-               builder.AppendLine(member);
-            }
-         }
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine("(members");
+      //   foreach (var member in Members)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      if (UseQuotes)
+      //      {
+      //         builder.AppendLine($"\"{member}\"");
+      //      }
+      //      else
+      //      {
+      //         builder.AppendLine(member);
+      //      }
+      //   }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
 
+      /// <inheritdoc/>
       public void WriteCollection(StringBuilder builder, int indent)
       {
          builder.Append('\t', indent);
@@ -87,6 +93,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          builder.Append('\t', indent);
          builder.AppendLine(")");
       }
+
+      /// <inheritdoc/>
+      public override string ToString() => $"Member Coll - {Members.Count}";
       #endregion
 
       #region Full Props

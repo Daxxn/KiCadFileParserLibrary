@@ -35,11 +35,11 @@ namespace KiCadFileParserLibrary.KiCad.General
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(net {NetIndex} \"{NetName}\")");
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(net {NetIndex} \"{NetName}\")");
+      //}
 
       public override string ToString()
       {

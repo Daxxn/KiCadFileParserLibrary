@@ -15,6 +15,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
+   /// <summary>
+   /// Font descriptor used in a PCB.
+   /// </summary>
    [SExprNode("font")]
    public class FontModel : Model, IKiCadReadable
    {
@@ -27,10 +30,12 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
       #endregion
 
       #region Constructors
+      /// <inheritdoc/>
       public FontModel() { }
       #endregion
 
       #region Methods
+      /// <inheritdoc/>
       public void ParseNode(Node node)
       {
          if (node.Children != null)
@@ -41,40 +46,46 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(font");
+      /// <inheritdoc/>
+      public override string ToString() => $"Font {Family} - {Size} - Thick: {Thickness} - Bold: {Bold} - Italic: {Italic}";
 
-         if (Family != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("face", Family));
-         }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(font");
 
-         Size.WriteNode(builder, indent + 1, "size");
+      //   if (Family != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("face", Family));
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thickness", Thickness));
+      //   Size.WriteNode(builder, indent + 1, "size");
 
-         if (Bold)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("bold", Bold));
-         }
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thickness", Thickness));
 
-         if (Italic)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("italic", Italic));
-         }
+      //   if (Bold)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("bold", Bold));
+      //   }
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   if (Italic)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("italic", Italic));
+      //   }
+
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props
+      /// <summary>
+      /// Name of the font family.
+      /// </summary>
       [SExprSubNode("face")]
       public string? Family
       {
@@ -86,6 +97,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          }
       }
 
+      /// <summary>
+      /// Size of the font.
+      /// </summary>
       [SExprNode("size")]
       public XyModel Size
       {
@@ -97,6 +111,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          }
       }
 
+      /// <summary>
+      /// Thickness of the letters in the font.
+      /// </summary>
       [SExprSubNode("thickness")]
       public double Thickness
       {
@@ -108,6 +125,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          }
       }
 
+      /// <summary>
+      /// Bold setting.
+      /// </summary>
       [SExprSubNode("bold")]
       public bool Bold
       {
@@ -119,6 +139,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
          }
       }
 
+      /// <summary>
+      /// Italics setting.
+      /// </summary>
       [SExprSubNode("italic")]
       public bool Italic
       {

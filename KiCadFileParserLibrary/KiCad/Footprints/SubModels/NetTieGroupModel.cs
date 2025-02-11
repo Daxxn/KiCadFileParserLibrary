@@ -37,20 +37,20 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         if (Groups is null) return;
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   if (Groups is null) return;
 
-         builder.Append('\t', indent);
-         builder.Append("(net_tie_pad_groups");
+      //   builder.Append('\t', indent);
+      //   builder.Append("(net_tie_pad_groups");
 
-         foreach (var grp in Groups)
-         {
-            builder.Append($" \"{grp}\"");
-         }
+      //   foreach (var grp in Groups)
+      //   {
+      //      builder.Append($" \"{grp}\"");
+      //   }
 
-         builder.AppendLine(")");
-      }
+      //   builder.AppendLine(")");
+      //}
 
       public override string ToString()
       {

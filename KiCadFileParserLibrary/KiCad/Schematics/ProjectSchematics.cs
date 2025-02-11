@@ -2,97 +2,165 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Schematics
+namespace KiCadFileParserLibrary.KiCad.Schematics;
+
+/// <summary>
+/// Collection of <see cref="Schematic">Schematics</see> from a KiCad project.
+/// </summary>
+public class ProjectSchematics : Model
 {
-   public class ProjectSchematics : Model
+   #region Local Props
+   private ObservableCollection<Schematic> _schematics = [];
+   private Schematic? _root = null;
+
+   /// <summary>
+   /// The number of project schematics.
+   /// </summary>
+   public int Count => _schematics?.Count ?? 0;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public ProjectSchematics() { }
+   #endregion
+
+   #region Methods
+   /// <summary>
+   /// Parse the schematic file from the KiCad project folder.
+   /// </summary>
+   /// <param name="projectFolder">the root project folder</param>
+   /// <returns></returns>
+   public static ProjectSchematics? ParseSchematics(string? projectFolder)
    {
-      #region Local Props
-      private ObservableCollection<Schematic>? _schematics;
-      public int Count => _schematics?.Count ?? 0;
-      public bool IsReadOnly => false;
-      #endregion
+      if (!Directory.Exists(projectFolder)) return null;
 
-      #region Constructors
-      public ProjectSchematics() { }
-
-      #endregion
-
-      #region Methods
-      public void Read(string path)
+      var files = Directory.GetFiles(projectFolder, "*.kicad_sch", SearchOption.AllDirectories);
+      if (files == null) return null;
+      var projSchematics = new ProjectSchematics();
+      foreach (var file in files)
       {
-
-      }
-
-      public int IndexOf(Schematic item)
-      {
-         return Schematics?.IndexOf(item) ?? -1;
-      }
-
-      public void Insert(int index, Schematic item)
-      {
-         Schematics?.Insert(index, item);
-      }
-
-      public void RemoveAt(int index)
-      {
-         Schematics?.RemoveAt(index);
-      }
-
-      public void Add(Schematic item)
-      {
-         Schematics?.Add(item);
-      }
-
-      public void Clear()
-      {
-         Schematics?.Clear();
-      }
-
-      public bool Contains(Schematic item)
-      {
-         return Schematics?.Contains(item) == true;
-      }
-
-      public void CopyTo(Schematic[] array, int arrayIndex)
-      {
-         Schematics?.CopyTo(array, arrayIndex);
-      }
-
-      public bool Remove(Schematic item)
-      {
-         return Schematics?.Remove(item) == true;
-      }
-      #endregion
-
-      #region Full Props
-      public Schematic this[int index]
-      {
-         get
+         var schematic = Schematic.Parse(file);
+         if (schematic == null) continue;
+         projSchematics.Schematics.Add(schematic);
+         if (Path.GetFileNameWithoutExtension(file) == Path.GetFileName(projectFolder))
          {
-            if (Schematics is null) throw new NullReferenceException("No schematics found. Unable to find schematic at index.");
-            return Schematics[index];
-         }
-         set
-         {
-            Schematics![index] = value;
+            projSchematics.Root = schematic;
          }
       }
-
-      public ObservableCollection<Schematic>? Schematics
-      {
-         get => _schematics;
-         set
-         {
-            _schematics = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
+      return projSchematics;
    }
+
+   /// <summary>
+   /// Find the root schematic based on the provided ID.
+   /// <para/>
+   /// If found, <seealso cref="Root"/> will now contain the root schematic.
+   /// </summary>
+   /// <param name="rootID">The UUID for the root schematic.</param>
+   public void SetRootSchematic(string? rootID)
+   {
+      if (string.IsNullOrEmpty(rootID)) return;
+      if (!(Schematics?.Count > 0)) return;
+
+      foreach (var sch in Schematics)
+      {
+         if (sch.ID == rootID)
+         {
+            Root = sch;
+            return;
+         }
+      }
+      Root = null;
+   }
+
+   /// <summary>
+   /// Write the list of schematics to the KiCad project folder.
+   /// </summary>
+   /// <param name="projectFolder">The path to the project folder.</param>
+   public void Write(string projectFolder)
+   {
+      foreach (var sch in Schematics)
+      {
+         sch.Write(projectFolder);
+      }
+   }
+
+   public int IndexOf(Schematic item)
+   {
+      return Schematics?.IndexOf(item) ?? -1;
+   }
+
+   public void Insert(int index, Schematic item)
+   {
+      Schematics?.Insert(index, item);
+   }
+
+   public void RemoveAt(int index)
+   {
+      Schematics?.RemoveAt(index);
+   }
+
+   public void Add(Schematic item)
+   {
+      Schematics?.Add(item);
+   }
+
+   public void Clear()
+   {
+      Schematics?.Clear();
+   }
+
+   public bool Contains(Schematic item)
+   {
+      return Schematics?.Contains(item) == true;
+   }
+
+   public bool Remove(Schematic item)
+   {
+      return Schematics?.Remove(item) == true;
+   }
+   #endregion
+
+   #region Full Props
+   /// <inheritdoc/>
+   public Schematic this[int index]
+   {
+      get => Schematics is null
+            ? throw new NullReferenceException("No schematics found. Unable to find schematic at index.")
+            : Schematics[index];
+      set => Schematics![index] = value;
+   }
+
+   /// <summary>
+   /// List of <see cref="Schematic">Schematics.</see>
+   /// </summary>
+   public ObservableCollection<Schematic> Schematics
+   {
+      get => _schematics;
+      set
+      {
+         _schematics = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The main schematic of the project
+   /// </summary>
+   public Schematic? Root
+   {
+      get => _root;
+      set
+      {
+         _root = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

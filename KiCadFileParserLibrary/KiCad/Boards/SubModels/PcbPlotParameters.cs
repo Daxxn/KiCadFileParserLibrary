@@ -12,7 +12,7 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("pcbplotparams")]
    public class PcbPlotParameters : Model, IKiCadReadable
@@ -69,24 +69,24 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine("(pcbplotparams");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine("(pcbplotparams");
 
-         var props = GetType().GetProperties();
-         foreach (var prop in props)
-         {
-            var name = prop.GetCustomAttribute<SExprSubNodeAttribute>()?.XPath;
-            if (name != null)
-            {
-               builder.Append('\t', indent + 1);
-               builder.AppendLine(KiCadWriteUtils.WriteSubNodeData(name, prop.GetValue(this)!));
-            }
-         }
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   var props = GetType().GetProperties();
+      //   foreach (var prop in props)
+      //   {
+      //      var name = prop.GetCustomAttribute<SExprSubNodeAttribute>()?.XPath;
+      //      if (name != null)
+      //      {
+      //         builder.Append('\t', indent + 1);
+      //         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData(name, prop.GetValue(this)!));
+      //      }
+      //   }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

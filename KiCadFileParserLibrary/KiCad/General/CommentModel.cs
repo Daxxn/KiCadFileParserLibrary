@@ -17,9 +17,16 @@ namespace KiCadFileParserLibrary.KiCad.General
    [SExprNode("comment")]
    public class CommentModel : Model, IKiCadReadable
    {
+      #region Local Props
       private int _index = -1;
       private string _comment = "";
+      #endregion
 
+      #region Constructors
+      public CommentModel() { }
+      #endregion
+
+      #region Methods
       public void ParseNode(Node node)
       {
          if (node.Properties != null)
@@ -29,12 +36,14 @@ namespace KiCadFileParserLibrary.KiCad.General
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(comment {Index} \"{Comment}\")");
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(comment {Index} \"{Comment}\")");
+      //}
+      #endregion
 
+      #region Full Props
       [SExprProperty(1)]
       public int Index
       {
@@ -56,5 +65,6 @@ namespace KiCadFileParserLibrary.KiCad.General
             OnPropertyChanged();
          }
       }
+      #endregion
    }
 }

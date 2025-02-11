@@ -37,11 +37,11 @@ namespace KiCadFileParserLibrary.KiCad.General
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"({(auxName ?? "xyz")} {X} {Y} {Z})");
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"({(auxName ?? "xyz")} {X} {Y} {Z})");
+      //}
       #endregion
 
       #region Full Props

@@ -7,45 +7,46 @@ using System.Threading.Tasks;
 using MVVMLibrary;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels
 {
    public class SchRuleSeverityModel : Model
    {
       #region Local Props
-      private string? _busDefConflict;
-      private string? _busEntryNeeded;
-      private string? _busToBusConflict;
-      private string? _busToNetConflict;
-      private string? _conflictingNetClasses;
-      private string? _differentUnitFootprint;
-      private string? _differentUnitNet;
-      private string? _duplicateReference;
-      private string? _duplicateSheetNames;
-      private string? _endpointOffGrid;
-      private string? _extraUnits;
-      private string? _globalLabelDangling;
-      private string? _heirLabelMismatch;
-      private string? _labelDangling;
-      private string? _libSymbolIssue;
-      private string? _missingBiDirPin;
-      private string? _missingInputPin;
-      private string? _missingPowerPin;
-      private string? _missingUnit;
-      private string? _multipleNetNames;
-      private string? _netNotBusMember;
-      private string? _noConnectConnected;
-      private string? _noConnectDangling;
-      private string? _pinNotConnected;
-      private string? _pinNotDriven;
-      private string? _pinToPin;
-      private string? _powerPinNotDriven;
-      private string? _similarLabels;
-      private string? _simModelIssue;
-      private string? _unannotated;
-      private string? _unitValueMismatch;
-      private string? _unresolvedVariable;
-      private string? _wireDangling;
+      private RuleSeverity? _busDefConflict;
+      private RuleSeverity? _busEntryNeeded;
+      private RuleSeverity? _busToBusConflict;
+      private RuleSeverity? _busToNetConflict;
+      private RuleSeverity? _conflictingNetClasses;
+      private RuleSeverity? _differentUnitFootprint;
+      private RuleSeverity? _differentUnitNet;
+      private RuleSeverity? _duplicateReference;
+      private RuleSeverity? _duplicateSheetNames;
+      private RuleSeverity? _endpointOffGrid;
+      private RuleSeverity? _extraUnits;
+      private RuleSeverity? _globalLabelDangling;
+      private RuleSeverity? _heirLabelMismatch;
+      private RuleSeverity? _labelDangling;
+      private RuleSeverity? _libSymbolIssue;
+      private RuleSeverity? _missingBiDirPin;
+      private RuleSeverity? _missingInputPin;
+      private RuleSeverity? _missingPowerPin;
+      private RuleSeverity? _missingUnit;
+      private RuleSeverity? _multipleNetNames;
+      private RuleSeverity? _netNotBusMember;
+      private RuleSeverity? _noConnectConnected;
+      private RuleSeverity? _noConnectDangling;
+      private RuleSeverity? _pinNotConnected;
+      private RuleSeverity? _pinNotDriven;
+      private RuleSeverity? _pinToPin;
+      private RuleSeverity? _powerPinNotDriven;
+      private RuleSeverity? _similarLabels;
+      private RuleSeverity? _simModelIssue;
+      private RuleSeverity? _unannotated;
+      private RuleSeverity? _unitValueMismatch;
+      private RuleSeverity? _unresolvedVariable;
+      private RuleSeverity? _wireDangling;
       #endregion
 
       #region Constructors
@@ -58,7 +59,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
 
       #region Full Props
       [JsonProperty(PropertyName = "bus_definition_conflict")]
-      public string? BusDefinitionConflict
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? BusDefinitionConflict
       {
          get => _busDefConflict;
          set
@@ -69,7 +71,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "bus_entry_needed")]
-      public string? BusEntryNeeded
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? BusEntryNeeded
       {
          get => _busEntryNeeded;
          set
@@ -80,7 +83,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "bus_to_bus_conflict")]
-      public string? BusToBusConflict
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? BusToBusConflict
       {
          get => _busToBusConflict;
          set
@@ -91,7 +95,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "bus_to_net_conflict")]
-      public string? BusToNetConflict
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? BusToNetConflict
       {
          get => _busToNetConflict;
          set
@@ -102,7 +107,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "conflicting_netclasses")]
-      public string? ConflictingNetClasses
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? ConflictingNetClasses
       {
          get => _conflictingNetClasses;
          set
@@ -113,7 +119,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "different_unit_footprint")]
-      public string? DifferentUnitFootprint
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? DifferentUnitFootprint
       {
          get => _differentUnitFootprint;
          set
@@ -124,7 +131,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "different_unit_net")]
-      public string? DifferentUnitNet
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? DifferentUnitNet
       {
          get => _differentUnitNet;
          set
@@ -135,7 +143,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "duplicate_reference")]
-      public string? DuplicateReference
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? DuplicateReference
       {
          get => _duplicateReference;
          set
@@ -146,7 +155,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "duplicate_sheet_names")]
-      public string? DuplicateSheetNames
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? DuplicateSheetNames
       {
          get => _duplicateSheetNames;
          set
@@ -157,7 +167,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "endpoint_off_grid")]
-      public string? EndpointOffGrid
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? EndpointOffGrid
       {
          get => _endpointOffGrid;
          set
@@ -168,7 +179,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "extra_units")]
-      public string? ExtraUnits
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? ExtraUnits
       {
          get => _extraUnits;
          set
@@ -179,7 +191,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "global_label_dangling")]
-      public string? GlobalLabelDangling
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? GlobalLabelDangling
       {
          get => _globalLabelDangling;
          set
@@ -190,7 +203,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "hier_label_mismatch")]
-      public string? HeirLabelMismatch
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? HeirLabelMismatch
       {
          get => _heirLabelMismatch;
          set
@@ -201,7 +215,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "label_dangling")]
-      public string? LabelDangling
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? LabelDangling
       {
          get => _labelDangling;
          set
@@ -212,7 +227,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "lib_symbol_issues")]
-      public string? LibSymbolIssue
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? LibSymbolIssue
       {
          get => _libSymbolIssue;
          set
@@ -223,7 +239,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "missing_bidi_pin")]
-      public string? MissingBiDirPin
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? MissingBiDirPin
       {
          get => _missingBiDirPin;
          set
@@ -234,7 +251,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "missing_input_pin")]
-      public string? MissingInputPin
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? MissingInputPin
       {
          get => _missingInputPin;
          set
@@ -245,7 +263,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "missing_power_pin")]
-      public string? MissingPowerPin
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? MissingPowerPin
       {
          get => _missingPowerPin;
          set
@@ -256,7 +275,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "missing_unit")]
-      public string? MissingUnit
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? MissingUnit
       {
          get => _missingUnit;
          set
@@ -267,7 +287,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "multiple_net_names")]
-      public string? MultipleNetNames
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? MultipleNetNames
       {
          get => _multipleNetNames;
          set
@@ -278,7 +299,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "net_not_bus_member")]
-      public string? NetNotBusMember
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? NetNotBusMember
       {
          get => _netNotBusMember;
          set
@@ -289,7 +311,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "no_connect_connected")]
-      public string? NoConnectConnected
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? NoConnectConnected
       {
          get => _noConnectConnected;
          set
@@ -300,7 +323,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "no_connect_dangling")]
-      public string? NoConnectDangling
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? NoConnectDangling
       {
          get => _noConnectDangling;
          set
@@ -311,7 +335,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "pin_not_connected")]
-      public string? PinNotConnected
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? PinNotConnected
       {
          get => _pinNotConnected;
          set
@@ -322,7 +347,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "pin_not_driven")]
-      public string? PinNotDriven
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? PinNotDriven
       {
          get => _pinNotDriven;
          set
@@ -333,7 +359,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "pin_to_pin")]
-      public string? PinToPin
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? PinToPin
       {
          get => _pinToPin;
          set
@@ -344,7 +371,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "power_pin_not_driven")]
-      public string? PowerPinNotDriven
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? PowerPinNotDriven
       {
          get => _powerPinNotDriven;
          set
@@ -355,7 +383,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "similar_labels")]
-      public string? SimilarLabels
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? SimilarLabels
       {
          get => _similarLabels;
          set
@@ -366,7 +395,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "simulation_model_issue")]
-      public string? SimModelIssue
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? SimModelIssue
       {
          get => _simModelIssue;
          set
@@ -377,7 +407,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "unannotated")]
-      public string? Unannotated
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? Unannotated
       {
          get => _unannotated;
          set
@@ -388,7 +419,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "unit_value_mismatch")]
-      public string? UnitValueMismatch
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? UnitValueMismatch
       {
          get => _unitValueMismatch;
          set
@@ -399,7 +431,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "unresolved_variable")]
-      public string? UnresolvedVariable
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? UnresolvedVariable
       {
          get => _unresolvedVariable;
          set
@@ -410,7 +443,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "wire_dangling")]
-      public string? WireDangling
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? WireDangling
       {
          get => _wireDangling;
          set

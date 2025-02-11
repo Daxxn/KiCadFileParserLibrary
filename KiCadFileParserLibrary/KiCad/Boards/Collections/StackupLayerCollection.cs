@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Boards.SubModels;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
@@ -25,6 +26,7 @@ public class StackupLayerCollection : Model, IKiCadReadable, IKiCadWriteableColl
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -37,11 +39,7 @@ public class StackupLayerCollection : Model, IKiCadReadable, IKiCadWriteableColl
       }
    }
 
-   public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   {
-      throw new NotImplementedException();
-   }
-
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       if (Layers.Count == 0) return;
@@ -50,6 +48,9 @@ public class StackupLayerCollection : Model, IKiCadReadable, IKiCadWriteableColl
          KiCadWriteUtils2.WriteNode(layer, builder, indent);
       }
    }
+
+   /// <inheritdoc/>
+   public override string ToString() => $"Stackup Coll - {Layers.Count}";
    #endregion
 
    #region Full Props

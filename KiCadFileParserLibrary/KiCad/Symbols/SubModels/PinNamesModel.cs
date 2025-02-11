@@ -18,7 +18,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
    public class PinNamesModel : Model, IKiCadReadable
    {
       #region Local Props
-      private SymbolVisibility _vis;
+      private bool _hide;
       private double? _offset;
       #endregion
 
@@ -39,13 +39,13 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
       #endregion
 
       #region Full Props
-      [SExprToken("hide")]
-      public SymbolVisibility Visible
+      [SExprToken("hide", true)]
+      public bool Hide
       {
-         get => _vis;
+         get => _hide;
          set
          {
-            _vis = value;
+            _hide = value;
             OnPropertyChanged();
          }
       }

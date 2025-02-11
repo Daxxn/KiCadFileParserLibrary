@@ -32,17 +32,25 @@ namespace KiCadFileParserLibrary.SExprParser
             int index = 0;
             int nodeDepth = 0;
             bool openQuotes = false;
+            char prevChar = '\0';
             StringBuilder sb = new();
             foreach (var ch in data)
             {
                if (ch == '"')
                {
-                  openQuotes = !openQuotes;
-                  if (!openQuotes)
+                  if (prevChar == '\\')
                   {
-                     currentNode.Properties ??= new();
-                     currentNode.Properties.Add(sb.ToString());
-                     sb.Clear();
+                     sb.Append(ch);
+                  }
+                  else
+                  {
+                     openQuotes = !openQuotes;
+                     if (!openQuotes)
+                     {
+                        currentNode.Properties ??= new();
+                        currentNode.Properties.Add(sb.ToString());
+                        sb.Clear();
+                     }
                   }
                }
                else if (ch == Options.OpenDelimiter && !openQuotes)
@@ -107,6 +115,7 @@ namespace KiCadFileParserLibrary.SExprParser
                   }
                }
                index++;
+               prevChar = ch;
             }
             return rootNode;
          }

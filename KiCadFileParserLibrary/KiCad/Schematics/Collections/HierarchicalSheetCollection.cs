@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="HierarchicalSheetModel">Hierarchical Sheets.</see>
+/// </summary>
 [SExprListNode("sheet")]
 public class HierarchicalSheetCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -24,10 +27,12 @@ public class HierarchicalSheetCollection : Model, IKiCadReadable, IKiCadWriteabl
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public HierarchicalSheetCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -42,6 +47,7 @@ public class HierarchicalSheetCollection : Model, IKiCadReadable, IKiCadWriteabl
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       if (Sheets is null) return;
@@ -50,9 +56,23 @@ public class HierarchicalSheetCollection : Model, IKiCadReadable, IKiCadWriteabl
          KiCadWriteUtils2.WriteNode(sheet, builder, indent);
       }
    }
+
+   /// <summary>
+   /// Get the <see cref="HierarchicalSheetModel">Hierarchical Sheet</see> that matches the provided ID.
+   /// </summary>
+   /// <param name="id">The ID to search for.</param>
+   /// <returns>The matching <see cref="HierarchicalSheetModel">Hierarchical Sheet.</see></returns>
+   public HierarchicalSheetModel? GetSheetByID(string? id)
+   {
+      if (string.IsNullOrEmpty(id)) return null;
+      return Sheets?.FirstOrDefault(sh => sh.ID == id);
+   }
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="HierarchicalSheetModel">Hierarchical Sheets.</see>
+   /// </summary>
    public ObservableCollection<HierarchicalSheetModel> Sheets
    {
       get => _sheets;

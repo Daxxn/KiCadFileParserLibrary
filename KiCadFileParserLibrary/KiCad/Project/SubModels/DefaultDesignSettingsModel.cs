@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
 
+/// <summary>
+/// PCB default settings
+/// </summary>
 public class DefaultDesignSettingsModel : Model
 {
    #region Local Props
@@ -51,6 +54,7 @@ public class DefaultDesignSettingsModel : Model
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public DefaultDesignSettingsModel() { }
    #endregion
 
@@ -59,6 +63,9 @@ public class DefaultDesignSettingsModel : Model
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "apply_defaults_to_fp_fields")]
    public bool ApplyDefaultsToFpFields
    {
@@ -70,6 +77,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "apply_defaults_to_fp_shapes")]
    public bool ApplyDefaultsToFpShapes
    {
@@ -81,6 +91,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "apply_defaults_to_fp_text")]
    public bool ApplyDefaultsToFpText
    {
@@ -92,6 +105,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "board_outline_line_width")]
    public double BoardOutlineLineWidth
    {
@@ -103,6 +119,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "copper_line_width")]
    public double CopperLineWidth
    {
@@ -114,6 +133,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "copper_text_italic")]
    public bool CopperTextItalic
    {
@@ -125,6 +147,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "copper_text_size_h")]
    public double CopperTextWidth
    {
@@ -136,6 +161,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "copper_text_size_v")]
    public double CopperTextHeight
    {
@@ -147,6 +175,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "copper_text_thickness")]
    public double CopperTextThickness
    {
@@ -158,6 +189,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "copper_text_upright")]
    public bool CopperTextUpright
    {
@@ -169,6 +203,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "courtyard_line_width")]
    public double CourtyardLineWidth
    {
@@ -180,6 +217,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "dimension_precision")]
    public int DimensionPrecision
    {
@@ -191,6 +231,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "dimension_units")]
    public UnitsType DimensionUnits
    {
@@ -202,6 +245,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "dimensions")]
    public DimensionSettingsModel? DimensionSettings
    {
@@ -213,6 +259,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "fab_line_width")]
    public double FabLineWidth
    {
@@ -224,6 +273,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "fab_text_italic")]
    public bool FabTextItalic
    {
@@ -235,6 +287,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "fab_text_size_h")]
    public double FabTextWidth
    {
@@ -246,6 +301,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "fab_text_size_v")]
    public double FabTextHeight
    {
@@ -257,6 +315,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "fab_text_thickness")]
    public double FabTextThickness
    {
@@ -268,6 +329,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "fab_text_upright")]
    public bool FabTextUpright
    {
@@ -279,6 +343,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "other_line_width")]
    public double OtherLineWidth
    {
@@ -290,6 +357,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "other_text_italic")]
    public bool OtherTextItalic
    {
@@ -301,6 +371,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "other_text_size_h")]
    public double OtherTextWidth
    {
@@ -312,6 +385,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "other_text_size_v")]
    public double OtherTextHeight
    {
@@ -323,6 +399,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "other_text_thickness")]
    public double OtherTextThickness
    {
@@ -334,6 +413,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "other_text_upright")]
    public bool OtherTextUpright
    {
@@ -345,6 +427,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "pads")]
    public PadSettingsModel? Pads
    {
@@ -356,6 +441,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "silk_line_width")]
    public double SilkLineWidth
    {
@@ -367,6 +455,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "silk_text_italic")]
    public bool SilkTextItalic
    {
@@ -378,6 +469,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "silk_text_size_h")]
    public double SilkTextWidth
    {
@@ -389,6 +483,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "silk_text_size_v")]
    public double SilkTextHeight
    {
@@ -400,6 +497,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "silk_text_thickness")]
    public double SilkTextThickness
    {
@@ -411,6 +511,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "silk_text_upright")]
    public bool SilkTextUpright
    {
@@ -422,6 +525,9 @@ public class DefaultDesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "zones")]
    public ZoneSettingsModel? ZoneSettings
    {

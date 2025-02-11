@@ -57,40 +57,40 @@ namespace KiCadFileParserLibrary.KiCad.General
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(image");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(image");
 
-         Location.WriteNode(builder, indent + 1);
+      //   Location.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
 
-         if (Scale != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("scale", Scale)); 
-         }
+      //   if (Scale != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("scale", Scale)); 
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine("(data");
-         foreach (var d in Data)
-         {
-            builder.Append('\t', indent + 2);
-            builder.Append('"');
-            builder.Append(d);
-            builder.AppendLine("\"");
-         }
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(")");
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine("(data");
+      //   foreach (var d in Data)
+      //   {
+      //      builder.Append('\t', indent + 2);
+      //      builder.Append('"');
+      //      builder.Append(d);
+      //      builder.AppendLine("\"");
+      //   }
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(")");
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

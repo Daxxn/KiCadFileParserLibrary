@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
 
+/// <summary>
+/// KiCad project BOM field settings.
+/// </summary>
 public class BomFieldSettingsModel : Model
 {
    #region Local Props
@@ -20,6 +23,7 @@ public class BomFieldSettingsModel : Model
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public BomFieldSettingsModel() { }
    #endregion
 

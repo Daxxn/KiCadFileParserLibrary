@@ -12,7 +12,7 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("arc")]
    public class TraceArcModel : Model, IKiCadReadable
@@ -46,38 +46,38 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine("(arc");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine("(arc");
 
-         Start?.WriteNode(builder, indent + 1, "start");
-         Middle?.WriteNode(builder, indent + 1, "mid");
-         End?.WriteNode(builder, indent + 1, "end");
+      //   Start?.WriteNode(builder, indent + 1, "start");
+      //   Middle?.WriteNode(builder, indent + 1, "mid");
+      //   End?.WriteNode(builder, indent + 1, "end");
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("width", Width));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("width", Width));
 
-         if (Locked)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
-         }
+      //   if (Locked)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net", Net));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net", Net));
 
-         if (ID != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
-         }
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   if (ID != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+      //   }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

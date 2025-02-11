@@ -13,9 +13,8 @@ using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 using MVVMLibrary;
 using System.Security.Cryptography;
-using KiCadFileParserLibrary.KiCad.Boards.SubModels;
 
-namespace KiCadFileParserLibrary.KiCad.Boards
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("generated")]
    public class TunedLengthModel : Model, IKiCadReadable
@@ -50,7 +49,6 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       private MemberCollection? _members;
       private OriginModel? _origin;
       private OriginModel? _end;
-
       #endregion
 
       #region Constructors
@@ -70,118 +68,118 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine("(generated");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine("(generated");
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("type", Type));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("type", Type));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("name", Name));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("name", Name));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
 
-         if (BaseLine != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine("(base_line");
-            BaseLine?.WriteNode(builder, indent + 2);
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(")");
-         }
+      //   if (BaseLine != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine("(base_line");
+      //      BaseLine?.WriteNode(builder, indent + 2);
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(")");
+      //   }
 
-         if (BaseLineCoupled != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine("(base_line_coupled");
-            BaseLineCoupled?.WriteNode(builder, indent + 2);
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(")");
-         }
+      //   if (BaseLineCoupled != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine("(base_line_coupled");
+      //      BaseLineCoupled?.WriteNode(builder, indent + 2);
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(")");
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("corner_radius_percent", CornerRadiusPerc));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("corner_radius_percent", CornerRadiusPerc));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine("(end");
-         End?.WriteNode(builder, indent + 2);
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(")");
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine("(end");
+      //   End?.WriteNode(builder, indent + 2);
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(")");
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("initial_side", InitialSide));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("initial_side", InitialSide));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("last_diff_pair_gap", LastDiffPairGap));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("last_diff_pair_gap", LastDiffPairGap));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("last_netname", LastNetName));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("last_netname", LastNetName));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("last_status", LastStatus));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("last_status", LastStatus));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("last_track_width", LastTrackWidth));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("last_track_width", LastTrackWidth));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("last_tuning", LastTuning));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("last_tuning", LastTuning));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("max_amplitude", MaxAmplitude));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("max_amplitude", MaxAmplitude));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("min_amplitude", MinAmplitude));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("min_amplitude", MinAmplitude));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("min_spacing", MinSpacing));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("min_spacing", MinSpacing));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine("(origin");
-         Origin?.WriteNode(builder, indent + 2);
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(")");
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine("(origin");
+      //   Origin?.WriteNode(builder, indent + 2);
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(")");
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("override_custom_rules", OverrideCustomRules));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("override_custom_rules", OverrideCustomRules));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("rounded", Rounded));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("rounded", Rounded));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("single_sided", SingleSided));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("single_sided", SingleSided));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_length", TargetLength));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_length", TargetLength));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_length_max", TargetLengthMax));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_length_max", TargetLengthMax));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_length_min", TargetLengthMin));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_length_min", TargetLengthMin));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_skew", TargetSkew));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_skew", TargetSkew));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_skew_max", TargetSkewMax));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_skew_max", TargetSkewMax));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_skew_min", TargetSkewMin));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("target_skew_min", TargetSkewMin));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("tuning_mode", TuningMode));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("tuning_mode", TuningMode));
 
-         Members?.WriteNode(builder, indent + 1);
+      //   Members?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

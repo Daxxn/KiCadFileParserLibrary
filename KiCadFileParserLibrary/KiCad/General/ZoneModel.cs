@@ -54,73 +54,73 @@ namespace KiCadFileParserLibrary.KiCad.General
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine("(zone");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine("(zone");
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net", Net));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net", Net));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net_name", NetName));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net_name", NetName));
 
-         if (Layer != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
-         }
-         else
-         {
-            Layers?.WriteNode(builder, indent + 1);
-         }
+      //   if (Layer != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+      //   }
+      //   else
+      //   {
+      //      Layers?.WriteNode(builder, indent + 1);
+      //   }
 
-         if (ID != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
-         }
+      //   if (ID != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+      //   }
 
-         if (Name != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("name", Name));
-         }
+      //   if (Name != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("name", Name));
+      //   }
 
-         Hatch?.WriteNode(builder, indent + 1);
+      //   Hatch?.WriteNode(builder, indent + 1);
 
-         if (Priority != 0)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("priority", Priority));
-         }
+      //   if (Priority != 0)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("priority", Priority));
+      //   }
 
-         Attributes?.WriteNode(builder, indent + 1);
+      //   Attributes?.WriteNode(builder, indent + 1);
 
-         ConnectPads?.WriteNode(builder, indent + 1);
+      //   ConnectPads?.WriteNode(builder, indent + 1);
 
-         if (MinThickness != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("min_thickness", MinThickness));
-         }
+      //   if (MinThickness != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("min_thickness", MinThickness));
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("filled_areas_thickness", FilledAreasThickness));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("filled_areas_thickness", FilledAreasThickness));
 
-         Keepout?.WriteNode(builder, indent + 1);
+      //   Keepout?.WriteNode(builder, indent + 1);
 
-         Fill?.WriteNode(builder, indent + 1);
+      //   Fill?.WriteNode(builder, indent + 1);
 
-         Polygon?.WriteNode(builder, indent + 1);
+      //   Polygon?.WriteNode(builder, indent + 1);
 
-         PolygonFill?.WriteNode(builder, indent + 1);
+      //   PolygonFill?.WriteNode(builder, indent + 1);
 
-         Segments?.WriteNode(builder, indent + 1);
+      //   Segments?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

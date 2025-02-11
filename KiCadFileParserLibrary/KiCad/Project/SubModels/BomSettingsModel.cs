@@ -11,6 +11,9 @@ using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
 
+/// <summary>
+/// Bill of materials settings.
+/// </summary>
 public class BomSettingsModel : Model
 {
    #region Local Props
@@ -21,10 +24,10 @@ public class BomSettingsModel : Model
    private string? _name;
    private bool _sortAscending;
    private string? _sortField;
-
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public BomSettingsModel() { }
    #endregion
 
@@ -33,6 +36,9 @@ public class BomSettingsModel : Model
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Exclude "Do Not Populate" parts from the BOM.
+   /// </summary>
    [JsonProperty(PropertyName = "exclude_dnp")]
    public bool ExcludeDNP
    {
@@ -44,6 +50,9 @@ public class BomSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// List of fields and their order used in the BOM.
+   /// </summary>
    [JsonProperty(PropertyName = "fields_ordered")]
    public ObservableCollection<BomFieldSettingsModel>? FieldSettings
    {
@@ -55,6 +64,9 @@ public class BomSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Filter
+   /// </summary>
    [JsonProperty(PropertyName = "filter_string")]
    public string? FilterString
    {
@@ -66,6 +78,9 @@ public class BomSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Group symbols
+   /// </summary>
    [JsonProperty(PropertyName = "group_symbols")]
    public bool GroupSymbols
    {
@@ -77,6 +92,9 @@ public class BomSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Name
+   /// </summary>
    [JsonProperty(PropertyName = "name")]
    public string? Name
    {
@@ -88,6 +106,9 @@ public class BomSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Sort the BOM in ascending order
+   /// </summary>
    [JsonProperty(PropertyName = "sort_asc")]
    public bool SortAscending
    {
@@ -99,6 +120,9 @@ public class BomSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// The field used to sort the BOM.
+   /// </summary>
    [JsonProperty(PropertyName = "sort_field")]
    public string? SortField
    {

@@ -44,38 +44,38 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(model \"{Path}\"");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(model \"{Path}\"");
 
-         if (Opacity != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("opacity", Opacity));
-         }
+      //   if (Opacity != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("opacity", Opacity));
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine("(offset");
-         Offset.WriteNode(builder, indent + 2);
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(")");
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine("(offset");
+      //   Offset.WriteNode(builder, indent + 2);
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(")");
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine("(scale");
-         Scale.WriteNode(builder, indent + 2);
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(")");
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine("(scale");
+      //   Scale.WriteNode(builder, indent + 2);
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(")");
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine("(rotate");
-         Rotation.WriteNode(builder, indent + 2);
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(")");
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine("(rotate");
+      //   Rotation.WriteNode(builder, indent + 2);
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(")");
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

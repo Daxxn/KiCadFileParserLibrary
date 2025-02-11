@@ -42,13 +42,13 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         foreach (var pad in Pads)
-         {
-            pad.WriteNode(builder, indent);
-         }
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   foreach (var pad in Pads)
+      //   {
+      //      pad.WriteNode(builder, indent);
+      //   }
+      //}
 
       public override string ToString()
       {

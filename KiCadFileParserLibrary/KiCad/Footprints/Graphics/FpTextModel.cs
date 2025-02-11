@@ -56,40 +56,40 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
          }
       }
 
-      public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(fp_text {Type.ToString().ToLower()} \"{Text}\"");
+      //public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(fp_text {Type.ToString().ToLower()} \"{Text}\"");
 
-         Location?.WriteNode(builder, indent + 1);
+      //   Location?.WriteNode(builder, indent + 1);
 
-         if (IsUnlocked)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("unlocked", IsUnlocked));
-         }
+      //   if (IsUnlocked)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("unlocked", IsUnlocked));
+      //   }
 
-         if (Knockout)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(layer \"{Layer}\" knockout)");
-         }
-         else
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
-         }
+      //   if (Knockout)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(layer \"{Layer}\" knockout)");
+      //   }
+      //   else
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
 
-         Effects?.WriteNode(builder, indent + 1);
+      //   Effects?.WriteNode(builder, indent + 1);
 
-         RenderCache?.WriteNode(builder, indent + 1);
+      //   RenderCache?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

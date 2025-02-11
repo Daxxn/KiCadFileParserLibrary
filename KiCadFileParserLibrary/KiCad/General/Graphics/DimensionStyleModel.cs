@@ -40,50 +40,50 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
          KiCadParseUtils.ParseTokens(props, node, this);
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.Append($"(style");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.Append($"(style");
 
-         if (KeepTextAligned)
-         {
-            builder.AppendLine(" keep_text_aligned");
-         }
-         else
-         {
-            builder.AppendLine();
-         }
+      //   if (KeepTextAligned)
+      //   {
+      //      builder.AppendLine(" keep_text_aligned");
+      //   }
+      //   else
+      //   {
+      //      builder.AppendLine();
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thickness", Thickness));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("thickness", Thickness));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("arrow_length", ArrowLength));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("arrow_length", ArrowLength));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("text_position_mode", (int)TextPosition));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("text_position_mode", (int)TextPosition));
 
-         if (ExtensionHeight != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("extension_height", ExtensionHeight));
-         }
+      //   if (ExtensionHeight != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("extension_height", ExtensionHeight));
+      //   }
 
-         if (TextFrame != TextFrameType.NoFrame)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("text_frame", (int)TextFrame));
-         }
+      //   if (TextFrame != TextFrameType.NoFrame)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("text_frame", (int)TextFrame));
+      //   }
 
-         if (ExtensionOffset != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("extension_offset", ExtensionOffset));
-         }
+      //   if (ExtensionOffset != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("extension_offset", ExtensionOffset));
+      //   }
 
-         builder.Append('\t', indent);
-         builder.AppendLine($")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($")");
+      //}
       #endregion
 
       #region Full Props

@@ -120,23 +120,6 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
       }
-
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         //if (Offset != null)
-         //{
-         //   builder.Append('\t', indent);
-         //   builder.AppendLine($"(drill {(Oval ? $"oval {Diameter} {Width}" : Diameter)}");
-         //   Offset.WriteNode(builder, indent + 1, "offset");
-         //   builder.Append('\t', indent);
-         //   builder.AppendLine(")");
-         //}
-         //else
-         //{
-         //   builder.Append('\t', indent);
-         //   builder.AppendLine($"(drill {(Oval ? $"oval {Diameter} {Width}" : Diameter)})");
-         //}
-      }
       #endregion
 
       #region Full Props

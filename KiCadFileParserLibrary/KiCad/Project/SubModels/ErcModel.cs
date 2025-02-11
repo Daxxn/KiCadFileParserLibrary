@@ -16,9 +16,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       #region Local Props
       private ObservableCollection<string>? _exclusions;
       private MetadataModel? _metadata;
-      private ObservableCollection<ObservableCollection<int>>? _pinMap;
+      private PinMappingModel _pinMap = new();
       private SchRuleSeverityModel? _ruleSeverities;
-
       #endregion
 
       #region Constructors
@@ -53,7 +52,17 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "pin_map")]
-      public ObservableCollection<ObservableCollection<int>>? PinMap
+      public int[][] PinMapData
+      {
+         get => PinMap.ConvertFromMap();
+         set
+         {
+            PinMap.ConvertToMap(value);
+         }
+      }
+
+      [JsonIgnore]
+      public PinMappingModel PinMap
       {
          get => _pinMap;
          set

@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
+   /// <summary>
+   /// List of all the <see cref="NetModel">Nets</see> in a <see cref="PcbModel">PCB.</see>
+   /// </summary>
    [SExprListNode("net")]
    public class NetCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
@@ -24,10 +27,12 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       #endregion
 
       #region Constructors
+      /// <inheritdoc/>
       public NetCollection() { }
       #endregion
 
       #region Methods
+      /// <inheritdoc/>
       public void ParseNode(Node node)
       {
          var children = node.GetNodes("net");
@@ -41,19 +46,15 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         foreach (var net in Nets)
-         {
-            net.WriteNode(builder, indent);
-         }
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   foreach (var net in Nets)
+      //   {
+      //      net.WriteNode(builder, indent);
+      //   }
+      //}
 
-      public override string ToString()
-      {
-         return $"Nets - {Nets.Count}";
-      }
-
+      /// <inheritdoc/>
       public void WriteCollection(StringBuilder builder, int indent)
       {
          foreach (var net in Nets)
@@ -61,6 +62,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
             KiCadWriteUtils2.WriteNode(net, builder, indent + 1);
          }
       }
+
+      /// <inheritdoc/>
+      public override string ToString() => $"Net Coll - {Nets.Count}";
       #endregion
 
       #region Full Props

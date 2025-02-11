@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.Interfaces;
+using KiCadFileParserLibrary.KiCad.Symbols.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
@@ -19,7 +20,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
       private XyModel? _start;
       private XyModel? _end;
       private StrokeModel? _stroke;
-      private FillType _fill;
+      private SymbolFillModel? _fill;
       private bool _isPrivate;
       #endregion
 
@@ -74,8 +75,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
          }
       }
 
-      [SExprSubNode("fill")]
-      public FillType Fill
+      public SymbolFillModel? Fill
       {
          get => _fill;
          set
@@ -85,7 +85,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
          }
       }
 
-      [SExprToken("private")]
+      [SExprToken("private", 0)]
       public bool IsPrivate
       {
          get => _isPrivate;

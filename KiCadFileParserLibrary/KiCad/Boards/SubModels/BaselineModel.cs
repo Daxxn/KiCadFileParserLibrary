@@ -22,10 +22,12 @@ public class BaselineModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public BaselineModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children != null)
@@ -37,14 +39,13 @@ public class BaselineModel : Model, IKiCadReadable
       }
    }
 
-   public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   {
-      throw new NotImplementedException();
-   }
+   /// <inheritdoc/>
+   public override string ToString() => $"Baseline - Coords: {Coordinates.Points.Points.Count}";
    #endregion
 
    #region Full Props
-   public CoordinateModel Points
+   /// <inheritdoc/>
+   public CoordinateModel Coordinates
    {
       get => _points;
       set

@@ -11,6 +11,14 @@ using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
 
+/// <summary>
+/// Settings used by the footprint association wizard to automatically asign footprints.
+/// <para/>
+/// Note: The only documentation about this is from 2015. This may be redundant now. also, the
+/// default footprint is probably better. otherwise, separate files need to be created and kept up to date. ANOYING!
+/// <para/>
+/// This is mostly here for completeness.
+/// </summary>
 public class CvPcbModel : Model
 {
    #region Local Props
@@ -18,6 +26,7 @@ public class CvPcbModel : Model
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public CvPcbModel() { }
    #endregion
 
@@ -26,6 +35,14 @@ public class CvPcbModel : Model
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of paths to the footprint equivalence files.
+   /// <para/>
+   /// Note: The only documentation about this is from 2015. This may be redundant now. also, the
+   /// default footprint is probably better. otherwise, separate files need to be created and kept up to date. ANOYING!
+   /// <para/>
+   /// This is mostly here for completeness.
+   /// </summary>
    [JsonProperty(PropertyName = "equivalence_files")]
    public ObservableCollection<string>? EquivalenceFiles
    {

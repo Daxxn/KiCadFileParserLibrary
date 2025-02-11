@@ -17,7 +17,7 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       private int _annotateStartNumber;
       private string? _bomExportFileName;
       private ObservableCollection<string>? _bomFMTPresets;
-      private BomFmtSettingsModel? _bomFmtSettings;
+      private BomFormatSettingsModel? _bomFmtSettings;
       private ObservableCollection<string>? _bomPresets;
       private BomSettingsModel? _bomSettings;
       private double _connectionGridSize;
@@ -81,7 +81,7 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "bom_fmt_settings")]
-      public BomFmtSettingsModel? BomFmtSettings
+      public BomFormatSettingsModel? BomFmtSettings
       {
          get => _bomFmtSettings;
          set

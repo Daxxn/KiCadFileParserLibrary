@@ -13,7 +13,7 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
    [SExprNode("setup")]
    public class Setup : Model, IKiCadReadable
@@ -46,46 +46,44 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine("(setup");
-         if (Stackup != null)
-         {
-            Stackup.WriteNode(builder, indent + 1);
-         }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine("(setup");
+      //   if (Stackup != null)
+      //      Stackup.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine($"(pad_to_mask_clearance {PadToMaskClearance})");
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine($"(pad_to_mask_clearance {PadToMaskClearance})");
 
-         if (SolderMaskMinWidth != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(solder_mask_min_width {SolderMaskMinWidth})");
-         }
+      //   if (SolderMaskMinWidth != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(solder_mask_min_width {SolderMaskMinWidth})");
+      //   }
 
-         if (PadToPasteClearance != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(pad_to_paste_clearance {PadToPasteClearance})");
-         }
+      //   if (PadToPasteClearance != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(pad_to_paste_clearance {PadToPasteClearance})");
+      //   }
 
-         if (PadToPasteRatio != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine($"(pad_to_paste_clearance_ratio {PadToPasteRatio})");
-         }
+      //   if (PadToPasteRatio != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine($"(pad_to_paste_clearance_ratio {PadToPasteRatio})");
+      //   }
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine($"(allow_soldermask_bridges_in_footprints {KiCadWriteUtils.PrintBool(AllowMaskBridgeInFp)})");
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine($"(allow_soldermask_bridges_in_footprints {KiCadWriteUtils.PrintBool(AllowMaskBridgeInFp)})");
 
-         AuxAxisOrigin?.WriteNode(builder, indent + 1, "aux_axis_origin");
-         GridOrigin?.WriteNode(builder, indent + 1, "grid_origin");
-         PlotParams.WriteNode(builder, indent + 1);
+      //   AuxAxisOrigin?.WriteNode(builder, indent + 1, "aux_axis_origin");
+      //   GridOrigin?.WriteNode(builder, indent + 1, "grid_origin");
+      //   PlotParams.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
 
       public override string ToString()
       {

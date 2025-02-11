@@ -12,27 +12,35 @@ using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
 
+/// <summary>
+/// KiCad Project PCB settings
+/// </summary>
 public class BoardModel : Model
 {
    #region Local Props
-   private ObservableCollection<string>? _viewPorts3D;
+   private ObservableCollection<Viewport3DModel>? _viewPorts3D;
    private DesignSettingsModel? _designSettings;
    private IPC2581SettingsModel? _ipcSettings;
-   private ObservableCollection<string>? _layerPresets;
-   private ObservableCollection<string>? _viewPorts;
+   private ObservableCollection<LayerPresetModel>? _layerPresets;
+   private ObservableCollection<ViewportModel>? _viewPorts;
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public BoardModel() { }
    #endregion
 
    #region Methods
-
+   /// <inheritdoc/>
+   public override string ToString() => $"Board Settings";
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Saved 3D viewports
+   /// </summary>
    [JsonProperty(PropertyName = "3dviewports")]
-   public ObservableCollection<string>? ViewPorts3D
+   public ObservableCollection<Viewport3DModel>? ViewPorts3D
    {
       get => _viewPorts3D;
       set
@@ -42,6 +50,9 @@ public class BoardModel : Model
       }
    }
 
+   /// <summary>
+   /// PCB design settings.
+   /// </summary>
    [JsonProperty(PropertyName = "design_settings")]
    public DesignSettingsModel? DesignSettings
    {
@@ -65,7 +76,7 @@ public class BoardModel : Model
    }
 
    [JsonProperty(PropertyName = "layer_presets")]
-   public ObservableCollection<string>? LayerPresets
+   public ObservableCollection<LayerPresetModel>? LayerPresets
    {
       get => _layerPresets;
       set
@@ -76,7 +87,7 @@ public class BoardModel : Model
    }
 
    [JsonProperty(PropertyName = "viewports")]
-   public ObservableCollection<string>? ViewPorts
+   public ObservableCollection<ViewportModel>? ViewPorts
    {
       get => _viewPorts;
       set

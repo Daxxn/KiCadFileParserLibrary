@@ -19,7 +19,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
    public class SubSymbolCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
-      private ObservableCollection<SubSymbolModel>? _subSymbols;
+      private ObservableCollection<SubSymbolModel> _subSymbols;
       #endregion
 
       #region Constructors
@@ -40,11 +40,6 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         throw new NotImplementedException();
-      }
-
       public void WriteCollection(StringBuilder builder, int indent)
       {
          if (SubSymbols is null) return;
@@ -57,7 +52,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
       #endregion
 
       #region Full Props
-      public ObservableCollection<SubSymbolModel>? SubSymbols
+      public ObservableCollection<SubSymbolModel> SubSymbols
       {
          get => _subSymbols;
          set

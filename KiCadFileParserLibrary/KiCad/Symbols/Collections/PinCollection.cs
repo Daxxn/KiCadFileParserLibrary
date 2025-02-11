@@ -19,7 +19,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
    public class PinCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
-      private ObservableCollection<PinModel>? _pins;
+      private ObservableCollection<PinModel> _pins;
       #endregion
 
       #region Constructors
@@ -40,29 +40,18 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         throw new NotImplementedException();
-      }
-
       public void WriteCollection(StringBuilder builder, int indent)
       {
          if (Pins is null) return;
-         builder.Append('\t', indent);
-         builder.AppendLine("(pin");
-
          foreach (var pin in Pins)
          {
-            KiCadWriteUtils2.WriteNode(pin, builder, indent + 1);
+            KiCadWriteUtils2.WriteNode(pin, builder, indent);
          }
-
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
       }
       #endregion
 
       #region Full Props
-      public ObservableCollection<PinModel>? Pins
+      public ObservableCollection<PinModel> Pins
       {
          get => _pins;
          set

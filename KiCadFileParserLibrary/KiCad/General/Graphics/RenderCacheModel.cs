@@ -47,19 +47,19 @@ namespace KiCadFileParserLibrary.KiCad.General.Graphics
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(render_cache \"{Text}\" {Angle}");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(render_cache \"{Text}\" {Angle}");
 
-         foreach (var polys in Polygon)
-         {
-            polys.WriteNode(builder, indent + 1);
-         }
+      //   foreach (var polys in Polygon)
+      //   {
+      //      polys.WriteNode(builder, indent + 1);
+      //   }
 
-         builder.Append('\t', indent);
-         builder.AppendLine(")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

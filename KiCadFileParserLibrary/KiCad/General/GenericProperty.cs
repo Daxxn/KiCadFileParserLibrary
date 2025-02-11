@@ -33,11 +33,11 @@ namespace KiCadFileParserLibrary.KiCad.General
          KiCadParseUtils.ParseProperties(props, node, this);
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(property \"{Key}\" \"{Value}\")");
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(property \"{Key}\" \"{Value}\")");
+      //}
       #endregion
 
       #region Full Props

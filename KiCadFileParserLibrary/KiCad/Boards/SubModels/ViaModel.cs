@@ -8,13 +8,16 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.KiCad.General;
 using KiCadFileParserLibrary.KiCad.General.Collections;
 using KiCadFileParserLibrary.KiCad.Interfaces;
-using KiCadFileParserLibrary.KiCad.Boards.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
+
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
 {
+   /// <summary>
+   /// PCB Via data.
+   /// </summary>
    [SExprNode("via")]
    public class ViaModel : Model, IKiCadReadable
    {
@@ -27,17 +30,19 @@ namespace KiCadFileParserLibrary.KiCad.Boards
       private bool _removeUnusedLayers;
       private bool _keepEndLayers;
       private bool _isFree;
-      private string _zoneLayerConnections;
+      private string _zoneLayerConnections = "";
       private int _net;
-      private string _id;
+      private string _id = "";
       private TeardropModel? _teardrops;
       #endregion
 
       #region Constructors
+      /// <inheritdoc/>
       public ViaModel() { }
       #endregion
 
       #region Methods
+      /// <inheritdoc/>
       public void ParseNode(Node node)
       {
          if (node.Properties != null && node.Children != null)
@@ -51,59 +56,59 @@ namespace KiCadFileParserLibrary.KiCad.Boards
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.AppendLine($"(via");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(via");
 
-         Location?.WriteNode(builder, indent + 1);
+      //   Location?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("size", Size));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("size", Size));
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("drill", Drill));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("drill", Drill));
 
-         Layers?.WriteNode(builder, indent + 1);
+      //   Layers?.WriteNode(builder, indent + 1);
 
-         if (RemoveUnusedLayers)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("remove_unused_layers", RemoveUnusedLayers));
-         }
+      //   if (RemoveUnusedLayers)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("remove_unused_layers", RemoveUnusedLayers));
+      //   }
 
-         if (KeepEndLayers)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("keep_end_layers", KeepEndLayers));
-         }
+      //   if (KeepEndLayers)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("keep_end_layers", KeepEndLayers));
+      //   }
 
-         if (IsFree)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("free", IsFree));
-         }
+      //   if (IsFree)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("free", IsFree));
+      //   }
 
-         if (!string.IsNullOrEmpty(ZoneLayerConnections))
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("zone_layer_connections", ZoneLayerConnections));
-         }
+      //   if (!string.IsNullOrEmpty(ZoneLayerConnections))
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("zone_layer_connections", ZoneLayerConnections));
+      //   }
 
-         Teardrops?.WriteNode(builder, indent + 1);
+      //   Teardrops?.WriteNode(builder, indent + 1);
 
-         builder.Append('\t', indent + 1);
-         builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net", Net));
+      //   builder.Append('\t', indent + 1);
+      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("net", Net));
 
-         if (ID != null)
-         {
-            builder.Append('\t', indent + 1);
-            builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
-         }
+      //   if (ID != null)
+      //   {
+      //      builder.Append('\t', indent + 1);
+      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
+      //   }
 
-         builder.Append('\t', indent);
-         builder.AppendLine($")");
-      }
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($")");
+      //}
       #endregion
 
       #region Full Props

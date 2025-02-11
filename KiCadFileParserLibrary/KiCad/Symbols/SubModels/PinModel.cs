@@ -22,7 +22,7 @@ public class PinModel : Model, IKiCadReadable
    private PinGraphicStyle _graphStyle;
    private LocationModel _location = new();
    private double _len;
-   private PinVisibility _visible = PinVisibility.Visible;
+   private PinVisibility? _visible = null;
    private PinTextModel _name = new();
    private PinTextModel _number = new();
    #endregion
@@ -49,7 +49,7 @@ public class PinModel : Model, IKiCadReadable
    //   Location.WriteNode(builder, indent + 1);
    //   builder.Append('\t', indent + 1);
    //   builder.Append($"(length {Length})");
-   //   if (Visible == PinVisibility.Hide)
+   //   if (Visible == PinNumberVisibility.Hide)
    //   {
    //      builder.Append(Visible.ToString().ToLower());
    //   }
@@ -130,7 +130,8 @@ public class PinModel : Model, IKiCadReadable
    }
 
    [SExprProperty(3)]
-   public PinVisibility Visible
+   [SExprFormatting(false, true)]
+   public PinVisibility? Visible
    {
       get => _visible;
       set

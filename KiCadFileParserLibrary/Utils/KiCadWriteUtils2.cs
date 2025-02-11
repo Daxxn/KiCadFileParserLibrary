@@ -48,14 +48,85 @@ internal static class KiCadWriteUtils2
       builder.Append('\t', indent);
       builder.Append($"({xPath ?? nodeAttr.XPath}");
 
+      Dictionary<int, KiCadNodeSortAttributes> tempChildren = [];
+      List<string> tempProps = [];
+      List<string> tempEndTokens = [];
+      int currentCount = 0;
+      int fullCount = kiPropsSubNodes.Count + kiPropsChildNodes.Count + kiPropsTokens.Count;
+
       if (kiPropsInlineProps != null)
       {
-         WriteProps(obj, builder, kiPropsInlineProps);
+         // Add properties
+         foreach (var prop in kiPropsInlineProps)
+         {
+            var val = prop.GetValue(obj);
+            var propAttr = prop.GetCustomAttribute<SExprPropertyAttribute>();
+            var formatting = prop.GetCustomAttribute<SExprFormattingAttribute>();
+            if (formatting != null)
+            {
+               if (formatting.IgnoreIfNull && val is null) continue;
+               if (formatting.ExportAsInt)
+               {
+                  //builder.Append(' ');
+                  //builder.Append(WriteValue((int?)val ?? 0));
+                  tempProps.Add(WriteValue((int?)val ?? 0)!);
+               }
+               else
+               {
+                  //builder.Append(' ');
+                  //builder.Append(WriteValue(val));
+                  tempProps.Add(WriteValue(val!)!);
+               }
+            }
+            else if (val != null)
+            {
+               //builder.Append(' ');
+               //builder.Append(WriteValue(val));
+               tempProps.Add(WriteValue(val)!);
+            }
+         }
+         //WriteProps(obj, builder, kiPropsInlineProps);
       }
 
+      // WriteLibrary tokens:
       if (kiPropsTokens != null)
       {
-         WriteTokens(obj, builder, kiPropsTokens);
+         foreach (var prop in kiPropsTokens)
+         {
+            var value = prop.GetValue(obj);
+            var attr = prop.GetCustomAttribute<SExprTokenAttribute>()!;
+            if (value is bool val)
+            {
+               if (val)
+               {
+                  if (attr.AddToEnd)
+                  {
+                     tempEndTokens.Add(attr.TokenName);
+                  }
+                  else if (attr.Index != -1)
+                  {
+                     tempProps.Insert(attr.Index, attr.TokenName);
+                  }
+                  else
+                  {
+                     //builder.Append(' ');
+                     //builder.Append(attr.TokenName);
+                     tempProps.Add(WriteValue(val)!);
+                  }
+               }
+            }
+            else throw new Exception("Unable to write token. Type is not a boolean. ALL tokens must be a bool.");
+         }
+      }
+
+      // Write Properties
+      if (tempProps.Count > 0)
+      {
+         foreach (var tempProp in tempProps)
+         {
+            builder.Append(' ');
+            builder.Append(tempProp);
+         }
       }
 
       if (kiPropsSubNodes.Count == 0 && kiPropsChildNodes.Count == 0 && kiPropsListNodes.Count == 0)
@@ -66,10 +137,7 @@ internal static class KiCadWriteUtils2
 
       builder.AppendLine();
 
-      // Write SubNodes:
-      Dictionary<int, KiCadNodeSortAttributes> tempChildren = [];
-      int currentCount = 0;
-      int fullCount = kiPropsSubNodes.Count + kiPropsChildNodes.Count;
+      // WriteLibrary SubNodes:
       if (kiPropsSubNodes != null)
       {
          foreach (var prop in kiPropsSubNodes)
@@ -93,7 +161,7 @@ internal static class KiCadWriteUtils2
          }
       }
 
-      // Write Prop Lists
+      // WriteLibrary Prop Lists
       if (kiPropsPropListNodes != null)
       {
          foreach (var prop in kiPropsPropListNodes)
@@ -117,7 +185,7 @@ internal static class KiCadWriteUtils2
          }
       }
 
-      // Write Nodes:
+      // WriteLibrary Nodes:
       if (kiPropsChildNodes != null)
       {
          foreach (var prop in kiPropsChildNodes)
@@ -202,6 +270,15 @@ internal static class KiCadWriteUtils2
          }
       }
 
+      if (tempEndTokens.Count > 0)
+      {
+         foreach (var token in tempEndTokens)
+         {
+            builder.Append('\t', indent + 1);
+            builder.AppendLine(token);
+         }
+      }
+
       //if (kiPropsListNodes != null)
       //{
       //   foreach (var prop in kiPropsListNodes)
@@ -223,7 +300,22 @@ internal static class KiCadWriteUtils2
       foreach (var prop in props)
       {
          var val = prop.GetValue(obj);
-         if (val != null)
+         var formatting = prop.GetCustomAttribute<SExprFormattingAttribute>();
+         if (formatting != null)
+         {
+            if (formatting.IgnoreIfNull && val is null) continue;
+            if (formatting.ExportAsInt)
+            {
+               builder.Append(' ');
+               builder.Append(WriteValue((int?)val ?? 0));
+            }
+            else
+            {
+               builder.Append(' ');
+               builder.Append(WriteValue(val));
+            }
+         }
+         else if (val != null)
          {
             builder.Append(' ');
             builder.Append(WriteValue(val));

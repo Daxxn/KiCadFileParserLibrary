@@ -50,7 +50,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
          }
       }
 
-      [SExprToken("private")]
+      [SExprToken("private", 0)]
       public bool IsPrivate
       {
          get => _isPrivate;

@@ -39,13 +39,13 @@ namespace KiCadFileParserLibrary.KiCad.General.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         foreach (var zone in Zones)
-         {
-            zone.WriteNode(builder, indent);
-         }
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   foreach (var zone in Zones)
+      //   {
+      //      zone.WriteNode(builder, indent);
+      //   }
+      //}
 
       public override string ToString()
       {

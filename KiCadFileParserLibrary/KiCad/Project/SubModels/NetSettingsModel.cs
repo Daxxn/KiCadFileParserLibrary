@@ -14,11 +14,11 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
    public class NetSettingsModel : Model
    {
       #region Local Props
-      private ObservableCollection<NetClassSettingsModel>? _netClasses;
-      private MetadataModel? _meta;
-      private string? _netColors;
-      private Dictionary<string, string>? _netClassAssignments;
-      private ObservableCollection<string>? _netClassPatterns;
+      private ObservableCollection<NetClassSettingsModel> _netClasses = [];
+      private MetadataModel _meta = new();
+      private string _netColors = "";
+      private Dictionary<string, string> _netClassAssignments = [];
+      private ObservableCollection<string> _netClassPatterns = [];
 
       #endregion
 
@@ -32,7 +32,7 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
 
       #region Full Props
       [JsonProperty(PropertyName = "classes")]
-      public ObservableCollection<NetClassSettingsModel>? NetClasses
+      public ObservableCollection<NetClassSettingsModel> NetClasses
       {
          get => _netClasses;
          set
@@ -43,7 +43,7 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "meta")]
-      public MetadataModel? Metadata
+      public MetadataModel Metadata
       {
          get => _meta;
          set
@@ -54,7 +54,7 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "net_colors")]
-      public string? NetColors
+      public string NetColors
       {
          get => _netColors;
          set
@@ -65,7 +65,7 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "netclass_assignments")]
-      public Dictionary<string, string>? NetClassAssignments
+      public Dictionary<string, string> NetClassAssignments
       {
          get => _netClassAssignments;
          set
@@ -76,7 +76,7 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "netclass_patterns")]
-      public ObservableCollection<string>? NetClassPatterns
+      public ObservableCollection<string> NetClassPatterns
       {
          get => _netClassPatterns;
          set

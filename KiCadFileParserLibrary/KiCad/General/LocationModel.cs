@@ -33,18 +33,18 @@ namespace KiCadFileParserLibrary.KiCad.General
          KiCadParseUtils.ParseProperties(props, node, this);
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.Append($"({auxName ?? "at"} {X} {Y}");
-         if (Angle != null)
-         {
-            builder.Append(' ');
-            builder.Append((double)Angle);
-         }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.Append($"({auxName ?? "at"} {X} {Y}");
+      //   if (Angle != null)
+      //   {
+      //      builder.Append(' ');
+      //      builder.Append((double)Angle);
+      //   }
 
-         builder.AppendLine(")");
-      }
+      //   builder.AppendLine(")");
+      //}
       #endregion
 
       #region Full Props

@@ -54,20 +54,20 @@ namespace KiCadFileParserLibrary.KiCad.General
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         builder.Append('\t', indent);
-         builder.Append("(paper ");
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   builder.Append('\t', indent);
+      //   builder.Append("(paper ");
 
-         if (IsCustomSize)
-         {
-            builder.AppendLine($"\"{Name}\" {Width} {Height})");
-         }
-         else
-         {
-            builder.AppendLine($"\"{Name}\")");
-         }
-      }
+      //   if (IsCustomSize)
+      //   {
+      //      builder.AppendLine($"\"{Name}\" {Width} {Height})");
+      //   }
+      //   else
+      //   {
+      //      builder.AppendLine($"\"{Name}\")");
+      //   }
+      //}
 
       public override string ToString()
       {

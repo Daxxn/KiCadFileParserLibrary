@@ -19,7 +19,7 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
    public class SymbolPropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       #region Local Props
-      private ObservableCollection<SymbolProperty>? _props;
+      private ObservableCollection<SymbolProperty> _props = [];
       #endregion
 
       #region Constructors
@@ -45,13 +45,13 @@ namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
          if (Properties is null) return;
          foreach (var prop in Properties)
          {
-            KiCadWriteUtils2.WriteNode(prop, builder, indent + 1);
+            KiCadWriteUtils2.WriteNode(prop, builder, indent);
          }
       }
       #endregion
 
       #region Full Props
-      public ObservableCollection<SymbolProperty>? Properties
+      public ObservableCollection<SymbolProperty> Properties
       {
          get => _props;
          set

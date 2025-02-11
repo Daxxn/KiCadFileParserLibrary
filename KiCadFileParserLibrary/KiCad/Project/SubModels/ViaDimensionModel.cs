@@ -10,15 +10,15 @@ using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels
 {
-   public class ViaParamModel : Model
+   public class ViaDimensionModel : Model
    {
       #region Local Props
-      private double _diam;
-      private double _drill;
+      private double _diam = 0;
+      private double _drill = 0;
       #endregion
 
       #region Constructors
-      public ViaParamModel() { }
+      public ViaDimensionModel() { }
       #endregion
 
       #region Methods

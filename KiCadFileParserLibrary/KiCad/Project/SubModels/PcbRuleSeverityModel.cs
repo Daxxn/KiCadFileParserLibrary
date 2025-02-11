@@ -7,62 +7,63 @@ using System.Threading.Tasks;
 using MVVMLibrary;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels
 {
    public class PcbRuleSeverityModel : Model
    {
       #region Local Props
-      private string? _annularWidth;
-      private string? _clearance;
-      private string? _connectionWidth;
-      private string? _copperEdgeClearance;
-      private string? _copperSliver;
-      private string? _courtyardOverlap;
-      private string? _diffPairGapOutOfRange;
-      private string? _diffPairUncoupledLength;
-      private string? _drillOutOfRange;
-      private string? _duplicateFootprints;
-      private string? _extraFootprint;
-      private string? _footprint;
-      private string? _footprintSymbolMismatch;
-      private string? _footprintTypeMismatch;
-      private string? _holeClearance;
-      private string? _holeNearHole;
-      private string? _holesCoLocated;
-      private string? _invalidOutline;
-      private string? _isolatedCopper;
-      private string? _itemOnDisabledLayer;
-      private string? _itemNotAllowed;
-      private string? _lengthOutOfRange;
-      private string? _libFootprintIssues;
-      private string? _libFootprintMismatch;
-      private string? _malformedCourtyard;
-      private string? _microviaDrillOutOfRange;
-      private string? _missingCourtyard;
-      private string? _missingFootprint;
-      private string? _netConflict;
-      private string? _npthInsideCourtyard;
-      private string? _padStack;
-      private string? _pthInsideCourtyard;
-      private string? _shortingItems;
-      private string? _silkEdgeClearance;
-      private string? _silkOverCopper;
-      private string? _silkOverlap;
-      private string? _skewOutOfRange;
-      private string? _solderMaskBridge;
-      private string? _starvedThermal;
-      private string? _textHeight;
-      private string? _textThickness;
-      private string? _throughHolePadWithoutHole;
-      private string? _tooManyVias;
-      private string? _trackDangling;
-      private string? _trackWidth;
-      private string? _tracksCrossing;
-      private string? _unconnectedItems;
-      private string? _unresolvedVariable;
-      private string? _vaiaDangling;
-      private string? _zonesIntersect;
+      private RuleSeverity? _annularWidth;
+      private RuleSeverity? _clearance;
+      private RuleSeverity? _connectionWidth;
+      private RuleSeverity? _copperEdgeClearance;
+      private RuleSeverity? _copperSliver;
+      private RuleSeverity? _courtyardOverlap;
+      private RuleSeverity? _diffPairGapOutOfRange;
+      private RuleSeverity? _diffPairUncoupledLength;
+      private RuleSeverity? _drillOutOfRange;
+      private RuleSeverity? _duplicateFootprints;
+      private RuleSeverity? _extraFootprint;
+      private RuleSeverity? _footprint;
+      private RuleSeverity? _footprintSymbolMismatch;
+      private RuleSeverity? _footprintTypeMismatch;
+      private RuleSeverity? _holeClearance;
+      private RuleSeverity? _holeNearHole;
+      private RuleSeverity? _holesCoLocated;
+      private RuleSeverity? _invalidOutline;
+      private RuleSeverity? _isolatedCopper;
+      private RuleSeverity? _itemOnDisabledLayer;
+      private RuleSeverity? _itemNotAllowed;
+      private RuleSeverity? _lengthOutOfRange;
+      private RuleSeverity? _libFootprintIssues;
+      private RuleSeverity? _libFootprintMismatch;
+      private RuleSeverity? _malformedCourtyard;
+      private RuleSeverity? _microviaDrillOutOfRange;
+      private RuleSeverity? _missingCourtyard;
+      private RuleSeverity? _missingFootprint;
+      private RuleSeverity? _netConflict;
+      private RuleSeverity? _npthInsideCourtyard;
+      private RuleSeverity? _padStack;
+      private RuleSeverity? _pthInsideCourtyard;
+      private RuleSeverity? _shortingItems;
+      private RuleSeverity? _silkEdgeClearance;
+      private RuleSeverity? _silkOverCopper;
+      private RuleSeverity? _silkOverlap;
+      private RuleSeverity? _skewOutOfRange;
+      private RuleSeverity? _solderMaskBridge;
+      private RuleSeverity? _starvedThermal;
+      private RuleSeverity? _textHeight;
+      private RuleSeverity? _textThickness;
+      private RuleSeverity? _throughHolePadWithoutHole;
+      private RuleSeverity? _tooManyVias;
+      private RuleSeverity? _trackDangling;
+      private RuleSeverity? _trackWidth;
+      private RuleSeverity? _tracksCrossing;
+      private RuleSeverity? _unconnectedItems;
+      private RuleSeverity? _unresolvedVariable;
+      private RuleSeverity? _vaiaDangling;
+      private RuleSeverity? _zonesIntersect;
       #endregion
 
       #region Constructors
@@ -75,7 +76,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
 
       #region Full Props
       [JsonProperty(PropertyName = "annular_width")]
-      public string? AnnularWidth
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? RuleSeverity
       {
          get => _annularWidth;
          set
@@ -86,7 +88,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "clearance")]
-      public string? Clearance
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? Clearance
       {
          get => _clearance;
          set
@@ -97,7 +100,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "connection_width")]
-      public string? ConnectionWidth
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? ConnectionWidth
       {
          get => _connectionWidth;
          set
@@ -108,7 +112,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "copper_edge_clearance")]
-      public string? CopperEdgeClearance
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? CopperEdgeClearance
       {
          get => _copperEdgeClearance;
          set
@@ -119,7 +124,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "copper_sliver")]
-      public string? CopperSliver
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? CopperSliver
       {
          get => _copperSliver;
          set
@@ -130,7 +136,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "courtyards_overlap")]
-      public string? CourtyardOverlap
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? CourtyardOverlap
       {
          get => _courtyardOverlap;
          set
@@ -141,7 +148,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "diff_pair_gap_out_of_range")]
-      public string? DiffPairGapOutOfRange
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? DiffPairGapOutOfRange
       {
          get => _diffPairGapOutOfRange;
          set
@@ -152,7 +160,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "diff_pair_uncoupled_length_too_long")]
-      public string? DiffPairUncoupledLength
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? DiffPairUncoupledLength
       {
          get => _diffPairUncoupledLength;
          set
@@ -163,7 +172,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "drill_out_of_range")]
-      public string? DrillOutOfRange
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? DrillOutOfRange
       {
          get => _drillOutOfRange;
          set
@@ -174,7 +184,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "duplicate_footprints")]
-      public string? DuplicateFootprints
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? DuplicateFootprints
       {
          get => _duplicateFootprints;
          set
@@ -185,7 +196,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "extra_footprint")]
-      public string? ExtraFootprint
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? ExtraFootprint
       {
          get => _extraFootprint;
          set
@@ -196,7 +208,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "footprint")]
-      public string? Footprint
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? Footprint
       {
          get => _footprint;
          set
@@ -207,7 +220,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "footprint_symbol_mismatch")]
-      public string? FootprintSymbolMismatch
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? FootprintSymbolMismatch
       {
          get => _footprintSymbolMismatch;
          set
@@ -218,7 +232,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "footprint_type_mismatch")]
-      public string? FootprintTypeMismatch
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? FootprintTypeMismatch
       {
          get => _footprintTypeMismatch;
          set
@@ -229,7 +244,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "hole_clearance")]
-      public string? HoleClearance
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? HoleClearance
       {
          get => _holeClearance;
          set
@@ -240,7 +256,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "hole_near_hole")]
-      public string? HoleNearHole
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? HoleNearHole
       {
          get => _holeNearHole;
          set
@@ -251,7 +268,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "holes_co_located")]
-      public string? HolesCoLocated
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? HolesCoLocated
       {
          get => _holesCoLocated;
          set
@@ -262,7 +280,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "invalid_outline")]
-      public string? InvalidOutline
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? InvalidOutline
       {
          get => _invalidOutline;
          set
@@ -273,7 +292,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "isolated_copper")]
-      public string? IsloatedCopper
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? IsloatedCopper
       {
          get => _isolatedCopper;
          set
@@ -284,7 +304,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "item_on_disabled_layer")]
-      public string? ItemOnDisabledLayer
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? ItemOnDisabledLayer
       {
          get => _itemOnDisabledLayer;
          set
@@ -295,7 +316,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "items_not_allowed")]
-      public string? ItemsNotAllowed
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? ItemsNotAllowed
       {
          get => _itemNotAllowed;
          set
@@ -306,7 +328,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "length_out_of_range")]
-      public string? LengthOutOfRange
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? LengthOutOfRange
       {
          get => _lengthOutOfRange;
          set
@@ -317,7 +340,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "lib_footprint_issues")]
-      public string? LibFootprintIssues
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? LibFootprintIssues
       {
          get => _libFootprintIssues;
          set
@@ -328,7 +352,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "lib_footprint_mismatch")]
-      public string? LibFootprintMismatch
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? LibFootprintMismatch
       {
          get => _libFootprintMismatch;
          set
@@ -339,7 +364,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "malformed_courtyard")]
-      public string? MalformedCourtyard
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? MalformedCourtyard
       {
          get => _malformedCourtyard;
          set
@@ -350,7 +376,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "microvia_drill_out_of_range")]
-      public string? MicroviaDrillOutOfRange
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? MicroviaDrillOutOfRange
       {
          get => _microviaDrillOutOfRange;
          set
@@ -361,7 +388,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "missing_courtyard")]
-      public string? MissingCourtyard
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? MissingCourtyard
       {
          get => _missingCourtyard;
          set
@@ -372,7 +400,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "missing_footprint")]
-      public string? MissingFootprint
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? MissingFootprint
       {
          get => _missingFootprint;
          set
@@ -383,7 +412,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "net_conflict")]
-      public string? NetConflict
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? NetConflict
       {
          get => _netConflict;
          set
@@ -394,7 +424,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "npth_inside_courtyard")]
-      public string? NPTHInsideCourtyard
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? NPTHInsideCourtyard
       {
          get => _npthInsideCourtyard;
          set
@@ -405,7 +436,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "padstack")]
-      public string? PadStack
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? PadStack
       {
          get => _padStack;
          set
@@ -416,7 +448,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "pth_inside_courtyard")]
-      public string? PTHInsideCourtyard
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? PTHInsideCourtyard
       {
          get => _pthInsideCourtyard;
          set
@@ -427,7 +460,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "shorting_items")]
-      public string? ShortingItems
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? ShortingItems
       {
          get => _shortingItems;
          set
@@ -438,7 +472,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "silk_edge_clearance")]
-      public string? SilkEdgeClearance
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? SilkEdgeClearance
       {
          get => _silkEdgeClearance;
          set
@@ -449,7 +484,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "silk_over_copper")]
-      public string? SilkOverCopper
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? SilkOverCopper
       {
          get => _silkOverCopper;
          set
@@ -460,7 +496,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "silk_overlap")]
-      public string? SilkOverlap
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? SilkOverlap
       {
          get => _silkOverlap;
          set
@@ -471,7 +508,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "skew_out_of_range")]
-      public string? SkewOutOfRange
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? SkewOutOfRange
       {
          get => _skewOutOfRange;
          set
@@ -482,7 +520,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "solder_mask_bridge")]
-      public string? SolderMaskBridge
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? SolderMaskBridge
       {
          get => _solderMaskBridge;
          set
@@ -493,7 +532,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "starved_thermal")]
-      public string? StarvedThermal
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? StarvedThermal
       {
          get => _starvedThermal;
          set
@@ -504,7 +544,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "text_height")]
-      public string? TextHeight
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? TextHeight
       {
          get => _textHeight;
          set
@@ -515,7 +556,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "text_thickness")]
-      public string? TextThickness
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? TextThickness
       {
          get => _textThickness;
          set
@@ -526,7 +568,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "through_hole_pad_without_hole")]
-      public string? ThroughHolePadWithoutHole
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? ThroughHolePadWithoutHole
       {
          get => _throughHolePadWithoutHole;
          set
@@ -537,7 +580,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "too_many_vias")]
-      public string? TooManyVias
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? TooManyVias
       {
          get => _tooManyVias;
          set
@@ -548,7 +592,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "track_dangling")]
-      public string? TrackDangling
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? TrackDangling
       {
          get => _trackDangling;
          set
@@ -559,7 +604,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "track_width")]
-      public string? TrackWidth
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? TrackWidth
       {
          get => _trackWidth;
          set
@@ -570,7 +616,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "tracks_crossing")]
-      public string? TracksCrossing
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? TracksCrossing
       {
          get => _tracksCrossing;
          set
@@ -581,7 +628,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "unconnected_items")]
-      public string? UnconnectedItems
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? UnconnectedItems
       {
          get => _unconnectedItems;
          set
@@ -592,7 +640,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "unresolved_variable")]
-      public string? UnresolvedVariable
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? UnresolvedVariable
       {
          get => _unresolvedVariable;
          set
@@ -603,7 +652,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "via_dangling")]
-      public string? ViaDangling
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? ViaDangling
       {
          get => _vaiaDangling;
          set
@@ -614,7 +664,8 @@ namespace KiCadFileParserLibrary.KiCad.Project.SubModels
       }
 
       [JsonProperty(PropertyName = "zones_intersect")]
-      public string? ZonesIntersect
+      [JsonConverter(typeof(StringEnumConverter))]
+      public RuleSeverity? ZonesIntersect
       {
          get => _zonesIntersect;
          set

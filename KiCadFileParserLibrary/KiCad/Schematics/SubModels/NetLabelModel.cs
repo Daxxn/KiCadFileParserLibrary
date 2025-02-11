@@ -28,11 +28,6 @@ namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels
       {
          throw new NotImplementedException();
       }
-
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         throw new NotImplementedException();
-      }
       #endregion
 
       #region Full Props

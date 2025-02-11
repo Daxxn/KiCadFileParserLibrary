@@ -47,16 +47,16 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         foreach (var prop in Properties)
-         {
-            prop.WriteNode(builder, indent);
-         }
-         if (string.IsNullOrEmpty(FilterProp)) return;
-         builder.Append('\t', indent);
-         builder.AppendLine($"(property ki_fp_filters \"{FilterProp}\")");
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   foreach (var prop in Properties)
+      //   {
+      //      prop.WriteNode(builder, indent);
+      //   }
+      //   if (string.IsNullOrEmpty(FilterProp)) return;
+      //   builder.Append('\t', indent);
+      //   builder.AppendLine($"(property ki_fp_filters \"{FilterProp}\")");
+      //}
 
       public void WriteCollection(StringBuilder builder, int indent)
       {

@@ -10,7 +10,10 @@ using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
 
-public class BomFmtSettingsModel : Model
+/// <summary>
+/// Bill of materials format settings
+/// </summary>
+public class BomFormatSettingsModel : Model
 {
    #region Local Props
    private string? _fieldDelimiter;
@@ -20,11 +23,11 @@ public class BomFmtSettingsModel : Model
    private string? _refDelimiter;
    private string? _refRangeDelimiter;
    private string? _stringDelimiter;
-
    #endregion
 
    #region Constructors
-   public BomFmtSettingsModel() { }
+   /// <inheritdoc/>
+   public BomFormatSettingsModel() { }
    #endregion
 
    #region Methods
@@ -32,6 +35,9 @@ public class BomFmtSettingsModel : Model
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Field Delimiter
+   /// </summary>
    [JsonProperty(PropertyName = "field_delimiter")]
    public string? FieldDelimiter
    {
@@ -43,6 +49,9 @@ public class BomFmtSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "keep_line_breaks")]
    public bool KeepLineBreaks
    {
@@ -54,6 +63,9 @@ public class BomFmtSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "keep_tabs")]
    public bool KeepTabs
    {
@@ -65,6 +77,9 @@ public class BomFmtSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "name")]
    public string? Name
    {
@@ -76,6 +91,9 @@ public class BomFmtSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "ref_delimiter")]
    public string? RefDelimiter
    {
@@ -87,6 +105,9 @@ public class BomFmtSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "ref_range_delimiter")]
    public string? RefRangeDelimiter
    {
@@ -98,6 +119,9 @@ public class BomFmtSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// 
+   /// </summary>
    [JsonProperty(PropertyName = "string_delimiter")]
    public string? StringDelimiter
    {

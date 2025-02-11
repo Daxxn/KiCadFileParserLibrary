@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="SchematicProperty">Properties</see> of a <see cref="Schematic">Schematic.</see>
+/// </summary>
 [SExprListNode("property")]
 public class SchematicPropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -24,10 +27,12 @@ public class SchematicPropertyCollection : Model, IKiCadReadable, IKiCadWriteabl
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public SchematicPropertyCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -42,6 +47,7 @@ public class SchematicPropertyCollection : Model, IKiCadReadable, IKiCadWriteabl
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       if (Properties is null) return;
@@ -50,9 +56,24 @@ public class SchematicPropertyCollection : Model, IKiCadReadable, IKiCadWriteabl
          KiCadWriteUtils2.WriteNode(prop, builder, indent);
       }
    }
+
+   /// <summary>
+   /// Find the property that matches the provided key.
+   /// </summary>
+   /// <param name="key">The key to search for.</param>
+   /// <returns>The first <see cref="SchematicProperty"/> with that key.</returns>
+   public SchematicProperty? GetProperty(string? key)
+   {
+      if (string.IsNullOrEmpty(key)) return null;
+
+      return Properties.FirstOrDefault(x => x.Key == key);
+   }
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="SchematicProperty">Properties</see>
+   /// </summary>
    public ObservableCollection<SchematicProperty> Properties
    {
       get => _props;

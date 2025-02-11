@@ -36,11 +36,6 @@ public class OriginModel : Model, IKiCadReadable
          KiCadParseUtils.ParseNodes(props, node, this);
       }
    }
-
-   public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   {
-      throw new NotImplementedException();
-   }
    #endregion
 
    #region Full Props

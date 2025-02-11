@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiCadFileParserLibrary.Attributes;
+using KiCadFileParserLibrary.KiCad.Boards.SubModels;
 using KiCadFileParserLibrary.KiCad.Interfaces;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
@@ -14,6 +15,11 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections
 {
+   /// <summary>
+   /// List of all the Traces in the <see cref="PcbModel">PCB.</see>
+   /// <para/>
+   /// Including <see cref="TraceArcModel">Arcs,</see> <see cref="TraceSegmentModel">Segments,</see> and <see cref="ViaModel">Vias.</see>
+   /// </summary>
    [SExprListNode("arc|segment|via")]
    public class TraceCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
@@ -24,10 +30,12 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
       #endregion
 
       #region Constructors
+      /// <inheritdoc/>
       public TraceCollection() { }
       #endregion
 
       #region Methods
+      /// <inheritdoc/>
       public void ParseNode(Node node)
       {
          var arcNodes = node.GetNodes("arc");
@@ -67,36 +75,32 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         if (Segments != null)
-         {
-            foreach (var segment in Segments)
-            {
-               segment.WriteNode(builder, indent);
-            }
-         }
-         if (Vias != null)
-         {
-            foreach (var via in Vias)
-            {
-               via.WriteNode(builder, indent);
-            }
-         }
-         if (Arcs != null)
-         {
-            foreach (var arcs in Arcs)
-            {
-               arcs.WriteNode(builder, indent);
-            }
-         }
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   if (Segments != null)
+      //   {
+      //      foreach (var segment in Segments)
+      //      {
+      //         segment.WriteNode(builder, indent);
+      //      }
+      //   }
+      //   if (Vias != null)
+      //   {
+      //      foreach (var via in Vias)
+      //      {
+      //         via.WriteNode(builder, indent);
+      //      }
+      //   }
+      //   if (Arcs != null)
+      //   {
+      //      foreach (var arcs in Arcs)
+      //      {
+      //         arcs.WriteNode(builder, indent);
+      //      }
+      //   }
+      //}
 
-      public override string ToString()
-      {
-         return $"Traces - Arks: {Arcs?.Count} - Segments: {Segments?.Count} - Vias: {Vias?.Count}";
-      }
-
+      /// <inheritdoc/>
       public void WriteCollection(StringBuilder builder, int indent)
       {
          if (Segments != null)
@@ -121,9 +125,15 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
             }
          }
       }
+
+      /// <inheritdoc/>
+      public override string ToString() => $"Traces - Arks: {Arcs?.Count} - Segments: {Segments?.Count} - Vias: {Vias?.Count}";
       #endregion
 
       #region Full Props
+      /// <summary>
+      /// List of all the <see cref="TraceArcModel">Arcs</see> in the <see cref="PcbModel">PCB.</see>
+      /// </summary>
       public ObservableCollection<TraceArcModel>? Arcs
       {
          get => _arcs;
@@ -134,6 +144,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          }
       }
 
+      /// <summary>
+      /// List of all the <see cref="TraceSegmentModel">Segments</see> in a <see cref="PcbModel">PCB.</see>
+      /// </summary>
       public ObservableCollection<TraceSegmentModel>? Segments
       {
          get => _segments;
@@ -144,6 +157,9 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
          }
       }
 
+      /// <summary>
+      /// List of all the <see cref="ViaModel">Vias</see> in a <see cref="PcbModel">PCB.</see>
+      /// </summary>
       public ObservableCollection<ViaModel>? Vias
       {
          get => _vias;
@@ -153,6 +169,11 @@ namespace KiCadFileParserLibrary.KiCad.Boards.Collections
             OnPropertyChanged();
          }
       }
+
+      /// <summary>
+      /// Total <see cref="TraceArcModel">Arcs</see>, <see cref="TraceSegmentModel">Segments</see>, and <see cref="ViaModel">Vias</see>
+      /// </summary>
+      public int Total => Arcs?.Count ?? 0 + Segments?.Count ?? 0 + Vias?.Count ?? 0;
       #endregion
    }
 }

@@ -39,11 +39,6 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Graphics
             KiCadParseUtils.ParseSubNodes(props, node, this);
          }
       }
-
-      public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         throw new NotImplementedException();
-      }
       #endregion
 
       #region Full Props

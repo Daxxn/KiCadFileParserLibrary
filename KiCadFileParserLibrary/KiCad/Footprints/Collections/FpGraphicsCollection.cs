@@ -62,14 +62,14 @@ namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
          }
       }
 
-      public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      {
-         if (Graphics is null) return;
-         foreach (var gr in Graphics)
-         {
-            gr.WriteNode(builder, indent);
-         }
-      }
+      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
+      //{
+      //   if (Graphics is null) return;
+      //   foreach (var gr in Graphics)
+      //   {
+      //      gr.WriteNode(builder, indent);
+      //   }
+      //}
 
       public override string ToString()
       {
