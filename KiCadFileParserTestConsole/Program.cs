@@ -5,6 +5,8 @@ using KiCadFileParserLibrary.KiCad.Schematics;
 using KiCadFileParserLibrary.KiCad.Symbols;
 using KiCadFileParserLibrary.KiCad;
 using System.Text;
+using KiCadFileParserLibrary.KiCad.Settings.Colors;
+using KiCadFileParserLibrary.KiCad.Settings.Common;
 
 namespace KiCadFileParserTestConsole
 {
@@ -20,6 +22,8 @@ namespace KiCadFileParserTestConsole
       ALL_LIBRARIES,
       FULL_PROJECT,
       RENAME_PROJECT,
+      COLOR_PARSER,
+      SETTINGS
    };
 
    internal class Program
@@ -41,9 +45,12 @@ namespace KiCadFileParserTestConsole
       private static string RootLibrariesFolder    = @"F:\Electrical\KiCad\Libraries";
       private static string RootLibsOutputFolder   = @"F:\Electrical\KiCad\Libraries\Testing";
       private static string KiCadDefaultLibFolder  = @"C:\Program Files\KiCad\8.0\share\kicad";
+      private static string ColorThemeFile         = @"C:\Users\Daxxn\AppData\Roaming\kicad\8.0\colors\Daxxn3.json";
+      private static string ColorThemeOutput       = @"C:\Users\Daxxn\AppData\Roaming\kicad\8.0\colors\Daxxn3Test.json";
+      private static string SettingsOutput         = @"C:\Users\Daxxn\AppData\Roaming\kicad\8.0";
 
-      private static TestMode Test = TestMode.RENAME_PROJECT;
-      private static bool Write = false;
+      private static TestMode Test = TestMode.COLOR_PARSER;
+      private static bool Write = true;
       private static bool KeepOpen = false;
 
       private static PcbModel? pcb;
@@ -55,6 +62,8 @@ namespace KiCadFileParserTestConsole
       private static FootprintLibraryCollection? footprintsCollection;
       private static SymbolLibraryCollection? symbolsCollection;
       private static KiCadLibraries? AllLibraries;
+      private static ThemeSettingsModel? colors;
+      private static KiCadSettingsModel? settings;
 
       static void Main(string[] args)
       {
@@ -94,6 +103,12 @@ namespace KiCadFileParserTestConsole
                project = KiCadProjectModel.Parse(ProjectFolder);
                if (project is null) break;
                project.ChangeProjectName("newTestOutput");
+               break;
+            case TestMode.COLOR_PARSER:
+               colors = JsonReaderLibrary.JsonReader.OpenJsonFile<ThemeSettingsModel>(ColorThemeFile);
+               break;
+            case TestMode.SETTINGS:
+               settings = KiCadSettingsModel.Read();
                break;
             default:
                break;
@@ -162,6 +177,11 @@ namespace KiCadFileParserTestConsole
                   break;
                case TestMode.RENAME_PROJECT:
                   project?.Save();
+                  break;
+               case TestMode.COLOR_PARSER:
+                  JsonReaderLibrary.JsonReader.SaveJsonFile(ColorThemeOutput, colors);
+                  break;
+               case TestMode.SETTINGS:
                   break;
                default:
                   break;

@@ -39,6 +39,11 @@ public static class KiCadConstants
    public const string DefaultLibrariesFolder = @"C:\Program Files\KiCad\{0}\share\kicad";
 
    /// <summary>
+   /// Name of the KiCad common settings file.
+   /// </summary>
+   public const string CommonSettingsFileName = "kicad_common.json";
+
+   /// <summary>
    /// Default KiCad file extensions
    /// </summary>
    public static class Extensions
