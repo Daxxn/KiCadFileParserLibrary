@@ -50,7 +50,7 @@ public class PinLinkCollection : Model, IKiCadReadable, IKiCadWriteableCollectio
    {
       foreach (var pin in Pins)
       {
-         KiCadWriteUtils2.WriteNode(pin, builder, indent);
+         KiCadWriteUtils.WriteNode(pin, builder, indent);
       }
    }
    #endregion

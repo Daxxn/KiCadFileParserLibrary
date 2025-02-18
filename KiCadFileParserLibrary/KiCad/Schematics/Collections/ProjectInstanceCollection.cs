@@ -53,7 +53,7 @@ public class ProjectInstanceCollection : Model, IKiCadReadable, IKiCadWriteableC
       if (Instances is null) return;
       foreach (var symbol in Instances)
       {
-         KiCadWriteUtils2.WriteNode(symbol, builder, indent);
+         KiCadWriteUtils.WriteNode(symbol, builder, indent);
       }
    }
    #endregion

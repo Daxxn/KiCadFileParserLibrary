@@ -51,7 +51,7 @@ public class SymbolPropertyCollection : Model, IKiCadReadable, IKiCadWriteableCo
       if (Properties is null) return;
       foreach (var prop in Properties)
       {
-         KiCadWriteUtils2.WriteNode(prop, builder, indent);
+         KiCadWriteUtils.WriteNode(prop, builder, indent);
       }
    }
    #endregion

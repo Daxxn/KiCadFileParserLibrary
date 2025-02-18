@@ -53,7 +53,7 @@ public class GlobalLabelCollection : Model, IKiCadReadable, IKiCadWriteableColle
       if (GlobalLabels is null) return;
       foreach (var label in GlobalLabels)
       {
-         KiCadWriteUtils2.WriteNode(label, builder, indent);
+         KiCadWriteUtils.WriteNode(label, builder, indent);
       }
    }
    #endregion

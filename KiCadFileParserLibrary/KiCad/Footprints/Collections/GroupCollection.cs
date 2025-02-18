@@ -56,7 +56,7 @@ public class GroupCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       foreach (var group in Groups)
       {
-         KiCadWriteUtils2.WriteNode(group, builder, indent);
+         KiCadWriteUtils.WriteNode(group, builder, indent);
       }
    }
    #endregion

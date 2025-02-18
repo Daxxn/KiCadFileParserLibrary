@@ -61,7 +61,7 @@ public class TunedLengthCollection : Model, IKiCadReadable, IKiCadWriteableColle
    {
       foreach (var tl in TunedLengths)
       {
-         KiCadWriteUtils2.WriteNode(tl, builder, indent);
+         KiCadWriteUtils.WriteNode(tl, builder, indent);
       }
    }
 

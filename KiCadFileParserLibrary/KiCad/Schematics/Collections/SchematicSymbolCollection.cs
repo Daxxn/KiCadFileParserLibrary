@@ -54,7 +54,7 @@ public class SchematicSymbolCollection : Model, IKiCadReadable, IKiCadWriteableC
 
       foreach (var symbol in Symbols)
       {
-         KiCadWriteUtils2.WriteNode(symbol, builder, indent + 1);
+         KiCadWriteUtils.WriteNode(symbol, builder, indent + 1);
       }
 
       builder.Append('\t', indent);

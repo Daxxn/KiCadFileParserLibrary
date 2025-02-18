@@ -93,7 +93,7 @@ public class PcbModel : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFil
    /// <inheritdoc/>
    public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
    {
-      KiCadWriteUtils2.WriteNode(this, builder, indent);
+      KiCadWriteUtils.WriteNode(this, builder, indent);
    }
 
    /// <summary>

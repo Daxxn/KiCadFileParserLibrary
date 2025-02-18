@@ -55,7 +55,7 @@ public class ZoneCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       foreach (var zone in Zones)
       {
-         KiCadWriteUtils2.WriteNode(zone, builder, indent);
+         KiCadWriteUtils.WriteNode(zone, builder, indent);
       }
    }
    #endregion

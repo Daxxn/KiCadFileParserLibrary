@@ -55,7 +55,7 @@ public class FootprintCollection : Model, IKiCadReadable, IKiCadWriteableCollect
    {
       foreach (var fp in Footprints)
       {
-         KiCadWriteUtils2.WriteNode(fp, builder, indent);
+         KiCadWriteUtils.WriteNode(fp, builder, indent);
       }
    }
    #endregion

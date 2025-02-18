@@ -61,7 +61,7 @@ public class TextVariableCollection : Model, IKiCadReadable, IKiCadWriteableColl
       foreach (var txtVar in TextVars)
       {
          //txtVar.WriteNode(builder, indent);
-         KiCadWriteUtils2.WriteNode(txtVar, builder, indent);
+         KiCadWriteUtils.WriteNode(txtVar, builder, indent);
       }
    }
 

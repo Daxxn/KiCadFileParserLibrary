@@ -55,7 +55,7 @@ public class JunctionCollection : Model, IKiCadReadable, IKiCadWriteableCollecti
 
       foreach (var junc in Junctions)
       {
-         KiCadWriteUtils2.WriteNode(junc, builder, indent);
+         KiCadWriteUtils.WriteNode(junc, builder, indent);
       }
    }
    #endregion

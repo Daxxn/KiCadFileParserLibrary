@@ -54,7 +54,7 @@ public class SymbolProjectReferenceCollection : Model, IKiCadReadable, IKiCadWri
 
       foreach ( var project in Instances )
       {
-         KiCadWriteUtils2.WriteNode(project, builder, indent + 1);
+         KiCadWriteUtils.WriteNode(project, builder, indent + 1);
       }
 
       builder.Append('\t', indent);

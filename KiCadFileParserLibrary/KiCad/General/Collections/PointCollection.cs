@@ -52,7 +52,7 @@ public class PointCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       foreach (var point in Points)
       {
-         KiCadWriteUtils2.WriteNode(point, builder, indent);
+         KiCadWriteUtils.WriteNode(point, builder, indent);
       }
    }
    #endregion

@@ -58,7 +58,7 @@ public class PadCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       foreach (var pad in Pads)
       {
-         KiCadWriteUtils2.WriteNode(pad, builder, indent);
+         KiCadWriteUtils.WriteNode(pad, builder, indent);
       }
    }
    #endregion

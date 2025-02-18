@@ -51,7 +51,7 @@ public class NetCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    {
       foreach (var net in Nets)
       {
-         KiCadWriteUtils2.WriteNode(net, builder, indent + 1);
+         KiCadWriteUtils.WriteNode(net, builder, indent + 1);
       }
    }
 

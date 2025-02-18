@@ -53,7 +53,7 @@ public class HierarchicalSheetCollection : Model, IKiCadReadable, IKiCadWriteabl
       if (Sheets is null) return;
       foreach (var sheet in Sheets)
       {
-         KiCadWriteUtils2.WriteNode(sheet, builder, indent);
+         KiCadWriteUtils.WriteNode(sheet, builder, indent);
       }
    }
 

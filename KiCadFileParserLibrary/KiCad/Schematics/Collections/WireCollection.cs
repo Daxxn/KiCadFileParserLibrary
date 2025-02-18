@@ -53,7 +53,7 @@ public class WireCollection : Model, IKiCadReadable, IKiCadWriteableCollection
       if (Wires is null) return;
       foreach (var wire in Wires)
       {
-         KiCadWriteUtils2.WriteNode(wire, builder, indent);
+         KiCadWriteUtils.WriteNode(wire, builder, indent);
       }
    }
    #endregion

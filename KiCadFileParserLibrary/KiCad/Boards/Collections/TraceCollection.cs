@@ -82,21 +82,21 @@ public class TraceCollection : Model, IKiCadReadable, IKiCadWriteableCollection
       {
          foreach (var segment in Segments)
          {
-            KiCadWriteUtils2.WriteNode(segment, builder, indent);
+            KiCadWriteUtils.WriteNode(segment, builder, indent);
          }
       }
       if (Vias != null)
       {
          foreach (var via in Vias)
          {
-            KiCadWriteUtils2.WriteNode(via, builder, indent);
+            KiCadWriteUtils.WriteNode(via, builder, indent);
          }
       }
       if (Arcs != null)
       {
          foreach (var arc in Arcs)
          {
-            KiCadWriteUtils2.WriteNode(arc, builder, indent);
+            KiCadWriteUtils.WriteNode(arc, builder, indent);
          }
       }
    }

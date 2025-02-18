@@ -53,7 +53,7 @@ public class SymbolReferenceCollection : Model, IKiCadReadable, IKiCadWriteableC
       if (Symbols is null) return;
       foreach (var symbol in Symbols)
       {
-         KiCadWriteUtils2.WriteNode(symbol, builder, indent);
+         KiCadWriteUtils.WriteNode(symbol, builder, indent);
       }
    }
    #endregion

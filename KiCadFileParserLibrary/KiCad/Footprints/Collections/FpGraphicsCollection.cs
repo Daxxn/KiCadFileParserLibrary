@@ -79,7 +79,7 @@ public class FpGraphicsCollection : Model, IKiCadReadable, IKiCadWriteableCollec
       if (Graphics is null) return;
       foreach (var gr in Graphics)
       {
-         KiCadWriteUtils2.WriteNode(gr, builder, indent);
+         KiCadWriteUtils.WriteNode(gr, builder, indent);
       }
    }
    #endregion

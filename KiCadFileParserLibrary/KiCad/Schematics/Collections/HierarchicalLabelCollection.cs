@@ -53,7 +53,7 @@ public class HierarchicalLabelCollection : Model, IKiCadReadable, IKiCadWriteabl
       if (Labels is null) return;
       foreach (var label in Labels)
       {
-         KiCadWriteUtils2.WriteNode(label, builder, indent);
+         KiCadWriteUtils.WriteNode(label, builder, indent);
       }
    }
    #endregion

@@ -56,7 +56,7 @@ public class HierarchicalSheetInstanceCollection : Model, IKiCadReadable, IKiCad
 
       foreach (var inst in Instances)
       {
-         KiCadWriteUtils2.WriteNode(inst, builder, indent + 1);
+         KiCadWriteUtils.WriteNode(inst, builder, indent + 1);
       }
 
       builder.Append('\t', indent);

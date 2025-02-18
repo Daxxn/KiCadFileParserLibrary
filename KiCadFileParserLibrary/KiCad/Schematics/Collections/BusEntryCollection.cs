@@ -54,7 +54,7 @@ public class BusEntryCollection : Model, IKiCadReadable, IKiCadWriteableCollecti
    {
       foreach (var be in BusEntries)
       {
-         KiCadWriteUtils2.WriteNode(be, builder, indent);
+         KiCadWriteUtils.WriteNode(be, builder, indent);
       }
    }
    #endregion

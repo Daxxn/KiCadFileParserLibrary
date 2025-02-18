@@ -50,7 +50,7 @@ public class StackupLayerCollection : Model, IKiCadReadable, IKiCadWriteableColl
       if (Layers.Count == 0) return;
       foreach (var layer in Layers)
       {
-         KiCadWriteUtils2.WriteNode(layer, builder, indent);
+         KiCadWriteUtils.WriteNode(layer, builder, indent);
       }
    }
 

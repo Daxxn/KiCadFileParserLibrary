@@ -53,7 +53,7 @@ public class NoConnectCollection : Model, IKiCadReadable, IKiCadWriteableCollect
       if (NCs is null) return;
       foreach (var nc in NCs)
       {
-         KiCadWriteUtils2.WriteNode(nc, builder, indent);
+         KiCadWriteUtils.WriteNode(nc, builder, indent);
       }
    }
    #endregion

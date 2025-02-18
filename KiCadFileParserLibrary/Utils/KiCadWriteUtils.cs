@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace KiCadFileParserLibrary.Utils;
 
-internal static class KiCadWriteUtils2
+internal static class KiCadWriteUtils
 {
    #region Private Classes
    private class KiCadNodeSortAttributes

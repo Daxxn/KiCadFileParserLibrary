@@ -51,7 +51,7 @@ public class PinCollection : Model, IKiCadReadable, IKiCadWriteableCollection
       if (Pins is null) return;
       foreach (var pin in Pins)
       {
-         KiCadWriteUtils2.WriteNode(pin, builder, indent);
+         KiCadWriteUtils.WriteNode(pin, builder, indent);
       }
    }
    #endregion

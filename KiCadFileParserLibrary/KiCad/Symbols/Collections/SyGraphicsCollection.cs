@@ -67,7 +67,7 @@ public class SyGraphicsCollection : Model, IKiCadReadable, IKiCadWriteableCollec
 
       foreach (var gr in Graphics)
       {
-         KiCadWriteUtils2.WriteNode(gr, builder, indent);
+         KiCadWriteUtils.WriteNode(gr, builder, indent);
       }
    }
    #endregion

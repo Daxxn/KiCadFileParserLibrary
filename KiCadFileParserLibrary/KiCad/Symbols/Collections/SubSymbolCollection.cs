@@ -52,7 +52,7 @@ public class SubSymbolCollection : Model, IKiCadReadable, IKiCadWriteableCollect
 
       foreach (var sub in SubSymbols)
       {
-         KiCadWriteUtils2.WriteNode(sub, builder, indent);
+         KiCadWriteUtils.WriteNode(sub, builder, indent);
       }
    }
    #endregion

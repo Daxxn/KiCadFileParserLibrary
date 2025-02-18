@@ -77,7 +77,7 @@ public class FootprintLibrary : Model, IKiCadLibrary
       foreach (var footprint in Footprints)
       {
          StringBuilder builder = new();
-         KiCadWriteUtils2.WriteNode(footprint, builder, 0);
+         KiCadWriteUtils.WriteNode(footprint, builder, 0);
          if (builder.Length > 0)
          {
             File.WriteAllText(Path.Combine(fullPath, $"{footprint.Name}.kicad_mod"), builder.ToString());

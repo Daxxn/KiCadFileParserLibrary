@@ -78,7 +78,7 @@ public class GrGraphicsCollection : Model, IKiCadReadable, IKiCadWriteableCollec
       if (Graphics == null) return;
       foreach (var graphic in Graphics)
       {
-         KiCadWriteUtils2.WriteNode(graphic, builder, indent);
+         KiCadWriteUtils.WriteNode(graphic, builder, indent);
       }
    }
    #endregion

@@ -56,7 +56,7 @@ public class ImageCollection : Model, IKiCadReadable, IKiCadWriteableCollection
       if (Images is null) return;
       foreach (var img in Images)
       {
-         KiCadWriteUtils2.WriteNode(img, builder, indent);
+         KiCadWriteUtils.WriteNode(img, builder, indent);
       }
    }
    #endregion

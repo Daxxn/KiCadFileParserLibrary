@@ -52,7 +52,7 @@ public class CommentCollection : Model, IKiCadReadable, IKiCadWriteableCollectio
    {
       foreach (var comment in Comments)
       {
-         KiCadWriteUtils2.WriteNode(comment, builder, indent);
+         KiCadWriteUtils.WriteNode(comment, builder, indent);
       }
    }
    #endregion

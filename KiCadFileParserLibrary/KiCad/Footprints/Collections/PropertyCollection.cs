@@ -58,7 +58,7 @@ public class PropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollecti
       foreach (var prop in Properties)
       {
          //prop.WriteNode(builder, indent);
-         KiCadWriteUtils2.WriteNode(prop, builder, indent);
+         KiCadWriteUtils.WriteNode(prop, builder, indent);
       }
       if (string.IsNullOrEmpty(FilterProp)) return;
       builder.Append('\t', indent);

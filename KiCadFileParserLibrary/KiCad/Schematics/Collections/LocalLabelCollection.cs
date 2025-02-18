@@ -53,7 +53,7 @@ public class LocalLabelCollection : Model, IKiCadReadable, IKiCadWriteableCollec
       if (LocalLabels is null) return;
       foreach (var label in LocalLabels)
       {
-         KiCadWriteUtils2.WriteNode(label, builder, indent);
+         KiCadWriteUtils.WriteNode(label, builder, indent);
       }
    }
    #endregion
