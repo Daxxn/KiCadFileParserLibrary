@@ -95,6 +95,24 @@ public class PcbModel : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFil
    {
       KiCadWriteUtils2.WriteNode(this, builder, indent);
    }
+
+   /// <summary>
+   /// Change the name of the project.
+   /// </summary>
+   /// <param name="oldName">Original project name.</param>
+   /// <param name="newName">New project name.</param>
+   public void ChangeProjectName(string oldName, string newName)
+   {
+      if (Footprints?.Footprints.Count == 0) return;
+
+      foreach (var fp in Footprints!.Footprints)
+      {
+         if (fp.SheetFile != null)
+         {
+            fp.SheetFile = fp.SheetFile.Replace(oldName, newName);
+         }
+      }
+   }
    #endregion
 
    #region Full Props
@@ -195,7 +213,7 @@ public class PcbModel : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFil
    /// The layers of the PCB.
    /// </summary>
    [SExprIndex(6)]
-   public LayerDefCollection? Layers
+   public LayerDefCollection Layers
    {
       get => _layers;
       set
@@ -222,7 +240,7 @@ public class PcbModel : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFil
    /// <summary>
    /// The list of nets from the schematic
    /// </summary>
-   public NetCollection Nets
+   public NetCollection? Nets
    {
       get => _nets;
       set

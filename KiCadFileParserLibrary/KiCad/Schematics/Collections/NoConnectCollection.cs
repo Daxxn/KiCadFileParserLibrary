@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="NoConnectModel">No-Connects</see>
+/// </summary>
 [SExprListNode("no_connect")]
 public class NoConnectCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -24,10 +27,12 @@ public class NoConnectCollection : Model, IKiCadReadable, IKiCadWriteableCollect
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public NoConnectCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -42,6 +47,7 @@ public class NoConnectCollection : Model, IKiCadReadable, IKiCadWriteableCollect
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       if (NCs is null) return;
@@ -53,6 +59,9 @@ public class NoConnectCollection : Model, IKiCadReadable, IKiCadWriteableCollect
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="NoConnectModel">No-Connects</see>
+   /// </summary>
    public ObservableCollection<NoConnectModel> NCs
    {
       get => _ncs;

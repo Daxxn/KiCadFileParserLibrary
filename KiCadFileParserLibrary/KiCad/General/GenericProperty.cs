@@ -11,57 +11,61 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// General property.
+/// </summary>
+[SExprNode("property")]
+public class GenericProperty : Model, IKiCadReadable
 {
-   [SExprNode("property")]
-   public class GenericProperty : Model, IKiCadReadable
+   #region Local Props
+   private string? _key;
+   private string? _value;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public GenericProperty() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private string? _key;
-      private string? _value;
-      #endregion
-
-      #region Constructors
-      public GenericProperty() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
-      {
-         if (node.Properties is null) return;
-         var props = GetType().GetProperties();
-         KiCadParseUtils.ParseProperties(props, node, this);
-      }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine($"(property \"{Key}\" \"{Value}\")");
-      //}
-      #endregion
-
-      #region Full Props
-      [SExprProperty(1)]
-      public string? Key
-      {
-         get => _key;
-         set
-         {
-            _key = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(2)]
-      public string? Value
-      {
-         get => _value;
-         set
-         {
-            _value = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
+      if (node.Properties is null) return;
+      var props = GetType().GetProperties();
+      KiCadParseUtils.ParseProperties(props, node, this);
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Property key.
+   /// </summary>
+   [SExprProperty(1)]
+   public string? Key
+   {
+      get => _key;
+      set
+      {
+         _key = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Property value.
+   /// </summary>
+   [SExprProperty(2)]
+   public string? Value
+   {
+      get => _value;
+      set
+      {
+         _value = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

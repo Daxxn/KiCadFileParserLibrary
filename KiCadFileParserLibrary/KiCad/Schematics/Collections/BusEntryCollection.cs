@@ -18,6 +18,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="BusEntryModel">Bus Entries.</see>
+/// </summary>
 [SExprListNode("bus_entry")]
 public class BusEntryCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -26,10 +29,12 @@ public class BusEntryCollection : Model, IKiCadReadable, IKiCadWriteableCollecti
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public BusEntryCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -44,6 +49,7 @@ public class BusEntryCollection : Model, IKiCadReadable, IKiCadWriteableCollecti
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       foreach (var be in BusEntries)
@@ -54,6 +60,9 @@ public class BusEntryCollection : Model, IKiCadReadable, IKiCadWriteableCollecti
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="BusEntryModel">Bus Entries.</see>
+   /// </summary>
    public ObservableCollection<BusEntryModel> BusEntries
    {
       get => _busEntries;

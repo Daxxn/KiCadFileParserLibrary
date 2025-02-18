@@ -11,90 +11,109 @@ using KiCadFileParserLibrary.KiCad.Symbols.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
-namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
+namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics;
+
+/// <summary>
+/// Symbol rectangle model
+/// </summary>
+[SExprNode("rectangle")]
+public class SyRectangleModel : SyGraphicBase
 {
-   [SExprNode("rectangle")]
-   public class SyRectangleModel : SyGraphicBase
+   #region Local Props
+   private XyModel? _start;
+   private XyModel? _end;
+   private StrokeModel? _stroke;
+   private SymbolFillModel? _fill;
+   private bool _isPrivate;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public SyRectangleModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public override void ParseNode(Node node)
    {
-      #region Local Props
-      private XyModel? _start;
-      private XyModel? _end;
-      private StrokeModel? _stroke;
-      private SymbolFillModel? _fill;
-      private bool _isPrivate;
-      #endregion
-
-      #region Constructors
-      public SyRectangleModel() { }
-      #endregion
-
-      #region Methods
-      public override void ParseNode(Node node)
+      if (node.Properties != null && node.Children != null)
       {
-         if (node.Properties != null && node.Children != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseNodes(props, node, this);
-            KiCadParseUtils.ParseSubNodes(props, node, this);
-            KiCadParseUtils.ParseProperties(props, node, this);
-            KiCadParseUtils.ParseTokens(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseNodes(props, node, this);
+         KiCadParseUtils.ParseSubNodes(props, node, this);
+         KiCadParseUtils.ParseProperties(props, node, this);
+         KiCadParseUtils.ParseTokens(props, node, this);
       }
-      #endregion
-
-      #region Full Props
-      [SExprNode("start")]
-      public XyModel? Start
-      {
-         get => _start;
-         set
-         {
-            _start = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprNode("end")]
-      public XyModel? End
-      {
-         get => _end;
-         set
-         {
-            _end = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public StrokeModel? Stroke
-      {
-         get => _stroke;
-         set
-         {
-            _stroke = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public SymbolFillModel? Fill
-      {
-         get => _fill;
-         set
-         {
-            _fill = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprToken("private", 0)]
-      public bool IsPrivate
-      {
-         get => _isPrivate;
-         set
-         {
-            _isPrivate = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Start coordinates
+   /// </summary>
+   [SExprNode("start")]
+   public XyModel? Start
+   {
+      get => _start;
+      set
+      {
+         _start = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// End coordinates
+   /// </summary>
+   [SExprNode("end")]
+   public XyModel? End
+   {
+      get => _end;
+      set
+      {
+         _end = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Stroke data
+   /// </summary>
+   public StrokeModel? Stroke
+   {
+      get => _stroke;
+      set
+      {
+         _stroke = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Symbol fill data
+   /// </summary>
+   public SymbolFillModel? Fill
+   {
+      get => _fill;
+      set
+      {
+         _fill = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Is private
+   /// </summary>
+   [SExprToken("private", 0)]
+   public bool IsPrivate
+   {
+      get => _isPrivate;
+      set
+      {
+         _isPrivate = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

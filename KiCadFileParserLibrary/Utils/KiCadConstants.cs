@@ -26,7 +26,17 @@ public static class KiCadConstants
    /// </summary>
    public const char ProjectNameDelimiter = '_';
 
+   /// <summary>
+   /// Default schematic root sub-sheet name.
+   /// </summary>
    public const string DefaultRootSchematicName = "Root";
+
+   /// <summary>
+   /// Default libraries folder path.
+   /// <para/>
+   /// Note: Needs to be formatted with the current KiCad version.
+   /// </summary>
+   public const string DefaultLibrariesFolder = @"C:\Program Files\KiCad\{0}\share\kicad";
 
    /// <summary>
    /// Default KiCad file extensions

@@ -13,6 +13,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Schematic sheet instance model
+/// </summary>
 [SExprNode("sheet_instances")]
 public class SchematicSheetInstanceModel : Model, IKiCadReadable
 {
@@ -21,10 +24,12 @@ public class SchematicSheetInstanceModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public SchematicSheetInstanceModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -34,6 +39,9 @@ public class SchematicSheetInstanceModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Sheet instance
+   /// </summary>
    public ProjectPathModel SheetInstance
    {
       get => _sheetInstance;

@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels;
 
+/// <summary>
+/// Symbol property
+/// </summary>
 [SExprNode("property")]
 public class SymbolProperty : Model, IKiCadReadable
 {
@@ -25,10 +28,12 @@ public class SymbolProperty : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public SymbolProperty() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children != null && node.Properties != null)
@@ -43,6 +48,9 @@ public class SymbolProperty : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Key
+   /// </summary>
    [SExprProperty(1)]
    public string? Key
    {
@@ -54,6 +62,9 @@ public class SymbolProperty : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Value
+   /// </summary>
    [SExprProperty(2)]
    public string? Value
    {
@@ -65,6 +76,9 @@ public class SymbolProperty : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Location coordinates
+   /// </summary>
    public LocationModel? Location
    {
       get => _location;
@@ -75,6 +89,9 @@ public class SymbolProperty : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Font effects
+   /// </summary>
    public EffectsModel? Effects
    {
       get => _effects;

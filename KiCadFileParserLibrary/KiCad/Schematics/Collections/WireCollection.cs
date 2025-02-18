@@ -14,54 +14,62 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Schematics.Collections
+namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
+
+/// <summary>
+/// List of <see cref="WireModel">Wires</see>
+/// </summary>
+[SExprListNode("wire")]
+public class WireCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("wire")]
-   public class WireCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private ObservableCollection<WireModel>? _wires;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public WireCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ObservableCollection<WireModel>? _wires;
-      #endregion
-
-      #region Constructors
-      public WireCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node is null) return;
+      var wireNodes = node.GetNodes(GetType().GetCustomAttribute<SExprListNodeAttribute>()!.Name);
+      if (wireNodes == null) return;
+      Wires = [];
+      foreach (var wireNode in wireNodes)
       {
-         if (node is null) return;
-         var wireNodes = node.GetNodes(GetType().GetCustomAttribute<SExprListNodeAttribute>()!.Name);
-         if (wireNodes == null) return;
-         Wires = [];
-         foreach ( var wireNode in wireNodes )
-         {
-            var wire = new WireModel();
-            wire.ParseNode(wireNode);
-            Wires.Add(wire);
-         }
+         var wire = new WireModel();
+         wire.ParseNode(wireNode);
+         Wires.Add(wire);
       }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         if (Wires is null) return;
-         foreach (var wire in Wires)
-         {
-            KiCadWriteUtils2.WriteNode(wire, builder, indent);
-         }
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<WireModel>? Wires
-      {
-         get => _wires;
-         set
-         {
-            _wires = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      if (Wires is null) return;
+      foreach (var wire in Wires)
+      {
+         KiCadWriteUtils2.WriteNode(wire, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="WireModel">Wires</see>
+   /// </summary>
+   public ObservableCollection<WireModel>? Wires
+   {
+      get => _wires;
+      set
+      {
+         _wires = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

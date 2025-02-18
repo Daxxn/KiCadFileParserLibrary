@@ -12,99 +12,118 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels
+namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels;
+
+/// <summary>
+/// Sub-Symbol model
+/// </summary>
+[SExprNode("symbol")]
+public class SubSymbolModel : Model, IKiCadReadable
 {
-   [SExprNode("symbol")]
-   public class SubSymbolModel : Model, IKiCadReadable
+   #region Local Props
+   private string? _name;
+   private int _version;
+   private SymbolStyleIdentifier _styleID;
+   private PinCollection? _pins;
+   private SyGraphicsCollection? _graphics;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public SubSymbolModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private string? _name;
-      private int _version;
-      private SymbolStyleIdentifier _styleID;
-      private PinCollection? _pins;
-      private SyGraphicsCollection? _graphics;
-      #endregion
-
-      #region Constructors
-      public SubSymbolModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Children != null)
       {
-         if (node.Children != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseListNodes(props, node, this);
-            KiCadParseUtils.ParseProperties(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseListNodes(props, node, this);
+         KiCadParseUtils.ParseProperties(props, node, this);
       }
-      #endregion
+   }
+   #endregion
 
-      #region Full Props
-      [SExprProperty(1)]
-      public string? Name
+   #region Full Props
+   /// <summary>
+   /// Name
+   /// </summary>
+   [SExprProperty(1)]
+   public string? Name
+   {
+      get => _name;
+      set
       {
-         get => _name;
-         set
+         _name = value;
+         if (value != null)
          {
-            _name = value;
-            if (value != null)
+            if (value?.Length > 4 && value?.Contains('_') == true)
             {
-               if (value?.Length > 4 && value?.Contains('_') == true)
+               if (int.TryParse($"{value[^3]}", out int unit))
                {
-                  if (int.TryParse($"{value[^3]}", out int unit))
-                  {
-                     Unit = unit;
-                  }
-                  if (int.TryParse($"{value[^1]}", out int styleId))
-                  {
-                     StyleID = (SymbolStyleIdentifier)styleId;
-                  }
+                  Unit = unit;
+               }
+               if (int.TryParse($"{value[^1]}", out int styleId))
+               {
+                  StyleID = (SymbolStyleIdentifier)styleId;
                }
             }
          }
       }
-
-      public int Unit
-      {
-         get => _version;
-         set
-         {
-            _version = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public SymbolStyleIdentifier StyleID
-      {
-         get => _styleID;
-         set
-         {
-            _styleID = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public PinCollection? Pins
-      {
-         get => _pins;
-         set
-         {
-            _pins = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public SyGraphicsCollection? Graphics
-      {
-         get => _graphics;
-         set
-         {
-            _graphics = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <summary>
+   /// Unit
+   /// </summary>
+   public int Unit
+   {
+      get => _version;
+      set
+      {
+         _version = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Style identifier
+   /// </summary>
+   public SymbolStyleIdentifier StyleID
+   {
+      get => _styleID;
+      set
+      {
+         _styleID = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// List of pins
+   /// </summary>
+   public PinCollection? Pins
+   {
+      get => _pins;
+      set
+      {
+         _pins = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// List of graphics
+   /// </summary>
+   public SyGraphicsCollection? Graphics
+   {
+      get => _graphics;
+      set
+      {
+         _graphics = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

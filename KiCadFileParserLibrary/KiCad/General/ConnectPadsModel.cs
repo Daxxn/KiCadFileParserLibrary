@@ -11,75 +11,64 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// Connected pads.
+/// </summary>
+[SExprNode("connect_pads")]
+public class ConnectPadsModel : Model, IKiCadReadable
 {
-   [SExprNode("connect_pads")]
-   public class ConnectPadsModel : Model, IKiCadReadable
+   #region Local Props
+   private bool _connected;
+   private double _clearance;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public ConnectPadsModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private bool _connected;
-      private double _clearance;
-      #endregion
-
-      #region Constructors
-      public ConnectPadsModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Properties != null && node.Children != null)
       {
-         if (node.Properties != null && node.Children != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseSubNodes(props, node, this);
-            KiCadParseUtils.ParseTokens(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseSubNodes(props, node, this);
+         KiCadParseUtils.ParseTokens(props, node, this);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.Append("(connect_pads");
-
-      //   if (Connected)
-      //   {
-      //      builder.AppendLine($" yes");
-      //   }
-      //   else
-      //   {
-      //      builder.AppendLine();
-      //   }
-
-      //   builder.Append('\t', indent + 1);
-      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("clearance", Clearance));
-
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine(")");
-      //}
-      #endregion
-
-      #region Full Props
-      [SExprToken("yes")]
-      public bool Connected
-      {
-         get => _connected;
-         set
-         {
-            _connected = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("clearance")]
-      public double Clearance
-      {
-         get => _clearance;
-         set
-         {
-            _clearance = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Is connected.
+   /// </summary>
+   [SExprToken("yes")]
+   public bool Connected
+   {
+      get => _connected;
+      set
+      {
+         _connected = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Pad clearance.
+   /// </summary>
+   [SExprSubNode("clearance")]
+   public double Clearance
+   {
+      get => _clearance;
+      set
+      {
+         _clearance = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

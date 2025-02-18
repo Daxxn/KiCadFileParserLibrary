@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Schematic property model
+/// </summary>
 [SExprNode("property")]
 public class SchematicProperty : Model, IKiCadReadable
 {
@@ -26,10 +29,12 @@ public class SchematicProperty : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public SchematicProperty() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -43,6 +48,9 @@ public class SchematicProperty : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Key
+   /// </summary>
    [SExprProperty(1)]
    public string Key
    {
@@ -54,6 +62,9 @@ public class SchematicProperty : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Value
+   /// </summary>
    [SExprProperty(2)]
    public string Value
    {
@@ -65,6 +76,9 @@ public class SchematicProperty : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Show name
+   /// </summary>
    [SExprSubNode("show_name")]
    public bool ShowName
    {
@@ -76,6 +90,9 @@ public class SchematicProperty : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Location coordinates
+   /// </summary>
    public LocationModel Location
    {
       get => _location;
@@ -86,6 +103,9 @@ public class SchematicProperty : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Font effects
+   /// </summary>
    public EffectsModel Effects
    {
       get => _effects;

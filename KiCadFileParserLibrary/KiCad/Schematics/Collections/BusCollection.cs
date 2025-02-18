@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="BusModel">Bus</see> data.
+/// </summary>
 [SExprListNode("bus")]
 public class BusCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -24,10 +27,12 @@ public class BusCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public BusCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -42,6 +47,7 @@ public class BusCollection : Model, IKiCadReadable, IKiCadWriteableCollection
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       foreach (var bus in Busses)
@@ -52,6 +58,9 @@ public class BusCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="BusModel">Bus</see> data.
+   /// </summary>
    public ObservableCollection<BusModel> Busses
    {
       get => _busses;

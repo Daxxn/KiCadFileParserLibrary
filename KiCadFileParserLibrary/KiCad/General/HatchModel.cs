@@ -11,59 +11,63 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// Hatched zone fill model.
+/// </summary>
+[SExprNode("hatch")]
+public class HatchModel : Model, IKiCadReadable
 {
-   [SExprNode("hatch")]
-   public class HatchModel : Model, IKiCadReadable
+   #region Local Props
+   private HatchType? _type;
+   private double? _spacing;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public HatchModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private HatchType? _type;
-      private double? _spacing;
-      #endregion
-
-      #region Constructors
-      public HatchModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Properties != null)
       {
-         if (node.Properties != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseProperties(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseProperties(props, node, this);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine($"(hatch {Type.ToString().ToLower()} {Spacing})");
-      //}
-      #endregion
-
-      #region Full Props
-      [SExprProperty(1)]
-      public HatchType? Type
-      {
-         get => _type;
-         set
-         {
-            _type = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(2)]
-      public double? Spacing
-      {
-         get => _spacing;
-         set
-         {
-            _spacing = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Hatch type.
+   /// </summary>
+   [SExprProperty(1)]
+   public HatchType? Type
+   {
+      get => _type;
+      set
+      {
+         _type = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Hatch spacing.
+   /// </summary>
+   [SExprProperty(2)]
+   public double? Spacing
+   {
+      get => _spacing;
+      set
+      {
+         _spacing = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

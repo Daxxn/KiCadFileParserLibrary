@@ -33,7 +33,6 @@ public class ProjectSettings : Model, IKiCadProjectFile
    private NetSettingsModel? _netSettings;
    private PcbSettingsModel? _pbcSettings;
    private SchematicSettingsModel? _schematic = new();
-   //private ObservableCollection<ObservableCollection<string>>? _sheets;
    private SchematicSheetCollection? _sheets;
    private Dictionary<string, string>? _textVars;
    #endregion
@@ -62,6 +61,9 @@ public class ProjectSettings : Model, IKiCadProjectFile
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Default board settings
+   /// </summary>
    [JsonProperty("board")]
    public BoardModel? DefaultBoardSettings
    {
@@ -73,6 +75,9 @@ public class ProjectSettings : Model, IKiCadProjectFile
       }
    }
 
+   /// <summary>
+   /// Boards
+   /// </summary>
    [JsonProperty("boards")]
    public ObservableCollection<string>? Boards
    {
@@ -84,6 +89,9 @@ public class ProjectSettings : Model, IKiCadProjectFile
       }
    }
 
+   /// <summary>
+   /// CvPcb
+   /// </summary>
    [JsonProperty("cvpcb")]
    public CvPcbModel? CvPcb
    {
@@ -95,6 +103,9 @@ public class ProjectSettings : Model, IKiCadProjectFile
       }
    }
 
+   /// <summary>
+   /// ERC settings
+   /// </summary>
    [JsonProperty("erc")]
    public ErcModel? ERCSettings
    {
@@ -106,6 +117,9 @@ public class ProjectSettings : Model, IKiCadProjectFile
       }
    }
 
+   /// <summary>
+   /// Libraries
+   /// </summary>
    [JsonProperty("libraries")]
    public LibrariesModel? Libraries
    {
@@ -117,6 +131,9 @@ public class ProjectSettings : Model, IKiCadProjectFile
       }
    }
 
+   /// <summary>
+   /// Metadata
+   /// </summary>
    [JsonProperty("meta")]
    public MetadataModel? Metadata
    {
@@ -128,6 +145,9 @@ public class ProjectSettings : Model, IKiCadProjectFile
       }
    }
 
+   /// <summary>
+   /// Net settings
+   /// </summary>
    [JsonProperty("net_settings")]
    public NetSettingsModel? NetSettings
    {
@@ -139,6 +159,9 @@ public class ProjectSettings : Model, IKiCadProjectFile
       }
    }
 
+   /// <summary>
+   /// PCB settings
+   /// </summary>
    [JsonProperty("pcbnew")]
    public PcbSettingsModel? PcbSettings
    {
@@ -150,6 +173,9 @@ public class ProjectSettings : Model, IKiCadProjectFile
       }
    }
 
+   /// <summary>
+   /// Schematic settings
+   /// </summary>
    [JsonProperty("schematic")]
    public SchematicSettingsModel? Schematic
    {
@@ -176,11 +202,11 @@ public class ProjectSettings : Model, IKiCadProjectFile
    }
 
    /// <summary>
-   /// DO NOT USE!!
-   /// <para/>
-   /// Use <seealso cref="Sheets"/> instead.
+   /// Sheet reference array.
    /// <para/>
    /// Used to save the <seealso cref="Sheets"/> data. This is only meant to be used by the json serializer.
+   /// <para/>
+   /// Use <seealso cref="Sheets"/> instead.
    /// </summary>
    [JsonProperty("sheets")]
    public string[][]? SheetsArray
@@ -201,6 +227,9 @@ public class ProjectSettings : Model, IKiCadProjectFile
       }
    }
 
+   /// <summary>
+   /// List of Text variables
+   /// </summary>
    [JsonProperty("text_variables")]
    public Dictionary<string, string>? TextVariables
    {

@@ -15,6 +15,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="HierarchicalSheetModel">Hierarchical Sheets</see>
+/// </summary>
 [SExprListNode("project")]
 public class HierarchicalSheetInstanceCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -23,10 +26,12 @@ public class HierarchicalSheetInstanceCollection : Model, IKiCadReadable, IKiCad
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public HierarchicalSheetInstanceCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -43,6 +48,7 @@ public class HierarchicalSheetInstanceCollection : Model, IKiCadReadable, IKiCad
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       builder.Append('\t', indent);
@@ -59,6 +65,9 @@ public class HierarchicalSheetInstanceCollection : Model, IKiCadReadable, IKiCad
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="HierarchicalSheetModel">Hierarchical Sheets</see>
+   /// </summary>
    public ObservableCollection<SheetInstanceModel> Instances
    {
       get => _instances;

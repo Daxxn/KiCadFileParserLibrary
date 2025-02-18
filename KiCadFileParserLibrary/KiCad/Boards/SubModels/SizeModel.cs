@@ -11,53 +11,63 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels;
+
+/// <summary>
+/// Width and Height object.
+/// </summary>
+[SExprNode("size")]
+public class SizeModel : Model, IKiCadReadable
 {
-   [SExprNode("size")]
-   public class SizeModel : Model, IKiCadReadable
+   #region Local Props
+   private double _width;
+   private double _height;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public SizeModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private double _width;
-      private double _height;
-      #endregion
-
-      #region Constructors
-      public SizeModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Properties != null)
       {
-         if (node.Properties != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseProperties(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseProperties(props, node, this);
       }
-      #endregion
-
-      #region Full Props
-      [SExprProperty(1)]
-      public double Width
-      {
-         get => _width;
-         set
-         {
-            _width = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(2)]
-      public double Height
-      {
-         get => _height;
-         set
-         {
-            _height = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Object width.
+   /// </summary>
+   [SExprProperty(1)]
+   public double Width
+   {
+      get => _width;
+      set
+      {
+         _width = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Object height.
+   /// </summary>
+   [SExprProperty(2)]
+   public double Height
+   {
+      get => _height;
+      set
+      {
+         _height = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

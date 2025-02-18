@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Hierarchical label model
+/// </summary>
 [SExprNode("hierarchical_label")]
 public class HierarchicalLabelModel : Model, IKiCadReadable
 {
@@ -26,10 +29,12 @@ public class HierarchicalLabelModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public HierarchicalLabelModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children != null && node.Properties != null)
@@ -44,6 +49,9 @@ public class HierarchicalLabelModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Label name
+   /// </summary>
    [SExprProperty(1)]
    public string Name
    {
@@ -55,6 +63,9 @@ public class HierarchicalLabelModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Shape type
+   /// </summary>
    [SExprSubNode("shape")]
    public LabelShape Shape
    {
@@ -66,6 +77,9 @@ public class HierarchicalLabelModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Location coordinates
+   /// </summary>
    public LocationModel Location
    {
       get => _location;
@@ -76,6 +90,9 @@ public class HierarchicalLabelModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Font effects
+   /// </summary>
    public EffectsModel Effects
    {
       get => _effects;
@@ -86,6 +103,9 @@ public class HierarchicalLabelModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Unique ID.
+   /// </summary>
    [SExprSubNode("uuid")]
    public string ID
    {

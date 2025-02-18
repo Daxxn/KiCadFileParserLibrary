@@ -22,7 +22,8 @@ public class FootprintLibrary : Model, IKiCadLibrary
 {
    #region Local Props
    private string _libName = "";
-   public ObservableCollection<Footprint> _footprints = [];
+   private ObservableCollection<Footprint> _footprints = [];
+   private bool _readonly = false;
    #endregion
 
    #region Constructors
@@ -84,6 +85,22 @@ public class FootprintLibrary : Model, IKiCadLibrary
       }
    }
 
+   /// <summary>
+   /// Search the footprint libraries for a matching footprint.
+   /// </summary>
+   /// <param name="name">The name of the footprint.</param>
+   /// <returns>The matching footprint, otherwise null.</returns>
+   public Footprint? FindFootprint(string name)
+   {
+      if (string.IsNullOrEmpty(name)) return null;
+      if (Footprints.Count == 0) return null;
+      foreach (var fp in Footprints)
+      {
+         if (fp.Name == name) return fp;
+      }
+      return null;
+   }
+
    /// <inheritdoc/>
    public override string ToString() => $"Footprint Lib {LibraryName} - Footprints: {Footprints.Count}";
    #endregion
@@ -124,6 +141,21 @@ public class FootprintLibrary : Model, IKiCadLibrary
       set
       {
          _footprints = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The default KiCad libraries are read-only and cannot be changed.
+   /// <para/>
+   /// True if the libraries are from the KiCad default library.
+   /// </summary>
+   public bool Readonly
+   {
+      get => _readonly;
+      set
+      {
+         _readonly = value;
          OnPropertyChanged();
       }
    }

@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 
+/// <summary>
+/// <see cref="Footprint3DModel">3D Model</see> rotation data.
+/// </summary>
 [SExprNode("rotate")]
 public class Rotate3DModel : Model, IKiCadReadable
 {
@@ -22,10 +25,12 @@ public class Rotate3DModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public Rotate3DModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -37,6 +42,9 @@ public class Rotate3DModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Rotation data.
+   /// </summary>
    public XyzModel Rotate
    {
       get => _rotate;

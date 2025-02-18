@@ -13,6 +13,7 @@ using KiCadFileParserLibrary.KiCad.Interfaces;
 using Newtonsoft.Json.Linq;
 
 namespace KiCadFileParserLibrary.Utils;
+
 internal static class KiCadWriteUtils2
 {
    #region Private Classes
@@ -67,25 +68,18 @@ internal static class KiCadWriteUtils2
                if (formatting.IgnoreIfNull && val is null) continue;
                if (formatting.ExportAsInt)
                {
-                  //builder.Append(' ');
-                  //builder.Append(WriteValue((int?)val ?? 0));
                   tempProps.Add(WriteValue((int?)val ?? 0)!);
                }
                else
                {
-                  //builder.Append(' ');
-                  //builder.Append(WriteValue(val));
                   tempProps.Add(WriteValue(val!)!);
                }
             }
             else if (val != null)
             {
-               //builder.Append(' ');
-               //builder.Append(WriteValue(val));
                tempProps.Add(WriteValue(val)!);
             }
          }
-         //WriteProps(obj, builder, kiPropsInlineProps);
       }
 
       // WriteLibrary tokens:
@@ -109,9 +103,7 @@ internal static class KiCadWriteUtils2
                   }
                   else
                   {
-                     //builder.Append(' ');
-                     //builder.Append(attr.TokenName);
-                     tempProps.Add(WriteValue(val)!);
+                     tempProps.Add(attr.TokenName);
                   }
                }
             }
@@ -258,8 +250,6 @@ internal static class KiCadWriteUtils2
                if (options != null)
                {
                   WriteSubNode(builder, tempChildren[k].Name!, value, indent + 1, options);
-                  //builder.Append('\t', indent + 1);
-                  //builder.AppendLine(WriteSubNode(tempChildren[k].Name!, value));
                }
                else
                {
@@ -278,18 +268,6 @@ internal static class KiCadWriteUtils2
             builder.AppendLine(token);
          }
       }
-
-      //if (kiPropsListNodes != null)
-      //{
-      //   foreach (var prop in kiPropsListNodes)
-      //   {
-      //      var listObj = prop.GetValue(obj);
-      //      if (listObj is IKiCadWriteableCollection childObj)
-      //      {
-      //         childObj.WriteCollection(builder, indent + 1);
-      //      }
-      //   }
-      //}
 
       builder.Append('\t', indent);
       builder.AppendLine(")");
@@ -312,7 +290,7 @@ internal static class KiCadWriteUtils2
             else
             {
                builder.Append(' ');
-               builder.Append(WriteValue(val));
+               builder.Append(WriteValue(val!));
             }
          }
          else if (val != null)

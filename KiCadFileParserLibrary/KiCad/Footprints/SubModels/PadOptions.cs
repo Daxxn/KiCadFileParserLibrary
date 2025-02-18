@@ -13,70 +13,65 @@ using MVVMLibrary;
 
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels
+namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels;
+
+/// <summary>
+/// Options used with custom pads.
+/// </summary>
+[SExprNode("options")]
+public class PadOptions : Model, IKiCadReadable
 {
-   [SExprNode("options")]
-   public class PadOptions : Model, IKiCadReadable
+   #region Local Props
+   private CustomPadClearance _clearance;
+   private CustomPadAnchor _anchor;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public PadOptions() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private CustomPadClearance _clearance;
-      private CustomPadAnchor _anchor;
-      #endregion
-
-      #region Constructors
-      public PadOptions() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Children != null)
       {
-         if (node.Children != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseSubNodes(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseSubNodes(props, node, this);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine("(options");
-
-      //   builder.Append('\t', indent + 1);
-      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("clearance", Clearance));
-
-      //   builder.Append('\t', indent + 1);
-      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("anchor", Anchor));
-
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine(")");
-      //}
-      #endregion
-
-      #region Full Props
-      [SExprSubNode("clearance")]
-      [SExprFormatting(false, false)]
-      public CustomPadClearance Clearance
-      {
-         get => _clearance;
-         set
-         {
-            _clearance = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("anchor")]
-      [SExprFormatting(false, false)]
-      public CustomPadAnchor Anchor
-      {
-         get => _anchor;
-         set
-         {
-            _anchor = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Pad clearance option.
+   /// </summary>
+   [SExprSubNode("clearance")]
+   [SExprFormatting(false, false)]
+   public CustomPadClearance Clearance
+   {
+      get => _clearance;
+      set
+      {
+         _clearance = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Pad achor option.
+   /// </summary>
+   [SExprSubNode("anchor")]
+   [SExprFormatting(false, false)]
+   public CustomPadAnchor Anchor
+   {
+      get => _anchor;
+      set
+      {
+         _anchor = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

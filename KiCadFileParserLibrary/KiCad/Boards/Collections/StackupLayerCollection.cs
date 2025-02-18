@@ -14,6 +14,10 @@ using KiCadFileParserLibrary.Utils;
 using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.Collections;
+
+/// <summary>
+/// List of <see cref="StackupLayer">Stackups</see> for a <see cref="PcbModel">PCB.</see>
+/// </summary>
 [SExprListNode("layer")]
 public class StackupLayerCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -22,6 +26,7 @@ public class StackupLayerCollection : Model, IKiCadReadable, IKiCadWriteableColl
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public StackupLayerCollection() { }
    #endregion
 
@@ -54,6 +59,9 @@ public class StackupLayerCollection : Model, IKiCadReadable, IKiCadWriteableColl
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of stackup layers.
+   /// </summary>
    public ObservableCollection<StackupLayer> Layers
    {
       get => _layers;

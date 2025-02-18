@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="HierarchicalPinModel">Hierarchical Pins</see>
+/// </summary>
 [SExprListNode("pin")]
 public class HierarchicalPinCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -24,10 +27,12 @@ public class HierarchicalPinCollection : Model, IKiCadReadable, IKiCadWriteableC
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public HierarchicalPinCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -42,6 +47,7 @@ public class HierarchicalPinCollection : Model, IKiCadReadable, IKiCadWriteableC
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       if (Pins is null) return;
@@ -53,6 +59,9 @@ public class HierarchicalPinCollection : Model, IKiCadReadable, IKiCadWriteableC
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="HierarchicalPinModel">Hierarchical Pins</see>
+   /// </summary>
    public ObservableCollection<HierarchicalPinModel> Pins
    {
       get => _pins;

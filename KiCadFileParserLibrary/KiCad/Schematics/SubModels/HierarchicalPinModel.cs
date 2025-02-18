@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Hierarchical pin model
+/// </summary>
 [SExprNode("pin")]
 public class HierarchicalPinModel : Model, IKiCadReadable
 {
@@ -26,10 +29,12 @@ public class HierarchicalPinModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public HierarchicalPinModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Properties is null && node.Children is null) return;
@@ -42,6 +47,9 @@ public class HierarchicalPinModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Pin name
+   /// </summary>
    [SExprProperty(1)]
    public string Name
    {
@@ -53,6 +61,9 @@ public class HierarchicalPinModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Pin shape
+   /// </summary>
    [SExprProperty(2)]
    public LabelShape Shape
    {
@@ -64,6 +75,9 @@ public class HierarchicalPinModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Location coordinates
+   /// </summary>
    public LocationModel Location
    {
       get => _location;
@@ -74,6 +88,9 @@ public class HierarchicalPinModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Font effects
+   /// </summary>
    public EffectsModel Effects
    {
       get => _effects;
@@ -84,6 +101,9 @@ public class HierarchicalPinModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Unique ID.
+   /// </summary>
    [SExprSubNode("uuid")]
    public string ID
    {

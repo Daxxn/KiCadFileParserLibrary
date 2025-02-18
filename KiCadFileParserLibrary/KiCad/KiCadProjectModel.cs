@@ -151,10 +151,10 @@ public class KiCadProjectModel : Model
       if (oldProjectDir.Parent is null) throw new DirectoryNotFoundException("The parent of the project folder can not be found!");
       var newProjectDir = new DirectoryInfo(Path.Combine(oldProjectDir.Parent.FullName!, newName));
 
-      //if (!newProjectDir.Exists)
-      //{
-      //   newProjectDir.Create();
-      //}
+      if (!newProjectDir.Exists)
+      {
+         newProjectDir.Create();
+      }
 
       string newProjPath = Path.Combine(newProjectDir.FullName, $"{newName}.{KiCadConstants.Extensions.Project}");
       string newPcbPath = Path.Combine(newProjectDir.FullName, $"{newName}.{KiCadConstants.Extensions.Board}");
@@ -164,6 +164,7 @@ public class KiCadProjectModel : Model
          ProjectSettings.Metadata.FileName = $"{newName}.{KiCadConstants.Extensions.Schematic}";
       }
 
+      // Rename schematic and properties and write them to the new folder.
       if (Schematics != null && ProjectSettings?.Sheets != null)
       {
          if (Schematics.Root is null)
@@ -179,46 +180,27 @@ public class KiCadProjectModel : Model
             var schematicName = Path.GetFileNameWithoutExtension(sch.FilePath);
             newNameWithSuffix = schematicName.Replace(ProjectName!, newName);
             newSchematicPath = Path.Combine(newProjectDir.FullName, $"{newNameWithSuffix}.{KiCadConstants.Extensions.Schematic}");
+
+            //File.Copy(sch.FilePath, newSchematicPath, true);
+            sch.FilePath = newSchematicPath;
+            sch.Write(sch.FilePath);
          }
-
-
-         //foreach (var sch in Schematics.Schematics)
-         //{
-         //   //string newNameWithSuffix = "";
-         //   //string newSchematicPath = "";
-         //   var schematicName = Path.GetFileNameWithoutExtension(sch.FilePath);
-         //   if (schematicName != ProjectName)
-         //   {
-         //      newNameWithSuffix = schematicName.Replace(ProjectName!, newName);
-         //      // Rename sub-sheet name in the root schematic "kicad_sch/sheet/property(Sheetfile)" Value
-         //      if (Schematics.Root != null)
-         //      {
-         //         //if (Schematics.Root.Sheets?.GetSheetByName(sch.))
-         //         if (Schematics.Root.Sheets?.GetSheetByID(sch.ID) is HierarchicalSheetModel sheet)
-         //         {
-         //            var fileProp = sheet.Properties.GetProperty(KiCadConstants.DefaultPropertyKeys.SheetFile);
-         //            var fileName = sheet.Properties.GetProperty(KiCadConstants.DefaultPropertyKeys.SheetName);
-         //            if (fileName != null)
-         //            {
-         //               newNameWithSuffix = $"{newName}_{fileName.Value}";
-         //            }
-         //            if (fileProp != null)
-         //            {
-         //               fileProp.Value = $"{newNameWithSuffix}.{KiCadConstants.Extensions.Schematic}";
-         //            }
-         //         }
-         //      }
-         //      newSchematicPath = Path.Combine(newProjectDir.FullName, $"{newNameWithSuffix}.{KiCadConstants.Extensions.Schematic}");
-         //   }
-         //   else
-         //   {
-         //      newSchematicPath = Path.Combine(newProjectDir.FullName, $"{newName}.{KiCadConstants.Extensions.Schematic}");
-         //   }
-         //}
       }
 
-      //File.Copy(ProjectSettingsPath!, newProjPath);
+      if (PCB != null)
+      {
+         PCB.ChangeProjectName(ProjectName!, newName);
+         PCB.Write(newPcbPath);
+      }
 
+      if (ProjectSettings != null)
+      {
+         if (ProjectSettings.Metadata != null)
+         {
+            ProjectSettings.Metadata.FileName = $"{newName}.{KiCadConstants.Extensions.Project}";
+         }
+         ProjectSettings.Write(newProjPath);
+      }
    }
    #endregion
 

@@ -9,12 +9,13 @@ using KiCadFileParserLibrary.SExprParser;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General.Graphics
-{
-   public abstract class GraphicBase : Model, IKiCadReadable
-   {
-      public abstract void ParseNode(Node node);
+namespace KiCadFileParserLibrary.KiCad.General.Graphics;
 
-      //public abstract void WriteNode(StringBuilder builder, int indent, string? auxName = null);
-   }
+/// <summary>
+/// Base abstract class for general graphics models.
+/// </summary>
+public abstract class GraphicBase : Model, IKiCadReadable
+{
+   /// <inheritdoc/>
+   public abstract void ParseNode(Node node);
 }

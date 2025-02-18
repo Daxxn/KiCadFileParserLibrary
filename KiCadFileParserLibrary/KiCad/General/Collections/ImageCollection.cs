@@ -12,67 +12,67 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General.Collections
+namespace KiCadFileParserLibrary.KiCad.General.Collections;
+
+/// <summary>
+/// List of <see cref="ImageModel">Images.</see>
+/// </summary>
+[SExprListNode("image")]
+public class ImageCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("image")]
-   public class ImageCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private ObservableCollection<ImageModel>? _images;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public ImageCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ObservableCollection<ImageModel>? _images;
-      #endregion
-
-      #region Constructors
-      public ImageCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      var children = node.GetNodes("image");
+      if (children is null) return;
+      Images = [];
+      foreach (var child in children)
       {
-         var children = node.GetNodes("image");
-         if (children is null) return;
-         Images = [];
-         foreach (var child in children)
-         {
-            ImageModel image = new();
-            image.ParseNode(child);
-            Images.Add(image);
-         }
+         ImageModel image = new();
+         image.ParseNode(child);
+         Images.Add(image);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   if (Images is null) return;
-      //   foreach (var img in Images)
-      //   {
-      //      img.WriteNode(builder, indent);
-      //   }
-      //}
-
-      public override string ToString()
-      {
-         return $"Images - {Images?.Count}";
-      }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         if (Images is null) return;
-         foreach (var img in Images)
-         {
-            KiCadWriteUtils2.WriteNode(img, builder, indent);
-         }
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<ImageModel>? Images
-      {
-         get => _images;
-         set
-         {
-            _images = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public override string ToString()
+   {
+      return $"Images - {Images?.Count}";
+   }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      if (Images is null) return;
+      foreach (var img in Images)
+      {
+         KiCadWriteUtils2.WriteNode(img, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="ImageModel">Images.</see>
+   /// </summary>
+   public ObservableCollection<ImageModel>? Images
+   {
+      get => _images;
+      set
+      {
+         _images = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

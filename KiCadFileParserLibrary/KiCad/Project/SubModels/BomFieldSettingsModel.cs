@@ -32,6 +32,9 @@ public class BomFieldSettingsModel : Model
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Group BOM field.
+   /// </summary>
    [JsonProperty(PropertyName = "group_by")]
    public bool GroupBy
    {
@@ -43,6 +46,9 @@ public class BomFieldSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// BOM field label
+   /// </summary>
    [JsonProperty(PropertyName = "label")]
    public string? Label
    {
@@ -54,6 +60,9 @@ public class BomFieldSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// BOM field name.
+   /// </summary>
    [JsonProperty(PropertyName = "name")]
    public string? Name
    {
@@ -65,6 +74,9 @@ public class BomFieldSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Show field.
+   /// </summary>
    [JsonProperty(PropertyName = "show")]
    public bool Show
    {

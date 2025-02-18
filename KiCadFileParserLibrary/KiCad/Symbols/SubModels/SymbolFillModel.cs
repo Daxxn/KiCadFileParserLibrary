@@ -13,6 +13,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels;
 
+/// <summary>
+/// Symbol fill model
+/// </summary>
 [SExprNode("fill")]
 public class SymbolFillModel : Model, IKiCadReadable
 {
@@ -21,10 +24,12 @@ public class SymbolFillModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public SymbolFillModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -34,6 +39,9 @@ public class SymbolFillModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Fill type
+   /// </summary>
    [SExprSubNode("type")]
    public FillType Type
    {

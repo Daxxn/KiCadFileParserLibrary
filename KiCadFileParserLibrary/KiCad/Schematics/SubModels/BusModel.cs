@@ -13,6 +13,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Bus model
+/// </summary>
 [SExprNode("bus")]
 public class BusModel : Model, IKiCadReadable
 {
@@ -23,10 +26,12 @@ public class BusModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public BusModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children != null)
@@ -40,6 +45,9 @@ public class BusModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of points.
+   /// </summary>
    public CoordinateModel Points
    {
       get => _points;
@@ -50,6 +58,9 @@ public class BusModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Stroke data
+   /// </summary>
    public StrokeModel Stroke
    {
       get => _stroke;
@@ -60,6 +71,9 @@ public class BusModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Unique ID.
+   /// </summary>
    [SExprSubNode("uuid")]
    public string ID
    {

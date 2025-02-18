@@ -24,6 +24,7 @@ public class LayerPresetModel : Model
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public LayerPresetModel() { }
    #endregion
 
@@ -32,6 +33,9 @@ public class LayerPresetModel : Model
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Layer preset name.
+   /// </summary>
    [JsonProperty(PropertyName = "name")]
    public string Name
    {
@@ -43,6 +47,9 @@ public class LayerPresetModel : Model
       }
    }
 
+   /// <summary>
+   /// Active layer.
+   /// </summary>
    [JsonProperty(PropertyName = "activeLayer")]
    public int ActiveLayer
    {
@@ -54,6 +61,9 @@ public class LayerPresetModel : Model
       }
    }
 
+   /// <summary>
+   /// List of layers.
+   /// </summary>
    [JsonProperty(PropertyName = "layers")]
    public ObservableCollection<int> Layers
    {
@@ -65,6 +75,9 @@ public class LayerPresetModel : Model
       }
    }
 
+   /// <summary>
+   /// Rendered layers.
+   /// </summary>
    [JsonProperty(PropertyName = "renderLayers")]
    public ObservableCollection<int> RenderLayers
    {

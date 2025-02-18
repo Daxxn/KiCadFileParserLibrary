@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// No-connect model
+/// </summary>
 [SExprNode("no_connect")]
 public class NoConnectModel : Model, IKiCadReadable
 {
@@ -23,10 +26,12 @@ public class NoConnectModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public NoConnectModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children != null)
@@ -40,6 +45,9 @@ public class NoConnectModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Unique ID
+   /// </summary>
    [SExprSubNode("uuid")]
    public string ID
    {
@@ -51,6 +59,9 @@ public class NoConnectModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Location coordinates
+   /// </summary>
    public LocationModel Location
    {
       get => _location;

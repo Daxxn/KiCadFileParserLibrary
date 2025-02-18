@@ -15,65 +15,66 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
+namespace KiCadFileParserLibrary.KiCad.Footprints.Collections;
+
+/// <summary>
+/// List of <see cref="Footprint3DModel">3D Models.</see>
+/// </summary>
+[SExprListNode("model")]
+public class ModelCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("model")]
-   public class ModelCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private ObservableCollection<Footprint3DModel> _models = [];
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public ModelCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ObservableCollection<Footprint3DModel> _models = [];
-      #endregion
-
-      #region Constructors
-      public ModelCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      var children = node.GetNodes("model");
+      if (children is null) return;
+      Models = [];
+      foreach (var child in children)
       {
-         var children = node.GetNodes("model");
-         if (children is null) return;
-         Models = [];
-         foreach (var child in children)
-         {
-            Footprint3DModel fpm = new();
-            fpm.ParseNode(child);
-            Models.Add(fpm);
-         }
+         Footprint3DModel fpm = new();
+         fpm.ParseNode(child);
+         Models.Add(fpm);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   foreach (var model in Models)
-      //   {
-      //      model.WriteNode(builder, indent);
-      //   }
-      //}
-
-      public override string ToString()
-      {
-         return $"Models - {Models.Count}";
-      }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         foreach (var model in Models)
-         {
-            KiCadWriteUtils2.WriteNode(model, builder, indent);
-         }
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<Footprint3DModel> Models
-      {
-         get => _models;
-         set
-         {
-            _models = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public override string ToString()
+   {
+      return $"Models - {Models.Count}";
+   }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      foreach (var model in Models)
+      {
+         KiCadWriteUtils2.WriteNode(model, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="Footprint3DModel">3D Models.</see>
+   /// </summary>
+   public ObservableCollection<Footprint3DModel> Models
+   {
+      get => _models;
+      set
+      {
+         _models = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

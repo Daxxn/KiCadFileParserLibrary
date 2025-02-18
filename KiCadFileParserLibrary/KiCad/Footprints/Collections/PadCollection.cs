@@ -15,65 +15,66 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
+namespace KiCadFileParserLibrary.KiCad.Footprints.Collections;
+
+/// <summary>
+/// List of <see cref="PadModel">Pads.</see>
+/// </summary>
+[SExprListNode("pad")]
+public class PadCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("pad")]
-   public class PadCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private ObservableCollection<PadModel> _pads = [];
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public PadCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ObservableCollection<PadModel> _pads = [];
-      #endregion
-
-      #region Constructors
-      public PadCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      var children = node.GetNodes("pad");
+      if (children is null) return;
+      Pads = [];
+      foreach (var child in children)
       {
-         var children = node.GetNodes("pad");
-         if (children is null) return;
-         Pads = [];
-         foreach (var child in children)
-         {
-            PadModel pad = new();
-            pad.ParseNode(child);
-            Pads.Add(pad);
-         }
+         PadModel pad = new();
+         pad.ParseNode(child);
+         Pads.Add(pad);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   foreach (var pad in Pads)
-      //   {
-      //      pad.WriteNode(builder, indent);
-      //   }
-      //}
-
-      public override string ToString()
-      {
-         return $"Pads - {Pads.Count}";
-      }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         foreach (var pad in Pads)
-         {
-            KiCadWriteUtils2.WriteNode(pad, builder, indent);
-         }
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<PadModel> Pads
-      {
-         get => _pads;
-         set
-         {
-            _pads = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public override string ToString()
+   {
+      return $"Pads - {Pads.Count}";
+   }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      foreach (var pad in Pads)
+      {
+         KiCadWriteUtils2.WriteNode(pad, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="PadModel">Pads.</see>
+   /// </summary>
+   public ObservableCollection<PadModel> Pads
+   {
+      get => _pads;
+      set
+      {
+         _pads = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

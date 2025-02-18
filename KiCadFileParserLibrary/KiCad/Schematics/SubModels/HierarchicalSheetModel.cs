@@ -15,6 +15,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Hierarchical sheet model
+/// </summary>
 [SExprNode("sheet")]
 public class HierarchicalSheetModel : Model, IKiCadReadable
 {
@@ -30,10 +33,12 @@ public class HierarchicalSheetModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public HierarchicalSheetModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -46,6 +51,9 @@ public class HierarchicalSheetModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Location coordinates
+   /// </summary>
    public LocationModel Location
    {
       get => _location;
@@ -56,6 +64,9 @@ public class HierarchicalSheetModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Size
+   /// </summary>
    public SizeModel Size
    {
       get => _size;
@@ -66,6 +77,9 @@ public class HierarchicalSheetModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Stroke data
+   /// </summary>
    public StrokeModel Stroke
    {
       get => _stroke;
@@ -76,6 +90,9 @@ public class HierarchicalSheetModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Fill data
+   /// </summary>
    public FillModel Fill
    {
       get => _fill;
@@ -86,6 +103,9 @@ public class HierarchicalSheetModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Unique ID.
+   /// </summary>
    [SExprSubNode("uuid")]
    public string ID
    {
@@ -97,6 +117,9 @@ public class HierarchicalSheetModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of properties.
+   /// </summary>
    public SchematicPropertyCollection Properties
    {
       get => _props;
@@ -107,6 +130,9 @@ public class HierarchicalSheetModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of pins.
+   /// </summary>
    public HierarchicalPinCollection? Pins
    {
       get => _pins;
@@ -117,6 +143,9 @@ public class HierarchicalSheetModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of project instances
+   /// </summary>
    public HierarchicalSheetInstanceCollection ProjectInstances
    {
       get => _instances;

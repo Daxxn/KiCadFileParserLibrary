@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Wire model
+/// </summary>
 [SExprNode("wire")]
 public class WireModel : Model, IKiCadReadable
 {
@@ -24,10 +27,12 @@ public class WireModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public WireModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children != null)
@@ -41,6 +46,9 @@ public class WireModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of points
+   /// </summary>
    public CoordinateModel Points
    {
       get => _points;
@@ -51,6 +59,9 @@ public class WireModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Stroke data
+   /// </summary>
    public StrokeModel Stroke
    {
       get => _stroke;
@@ -61,6 +72,9 @@ public class WireModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Unique ID
+   /// </summary>
    [SExprSubNode("uuid")]
    public string ID
    {

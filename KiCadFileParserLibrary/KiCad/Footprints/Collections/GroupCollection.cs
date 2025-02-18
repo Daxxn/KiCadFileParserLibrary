@@ -13,65 +13,66 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
+namespace KiCadFileParserLibrary.KiCad.Footprints.Collections;
+
+/// <summary>
+/// List of <see cref="GroupModel">Groups.</see>
+/// </summary>
+[SExprListNode("group")]
+public class GroupCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("group")]
-   public class GroupCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private ObservableCollection<GroupModel> _groups = [];
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public GroupCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ObservableCollection<GroupModel> _groups = [];
-      #endregion
-
-      #region Constructors
-      public GroupCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      var children = node.GetNodes("group");
+      if (children is null) return;
+      Groups = [];
+      foreach (var child in children)
       {
-         var children = node.GetNodes("group");
-         if (children is null) return;
-         Groups = [];
-         foreach (var child in children)
-         {
-            GroupModel fp = new();
-            fp.ParseNode(child);
-            Groups.Add(fp);
-         }
+         GroupModel fp = new();
+         fp.ParseNode(child);
+         Groups.Add(fp);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   foreach (var group in Groups)
-      //   {
-      //      group.WriteNode(builder, indent);
-      //   }
-      //}
-
-      public override string ToString()
-      {
-         return $"Groups - {Groups.Count}";
-      }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         foreach (var group in Groups)
-         {
-            KiCadWriteUtils2.WriteNode(group, builder, indent);
-         }
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<GroupModel> Groups
-      {
-         get => _groups;
-         set
-         {
-            _groups = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public override string ToString()
+   {
+      return $"Groups - {Groups.Count}";
+   }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      foreach (var group in Groups)
+      {
+         KiCadWriteUtils2.WriteNode(group, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="GroupModel">Groups.</see>
+   /// </summary>
+   public ObservableCollection<GroupModel> Groups
+   {
+      get => _groups;
+      set
+      {
+         _groups = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

@@ -8,45 +8,54 @@ using MVVMLibrary;
 
 using Newtonsoft.Json;
 
-namespace KiCadFileParserLibrary.KiCad.Project.SubModels
+namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
+
+/// <summary>
+/// Metadata model.
+/// </summary>
+public class MetadataModel : Model
 {
-   public class MetadataModel : Model
+   #region Local Props
+   private string? _fileName;
+   private int _version;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public MetadataModel() { }
+   #endregion
+
+   #region Methods
+
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// File name.
+   /// </summary>
+   [JsonProperty(PropertyName = "filename", NullValueHandling = NullValueHandling.Ignore)]
+   public string? FileName
    {
-      #region Local Props
-      private string? _fileName;
-      private int _version;
-      #endregion
-
-      #region Constructors
-      public MetadataModel() { }
-      #endregion
-
-      #region Methods
-
-      #endregion
-
-      #region Full Props
-      [JsonProperty(PropertyName = "filename", NullValueHandling = NullValueHandling.Ignore)]
-      public string? FileName
+      get => _fileName;
+      set
       {
-         get => _fileName;
-         set
-         {
-            _fileName = value;
-            OnPropertyChanged();
-         }
+         _fileName = value;
+         OnPropertyChanged();
       }
-
-      [JsonProperty(PropertyName = "version")]
-      public int Version
-      {
-         get => _version;
-         set
-         {
-            _version = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <summary>
+   /// File version.
+   /// </summary>
+   [JsonProperty(PropertyName = "version")]
+   public int Version
+   {
+      get => _version;
+      set
+      {
+         _version = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

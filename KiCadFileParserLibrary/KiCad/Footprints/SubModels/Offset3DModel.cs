@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 
+/// <summary>
+/// 3D model offset coordinates.
+/// </summary>
 [SExprNode("offset")]
 public class Offset3DModel : Model, IKiCadReadable
 {
@@ -22,10 +25,12 @@ public class Offset3DModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public Offset3DModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -37,6 +42,9 @@ public class Offset3DModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Offset coordinates.
+   /// </summary>
    public XyzModel Offset
    {
       get => _offset;

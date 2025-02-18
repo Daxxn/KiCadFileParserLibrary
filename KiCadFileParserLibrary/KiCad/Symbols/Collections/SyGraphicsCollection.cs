@@ -13,69 +13,77 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
+namespace KiCadFileParserLibrary.KiCad.Symbols.Collections;
+
+/// <summary>
+/// List of symbol <see cref="SyGraphicBase">Graphics</see>
+/// </summary>
+[SExprListNode("graphics")]
+public class SyGraphicsCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("graphics")]
-   public class SyGraphicsCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private static readonly Dictionary<string, Func<SyGraphicBase>> GraphicsNodes = new()
    {
-      #region Local Props
-      private static readonly Dictionary<string, Func<SyGraphicBase>> GraphicsNodes = new()
+      { "text", () => new SyTextModel() },
+      { "text_box", () => new SyTextBoxModel() },
+      { "polyline", () => new SyLineModel() },
+      { "rectangle", () => new SyRectangleModel() },
+      { "circle", () => new SyCircleModel() },
+      { "arc", () => new SyArcModel() },
+      { "bezier", () => new SyCurveModel() },
+   };
+
+   private ObservableCollection<SyGraphicBase> _graphics = [];
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public SyGraphicsCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
+   {
+      if (node.Children != null)
       {
-         { "text", () => new SyTextModel() },
-         { "text_box", () => new SyTextBoxModel() },
-         { "polyline", () => new SyLineModel() },
-         { "rectangle", () => new SyRectangleModel() },
-         { "circle", () => new SyCircleModel() },
-         { "arc", () => new SyArcModel() },
-         { "bezier", () => new SyCurveModel() },
-      };
-
-      private ObservableCollection<SyGraphicBase>? _graphics;
-      #endregion
-
-      #region Constructors
-      public SyGraphicsCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
-      {
-         if (node.Children != null)
+         Graphics = [];
+         foreach (var child in node.Children)
          {
-            Graphics = [];
-            foreach (var child in node.Children)
+            if (GraphicsNodes.ContainsKey(child.Type))
             {
-               if (GraphicsNodes.ContainsKey(child.Type))
-               {
-                  var newItem = GraphicsNodes[child.Type]();
-                  newItem.ParseNode(child);
-                  Graphics.Add(newItem);
-               }
+               var newItem = GraphicsNodes[child.Type]();
+               newItem.ParseNode(child);
+               Graphics.Add(newItem);
             }
          }
       }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         if (Graphics is null) return;
-
-         foreach (var gr in Graphics)
-         {
-            KiCadWriteUtils2.WriteNode(gr, builder, indent);
-         }
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<SyGraphicBase>? Graphics
-      {
-         get => _graphics;
-         set
-         {
-            _graphics = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      if (Graphics is null) return;
+
+      foreach (var gr in Graphics)
+      {
+         KiCadWriteUtils2.WriteNode(gr, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of symbol <see cref="SyGraphicBase">Graphics</see>
+   /// </summary>
+   public ObservableCollection<SyGraphicBase> Graphics
+   {
+      get => _graphics;
+      set
+      {
+         _graphics = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

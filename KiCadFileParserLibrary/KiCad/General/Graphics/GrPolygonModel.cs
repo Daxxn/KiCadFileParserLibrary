@@ -8,154 +8,139 @@ using KiCadFileParserLibrary.Attributes;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
-namespace KiCadFileParserLibrary.KiCad.General.Graphics
+namespace KiCadFileParserLibrary.KiCad.General.Graphics;
+
+/// <summary>
+/// General polygon graphic.
+/// </summary>
+[SExprNode("gr_poly")]
+public class GrPolygonModel : GraphicBase
 {
-   [SExprNode("gr_poly")]
-   public class GrPolygonModel : GraphicBase
+   #region Local Props
+   private CoordinateModel _points = new();
+   private bool _locked;
+   private StrokeModel? _stroke;
+   private double? _width;
+   private FillType? _fill;
+   private string? _layer;
+   private string? _id;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public GrPolygonModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public override void ParseNode(Node node)
    {
-      #region Local Props
-      private CoordinateModel _points = new();
-      private bool _locked;
-      private StrokeModel? _stroke;
-      private double? _width;
-      private FillType? _fill;
-      private string? _layer;
-      private string? _id;
-      #endregion
-
-      #region Constructors
-      public GrPolygonModel() { }
-      #endregion
-
-      #region Methods
-      public override void ParseNode(Node node)
+      if (node.Children != null)
       {
-         if (node.Children != null)
-         {
-            var props = GetType().GetProperties();
+         var props = GetType().GetProperties();
 
-            KiCadParseUtils.ParseNodes(props, node, this);
-            KiCadParseUtils.ParseSubNodes(props, node, this);
-         }
+         KiCadParseUtils.ParseNodes(props, node, this);
+         KiCadParseUtils.ParseSubNodes(props, node, this);
       }
-
-      //public override void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine($"(gr_poly");
-
-      //   Coordinates?.WriteNode(builder, indent + 1);
-
-      //   if (Locked)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("locked", Locked));
-      //   }
-
-      //   Stroke?.WriteNode(builder, indent + 1);
-
-      //   if (Width != null)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("width", Width));
-      //   }
-
-      //   builder.Append('\t', indent + 1);
-      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("fill", Fill));
-
-      //   if (Layer != null)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
-      //   }
-
-      //   if (ID != null)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
-      //   }
-
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine(")");
-      //}
-      #endregion
-
-      #region Full Props
-      [SExprNode("pts", 0)]
-      public CoordinateModel Points
-      {
-         get => _points;
-         set
-         {
-            _points = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("locked")]
-      public bool Locked
-      {
-         get => _locked;
-         set
-         {
-            _locked = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public StrokeModel? Stroke
-      {
-         get => _stroke;
-         set
-         {
-            _stroke = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("width")]
-      public double? Width
-      {
-         get => _width;
-         set
-         {
-            _width = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("fill")]
-      public FillType? Fill
-      {
-         get => _fill;
-         set
-         {
-            _fill = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("layer")]
-      public string? Layer
-      {
-         get => _layer;
-         set
-         {
-            _layer = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("uuid")]
-      public string? ID
-      {
-         get => _id;
-         set
-         {
-            _id = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of polygon points.
+   /// </summary>
+   [SExprNode("pts", 0)]
+   public CoordinateModel Points
+   {
+      get => _points;
+      set
+      {
+         _points = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Is locked.
+   /// </summary>
+   [SExprSubNode("locked")]
+   public bool Locked
+   {
+      get => _locked;
+      set
+      {
+         _locked = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Stroke data.
+   /// </summary>
+   public StrokeModel? Stroke
+   {
+      get => _stroke;
+      set
+      {
+         _stroke = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Line width.
+   /// </summary>
+   [SExprSubNode("width")]
+   public double? Width
+   {
+      get => _width;
+      set
+      {
+         _width = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Fill type.
+   /// </summary>
+   [SExprSubNode("fill")]
+   public FillType? Fill
+   {
+      get => _fill;
+      set
+      {
+         _fill = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Layer name.
+   /// </summary>
+   [SExprSubNode("layer")]
+   public string? Layer
+   {
+      get => _layer;
+      set
+      {
+         _layer = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Unique ID.
+   /// </summary>
+   [SExprSubNode("uuid")]
+   public string? ID
+   {
+      get => _id;
+      set
+      {
+         _id = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

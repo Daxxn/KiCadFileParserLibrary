@@ -11,68 +11,64 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// <see cref="ZoneModel">Zone</see> fill polygon model.
+/// </summary>
+[SExprNode("filled_polygon")]
+public class ZoneFillPolygonModel : Model, IKiCadReadable
 {
-   [SExprNode("filled_polygon")]
-   public class ZoneFillPolygonModel : Model, IKiCadReadable
+   #region Local Props
+   private string _layer = "";
+   private CoordinateModel _points = new();
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public ZoneFillPolygonModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private string _layer = "";
-      private CoordinateModel _points = new();
-      #endregion
-
-      #region Constructors
-      public ZoneFillPolygonModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Properties != null && node.Children != null)
       {
-         if (node.Properties != null && node.Children != null)
-         {
-            var props = GetType().GetProperties();
+         var props = GetType().GetProperties();
 
-            KiCadParseUtils.ParseNodes(props, node, this);
-            KiCadParseUtils.ParseSubNodes(props, node, this);
-         }
+         KiCadParseUtils.ParseNodes(props, node, this);
+         KiCadParseUtils.ParseSubNodes(props, node, this);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine("(filled_polygon");
-
-      //   builder.Append('\t', indent + 1);
-      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", Layer));
-
-      //   Coordinates?.WriteNode(builder, indent + 1);
-
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine(")");
-      //}
-      #endregion
-
-      #region Full Props
-      [SExprSubNode("layer")]
-      public string Layer
-      {
-         get => _layer;
-         set
-         {
-            _layer = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public CoordinateModel Points
-      {
-         get => _points;
-         set
-         {
-            _points = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Layer name.
+   /// </summary>
+   [SExprSubNode("layer")]
+   public string Layer
+   {
+      get => _layer;
+      set
+      {
+         _layer = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// List of polygon points.
+   /// </summary>
+   public CoordinateModel Points
+   {
+      get => _points;
+      set
+      {
+         _points = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

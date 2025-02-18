@@ -28,8 +28,8 @@ public class Schematic : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFi
    private string _filePath = "";
    private int _version;
    private string _generator = "";
-   private string? _generatorVersion;
-   private string? _id;
+   private string _generatorVersion = "";
+   private string _id = "";
    private PaperModel? _paper;
    private TitleBlockModel? _title = new();
    private SchematicSymbolCollection? _libSymbols;
@@ -138,6 +138,7 @@ public class Schematic : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFi
    {
       ChangeHierSheetFile(newProjName);
 
+      if (SymbolRefs is null) return;
       foreach (var symbol in SymbolRefs.Symbols)
       {
          foreach (var inst in symbol.Instance.Instances)
@@ -187,7 +188,7 @@ public class Schematic : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFi
    /// Do NOT modify this unless you know what will happen.
    /// </summary>
    [SExprSubNode("generator", 1)]
-   public string? Generator
+   public string Generator
    {
       get => _generator;
       set
@@ -203,7 +204,7 @@ public class Schematic : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFi
    /// Do NOT modify this unless you know what will happen.
    /// </summary>
    [SExprSubNode("generator_version", 2)]
-   public string? GeneratorVersion
+   public string GeneratorVersion
    {
       get => _generatorVersion;
       set
@@ -217,7 +218,7 @@ public class Schematic : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFi
    /// The ID of the schematic
    /// </summary>
    [SExprSubNode("uuid", 3)]
-   public string? ID
+   public string ID
    {
       get => _id;
       set
@@ -297,7 +298,7 @@ public class Schematic : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFi
    /// <summary>
    /// List of wires used in the schematic
    /// </summary>
-   public WireCollection Wires
+   public WireCollection? Wires
    {
       get => _wires;
       set
@@ -375,7 +376,7 @@ public class Schematic : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFi
    /// <summary>
    /// List of global labels used in the schematic
    /// </summary>
-   public GlobalLabelCollection GlobalLabels
+   public GlobalLabelCollection? GlobalLabels
    {
       get => _globalLabels;
       set
@@ -388,7 +389,7 @@ public class Schematic : Model, IKiCadReadable, IKiCadWriteable, IKiCadProjectFi
    /// <summary>
    /// List of symbol references used in the schematic
    /// </summary>
-   public SymbolReferenceCollection SymbolRefs
+   public SymbolReferenceCollection? SymbolRefs
    {
       get => _symbolRefs;
       set

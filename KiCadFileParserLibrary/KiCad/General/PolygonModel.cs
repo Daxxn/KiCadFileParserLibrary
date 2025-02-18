@@ -11,50 +11,47 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// General polygon model.
+/// </summary>
+[SExprNode("polygon")]
+public class PolygonModel : Model, IKiCadReadable
 {
-   [SExprNode("polygon")]
-   public class PolygonModel : Model, IKiCadReadable
+   #region Local Props
+   private CoordinateModel _points = new();
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public PolygonModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private CoordinateModel _points = new();
-      #endregion
-
-      #region Constructors
-      public PolygonModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Children != null)
       {
-         if (node.Children != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseNodes(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseNodes(props, node, this);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine("(polygon");
-      //   Coordinates.WriteNode(builder, indent + 1);
-
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine(")");
-      //}
-      #endregion
-
-      #region Full Props
-      public CoordinateModel Points
-      {
-         get => _points;
-         set
-         {
-            _points = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of polygon points.
+   /// </summary>
+   public CoordinateModel Points
+   {
+      get => _points;
+      set
+      {
+         _points = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

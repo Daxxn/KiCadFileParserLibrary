@@ -12,104 +12,80 @@ using KiCadFileParserLibrary.Utils;
 using System.Collections.ObjectModel;
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// Font effects.
+/// </summary>
+[SExprNode("effects")]
+public class EffectsModel : Model, IKiCadReadable
 {
-   [SExprNode("effects")]
-   public class EffectsModel : Model, IKiCadReadable
+   #region Local Props
+   private FontModel? _fonts;
+   private ObservableCollection<TextJustify>? _justify;
+   private bool? _hide;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public EffectsModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private FontModel? _fonts;
-      private ObservableCollection<TextJustify>? _justify;
-      private bool? _hide;
-      #endregion
-
-      #region Constructors
-      public EffectsModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Children != null)
       {
-         if (node.Children != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseNodes(props, node, this);
-            KiCadParseUtils.ParseTokens(props, node, this);
-            KiCadParseUtils.ParsePropLists(props, node, this);
-            KiCadParseUtils.ParseSubNodes(props, node, this);
-
-            //var justNode = node.GetNode("justify");
-            //if (justNode is null) return;
-            //if (justNode.Properties!.Count <= 1) return;
-            //Justify = [];
-            //foreach (var p in justNode.Properties[1..])
-            //{
-            //   if (Enum.TryParse(p, true, out TextJustify output))
-            //   {
-            //      Justify.Add(output);
-            //   }
-            //}
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseNodes(props, node, this);
+         KiCadParseUtils.ParseTokens(props, node, this);
+         KiCadParseUtils.ParsePropLists(props, node, this);
+         KiCadParseUtils.ParseSubNodes(props, node, this);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine($"(effects");
-
-      //   Font?.WriteNode(builder, indent + 1);
-
-      //   if (Justify != null)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.Append($"(justify");
-
-      //      foreach (var jst in Justify)
-      //      {
-      //         builder.Append($" {jst.ToString().ToLower()}");
-      //      }
-      //      builder.AppendLine($")");
-      //   }
-
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine(")");
-      //}
-      #endregion
-
-      #region Full Props
-      public FontModel? Font
-      {
-         get => _fonts;
-         set
-         {
-            _fonts = value;
-            OnPropertyChanged();
-         }
-      }
-
-      //[SExprSubNode("justify")]
-      [SExprPropArray("justify")]
-      public ObservableCollection<TextJustify>? Justify
-      {
-         get => _justify;
-         set
-         {
-            _justify = value;
-            OnPropertyChanged();
-         }
-      }
-
-      //[SExprToken("hide")]
-      [SExprSubNode("hide")]
-      public bool? Hide // I cant find this prop anymore...
-      {
-         get => _hide;
-         set
-         {
-            _hide = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Font family name
+   /// </summary>
+   public FontModel? Font
+   {
+      get => _fonts;
+      set
+      {
+         _fonts = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Text justification
+   /// </summary>
+   [SExprPropArray("justify")]
+   public ObservableCollection<TextJustify>? Justify
+   {
+      get => _justify;
+      set
+      {
+         _justify = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Is hidden.
+   /// </summary>
+   [SExprSubNode("hide")]
+   public bool? Hide // I cant find this prop anymore...
+   {
+      get => _hide;
+      set
+      {
+         _hide = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

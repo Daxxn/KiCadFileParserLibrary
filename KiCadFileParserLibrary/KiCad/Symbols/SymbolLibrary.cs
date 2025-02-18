@@ -79,6 +79,22 @@ public class SymbolLibrary : Model, IKiCadReadable, IKiCadWriteable, IKiCadLibra
          File.WriteAllText(Path.Combine(path, $"{Name}.kicad_sym"), sb.ToString());
       }
    }
+
+   /// <summary>
+   /// Search the symbol libraries for a matching symbol.
+   /// </summary>
+   /// <param name="name">The name of the symbol.</param>
+   /// <returns>The matching symbol, otherwise null.</returns>
+   public Symbol? FindSymbol(string name)
+   {
+      if (string.IsNullOrEmpty(name)) return null;
+      if (Symbols?.Symbols is null) return null;
+      foreach (var symbol in Symbols.Symbols)
+      {
+         if (symbol.SymbolName == name) return symbol;
+      }
+      return null;
+   }
    #endregion
 
    #region Full Props
@@ -119,7 +135,7 @@ public class SymbolLibrary : Model, IKiCadReadable, IKiCadWriteable, IKiCadLibra
    /// Do NOT modify this unless you know what will happen.
    /// </summary>
    [SExprSubNode("generator")]
-   public string? Generator
+   public string Generator
    {
       get => _generator;
       set
@@ -135,7 +151,7 @@ public class SymbolLibrary : Model, IKiCadReadable, IKiCadWriteable, IKiCadLibra
    /// Do NOT modify this unless you know what will happen.
    /// </summary>
    [SExprSubNode("generator_version")]
-   public string? GeneratorVersion
+   public string GeneratorVersion
    {
       get => _generatorVersion;
       set
@@ -145,6 +161,9 @@ public class SymbolLibrary : Model, IKiCadReadable, IKiCadWriteable, IKiCadLibra
       }
    }
 
+   /// <summary>
+   /// List of symbols
+   /// </summary>
    public SymbolCollection? Symbols
    {
       get => _symbols;

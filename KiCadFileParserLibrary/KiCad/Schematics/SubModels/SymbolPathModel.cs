@@ -13,6 +13,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Symbol path model
+/// </summary>
 [SExprNode("path")]
 public class SymbolPathModel : Model, IKiCadReadable
 {
@@ -23,10 +26,12 @@ public class SymbolPathModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public SymbolPathModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Properties != null && node.Children != null)
@@ -40,6 +45,9 @@ public class SymbolPathModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Path
+   /// </summary>
    [SExprProperty(1)]
    public string Path
    {
@@ -51,6 +59,9 @@ public class SymbolPathModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Reference designator
+   /// </summary>
    [SExprSubNode("reference")]
    public string Reference
    {
@@ -62,6 +73,9 @@ public class SymbolPathModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Unit
+   /// </summary>
    [SExprSubNode("unit")]
    public int Unit
    {

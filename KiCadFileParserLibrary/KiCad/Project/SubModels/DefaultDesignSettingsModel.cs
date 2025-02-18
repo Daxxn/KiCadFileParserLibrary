@@ -64,7 +64,7 @@ public class DefaultDesignSettingsModel : Model
 
    #region Full Props
    /// <summary>
-   /// 
+   /// Apply defaults to footprint fields.
    /// </summary>
    [JsonProperty(PropertyName = "apply_defaults_to_fp_fields")]
    public bool ApplyDefaultsToFpFields
@@ -78,7 +78,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Apply defaults to footprint shapes.
    /// </summary>
    [JsonProperty(PropertyName = "apply_defaults_to_fp_shapes")]
    public bool ApplyDefaultsToFpShapes
@@ -92,7 +92,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Apply defaults to footprint text.
    /// </summary>
    [JsonProperty(PropertyName = "apply_defaults_to_fp_text")]
    public bool ApplyDefaultsToFpText
@@ -106,7 +106,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Board outline width.
    /// </summary>
    [JsonProperty(PropertyName = "board_outline_line_width")]
    public double BoardOutlineLineWidth
@@ -120,7 +120,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Copper trace width.
    /// </summary>
    [JsonProperty(PropertyName = "copper_line_width")]
    public double CopperLineWidth
@@ -134,7 +134,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Copper text is italic.
    /// </summary>
    [JsonProperty(PropertyName = "copper_text_italic")]
    public bool CopperTextItalic
@@ -148,7 +148,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Copper text width.
    /// </summary>
    [JsonProperty(PropertyName = "copper_text_size_h")]
    public double CopperTextWidth
@@ -162,7 +162,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Copper text height.
    /// </summary>
    [JsonProperty(PropertyName = "copper_text_size_v")]
    public double CopperTextHeight
@@ -176,7 +176,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Copper text thickness.
    /// </summary>
    [JsonProperty(PropertyName = "copper_text_thickness")]
    public double CopperTextThickness
@@ -190,7 +190,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Copper text upright.
    /// </summary>
    [JsonProperty(PropertyName = "copper_text_upright")]
    public bool CopperTextUpright
@@ -204,7 +204,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Courtyard width.
    /// </summary>
    [JsonProperty(PropertyName = "courtyard_line_width")]
    public double CourtyardLineWidth
@@ -218,7 +218,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Dimension precision.
    /// </summary>
    [JsonProperty(PropertyName = "dimension_precision")]
    public int DimensionPrecision
@@ -232,7 +232,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Dimension units.
    /// </summary>
    [JsonProperty(PropertyName = "dimension_units")]
    public UnitsType DimensionUnits
@@ -246,7 +246,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Dimension settings.
    /// </summary>
    [JsonProperty(PropertyName = "dimensions")]
    public DimensionSettingsModel? DimensionSettings
@@ -260,7 +260,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Fabrication layer line width.
    /// </summary>
    [JsonProperty(PropertyName = "fab_line_width")]
    public double FabLineWidth
@@ -274,7 +274,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Fabrication text is italic.
    /// </summary>
    [JsonProperty(PropertyName = "fab_text_italic")]
    public bool FabTextItalic
@@ -288,7 +288,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Fabrication text width.
    /// </summary>
    [JsonProperty(PropertyName = "fab_text_size_h")]
    public double FabTextWidth
@@ -302,7 +302,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Fabrication text height.
    /// </summary>
    [JsonProperty(PropertyName = "fab_text_size_v")]
    public double FabTextHeight
@@ -316,7 +316,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Fabrication text thickness.
    /// </summary>
    [JsonProperty(PropertyName = "fab_text_thickness")]
    public double FabTextThickness
@@ -330,7 +330,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Fabrication text upright.
    /// </summary>
    [JsonProperty(PropertyName = "fab_text_upright")]
    public bool FabTextUpright
@@ -344,7 +344,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Other line width.
    /// </summary>
    [JsonProperty(PropertyName = "other_line_width")]
    public double OtherLineWidth
@@ -358,7 +358,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Other text is italic.
    /// </summary>
    [JsonProperty(PropertyName = "other_text_italic")]
    public bool OtherTextItalic
@@ -372,7 +372,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Other text width.
    /// </summary>
    [JsonProperty(PropertyName = "other_text_size_h")]
    public double OtherTextWidth
@@ -386,7 +386,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Other text height.
    /// </summary>
    [JsonProperty(PropertyName = "other_text_size_v")]
    public double OtherTextHeight
@@ -400,7 +400,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Other text thickness.
    /// </summary>
    [JsonProperty(PropertyName = "other_text_thickness")]
    public double OtherTextThickness
@@ -414,7 +414,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Other text upright.
    /// </summary>
    [JsonProperty(PropertyName = "other_text_upright")]
    public bool OtherTextUpright
@@ -428,7 +428,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Pad settings.
    /// </summary>
    [JsonProperty(PropertyName = "pads")]
    public PadSettingsModel? Pads
@@ -442,7 +442,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Silkscreen line width.
    /// </summary>
    [JsonProperty(PropertyName = "silk_line_width")]
    public double SilkLineWidth
@@ -456,7 +456,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Silkscreen text is italic.
    /// </summary>
    [JsonProperty(PropertyName = "silk_text_italic")]
    public bool SilkTextItalic
@@ -470,7 +470,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Silkscreen text width.
    /// </summary>
    [JsonProperty(PropertyName = "silk_text_size_h")]
    public double SilkTextWidth
@@ -484,7 +484,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Silkscreen text height
    /// </summary>
    [JsonProperty(PropertyName = "silk_text_size_v")]
    public double SilkTextHeight
@@ -498,7 +498,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Silkscreen text thickness.
    /// </summary>
    [JsonProperty(PropertyName = "silk_text_thickness")]
    public double SilkTextThickness
@@ -512,7 +512,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Silkscreen text upright.
    /// </summary>
    [JsonProperty(PropertyName = "silk_text_upright")]
    public bool SilkTextUpright
@@ -526,7 +526,7 @@ public class DefaultDesignSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Zone settings.
    /// </summary>
    [JsonProperty(PropertyName = "zones")]
    public ZoneSettingsModel? ZoneSettings

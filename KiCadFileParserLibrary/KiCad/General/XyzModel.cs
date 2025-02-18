@@ -12,71 +12,78 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// 3D coordinate model.
+/// </summary>
+[SExprNode("xyz")]
+public class XyzModel : Model, IKiCadReadable
 {
-   [SExprNode("xyz")]
-   public class XyzModel : Model, IKiCadReadable
+   #region Local Props
+   private double? _x;
+   private double? _y;
+   private double? _z;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public XyzModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private double? _x;
-      private double? _y;
-      private double? _z;
-      #endregion
-
-      #region Constructors
-      public XyzModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Properties != null)
       {
-         if (node.Properties != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseProperties(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseProperties(props, node, this);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine($"({(auxName ?? "xyz")} {X} {Y} {Z})");
-      //}
-      #endregion
-
-      #region Full Props
-      [SExprProperty(1)]
-      public double? X
-      {
-         get => _x;
-         set
-         {
-            _x = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(2)]
-      public double? Y
-      {
-         get => _y;
-         set
-         {
-            _y = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(3)]
-      public double? Z
-      {
-         get => _z;
-         set
-         {
-            _z = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Horizontal coordinate.
+   /// </summary>
+   [SExprProperty(1)]
+   public double? X
+   {
+      get => _x;
+      set
+      {
+         _x = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Vertical coordinate.
+   /// </summary>
+   [SExprProperty(2)]
+   public double? Y
+   {
+      get => _y;
+      set
+      {
+         _y = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Depth coordinate.
+   /// </summary>
+   [SExprProperty(3)]
+   public double? Z
+   {
+      get => _z;
+      set
+      {
+         _z = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

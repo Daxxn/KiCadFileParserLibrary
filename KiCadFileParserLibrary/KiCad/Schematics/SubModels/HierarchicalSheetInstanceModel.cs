@@ -13,6 +13,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Hierarchical sheet instance model
+/// </summary>
 [SExprNode("instances")]
 public class HierarchicalSheetInstanceModel : Model, IKiCadReadable
 {
@@ -21,10 +24,12 @@ public class HierarchicalSheetInstanceModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public HierarchicalSheetInstanceModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -35,6 +40,9 @@ public class HierarchicalSheetInstanceModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Project instance
+   /// </summary>
    public ProjectInstanceModel Instance
    {
       get => _instance;

@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections;
 
+/// <summary>
+/// List of <see cref="GenericProperty">Properties.</see>
+/// </summary>
 [SExprListNode("property")]
 public class GenericPropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -22,10 +25,12 @@ public class GenericPropertyCollection : Model, IKiCadReadable, IKiCadWriteableC
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public GenericPropertyCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -41,11 +46,7 @@ public class GenericPropertyCollection : Model, IKiCadReadable, IKiCadWriteableC
       }
    }
 
-   public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   {
-      throw new NotImplementedException();
-   }
-
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       if (Properties is null) return;
@@ -57,6 +58,9 @@ public class GenericPropertyCollection : Model, IKiCadReadable, IKiCadWriteableC
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="GenericProperty">Properties.</see>
+   /// </summary>
    public ObservableCollection<GenericProperty> Properties
    {
       get => _props;

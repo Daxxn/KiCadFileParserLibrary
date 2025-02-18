@@ -26,6 +26,7 @@ public class IPC2581SettingsModel : Model
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public IPC2581SettingsModel() { }
    #endregion
 

@@ -13,53 +13,61 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
+namespace KiCadFileParserLibrary.KiCad.Symbols.Collections;
+
+/// <summary>
+/// List of <see cref="SymbolProperty">Symbol Properties</see>
+/// </summary>
+[SExprListNode("property")]
+public class SymbolPropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("property")]
-   public class SymbolPropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private ObservableCollection<SymbolProperty> _props = [];
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public SymbolPropertyCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ObservableCollection<SymbolProperty> _props = [];
-      #endregion
-
-      #region Constructors
-      public SymbolPropertyCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      var children = node.GetNodes("property");
+      if (children is null) return;
+      Properties = [];
+      foreach (var child in children)
       {
-         var children = node.GetNodes("property");
-         if (children is null) return;
-         Properties = [];
-         foreach (var child in children)
-         {
-            SymbolProperty prop = new();
-            prop.ParseNode(child);
-            Properties.Add(prop);
-         }
+         SymbolProperty prop = new();
+         prop.ParseNode(child);
+         Properties.Add(prop);
       }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         if (Properties is null) return;
-         foreach (var prop in Properties)
-         {
-            KiCadWriteUtils2.WriteNode(prop, builder, indent);
-         }
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<SymbolProperty> Properties
-      {
-         get => _props;
-         set
-         {
-            _props = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      if (Properties is null) return;
+      foreach (var prop in Properties)
+      {
+         KiCadWriteUtils2.WriteNode(prop, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="SymbolProperty">Symbol Properties</see>
+   /// </summary>
+   public ObservableCollection<SymbolProperty> Properties
+   {
+      get => _props;
+      set
+      {
+         _props = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

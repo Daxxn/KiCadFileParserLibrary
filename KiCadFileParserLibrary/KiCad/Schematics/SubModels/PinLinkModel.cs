@@ -13,6 +13,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Pin link model
+/// </summary>
 [SExprNode("pin")]
 public class PinLinkModel : Model, IKiCadReadable
 {
@@ -22,10 +25,12 @@ public class PinLinkModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public PinLinkModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children != null)
@@ -38,6 +43,9 @@ public class PinLinkModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Name
+   /// </summary>
    [SExprProperty(1)]
    public string Name
    {
@@ -49,6 +57,9 @@ public class PinLinkModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Unique ID
+   /// </summary>
    [SExprSubNode("uuid")]
    public string ID
    {

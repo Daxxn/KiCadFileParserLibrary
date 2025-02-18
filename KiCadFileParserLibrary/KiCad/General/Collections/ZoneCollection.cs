@@ -12,65 +12,66 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General.Collections
+namespace KiCadFileParserLibrary.KiCad.General.Collections;
+
+/// <summary>
+/// List of <see cref="ZoneModel">Zones.</see>
+/// </summary>
+[SExprListNode("zone")]
+public class ZoneCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("zone")]
-   public class ZoneCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private ObservableCollection<ZoneModel> _zones = [];
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public ZoneCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ObservableCollection<ZoneModel> _zones = [];
-      #endregion
-
-      #region Constructors
-      public ZoneCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      var zoneNodes = node.GetNodes("zone");
+      if (zoneNodes is null) return;
+      Zones = [];
+      foreach (var zoneNode in zoneNodes)
       {
-         var zoneNodes = node.GetNodes("zone");
-         if (zoneNodes is null) return;
-         Zones = [];
-         foreach (var zoneNode in zoneNodes)
-         {
-            ZoneModel zone = new();
-            zone.ParseNode(zoneNode);
-            Zones.Add(zone);
-         }
+         ZoneModel zone = new();
+         zone.ParseNode(zoneNode);
+         Zones.Add(zone);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   foreach (var zone in Zones)
-      //   {
-      //      zone.WriteNode(builder, indent);
-      //   }
-      //}
-
-      public override string ToString()
-      {
-         return $"Zones - {Zones.Count}";
-      }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         foreach (var zone in Zones)
-         {
-            KiCadWriteUtils2.WriteNode(zone, builder, indent);
-         }
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<ZoneModel> Zones
-      {
-         get => _zones;
-         set
-         {
-            _zones = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public override string ToString()
+   {
+      return $"Zones - {Zones.Count}";
+   }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      foreach (var zone in Zones)
+      {
+         KiCadWriteUtils2.WriteNode(zone, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="ZoneModel">Zones.</see>
+   /// </summary>
+   public ObservableCollection<ZoneModel> Zones
+   {
+      get => _zones;
+      set
+      {
+         _zones = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

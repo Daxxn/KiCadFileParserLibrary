@@ -15,6 +15,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="Symbol">Schematic Symbols</see>
+/// </summary>
 [SExprListNode("lib_symbols")]
 public class SchematicSymbolCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -23,10 +26,12 @@ public class SchematicSymbolCollection : Model, IKiCadReadable, IKiCadWriteableC
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public SchematicSymbolCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -41,6 +46,7 @@ public class SchematicSymbolCollection : Model, IKiCadReadable, IKiCadWriteableC
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       builder.Append('\t', indent);
@@ -57,6 +63,9 @@ public class SchematicSymbolCollection : Model, IKiCadReadable, IKiCadWriteableC
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="Symbol">Schematic Symbols</see>
+   /// </summary>
    public ObservableCollection<Symbol> Symbols
    {
       get => _symbols;

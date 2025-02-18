@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="HierarchicalLabelModel">Hierarchical Labels</see>
+/// </summary>
 [SExprListNode("hierarchical_label")]
 public class HierarchicalLabelCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -24,10 +27,12 @@ public class HierarchicalLabelCollection : Model, IKiCadReadable, IKiCadWriteabl
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public HierarchicalLabelCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -42,6 +47,7 @@ public class HierarchicalLabelCollection : Model, IKiCadReadable, IKiCadWriteabl
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       if (Labels is null) return;
@@ -53,6 +59,9 @@ public class HierarchicalLabelCollection : Model, IKiCadReadable, IKiCadWriteabl
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="HierarchicalLabelModel">Hierarchical Labels</see>
+   /// </summary>
    public ObservableCollection<HierarchicalLabelModel> Labels
    {
       get => _labels;

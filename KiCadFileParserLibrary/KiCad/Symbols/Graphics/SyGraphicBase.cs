@@ -9,10 +9,13 @@ using KiCadFileParserLibrary.SExprParser;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
+namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics;
+
+/// <summary>
+/// Abstract symbol graphic class
+/// </summary>
+public abstract class SyGraphicBase : Model, IKiCadReadable
 {
-   public abstract class SyGraphicBase : Model, IKiCadReadable
-   {
-      public abstract void ParseNode(Node node);
-   }
+   /// <inheritdoc/>
+   public abstract void ParseNode(Node node);
 }

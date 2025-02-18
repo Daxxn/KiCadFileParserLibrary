@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.SubModels;
 
+/// <summary>
+/// The origin model used in <see cref="TunedLengthModel">Tuned Length Models.</see>
+/// </summary>
 [SExprNode("origin")]
 public class OriginModel : Model, IKiCadReadable
 {
@@ -22,11 +25,12 @@ public class OriginModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public OriginModel() { }
-
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children != null)
@@ -39,6 +43,9 @@ public class OriginModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// The XY origin.
+   /// </summary>
    public XyModel Origin
    {
       get => _origin;

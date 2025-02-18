@@ -13,53 +13,61 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
+namespace KiCadFileParserLibrary.KiCad.Symbols.Collections;
+
+/// <summary>
+/// List of <see cref="PinModel">Pins</see>
+/// </summary>
+[SExprListNode("pin")]
+public class PinCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("pin")]
-   public class PinCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private ObservableCollection<PinModel> _pins = [];
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public PinCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ObservableCollection<PinModel> _pins;
-      #endregion
-
-      #region Constructors
-      public PinCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      var children = node.GetNodes("pin");
+      if (children is null) return;
+      Pins = [];
+      foreach (var child in children)
       {
-         var children = node.GetNodes("pin");
-         if (children is null) return;
-         Pins = [];
-         foreach (var child in children)
-         {
-            PinModel pin = new();
-            pin.ParseNode(child);
-            Pins.Add(pin);
-         }
+         PinModel pin = new();
+         pin.ParseNode(child);
+         Pins.Add(pin);
       }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         if (Pins is null) return;
-         foreach (var pin in Pins)
-         {
-            KiCadWriteUtils2.WriteNode(pin, builder, indent);
-         }
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<PinModel> Pins
-      {
-         get => _pins;
-         set
-         {
-            _pins = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      if (Pins is null) return;
+      foreach (var pin in Pins)
+      {
+         KiCadWriteUtils2.WriteNode(pin, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="PinModel">Pins</see>
+   /// </summary>
+   public ObservableCollection<PinModel> Pins
+   {
+      get => _pins;
+      set
+      {
+         _pins = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

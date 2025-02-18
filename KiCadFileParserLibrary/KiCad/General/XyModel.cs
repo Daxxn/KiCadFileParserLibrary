@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.General;
 
+/// <summary>
+/// 2D coordinate model.
+/// </summary>
 [SExprNode("xy")]
 public class XyModel : Model, IKiCadReadable
 {
@@ -23,10 +26,12 @@ public class XyModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public XyModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Properties != null)
@@ -36,22 +41,7 @@ public class XyModel : Model, IKiCadReadable
       }
    }
 
-   //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   //{
-   //   //if (auxName != null)
-   //   //{
-   //   //   builder.Append('\t', indent);
-   //   //   builder.AppendLine($"({(auxName ?? "xy")} {Math.Round(X, 6)} {Math.Round(Y, 6)})");
-   //   //}
-   //   //else
-   //   //{
-   //   //   builder.Append($"({(auxName ?? "xy")} {Math.Round(X, 6)} {Math.Round(Y, 6)})");
-   //   //}
-
-   //   builder.Append('\t', indent);
-   //   builder.AppendLine($"({(auxName ?? "xy")} {Math.Round(X, 6)} {Math.Round(Y, 6)})");
-   //}
-
+   /// <inheritdoc/>
    public override string ToString()
    {
       return $"XY - X: {X} - Y: {Y}";
@@ -59,6 +49,9 @@ public class XyModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Horizontal coordinate.
+   /// </summary>
    [SExprProperty(1)]
    public double X
    {
@@ -70,6 +63,9 @@ public class XyModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Vertical coordinate.
+   /// </summary>
    [SExprProperty(2)]
    public double Y
    {

@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Footprints.SubModels;
 
+/// <summary>
+/// <see cref="Footprint3DModel">3D Model</see> scale data.
+/// </summary>
 [SExprNode("scale")]
 public class Scale3DModel : Model, IKiCadReadable
 {
@@ -22,10 +25,12 @@ public class Scale3DModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public Scale3DModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -37,6 +42,9 @@ public class Scale3DModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Scale data.
+   /// </summary>
    public XyzModel Scale
    {
       get => _scale;

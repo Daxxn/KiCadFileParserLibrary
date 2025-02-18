@@ -13,6 +13,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.General;
 
+/// <summary>
+/// General size model.
+/// </summary>
 [SExprNode("size")]
 public class SizeModel : Model, IKiCadReadable
 {
@@ -22,10 +25,12 @@ public class SizeModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public SizeModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Properties != null)
@@ -34,6 +39,8 @@ public class SizeModel : Model, IKiCadReadable
          KiCadParseUtils.ParseProperties(props, node, this);
       }
    }
+
+   /// <inheritdoc/>
    public override string ToString()
    {
       return $"Size - W: {Width} - H: {Height}";
@@ -41,6 +48,9 @@ public class SizeModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Size width.
+   /// </summary>
    [SExprProperty(1)]
    public double Width
    {
@@ -52,6 +62,9 @@ public class SizeModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Size Height.
+   /// </summary>
    [SExprProperty(2)]
    public double Height
    {

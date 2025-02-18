@@ -15,6 +15,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="PinLinkModel">Pin Links</see>
+/// </summary>
 [SExprListNode("pin")]
 public class PinLinkCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -23,10 +26,12 @@ public class PinLinkCollection : Model, IKiCadReadable, IKiCadWriteableCollectio
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public PinLinkCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -40,6 +45,7 @@ public class PinLinkCollection : Model, IKiCadReadable, IKiCadWriteableCollectio
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       foreach (var pin in Pins)
@@ -50,6 +56,9 @@ public class PinLinkCollection : Model, IKiCadReadable, IKiCadWriteableCollectio
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="PinLinkModel">Pin Links</see>
+   /// </summary>
    public ObservableCollection<PinLinkModel> Pins
    {
       get => _pins;

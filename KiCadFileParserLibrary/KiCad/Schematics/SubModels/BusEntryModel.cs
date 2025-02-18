@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Bus entry model
+/// </summary>
 [SExprNode("bus_entry")]
 public class BusEntryModel : Model, IKiCadReadable
 {
@@ -25,10 +28,12 @@ public class BusEntryModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public BusEntryModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children != null)
@@ -41,6 +46,9 @@ public class BusEntryModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Location coordinates
+   /// </summary>
    public LocationModel Location
    {
       get => _location;
@@ -51,6 +59,9 @@ public class BusEntryModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Size data
+   /// </summary>
    [SExprNode("size")]
    public XyModel Size
    {
@@ -62,6 +73,9 @@ public class BusEntryModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Stroke data
+   /// </summary>
    public StrokeModel Stroke
    {
       get => _stroke;
@@ -72,6 +86,9 @@ public class BusEntryModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Unique ID
+   /// </summary>
    [SExprSubNode("uuid")]
    public string ID
    {

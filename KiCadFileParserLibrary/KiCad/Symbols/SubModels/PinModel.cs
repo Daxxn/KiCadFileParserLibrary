@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Symbols.SubModels;
 
+/// <summary>
+/// Pin model
+/// </summary>
 [SExprNode("pin")]
 public class PinModel : Model, IKiCadReadable
 {
@@ -28,10 +31,12 @@ public class PinModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public PinModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Properties != null && node.Children != null)
@@ -42,28 +47,12 @@ public class PinModel : Model, IKiCadReadable
          KiCadParseUtils.ParseProperties(props, node, this);
       }
    }
-
-   //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   //{
-   //   builder.Append($"(pin {ElectricalType.ToString().ToLower()} {GraphicalStyle.ToString().ToLower()}");
-   //   Location.WriteNode(builder, indent + 1);
-   //   builder.Append('\t', indent + 1);
-   //   builder.Append($"(length {Length})");
-   //   if (Visible == PinNumberVisibility.Hide)
-   //   {
-   //      builder.Append(Visible.ToString().ToLower());
-   //   }
-   //   builder.AppendLine();
-
-   //   Name.WriteNode(builder, indent + 1, "name");
-   //   Number.WriteNode(builder, indent + 1, "number");
-
-   //   builder.Append('\t', indent);
-   //   builder.AppendLine(")");
-   //}
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Pin electrical type
+   /// </summary>
    [SExprProperty(1)]
    public PinElectricalType ElectricalType
    {
@@ -75,6 +64,9 @@ public class PinModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Pin display style
+   /// </summary>
    [SExprProperty(2)]
    public PinGraphicStyle GraphicalStyle
    {
@@ -86,6 +78,9 @@ public class PinModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Location coordinates
+   /// </summary>
    public LocationModel Location
    {
       get => _location;
@@ -96,6 +91,9 @@ public class PinModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Length
+   /// </summary>
    [SExprSubNode("length")]
    public double Length
    {
@@ -107,6 +105,9 @@ public class PinModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Name
+   /// </summary>
    [SExprNode("name")]
    public PinTextModel Name
    {
@@ -118,6 +119,9 @@ public class PinModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Number
+   /// </summary>
    [SExprNode("number")]
    public PinTextModel Number
    {
@@ -129,6 +133,9 @@ public class PinModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Pin visibility
+   /// </summary>
    [SExprProperty(3)]
    [SExprFormatting(false, true)]
    public PinVisibility? Visible

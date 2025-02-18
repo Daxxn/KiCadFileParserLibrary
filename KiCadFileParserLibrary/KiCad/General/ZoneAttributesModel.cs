@@ -12,51 +12,47 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// <see cref="ZoneModel">Zone</see> attributes.
+/// </summary>
+[SExprNode("attr")]
+public class ZoneAttributesModel : Model, IKiCadReadable
 {
-   [SExprNode("attr")]
-   public class ZoneAttributesModel : Model, IKiCadReadable
+   #region Local Props
+   private ZoneTeardropModel? _teardrop;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public ZoneAttributesModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ZoneTeardropModel? _teardrop;
-      #endregion
-
-      #region Constructors
-      public ZoneAttributesModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Children != null)
       {
-         if (node.Children != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseNodes(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseNodes(props, node, this);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine("(attr");
-
-      //   Teardrop?.WriteNode(builder, indent + 1);
-
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine(")");
-      //}
-      #endregion
-
-      #region Full Props
-      public ZoneTeardropModel? Teardrop
-      {
-         get => _teardrop;
-         set
-         {
-            _teardrop = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Teardrop data.
+   /// </summary>
+   public ZoneTeardropModel? Teardrop
+   {
+      get => _teardrop;
+      set
+      {
+         _teardrop = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

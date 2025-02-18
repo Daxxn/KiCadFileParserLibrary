@@ -13,140 +13,129 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels;
+
+/// <summary>
+/// Stackup settings model.
+/// </summary>
+[SExprNode("stackup")]
+public class Stackup : Model, IKiCadReadable
 {
-   [SExprNode("stackup")]
-   public class Stackup : Model, IKiCadReadable
+   #region Local Props
+   private StackupLayerCollection _layers = new();
+   private string? _copperFinish;
+   private bool _impedanceControlled;
+   private bool _castellatedPads;
+   private bool _edgePlating;
+   private EdgeConnectorType _edgeConnector;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public Stackup() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private StackupLayerCollection _layers = new();
-      private string? _copperFinish;
-      private bool _impedanceControlled;
-      private bool _castellatedPads;
-      private bool _edgePlating;
-      private EdgeConnectorType _edgeConnector;
-      #endregion
+      if (node.Children is null) return;
+      var props = GetType().GetProperties();
 
-      #region Constructors
-      public Stackup() { }
-      #endregion
+      KiCadParseUtils.ParseSubNodes(props, node, this);
 
-      #region Methods
-      public void ParseNode(Node node)
-      {
-         if (node.Children is null) return;
-         var props = GetType().GetProperties();
-
-         KiCadParseUtils.ParseSubNodes(props, node, this);
-
-         Layers.ParseNode(node);
-      }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine("(stackup");
-      //   Layers.WriteNode(builder, indent + 1);
-      //   if (CopperFinish != null)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine($"(copper_finish \"{CopperFinish}\")");
-      //   }
-      //   if (ImpedanceControlled)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine($"(dielectric_constraints yes)");
-      //   }
-      //   if (EdgeConnector != EdgeConnectorType.No)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine($"(edge_connector {EdgeConnector.ToString()!.ToLower()})");
-      //   }
-      //   if (CastellatedPads)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine($"(castellated_pads yes)");
-      //   }
-      //   if (EdgePlating)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine($"(edge_plating yes)");
-      //   }
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine(")");
-      //}
-
-      public override string ToString()
-      {
-         return $"Stackup - Finish: {CopperFinish} - Impedance: {ImpedanceControlled} - Castellated-Pads: {CastellatedPads} - Edge-Pating: {EdgePlating} - Edge-Conn: {EdgeConnector}";
-      }
-      #endregion
-
-      #region Full Props
-      public StackupLayerCollection Layers
-      {
-         get => _layers;
-         set
-         {
-            _layers = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("copper_finish")]
-      public string? CopperFinish
-      {
-         get => _copperFinish;
-         set
-         {
-            _copperFinish = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("dielectric_constraints")]
-      public bool ImpedanceControlled
-      {
-         get => _impedanceControlled;
-         set
-         {
-            _impedanceControlled = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("castellated_pads")]
-      public bool CastellatedPads
-      {
-         get => _castellatedPads;
-         set
-         {
-            _castellatedPads = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("edge_plating")]
-      public bool EdgePlating
-      {
-         get => _edgePlating;
-         set
-         {
-            _edgePlating = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("edge_connector")]
-      public EdgeConnectorType EdgeConnector
-      {
-         get => _edgeConnector;
-         set
-         {
-            _edgeConnector = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
+      Layers.ParseNode(node);
    }
+
+   /// <inheritdoc/>
+   public override string ToString()
+   {
+      return $"Stackup - Finish: {CopperFinish} - Impedance: {ImpedanceControlled} - Castellated-Pads: {CastellatedPads} - Edge-Pating: {EdgePlating} - Edge-Conn: {EdgeConnector}";
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of stackup layer definitions.
+   /// </summary>
+   public StackupLayerCollection Layers
+   {
+      get => _layers;
+      set
+      {
+         _layers = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Type of copper finish. Used when calculating trace impedances.
+   /// </summary>
+   [SExprSubNode("copper_finish")]
+   public string? CopperFinish
+   {
+      get => _copperFinish;
+      set
+      {
+         _copperFinish = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The PCB contains high-speed, impedance constrained traces.
+   /// </summary>
+   [SExprSubNode("dielectric_constraints")]
+   public bool ImpedanceControlled
+   {
+      get => _impedanceControlled;
+      set
+      {
+         _impedanceControlled = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The PCB has castellated pads along the edges.
+   /// </summary>
+   [SExprSubNode("castellated_pads")]
+   public bool CastellatedPads
+   {
+      get => _castellatedPads;
+      set
+      {
+         _castellatedPads = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The PCB has plated edges.
+   /// </summary>
+   [SExprSubNode("edge_plating")]
+   public bool EdgePlating
+   {
+      get => _edgePlating;
+      set
+      {
+         _edgePlating = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The PCB has an edge connector.
+   /// </summary>
+   [SExprSubNode("edge_connector")]
+   public EdgeConnectorType EdgeConnector
+   {
+      get => _edgeConnector;
+      set
+      {
+         _edgeConnector = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

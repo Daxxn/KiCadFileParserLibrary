@@ -56,6 +56,9 @@ public class Symbol : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Name
+   /// </summary>
    [SExprProperty(1)]
    public string? SymbolName
    {
@@ -67,6 +70,9 @@ public class Symbol : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Extends symbols
+   /// </summary>
    [SExprSubNode("extends")]
    public string? ExtendsSymbol
    {
@@ -78,6 +84,9 @@ public class Symbol : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Exclude from simulation
+   /// </summary>
    [SExprSubNode("exclude_from_sim")]
    public bool ExcludeFromSim
    {
@@ -89,6 +98,9 @@ public class Symbol : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Pin number visibility
+   /// </summary>
    [SExprSubNode("pin_numbers")]
    public PinNumberVisibility? PinNumberVisibility
    {
@@ -100,6 +112,9 @@ public class Symbol : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Pin names
+   /// </summary>
    [SExprNode("pin_names")]
    public PinNamesModel? PinNames
    {
@@ -111,6 +126,9 @@ public class Symbol : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Include in BOM
+   /// </summary>
    [SExprSubNode("in_bom")]
    public bool InBom
    {
@@ -122,6 +140,9 @@ public class Symbol : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Include on PCB
+   /// </summary>
    [SExprSubNode("on_board")]
    public bool OnBoard
    {
@@ -133,6 +154,9 @@ public class Symbol : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of symbol properties
+   /// </summary>
    public SymbolPropertyCollection Properties
    {
       get => _props;
@@ -143,6 +167,9 @@ public class Symbol : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of sub-symbols
+   /// </summary>
    public SubSymbolCollection? SubSymbols
    {
       get => _subSymbols;
@@ -153,6 +180,9 @@ public class Symbol : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of symbol graphics
+   /// </summary>
    public SyGraphicsCollection? Graphics
    {
       get => _graphics;
@@ -163,6 +193,9 @@ public class Symbol : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of pins
+   /// </summary>
    public PinCollection? Pins
    {
       get => _pins;

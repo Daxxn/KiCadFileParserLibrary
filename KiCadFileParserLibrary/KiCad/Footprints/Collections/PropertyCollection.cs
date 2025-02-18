@@ -13,84 +13,84 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Footprints.Collections
+namespace KiCadFileParserLibrary.KiCad.Footprints.Collections;
+
+/// <summary>
+/// List of <see cref="PropertyModel">Properties.</see>
+/// </summary>
+[SExprListNode("property")]
+public class PropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("property")]
-   public class PropertyCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private ObservableCollection<PropertyModel> _properties = [];
+
+   private string _filterProp = "";
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public PropertyCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ObservableCollection<PropertyModel> _properties = [];
-
-      private string _filterProp = "";
-      #endregion
-
-      #region Constructors
-      public PropertyCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      var children = node.GetNodes("property");
+      if (children is null) return;
+      Properties = [];
+      foreach (var child in children)
       {
-         var children = node.GetNodes("property");
-         if (children is null) return;
-         Properties = [];
-         foreach (var child in children)
+         if (child.Properties![1] == "ki_fp_filters")
+            FilterProp = child.Properties[2];
+         else
          {
-            if (child.Properties![1] == "ki_fp_filters")
-               FilterProp = child.Properties[2];
-            else
-            {
-               PropertyModel prop = new();
-               prop.ParseNode(child);
-               Properties.Add(prop);
-            }
+            PropertyModel prop = new();
+            prop.ParseNode(child);
+            Properties.Add(prop);
          }
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   foreach (var prop in Properties)
-      //   {
-      //      prop.WriteNode(builder, indent);
-      //   }
-      //   if (string.IsNullOrEmpty(FilterProp)) return;
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine($"(property ki_fp_filters \"{FilterProp}\")");
-      //}
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         foreach (var prop in Properties)
-         {
-            //prop.WriteNode(builder, indent);
-            KiCadWriteUtils2.WriteNode(prop, builder, indent);
-         }
-         if (string.IsNullOrEmpty(FilterProp)) return;
-         builder.Append('\t', indent);
-         builder.AppendLine($"(property ki_fp_filters \"{FilterProp}\")");
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<PropertyModel> Properties
-      {
-         get => _properties;
-         set
-         {
-            _properties = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public string FilterProp
-      {
-         get => _filterProp;
-         set
-         {
-            _filterProp = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      foreach (var prop in Properties)
+      {
+         //prop.WriteNode(builder, indent);
+         KiCadWriteUtils2.WriteNode(prop, builder, indent);
+      }
+      if (string.IsNullOrEmpty(FilterProp)) return;
+      builder.Append('\t', indent);
+      builder.AppendLine($"(property ki_fp_filters \"{FilterProp}\")");
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="PropertyModel">Properties.</see>
+   /// </summary>
+   public ObservableCollection<PropertyModel> Properties
+   {
+      get => _properties;
+      set
+      {
+         _properties = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Property filter string.
+   /// </summary>
+   public string FilterProp
+   {
+      get => _filterProp;
+      set
+      {
+         _filterProp = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

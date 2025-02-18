@@ -40,6 +40,7 @@ namespace KiCadFileParserTestConsole
       private static string RootSymbolFolder       = @"F:\Electrical\KiCad\Libraries\Symbols";
       private static string RootLibrariesFolder    = @"F:\Electrical\KiCad\Libraries";
       private static string RootLibsOutputFolder   = @"F:\Electrical\KiCad\Libraries\Testing";
+      private static string KiCadDefaultLibFolder  = @"C:\Program Files\KiCad\8.0\share\kicad";
 
       private static TestMode Test = TestMode.RENAME_PROJECT;
       private static bool Write = false;
@@ -87,12 +88,12 @@ namespace KiCadFileParserTestConsole
                symbolsCollection = SymbolLibraryCollection.ParseLibraries(RootSymbolFolder);
                break;
             case TestMode.ALL_LIBRARIES:
-               AllLibraries = KiCadLibraries.Parse(RootLibrariesFolder);
+               AllLibraries = KiCadLibraries.Parse(RootLibrariesFolder, KiCadDefaultLibFolder);
                break;
             case TestMode.RENAME_PROJECT:
                project = KiCadProjectModel.Parse(ProjectFolder);
                if (project is null) break;
-               project.ChangeProjectName("newTextOutput");
+               project.ChangeProjectName("newTestOutput");
                break;
             default:
                break;

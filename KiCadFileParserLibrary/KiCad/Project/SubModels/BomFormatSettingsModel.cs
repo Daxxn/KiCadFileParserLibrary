@@ -50,7 +50,7 @@ public class BomFormatSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Keep BOM lines.
    /// </summary>
    [JsonProperty(PropertyName = "keep_line_breaks")]
    public bool KeepLineBreaks
@@ -64,7 +64,7 @@ public class BomFormatSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Keep tabs.
    /// </summary>
    [JsonProperty(PropertyName = "keep_tabs")]
    public bool KeepTabs
@@ -78,7 +78,7 @@ public class BomFormatSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// BOM name.
    /// </summary>
    [JsonProperty(PropertyName = "name")]
    public string? Name
@@ -92,7 +92,7 @@ public class BomFormatSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// BOM reference delimiter
    /// </summary>
    [JsonProperty(PropertyName = "ref_delimiter")]
    public string? RefDelimiter
@@ -106,7 +106,7 @@ public class BomFormatSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// Reference range delimiter.
    /// </summary>
    [JsonProperty(PropertyName = "ref_range_delimiter")]
    public string? RefRangeDelimiter
@@ -120,7 +120,7 @@ public class BomFormatSettingsModel : Model
    }
 
    /// <summary>
-   /// 
+   /// String delimiter.
    /// </summary>
    [JsonProperty(PropertyName = "string_delimiter")]
    public string? StringDelimiter

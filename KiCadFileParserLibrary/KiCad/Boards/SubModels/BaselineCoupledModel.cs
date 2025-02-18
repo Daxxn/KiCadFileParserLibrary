@@ -15,6 +15,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Boards.SubModels;
 
+/// <summary>
+/// List of base line coupled <see cref="CoordinateModel">Coordinates.</see>
+/// </summary>
 [SExprNode("base_line_coupled")]
 public class BaselineCoupledModel : Model, IKiCadReadable
 {
@@ -45,6 +48,9 @@ public class BaselineCoupledModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="CoordinateModel">Coordinates.</see>
+   /// </summary>
    public CoordinateModel Coordinates
    {
       get => _points;

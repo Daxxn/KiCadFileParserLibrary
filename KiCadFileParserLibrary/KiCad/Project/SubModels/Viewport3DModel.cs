@@ -9,6 +9,10 @@ using MVVMLibrary;
 using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
+
+/// <summary>
+/// Viewport 3D model
+/// </summary>
 public class Viewport3DModel : Model
 {
    #region Local Props
@@ -32,6 +36,7 @@ public class Viewport3DModel : Model
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public Viewport3DModel() { }
    #endregion
 
@@ -40,6 +45,8 @@ public class Viewport3DModel : Model
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "name")]
    public string Name
    {
@@ -51,6 +58,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "ww")]
    public double WW
    {
@@ -62,6 +71,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "wx")]
    public double WX
    {
@@ -73,6 +84,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "wy")]
    public double WY
    {
@@ -84,6 +97,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "wz")]
    public double WZ
    {
@@ -95,6 +110,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "xw")]
    public double XW
    {
@@ -106,6 +123,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "xx")]
    public double XX
    {
@@ -117,6 +136,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "xy")]
    public double XY
    {
@@ -128,6 +149,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "xz")]
    public double XZ
    {
@@ -139,6 +162,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "yw")]
    public double YW
    {
@@ -150,6 +175,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "yx")]
    public double YX
    {
@@ -161,6 +188,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "yy")]
    public double YY
    {
@@ -172,6 +201,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "yz")]
    public double YZ
    {
@@ -183,6 +214,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "zw")]
    public double ZW
    {
@@ -194,6 +227,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "zx")]
    public double ZX
    {
@@ -205,6 +240,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "zy")]
    public double ZY
    {
@@ -216,6 +253,8 @@ public class Viewport3DModel : Model
       }
    }
 
+   /// <summary>
+   /// </summary>
    [JsonProperty(PropertyName = "zz")]
    public double ZZ
    {

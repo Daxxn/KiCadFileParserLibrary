@@ -9,6 +9,10 @@ using MVVMLibrary;
 using Newtonsoft.Json;
 
 namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
+
+/// <summary>
+/// Viewport model
+/// </summary>
 public class ViewportModel : Model
 {
    #region Local Props
@@ -20,6 +24,7 @@ public class ViewportModel : Model
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public ViewportModel() { }
    #endregion
 
@@ -28,6 +33,9 @@ public class ViewportModel : Model
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Name
+   /// </summary>
    [JsonProperty(PropertyName = "name")]
    public string Name
    {
@@ -39,6 +47,9 @@ public class ViewportModel : Model
       }
    }
 
+   /// <summary>
+   /// Height
+   /// </summary>
    [JsonProperty(PropertyName = "h")]
    public double Height
    {
@@ -50,6 +61,9 @@ public class ViewportModel : Model
       }
    }
 
+   /// <summary>
+   /// Width
+   /// </summary>
    [JsonProperty(PropertyName = "w")]
    public double Width
    {
@@ -61,6 +75,9 @@ public class ViewportModel : Model
       }
    }
 
+   /// <summary>
+   /// X
+   /// </summary>
    [JsonProperty(PropertyName = "x")]
    public double X
    {
@@ -72,6 +89,9 @@ public class ViewportModel : Model
       }
    }
 
+   /// <summary>
+   /// Y
+   /// </summary>
    [JsonProperty(PropertyName = "y")]
    public double Y
    {

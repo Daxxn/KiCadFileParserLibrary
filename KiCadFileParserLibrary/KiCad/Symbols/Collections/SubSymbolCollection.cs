@@ -13,54 +13,62 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Symbols.Collections
+namespace KiCadFileParserLibrary.KiCad.Symbols.Collections;
+
+/// <summary>
+/// List of <see cref="SubSymbolModel">Sub-Symbols</see>
+/// </summary>
+[SExprListNode("symbol")]
+public class SubSymbolCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("symbol")]
-   public class SubSymbolCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private ObservableCollection<SubSymbolModel> _subSymbols = [];
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public SubSymbolCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private ObservableCollection<SubSymbolModel> _subSymbols;
-      #endregion
-
-      #region Constructors
-      public SubSymbolCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      var children = node.GetNodes("symbol");
+      if (children is null) return;
+      SubSymbols = [];
+      foreach (var child in children)
       {
-         var children = node.GetNodes("symbol");
-         if (children is null) return;
-         SubSymbols = [];
-         foreach (var child in children)
-         {
-            SubSymbolModel subSym = new();
-            subSym.ParseNode(child);
-            SubSymbols.Add(subSym);
-         }
+         SubSymbolModel subSym = new();
+         subSym.ParseNode(child);
+         SubSymbols.Add(subSym);
       }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         if (SubSymbols is null) return;
-
-         foreach (var sub in SubSymbols)
-         {
-            KiCadWriteUtils2.WriteNode(sub, builder, indent);
-         }
-      }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<SubSymbolModel> SubSymbols
-      {
-         get => _subSymbols;
-         set
-         {
-            _subSymbols = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      if (SubSymbols is null) return;
+
+      foreach (var sub in SubSymbols)
+      {
+         KiCadWriteUtils2.WriteNode(sub, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="SubSymbolModel">Sub-Symbols</see>
+   /// </summary>
+   public ObservableCollection<SubSymbolModel> SubSymbols
+   {
+      get => _subSymbols;
+      set
+      {
+         _subSymbols = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

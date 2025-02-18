@@ -13,88 +13,88 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General.Collections
+namespace KiCadFileParserLibrary.KiCad.General.Collections;
+
+/// <summary>
+/// List of <see cref="GraphicBase">Graphics.</see>
+/// </summary>
+[SExprListNode("gr_*")]
+public class GrGraphicsCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
-   [SExprListNode("gr_*")]
-   public class GrGraphicsCollection : Model, IKiCadReadable, IKiCadWriteableCollection
+   #region Local Props
+   private static readonly Dictionary<string, Func<GraphicBase>> GraphicsNodes = new()
    {
-      #region Local Props
-      private static readonly Dictionary<string, Func<GraphicBase>> GraphicsNodes = new()
+      { "gr_text", () => new GrTextModel() },
+      { "gr_text_box", () => new GrTextBoxModel() },
+      { "gr_line", () => new GrLineModel() },
+      { "gr_rect", () => new GrRectangleModel() },
+      { "gr_circle", () => new GrCircleModel() },
+      { "gr_arc", () => new GrArcModel() },
+      { "gr_poly", () => new GrPolygonModel() },
+      { "bezier", () => new GrCurveModel() },
+      { "dimension", () => new DimensionModel() },
+   };
+
+   private ObservableCollection<GraphicBase>? _graphics;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public GrGraphicsCollection() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
+   {
+      if (node.Children != null)
       {
-         { "gr_text", () => new GrTextModel() },
-         { "gr_text_box", () => new GrTextBoxModel() },
-         { "gr_line", () => new GrLineModel() },
-         { "gr_rect", () => new GrRectangleModel() },
-         { "gr_circle", () => new GrCircleModel() },
-         { "gr_arc", () => new GrArcModel() },
-         { "gr_poly", () => new GrPolygonModel() },
-         { "bezier", () => new GrCurveModel() },
-         { "dimension", () => new DimensionModel() },
-      };
-
-      private ObservableCollection<GraphicBase>? _graphics;
-      #endregion
-
-      #region Constructors
-      public GrGraphicsCollection() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
-      {
-         if (node.Children != null)
+         List<GraphicBase> graphics = [];
+         foreach (var child in node.Children)
          {
-            List<GraphicBase> graphics = [];
-            foreach (var child in node.Children)
+            if (GraphicsNodes.ContainsKey(child.Type))
             {
-               if (GraphicsNodes.ContainsKey(child.Type))
-               {
-                  var newItem = GraphicsNodes[child.Type]();
-                  newItem.ParseNode(child);
-                  graphics.Add(newItem);
-               }
-            }
-            if (graphics.Count > 0)
-            {
-               Graphics = new(graphics);
+               var newItem = GraphicsNodes[child.Type]();
+               newItem.ParseNode(child);
+               graphics.Add(newItem);
             }
          }
-      }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   if (Graphics == null) return;
-      //   foreach (var graphic in Graphics)
-      //   {
-      //      graphic.WriteNode(builder, indent);
-      //   }
-      //}
-
-      public override string ToString()
-      {
-         return $"Graphics - {Graphics?.Count}";
-      }
-
-      public void WriteCollection(StringBuilder builder, int indent)
-      {
-         if (Graphics == null) return;
-         foreach (var graphic in Graphics)
+         if (graphics.Count > 0)
          {
-            KiCadWriteUtils2.WriteNode(graphic, builder, indent);
+            Graphics = new(graphics);
          }
       }
-      #endregion
-
-      #region Full Props
-      public ObservableCollection<GraphicBase>? Graphics
-      {
-         get => _graphics;
-         set
-         {
-            _graphics = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public override string ToString()
+   {
+      return $"Graphics - {Graphics?.Count}";
+   }
+
+   /// <inheritdoc/>
+   public void WriteCollection(StringBuilder builder, int indent)
+   {
+      if (Graphics == null) return;
+      foreach (var graphic in Graphics)
+      {
+         KiCadWriteUtils2.WriteNode(graphic, builder, indent);
+      }
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// List of <see cref="GraphicBase">Graphics.</see>
+   /// </summary>
+   public ObservableCollection<GraphicBase>? Graphics
+   {
+      get => _graphics;
+      set
+      {
+         _graphics = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

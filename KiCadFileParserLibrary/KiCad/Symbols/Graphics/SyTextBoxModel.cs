@@ -11,112 +11,137 @@ using KiCadFileParserLibrary.KiCad.Symbols.SubModels;
 using KiCadFileParserLibrary.SExprParser;
 using KiCadFileParserLibrary.Utils;
 
-namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics
+namespace KiCadFileParserLibrary.KiCad.Symbols.Graphics;
+
+/// <summary>
+/// Symbol text box model
+/// </summary>
+[SExprNode("text_box")]
+public class SyTextBoxModel : SyGraphicBase
 {
-   [SExprNode("text_box")]
-   public class SyTextBoxModel : SyGraphicBase
+   #region Local Props
+   private string? _text;
+   private LocationModel? _location;
+   private XyModel? _size;
+   private StrokeModel? _stroke;
+   private SymbolFillModel? _fill;
+   private EffectsModel? _effects;
+   private bool _isPrivate;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public SyTextBoxModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public override void ParseNode(Node node)
    {
-      #region Local Props
-      private string? _text;
-      private LocationModel? _location;
-      private XyModel? _size;
-      private StrokeModel? _stroke;
-      private SymbolFillModel? _fill;
-      private EffectsModel? _effects;
-      private bool _isPrivate;
-      #endregion
-
-      #region Constructors
-      public SyTextBoxModel() { }
-      #endregion
-
-      #region Methods
-      public override void ParseNode(Node node)
+      if (node.Properties != null && node.Children != null)
       {
-         if (node.Properties != null && node.Children != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseNodes(props, node, this);
-            KiCadParseUtils.ParseSubNodes(props, node, this);
-            KiCadParseUtils.ParseProperties(props, node, this);
-            KiCadParseUtils.ParseTokens(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseNodes(props, node, this);
+         KiCadParseUtils.ParseSubNodes(props, node, this);
+         KiCadParseUtils.ParseProperties(props, node, this);
+         KiCadParseUtils.ParseTokens(props, node, this);
       }
-      #endregion
-
-      #region Full Props
-      [SExprProperty(1, true)]
-      public string? Text
-      {
-         get => _text;
-         set
-         {
-            _text = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public LocationModel? Location
-      {
-         get => _location;
-         set
-         {
-            _location = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprNode("size")]
-      public XyModel? Size
-      {
-         get => _size;
-         set
-         {
-            _size = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public StrokeModel? Stroke
-      {
-         get => _stroke;
-         set
-         {
-            _stroke = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public SymbolFillModel? Fill
-      {
-         get => _fill;
-         set
-         {
-            _fill = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public EffectsModel? Effects
-      {
-         get => _effects;
-         set
-         {
-            _effects = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprToken("private", 0)]
-      public bool IsPrivate
-      {
-         get => _isPrivate;
-         set
-         {
-            _isPrivate = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Display text
+   /// </summary>
+   [SExprProperty(1, true)]
+   public string? Text
+   {
+      get => _text;
+      set
+      {
+         _text = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Location coordinates
+   /// </summary>
+   public LocationModel? Location
+   {
+      get => _location;
+      set
+      {
+         _location = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Size
+   /// </summary>
+   [SExprNode("size")]
+   public XyModel? Size
+   {
+      get => _size;
+      set
+      {
+         _size = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Stroke data
+   /// </summary>
+   public StrokeModel? Stroke
+   {
+      get => _stroke;
+      set
+      {
+         _stroke = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Symbol fill data
+   /// </summary>
+   public SymbolFillModel? Fill
+   {
+      get => _fill;
+      set
+      {
+         _fill = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Font effects
+   /// </summary>
+   public EffectsModel? Effects
+   {
+      get => _effects;
+      set
+      {
+         _effects = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Is private
+   /// </summary>
+   [SExprToken("private", 0)]
+   public bool IsPrivate
+   {
+      get => _isPrivate;
+      set
+      {
+         _isPrivate = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

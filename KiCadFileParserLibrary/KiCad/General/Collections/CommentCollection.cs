@@ -14,20 +14,26 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections;
 
+/// <summary>
+/// List of <see cref="CommentModel">Comments.</see>
+/// </summary>
 [SExprListNode("comment")]
 public class CommentCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
    #region Local Props
    private ObservableCollection<CommentModel> _comments = [];
 
+   /// <inheritdoc/>
    public int Count => _comments.Count;
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public CommentCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       var commentNodes = node.GetNodes("comment");
@@ -41,14 +47,7 @@ public class CommentCollection : Model, IKiCadReadable, IKiCadWriteableCollectio
       }
    }
 
-   //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   //{
-   //   foreach (var comment in Comments)
-   //   {
-   //      comment.WriteNode(builder, indent);
-   //   }
-   //}
-
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       foreach (var comment in Comments)
@@ -59,6 +58,9 @@ public class CommentCollection : Model, IKiCadReadable, IKiCadWriteableCollectio
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="CommentModel">Comments.</see>
+   /// </summary>
    public ObservableCollection<CommentModel> Comments
    {
       get => _comments;

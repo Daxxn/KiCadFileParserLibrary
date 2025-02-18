@@ -64,6 +64,11 @@ public class BoardModel : Model
       }
    }
 
+   /// <summary>
+   /// IPC2581 standard file settings
+   /// <para/>
+   /// I've never used this. Not sure if it works correctly.
+   /// </summary>
    [JsonProperty(PropertyName = "ipc2581")]
    public IPC2581SettingsModel? IPCSettings
    {
@@ -75,6 +80,9 @@ public class BoardModel : Model
       }
    }
 
+   /// <summary>
+   /// List of layer presets.
+   /// </summary>
    [JsonProperty(PropertyName = "layer_presets")]
    public ObservableCollection<LayerPresetModel>? LayerPresets
    {
@@ -86,6 +94,9 @@ public class BoardModel : Model
       }
    }
 
+   /// <summary>
+   /// List of custom views.
+   /// </summary>
    [JsonProperty(PropertyName = "viewports")]
    public ObservableCollection<ViewportModel>? ViewPorts
    {

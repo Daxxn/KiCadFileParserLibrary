@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="LabelModel">Local Labels</see>
+/// </summary>
 [SExprListNode("label")]
 public class LocalLabelCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -24,10 +27,12 @@ public class LocalLabelCollection : Model, IKiCadReadable, IKiCadWriteableCollec
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public LocalLabelCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -42,6 +47,7 @@ public class LocalLabelCollection : Model, IKiCadReadable, IKiCadWriteableCollec
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       if (LocalLabels is null) return;
@@ -53,6 +59,9 @@ public class LocalLabelCollection : Model, IKiCadReadable, IKiCadWriteableCollec
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="LabelModel">Local Labels</see>
+   /// </summary>
    public ObservableCollection<LabelModel> LocalLabels
    {
       get => _localLabels;

@@ -11,181 +11,169 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels;
+
+/// <summary>
+/// Model of a layer in the <see cref="Stackup">Stackup.</see>
+/// </summary>
+[SExprNode("layer")]
+public class StackupLayer : Model, IKiCadReadable
 {
-   [SExprNode("layer")]
-   public class StackupLayer : Model, IKiCadReadable
+   #region Local Props
+   private string? _name;
+   private string? _type;
+   private string? _color;
+   private string? _material;
+   private double? _thickness;
+   private double? _epsilon;
+   private double? _loss;
+   private bool _locked;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public StackupLayer() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private string? _name;
-      private string? _type;
-      private string? _color;
-      private string? _material;
-      private double? _thickness;
-      private double? _epsilon;
-      private double? _loss;
-      private bool _locked;
-      #endregion
-
-      #region Constructors
-      public StackupLayer() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Properties != null && node.Children != null)
       {
-         if (node.Properties != null && node.Children != null)
+         var props = GetType().GetProperties();
+
+         KiCadParseUtils.ParseProperties(props, node, this);
+         KiCadParseUtils.ParseSubNodes(props, node, this);
+
+         var thickNode = node.GetNode("thickness");
+         if (thickNode is null) return;
+         if (thickNode.Properties!.Count > 2)
          {
-            var props = GetType().GetProperties();
-
-            KiCadParseUtils.ParseProperties(props, node, this);
-            KiCadParseUtils.ParseSubNodes(props, node, this);
-
-            var thickNode = node.GetNode("thickness");
-            if (thickNode is null) return;
-            if (thickNode.Properties!.Count > 2)
-            {
-               if (thickNode.Properties[2] == "locked")
-                  Locked = true;
-            }
+            if (thickNode.Properties[2] == "locked")
+               Locked = true;
          }
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine($"(layer \"{Name}\"");
-      //   builder.Append('\t', indent + 1);
-      //   builder.AppendLine($"(type \"{Type}\")");
-      //   if (Color != null)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine($"(color \"{Color}\")");
-      //   }
-      //   if (Thickness != null)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.Append($"(thickness {Thickness}");
-      //      if (Locked)
-      //         builder.AppendLine($" locked)");
-      //      else
-      //      {
-      //         builder.AppendLine(")");
-      //      }
-      //   }
-      //   if (Material != null)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine($"(material \"{Material}\")");
-      //   }
-      //   if (EpsilonR != null)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine($"(epsilon_r {EpsilonR})");
-      //   }
-      //   if (LossTangent != null)
-      //   {
-      //      builder.Append('\t', indent + 1);
-      //      builder.AppendLine($"(loss_tangent {LossTangent})");
-      //   }
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine(")");
-      //}
-
-      public override string ToString()
-      {
-         return $"Stackup-Layer - {Name} - Type: {Type} - Color: {Color} - Material: {Material} - Thickness: {Thickness} - eR: {EpsilonR} - Loss-Tan: {LossTangent} - Locked: {Locked}";
-      }
-      #endregion
-
-      #region Full Props
-      [SExprProperty(1)]
-      public string? Name
-      {
-         get => _name;
-         set
-         {
-            _name = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("type")]
-      public string? Type
-      {
-         get => _type;
-         set
-         {
-            _type = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("color")]
-      public string? Color
-      {
-         get => _color;
-         set
-         {
-            _color = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("material")]
-      public string? Material
-      {
-         get => _material;
-         set
-         {
-            _material = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("thickness")]
-      public double? Thickness
-      {
-         get => _thickness;
-         set
-         {
-            _thickness = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("epsilon_r")]
-      public double? EpsilonR
-      {
-         get => _epsilon;
-         set
-         {
-            _epsilon = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("loss_tangent")]
-      public double? LossTangent
-      {
-         get => _loss;
-         set
-         {
-            _loss = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprToken("locked")]
-      public bool Locked
-      {
-         get => _locked;
-         set
-         {
-            _locked = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <inheritdoc/>
+   public override string ToString()
+   {
+      return $"Stackup-Layer - {Name} - Type: {Type} - Color: {Color} - Material: {Material} - Thickness: {Thickness} - eR: {EpsilonR} - Loss-Tan: {LossTangent} - Locked: {Locked}";
+   }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// The name of the layer.
+   /// </summary>
+   [SExprProperty(1)]
+   public string? Name
+   {
+      get => _name;
+      set
+      {
+         _name = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The type of the layer.
+   /// </summary>
+   [SExprSubNode("type")]
+   public string? Type
+   {
+      get => _type;
+      set
+      {
+         _type = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// An optional color when displaying a 3D model of the PCB.
+   /// </summary>
+   [SExprSubNode("color")]
+   public string? Color
+   {
+      get => _color;
+      set
+      {
+         _color = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The name of the material used for the layer.
+   /// </summary>
+   [SExprSubNode("material")]
+   public string? Material
+   {
+      get => _material;
+      set
+      {
+         _material = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The thickness of the layer.
+   /// </summary>
+   [SExprSubNode("thickness")]
+   public double? Thickness
+   {
+      get => _thickness;
+      set
+      {
+         _thickness = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The relative permittivity of the layer.
+   /// </summary>
+   [SExprSubNode("epsilon_r")]
+   public double? EpsilonR
+   {
+      get => _epsilon;
+      set
+      {
+         _epsilon = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The loss tangent of the layer.
+   /// </summary>
+   [SExprSubNode("loss_tangent")]
+   public double? LossTangent
+   {
+      get => _loss;
+      set
+      {
+         _loss = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Locks this layer from further edits.
+   /// </summary>
+   [SExprToken("locked")]
+   public bool Locked
+   {
+      get => _locked;
+      set
+      {
+         _locked = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

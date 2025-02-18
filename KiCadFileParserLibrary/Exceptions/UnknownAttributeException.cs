@@ -5,12 +5,17 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KiCadFileParserLibrary.Exceptions
+namespace KiCadFileParserLibrary.Exceptions;
+
+/// <summary>
+/// An unknown attribute was used.
+/// </summary>
+public class UnknownAttributeException : Exception
 {
-   public class UnknownAttributeException : Exception
-   {
-      public UnknownAttributeException() { }
-      public UnknownAttributeException(string? message) : base(message) { }
-      public UnknownAttributeException(string? message, Exception? innerException) : base(message, innerException) { }
-   }
+   /// <inheritdoc/>
+   public UnknownAttributeException() { }
+   /// <inheritdoc/>
+   public UnknownAttributeException(string? message) : base(message) { }
+   /// <inheritdoc/>
+   public UnknownAttributeException(string? message, Exception? innerException) : base(message, innerException) { }
 }

@@ -11,84 +11,94 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// General color data.
+/// </summary>
+[SExprNode("color")]
+public class ColorModel : Model, IKiCadReadable
 {
-   [SExprNode("color")]
-   public class ColorModel : Model, IKiCadReadable
+   #region Local Props
+   private double _red;
+   private double _green;
+   private double _blue;
+   private double _alpha;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public ColorModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private double _red;
-      private double _green;
-      private double _blue;
-      private double _alpha;
-      #endregion
-
-      #region Constructors
-      public ColorModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Properties != null)
       {
-         if (node.Properties != null)
-         {
-            var props = GetType().GetProperties();
+         var props = GetType().GetProperties();
 
-            KiCadParseUtils.ParseProperties(props, node, this);
-         }
+         KiCadParseUtils.ParseProperties(props, node, this);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine($"(color {Red} {Green} {Blue} {Alpha})");
-      //}
-      #endregion
-
-      #region Full Props
-      [SExprProperty(1)]
-      public double Red
-      {
-         get => _red;
-         set
-         {
-            _red = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(2)]
-      public double Green
-      {
-         get => _green;
-         set
-         {
-            _green = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(3)]
-      public double Blue
-      {
-         get => _blue;
-         set
-         {
-            _blue = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(4)]
-      public double Alpha
-      {
-         get => _alpha;
-         set
-         {
-            _alpha = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Red percentage.
+   /// </summary>
+   [SExprProperty(1)]
+   public double Red
+   {
+      get => _red;
+      set
+      {
+         _red = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Green percentage.
+   /// </summary>
+   [SExprProperty(2)]
+   public double Green
+   {
+      get => _green;
+      set
+      {
+         _green = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Blue percentage.
+   /// </summary>
+   [SExprProperty(3)]
+   public double Blue
+   {
+      get => _blue;
+      set
+      {
+         _blue = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Alpha percentage.
+   /// </summary>
+   [SExprProperty(4)]
+   public double Alpha
+   {
+      get => _alpha;
+      set
+      {
+         _alpha = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

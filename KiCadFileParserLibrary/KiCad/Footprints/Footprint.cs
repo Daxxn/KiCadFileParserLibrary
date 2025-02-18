@@ -82,127 +82,6 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
-   //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   //{
-   //   builder.Append('\t', indent);
-   //   builder.AppendLine($"(footprint \"{LibraryFullName}\"");
-
-   //   if (Locked)
-   //   {
-   //      builder.Append(" locked");
-   //   }
-   //   if (Placed)
-   //   {
-   //      builder.Append(" placed");
-   //   }
-
-   //   builder.Append('\t', indent + 1);
-   //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("layer", LayerName));
-
-   //   if (ID != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("uuid", ID));
-   //   }
-
-   //   Coordinates.WriteNode(builder, indent + 1);
-
-   //   if (Description != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("descr", Description));
-   //   }
-
-   //   if (Tags != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("tags", Tags));
-   //   }
-
-   //   Properties?.WriteNode(builder, indent + 1);
-
-   //   if (Path != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("path", Path));
-   //   }
-
-   //   if (AutoplaceCostHorz != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("autoplace_cost90", AutoplaceCostHorz));
-   //   }
-
-   //   if (AutoplaceCostVert != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("autoplace_cost180", AutoplaceCostVert));
-   //   }
-
-   //   if (SolderMaskMargin != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_mask_margin", SolderMaskMargin));
-   //   }
-
-   //   if (SolderPasteMargin != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_paste_margin", SolderPasteMargin));
-   //   }
-
-   //   if (SolderPasteRatio != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("solder_paste_ratio", SolderPasteRatio));
-   //   }
-
-   //   if (Clearance != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("clearance", Clearance));
-   //   }
-
-   //   if (ZoneConnect != 0)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("zone_connect", (int)ZoneConnect));
-   //   }
-
-   //   if (SheetName != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("sheetname", SheetName));
-   //   }
-
-   //   if (SheetFile != null)
-   //   {
-   //      builder.Append('\t', indent + 1);
-   //      builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("sheetfile", SheetFile));
-   //   }
-
-   //   Attributes?.WriteNode(builder, indent + 1);
-
-   //   PrivateLayers?.WriteNode(builder, indent + 1);
-
-   //   NetTieGroups?.WriteNode(builder, indent + 1);
-
-   //   Graphics?.WriteNode(builder, indent + 1);
-
-   //   Images?.WriteNode(builder, indent + 1);
-
-   //   Pads?.WriteNode(builder, indent + 1);
-
-   //   Zones?.WriteNode(builder, indent + 1);
-
-   //   Groups?.WriteNode(builder, indent + 1);
-
-   //   Models?.WriteNode(builder, indent + 1);
-
-   //   builder.Append('\t', indent);
-   //   builder.AppendLine(")");
-   //}
-
    /// <summary>
    /// Change the project file name in the 
    /// </summary>
@@ -223,6 +102,7 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <inheritdoc/>
    public override string ToString() => $"Footprint - Lib: {Name} - Locked: {Locked} - Placed: {Placed} - Layer: {LayerName} - ID: {ID} - Private-Layers: {PrivateLayers?.Layers?.Count} - Net-Ties: {NetTieGroups?.Groups?.Count} - Graphics: {Graphics?.Graphics?.Count} - Imgs: {Images?.Images?.Count} - Pads: {Pads?.Pads.Count} - Zones: {Zones?.Zones.Count} - Groups: {Groups?.Groups.Count} - Models: {Models?.Models.Count}";
    #endregion
 
@@ -297,6 +177,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Is locked.
+   /// </summary>
    [SExprToken("locked")]
    public bool Locked
    {
@@ -308,6 +191,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Is placed.
+   /// </summary>
    [SExprToken("placed")]
    public bool Placed
    {
@@ -319,6 +205,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Layer name.
+   /// </summary>
    [SExprSubNode("layer")]
    public string LayerName
    {
@@ -330,6 +219,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Unique ID.
+   /// </summary>
    [SExprSubNode("uuid")]
    public string? ID
    {
@@ -356,6 +248,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Description text
+   /// </summary>
    [SExprSubNode("descr")]
    public string? Description
    {
@@ -367,6 +262,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// KiCad search tags.
+   /// </summary>
    [SExprSubNode("tags")]
    public string? Tags
    {
@@ -378,6 +276,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of footprint properties.
+   /// </summary>
    public PropertyCollection? Properties
    {
       get => _props;
@@ -388,6 +289,11 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Library path.
+   /// <para/>
+   /// Uses the "Library:Footprint" naming schema.
+   /// </summary>
    [SExprSubNode("path")]
    public string? Path
    {
@@ -399,6 +305,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// The name of the <see cref="Schematics.Schematic">Schematic</see> sheet where the <see cref="Symbols.Symbol">Symbol</see> is linked to.
+   /// </summary>
    [SExprSubNode("sheetname")]
    public string? SheetName
    {
@@ -410,6 +319,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// The name of the <see cref="Schematics.Schematic">Schematic</see> file where the <see cref="Symbols.Symbol">Symbol</see> is linked to.
+   /// </summary>
    [SExprSubNode("sheetfile")]
    public string? SheetFile
    {
@@ -421,6 +333,11 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Auto-router settings.
+   /// <para/>
+   /// Not sure if this is even used.
+   /// </summary>
    [SExprSubNode("autoplace_cost90")]
    public double? AutoplaceCostHorz
    {
@@ -432,6 +349,11 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Auto-router settings.
+   /// <para/>
+   /// Not sure if this is even used.
+   /// </summary>
    [SExprSubNode("autoplace_cost180")]
    public double? AutoplaceCostVert
    {
@@ -443,6 +365,11 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Solder mask margin.
+   /// <para/>
+   /// Uses global option if null.
+   /// </summary>
    [SExprSubNode("solder_mask_margin")]
    public double? SolderMaskMargin
    {
@@ -454,6 +381,11 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Solder paste margin.
+   /// <para/>
+   /// Uses global option if null.
+   /// </summary>
    [SExprSubNode("solder_paste_margin")]
    public double? SolderPasteMargin
    {
@@ -465,6 +397,11 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Solder paste ratio.
+   /// <para/>
+   /// Uses global option if null.
+   /// </summary>
    [SExprSubNode("solder_paste_ratio")]
    public double? SolderPasteRatio
    {
@@ -476,6 +413,11 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Footprint clearance.
+   /// <para/>
+   /// Uses global option if null.
+   /// </summary>
    [SExprSubNode("clearance")]
    public double? Clearance
    {
@@ -487,6 +429,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Zone connection mode.
+   /// </summary>
    [SExprSubNode("zone_connect")]
    public int ZoneConnect
    {
@@ -498,6 +443,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Thermal isolation trace width.
+   /// </summary>
    [SExprSubNode("thermal_width")]
    public double? ThermalWidth
    {
@@ -509,6 +457,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Thermal isolation gap.
+   /// </summary>
    [SExprSubNode("thermal_gap")]
    public double? ThermalGap
    {
@@ -520,6 +471,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Footprint attributes.
+   /// </summary>
    public FootprintAttributeModel? Attributes
    {
       get => _attributes;
@@ -530,6 +484,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Layers not drawn on the PCB.
+   /// </summary>
    public PrivateLayersModel? PrivateLayers
    {
       get => _privateLayers;
@@ -540,6 +497,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of net-tie groups.
+   /// </summary>
    public NetTieGroupModel? NetTieGroups
    {
       get => _netTieGroups;
@@ -550,6 +510,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of footprint graphics.
+   /// </summary>
    public FpGraphicsCollection? Graphics
    {
       get => _graphics;
@@ -560,6 +523,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of pads.
+   /// </summary>
    public PadCollection? Pads
    {
       get => _pads;
@@ -570,6 +536,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of groups.
+   /// </summary>
    public GroupCollection? Groups
    {
       get => _groups;
@@ -580,6 +549,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of <see cref="Footprint3DModel">3D models</see> representing the component.
+   /// </summary>
    public ModelCollection? Models
    {
       get => _models;
@@ -590,6 +562,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of <see cref="ZoneModel">Zones.</see>
+   /// </summary>
    public ZoneCollection? Zones
    {
       get => _zones;
@@ -600,6 +575,9 @@ public class Footprint : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of <see cref="ImageModel">Images.</see>
+   /// </summary>
    public ImageCollection? Images
    {
       get => _images;

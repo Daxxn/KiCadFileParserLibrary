@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of global labels.
+/// </summary>
 [SExprListNode("global_label")]
 public class GlobalLabelCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -24,10 +27,12 @@ public class GlobalLabelCollection : Model, IKiCadReadable, IKiCadWriteableColle
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public GlobalLabelCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -42,6 +47,7 @@ public class GlobalLabelCollection : Model, IKiCadReadable, IKiCadWriteableColle
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       if (GlobalLabels is null) return;
@@ -53,6 +59,9 @@ public class GlobalLabelCollection : Model, IKiCadReadable, IKiCadWriteableColle
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of global labels.
+   /// </summary>
    public ObservableCollection<GlobalLabelModel> GlobalLabels
    {
       get => _globalLabels;

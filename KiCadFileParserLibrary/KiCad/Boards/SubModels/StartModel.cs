@@ -11,53 +11,63 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.Boards.SubModels
+namespace KiCadFileParserLibrary.KiCad.Boards.SubModels;
+
+/// <summary>
+/// The start location coordinates.
+/// </summary>
+[SExprNode("start")]
+public class StartModel : Model, IKiCadReadable
 {
-   [SExprNode("start")]
-   public class StartModel : Model, IKiCadReadable
+   #region Local Props
+   private double? _x;
+   private double? _y;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public StartModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private double? _x;
-      private double? _y;
-      #endregion
-
-      #region Constructors
-      public StartModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Properties != null)
       {
-         if (node.Properties != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseProperties(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseProperties(props, node, this);
       }
-      #endregion
-
-      #region Full Props
-      [SExprProperty(1)]
-      public double? X
-      {
-         get => _x;
-         set
-         {
-            _x = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(2)]
-      public double? Y
-      {
-         get => _y;
-         set
-         {
-            _y = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Horizontal start location.
+   /// </summary>
+   [SExprProperty(1)]
+   public double? X
+   {
+      get => _x;
+      set
+      {
+         _x = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Vertical start location.
+   /// </summary>
+   [SExprProperty(2)]
+   public double? Y
+   {
+      get => _y;
+      set
+      {
+         _y = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

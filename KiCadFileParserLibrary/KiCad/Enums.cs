@@ -416,8 +416,11 @@ public enum CustomPadClearance
 /// </summary>
 public enum CustomPadAnchor
 {
+   /// <inheritdoc/>
    None = 0,
+   /// <inheritdoc/>
    Rect,
+   /// <inheritdoc/>
    Circle,
 }
 
@@ -458,8 +461,11 @@ public enum HatchType
 /// </summary>
 public enum KeepoutType
 {
+   /// <inheritdoc/>
    None = 0,
+   /// <inheritdoc/>
    Not_Allowed,
+   /// <inheritdoc/>
    Allowed,
 }
 
@@ -468,8 +474,11 @@ public enum KeepoutType
 /// </summary>
 public enum FillMode
 {
+   /// <inheritdoc/>
    None = 0,
+   /// <inheritdoc/>
    Solid,
+   /// <inheritdoc/>
    Hatched,
 }
 
@@ -769,9 +778,15 @@ public enum NetClassShape
    Rectangle,
 }
 
+/// <summary>
+/// ERC rule severity warning
+/// </summary>
 public enum RuleSeverity
 {
+   /// <inheritdoc/>
    ignore,
+   /// <inheritdoc/>
    warning,
+   /// <inheritdoc/>
    error
 }

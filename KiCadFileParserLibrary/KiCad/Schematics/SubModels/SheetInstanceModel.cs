@@ -13,6 +13,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Sheet instance model
+/// </summary>
 [SExprNode("project")]
 public class SheetInstanceModel : Model, IKiCadReadable
 {
@@ -22,10 +25,12 @@ public class SheetInstanceModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public SheetInstanceModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -37,6 +42,9 @@ public class SheetInstanceModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Name
+   /// </summary>
    [SExprProperty(1)]
    public string Name
    {
@@ -48,6 +56,9 @@ public class SheetInstanceModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Path
+   /// </summary>
    public ProjectPathModel Path
    {
       get => _path;

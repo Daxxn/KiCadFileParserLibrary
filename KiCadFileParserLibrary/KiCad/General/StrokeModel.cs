@@ -12,83 +12,78 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// General stroke model.
+/// </summary>
+[SExprNode("stroke")]
+public class StrokeModel : Model, IKiCadReadable
 {
-   [SExprNode("stroke")]
-   public class StrokeModel : Model, IKiCadReadable
+   #region Local Props
+   private double _width;
+   private StrokeType? _type;
+   private ColorModel? _color;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public StrokeModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private double _width;
-      private StrokeType? _type;
-      private ColorModel? _color;
-      #endregion
-
-      #region Constructors
-      public StrokeModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
+      if (node.Children != null)
       {
-         if (node.Children != null)
-         {
-            var props = GetType().GetProperties();
-            KiCadParseUtils.ParseSubNodes(props, node, this);
-            KiCadParseUtils.ParseNodes(props, node, this);
-         }
+         var props = GetType().GetProperties();
+         KiCadParseUtils.ParseSubNodes(props, node, this);
+         KiCadParseUtils.ParseNodes(props, node, this);
       }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine("(stroke");
-      //   builder.Append('\t', indent + 1);
-      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("width", Width));
-      //   builder.Append('\t', indent + 1);
-      //   builder.AppendLine(KiCadWriteUtils.WriteSubNodeData("type", Type));
-
-      //   if (Color != null)
-      //   {
-      //      Color.WriteNode(builder, indent + 1);
-      //   }
-
-      //   builder.Append('\t', indent);
-      //   builder.AppendLine(")");
-      //}
-      #endregion
-
-      #region Full Props
-      [SExprSubNode("width")]
-      public double Width
-      {
-         get => _width;
-         set
-         {
-            _width = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprSubNode("type")]
-      public StrokeType? Type
-      {
-         get => _type;
-         set
-         {
-            _type = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public ColorModel? Color
-      {
-         get => _color;
-         set
-         {
-            _color = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Stroke width.
+   /// </summary>
+   [SExprSubNode("width")]
+   public double Width
+   {
+      get => _width;
+      set
+      {
+         _width = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Stroke type.
+   /// </summary>
+   [SExprSubNode("type")]
+   public StrokeType? Type
+   {
+      get => _type;
+      set
+      {
+         _type = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Color
+   /// </summary>
+   public ColorModel? Color
+   {
+      get => _color;
+      set
+      {
+         _color = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

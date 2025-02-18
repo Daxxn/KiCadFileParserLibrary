@@ -8,45 +8,54 @@ using MVVMLibrary;
 
 using Newtonsoft.Json;
 
-namespace KiCadFileParserLibrary.KiCad.Project.SubModels
+namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
+
+/// <summary>
+/// 
+/// </summary>
+public class ViaDimensionModel : Model
 {
-   public class ViaDimensionModel : Model
+   #region Local Props
+   private double _diam = 0;
+   private double _drill = 0;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public ViaDimensionModel() { }
+   #endregion
+
+   #region Methods
+
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Pad diameter
+   /// </summary>
+   [JsonProperty(PropertyName = "diameter")]
+   public double Diameter
    {
-      #region Local Props
-      private double _diam = 0;
-      private double _drill = 0;
-      #endregion
-
-      #region Constructors
-      public ViaDimensionModel() { }
-      #endregion
-
-      #region Methods
-
-      #endregion
-
-      #region Full Props
-      [JsonProperty(PropertyName = "diameter")]
-      public double Diameter
+      get => _diam;
+      set
       {
-         get => _diam;
-         set
-         {
-            _diam = value;
-            OnPropertyChanged();
-         }
+         _diam = value;
+         OnPropertyChanged();
       }
-
-      [JsonProperty(PropertyName = "drill")]
-      public double Drill
-      {
-         get => _drill;
-         set
-         {
-            _drill = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
    }
+
+   /// <summary>
+   /// Drill diameter
+   /// </summary>
+   [JsonProperty(PropertyName = "drill")]
+   public double Drill
+   {
+      get => _drill;
+      set
+      {
+         _drill = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

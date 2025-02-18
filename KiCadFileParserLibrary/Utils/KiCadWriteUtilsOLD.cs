@@ -15,7 +15,7 @@ namespace KiCadFileParserLibrary.Utils
    /// <para/>
    /// Remove Soon.
    /// </summary>
-   internal static class KiCadWriteUtils
+   internal static class KiCadWriteUtilsOLD
    {
       #region Methods
       public static void WriteSubNodes(StringBuilder sb, PropertyInfo[] props, IKiCadReadable? instance, int indent)

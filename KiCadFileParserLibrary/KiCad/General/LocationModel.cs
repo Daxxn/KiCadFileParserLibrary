@@ -11,75 +11,75 @@ using KiCadFileParserLibrary.Utils;
 
 using MVVMLibrary;
 
-namespace KiCadFileParserLibrary.KiCad.General
+namespace KiCadFileParserLibrary.KiCad.General;
+
+/// <summary>
+/// Location coordinates model.
+/// </summary>
+[SExprNode("at")]
+public class LocationModel : Model, IKiCadReadable
 {
-   [SExprNode("at")]
-   public class LocationModel : Model, IKiCadReadable
+   #region Local Props
+   private double? _x;
+   private double? _y;
+   private double? _angle;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public LocationModel() { }
+   #endregion
+
+   #region Methods
+   /// <inheritdoc/>
+   public void ParseNode(Node node)
    {
-      #region Local Props
-      private double? _x;
-      private double? _y;
-      private double? _angle;
-      #endregion
-
-      #region Constructors
-      public LocationModel() { }
-      #endregion
-
-      #region Methods
-      public void ParseNode(Node node)
-      {
-         var props = GetType().GetProperties();
-         KiCadParseUtils.ParseProperties(props, node, this);
-      }
-
-      //public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-      //{
-      //   builder.Append('\t', indent);
-      //   builder.Append($"({auxName ?? "at"} {X} {Y}");
-      //   if (Angle != null)
-      //   {
-      //      builder.Append(' ');
-      //      builder.Append((double)Angle);
-      //   }
-
-      //   builder.AppendLine(")");
-      //}
-      #endregion
-
-      #region Full Props
-      [SExprProperty(1)]
-      public double? X
-      {
-         get => _x;
-         set
-         {
-            _x = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(2)]
-      public double? Y
-      {
-         get => _y;
-         set
-         {
-            _y = value;
-            OnPropertyChanged();
-         }
-      }
-
-      [SExprProperty(3)]
-      public double? Angle
-      {
-         get => _angle;
-         set
-         {
-            _angle = value;
-            OnPropertyChanged();
-         }
-      }
-      #endregion
+      var props = GetType().GetProperties();
+      KiCadParseUtils.ParseProperties(props, node, this);
    }
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Horizontal coordinate.
+   /// </summary>
+   [SExprProperty(1)]
+   public double? X
+   {
+      get => _x;
+      set
+      {
+         _x = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Vertical coordinate.
+   /// </summary>
+   [SExprProperty(2)]
+   public double? Y
+   {
+      get => _y;
+      set
+      {
+         _y = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// Angle in degrees.
+   /// </summary>
+   [SExprProperty(3)]
+   public double? Angle
+   {
+      get => _angle;
+      set
+      {
+         _angle = value;
+         OnPropertyChanged();
+      }
+   }
+   #endregion
 }

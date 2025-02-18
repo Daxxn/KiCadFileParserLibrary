@@ -17,6 +17,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.General.Collections;
 
+/// <summary>
+/// List of points.
+/// </summary>
 [SExprListNode("xy")]
 public class PointCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -25,10 +28,12 @@ public class PointCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public PointCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       var children = node.GetNodes("xy");
@@ -42,11 +47,7 @@ public class PointCollection : Model, IKiCadReadable, IKiCadWriteableCollection
       }
    }
 
-   public void WriteNode(StringBuilder builder, int indent, string? auxName = null)
-   {
-      throw new NotImplementedException();
-   }
-
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       foreach (var point in Points)
@@ -57,6 +58,9 @@ public class PointCollection : Model, IKiCadReadable, IKiCadWriteableCollection
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of points.
+   /// </summary>
    public ObservableCollection<XyModel> Points
    {
       get => _points;

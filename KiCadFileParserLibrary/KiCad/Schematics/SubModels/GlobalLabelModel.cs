@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Global label model
+/// </summary>
 [SExprNode("global_label")]
 public class GlobalLabelModel : Model, IKiCadReadable
 {
@@ -29,10 +32,12 @@ public class GlobalLabelModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public GlobalLabelModel() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children != null)
@@ -53,6 +58,9 @@ public class GlobalLabelModel : Model, IKiCadReadable
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Label name
+   /// </summary>
    [SExprProperty(1)]
    public string Name
    {
@@ -64,6 +72,9 @@ public class GlobalLabelModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Shape
+   /// </summary>
    [SExprSubNode("shape")]
    public LabelShape Shape
    {
@@ -75,6 +86,9 @@ public class GlobalLabelModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Location coordinates
+   /// </summary>
    public LocationModel Location
    {
       get => _location;
@@ -85,6 +99,9 @@ public class GlobalLabelModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Font effects
+   /// </summary>
    public EffectsModel Effects
    {
       get => _effects;
@@ -95,6 +112,9 @@ public class GlobalLabelModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// Unique ID.
+   /// </summary>
    [SExprSubNode("uuid")]
    public string ID
    {
@@ -106,6 +126,9 @@ public class GlobalLabelModel : Model, IKiCadReadable
       }
    }
 
+   /// <summary>
+   /// List of Properties
+   /// </summary>
    public GenericPropertyCollection Properties
    {
       get => _props;

@@ -91,36 +91,67 @@ public class ProjectSchematics : Model
       }
    }
 
+   /// <summary>
+   /// Get index of the provided schematic.
+   /// </summary>
+   /// <param name="item">Schematic to search for.</param>
+   /// <returns>The index of the schematic in the list. -1 if not found.</returns>
    public int IndexOf(Schematic item)
    {
       return Schematics?.IndexOf(item) ?? -1;
    }
 
+   /// <summary>
+   /// Insert the schematic at the desired index.
+   /// </summary>
+   /// <param name="index">The index to insert the schematic at.</param>
+   /// <param name="item">The schematic to insert.</param>
    public void Insert(int index, Schematic item)
    {
       Schematics?.Insert(index, item);
    }
 
+   /// <summary>
+   /// Remove a schematic at the provided index.
+   /// </summary>
+   /// <param name="index">The index of the schematic to remove.</param>
    public void RemoveAt(int index)
    {
       Schematics?.RemoveAt(index);
    }
 
+   /// <summary>
+   /// Add a schematic to the end of the list.
+   /// </summary>
+   /// <param name="item">The schematic to add.</param>
    public void Add(Schematic item)
    {
       Schematics?.Add(item);
    }
 
+   /// <summary>
+   /// Clear all schematics.
+   /// </summary>
    public void Clear()
    {
       Schematics?.Clear();
    }
 
+   /// <summary>
+   /// Check if the list of schematics contains the provided schematic.
+   /// </summary>
+   /// <param name="item">The schematic to search for.</param>
+   /// <returns>True if the schematic can be found in the list.</returns>
    public bool Contains(Schematic item)
    {
       return Schematics?.Contains(item) == true;
    }
 
+   /// <summary>
+   /// Remove the provided schematic from the list.
+   /// </summary>
+   /// <param name="item">The schematic to remove.</param>
+   /// <returns>True if the schematic was removed.</returns>
    public bool Remove(Schematic item)
    {
       return Schematics?.Remove(item) == true;

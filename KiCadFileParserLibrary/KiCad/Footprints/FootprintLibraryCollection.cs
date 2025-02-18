@@ -17,11 +17,20 @@ public class FootprintLibraryCollection : Model
    #region Local Props
    private string _rootFolder = null!;
    private ObservableCollection<FootprintLibrary> _libs = [];
+   private bool _readonly = false;
    #endregion
 
    #region Constructors
    /// <inheritdoc/>
    public FootprintLibraryCollection() { }
+
+   /// <summary>
+   /// Used for the KiCad footprint libraries.
+   /// <para/>
+   /// As the KiCad libraries are not writable.
+   /// </summary>
+   /// <param name="isKiCadLibs">True for KiCad default libraries.</param>
+   public FootprintLibraryCollection(bool isKiCadLibs) => _readonly = isKiCadLibs;
    #endregion
 
    #region Methods
@@ -95,6 +104,56 @@ public class FootprintLibraryCollection : Model
       }
    }
 
+   /// <summary>
+   /// Search for a matching footprint library.
+   /// </summary>
+   /// <param name="name">The name of the footprint library.</param>
+   /// <returns>The matching footprint library, otherwise null.</returns>
+   public FootprintLibrary? FindLibrary(string name)
+   {
+      if (Libs.Count == 0) return null;
+      foreach (var lib in Libs)
+      {
+         if (lib.LibraryName == name) return lib;
+      }
+      return null;
+   }
+
+   /// <summary>
+   /// Search the footprint libraries for a matching footprint.
+   /// <para/>
+   /// Uses the name delimiter ( <c>:</c> ) to split the library and footprint names.
+   /// <para/>
+   /// Example: "Library:Footprint"
+   /// </summary>
+   /// <param name="name">The name of the footprint.</param>
+   /// <returns>The matching footprint, otherwise null.</returns>
+   public Footprint? FindFootprint(string name)
+   {
+      if (Libs.Count == 0) return null;
+      if (string.IsNullOrEmpty(name)) return null;
+
+      if (name.Contains(':'))
+      {
+         var nameSplit = name.Split(':', StringSplitOptions.RemoveEmptyEntries);
+         if (nameSplit.Length > 1)
+         {
+            var foundLib = FindLibrary(nameSplit[0]);
+            return foundLib?.FindFootprint(nameSplit[1]);
+         }
+      }
+      else
+      {
+         foreach (var lib in Libs)
+         {
+            var foundFp = lib.FindFootprint(name);
+            if (foundFp != null) return foundFp;
+         }
+      }
+
+      return null;
+   }
+
    /// <inheritdoc/>
    public override string ToString() => $"Footprint Libraries - {Libs.Count}";
    #endregion
@@ -122,6 +181,21 @@ public class FootprintLibraryCollection : Model
       set
       {
          _libs = value;
+         OnPropertyChanged();
+      }
+   }
+
+   /// <summary>
+   /// The default KiCad libraries are read-only and cannot be changed.
+   /// <para/>
+   /// True if this library collection is from the KiCad default libraries.
+   /// </summary>
+   public bool Readonly
+   {
+      get => _readonly;
+      set
+      {
+         _readonly = value;
          OnPropertyChanged();
       }
    }

@@ -16,6 +16,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.Collections;
 
+/// <summary>
+/// List of <see cref="ProjectInstanceModel">Project Instances</see>
+/// </summary>
 [SExprListNode("project")]
 public class ProjectInstanceCollection : Model, IKiCadReadable, IKiCadWriteableCollection
 {
@@ -24,10 +27,12 @@ public class ProjectInstanceCollection : Model, IKiCadReadable, IKiCadWriteableC
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public ProjectInstanceCollection() { }
    #endregion
 
    #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -42,6 +47,7 @@ public class ProjectInstanceCollection : Model, IKiCadReadable, IKiCadWriteableC
       }
    }
 
+   /// <inheritdoc/>
    public void WriteCollection(StringBuilder builder, int indent)
    {
       if (Instances is null) return;
@@ -53,6 +59,9 @@ public class ProjectInstanceCollection : Model, IKiCadReadable, IKiCadWriteableC
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// List of <see cref="ProjectInstanceModel">Project Instances</see>
+   /// </summary>
    public ObservableCollection<ProjectInstanceModel> Instances
    {
       get => _instances;

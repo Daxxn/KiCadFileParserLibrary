@@ -14,6 +14,9 @@ using MVVMLibrary;
 
 namespace KiCadFileParserLibrary.KiCad.Schematics.SubModels;
 
+/// <summary>
+/// Schematic Fill model
+/// </summary>
 [SExprNode("fill")]
 public class FillModel : Model, IKiCadReadable
 {
@@ -23,8 +26,12 @@ public class FillModel : Model, IKiCadReadable
    #endregion
 
    #region Constructors
+   /// <inheritdoc/>
    public FillModel() { }
+   #endregion
 
+   #region Methods
+   /// <inheritdoc/>
    public void ParseNode(Node node)
    {
       if (node.Children is null) return;
@@ -33,22 +40,10 @@ public class FillModel : Model, IKiCadReadable
    }
    #endregion
 
-   #region Methods
-
-   #endregion
-
    #region Full Props
-   //[SExprSubNode("type")]
-   //public SymbolFillType Type
-   //{
-   //   get => _fillType;
-   //   set
-   //   {
-   //      _fillType = value;
-   //      OnPropertyChanged();
-   //   }
-   //}
-
+   /// <summary>
+   /// Color
+   /// </summary>
    public ColorModel Color
    {
       get => _color;

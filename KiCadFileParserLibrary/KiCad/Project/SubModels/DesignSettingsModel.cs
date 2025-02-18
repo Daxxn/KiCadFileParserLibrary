@@ -41,6 +41,9 @@ public class DesignSettingsModel : Model
    #endregion
 
    #region Full Props
+   /// <summary>
+   /// Default design settings.
+   /// </summary>
    [JsonProperty(PropertyName = "defaults")]
    public DefaultDesignSettingsModel Defaults
    {
@@ -52,6 +55,9 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// List of differential pair dimensions.
+   /// </summary>
    [JsonProperty(PropertyName = "diff_pair_dimensions")]
    public ObservableCollection<DiffPairDimensionModel> DiffPairDimensions
    {
@@ -63,6 +69,9 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// DRC exclusions.
+   /// </summary>
    [JsonProperty(PropertyName = "drc_exclusions")]
    public ObservableCollection<string> DrcExlusions
    {
@@ -74,6 +83,11 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Metadata
+   /// <para/>
+   /// Not critical. Can be ignored.
+   /// </summary>
    [JsonProperty(PropertyName = "meta")]
    public MetadataModel Metadata
    {
@@ -85,6 +99,9 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Rule severities.
+   /// </summary>
    [JsonProperty(PropertyName = "rule_severities")]
    public PcbRuleSeverityModel RuleSeverities
    {
@@ -96,6 +113,9 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Rule settings.
+   /// </summary>
    [JsonProperty(PropertyName = "rules")]
    public RuleSettingsModel RuleSettings
    {
@@ -107,6 +127,9 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Teardrop options.
+   /// </summary>
    [JsonProperty(PropertyName = "teardrop_options")]
    public ObservableCollection<TeardropOptionModel> TeardropOptions
    {
@@ -118,6 +141,9 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Teardrop parameters.
+   /// </summary>
    [JsonProperty(PropertyName = "teardrop_parameters")]
    public ObservableCollection<TeardropParamModel> TeardropParameters
    {
@@ -129,6 +155,9 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// List of track widths.
+   /// </summary>
    [JsonProperty(PropertyName = "track_widths")]
    public ObservableCollection<double> TrackWidths
    {
@@ -140,6 +169,9 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// List of tuned trace patterns.
+   /// </summary>
    [JsonProperty(PropertyName = "tuning_pattern_settings")]
    public Dictionary<string, TuningPatternSettingsModel> TuningPatterns
    {
@@ -151,6 +183,9 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// List of via dimensions.
+   /// </summary>
    [JsonProperty(PropertyName = "via_dimensions")]
    public ObservableCollection<ViaDimensionModel> ViaDimensions
    {
@@ -162,6 +197,9 @@ public class DesignSettingsModel : Model
       }
    }
 
+   /// <summary>
+   /// Allow zone corners to extend past the definition lines.
+   /// </summary>
    [JsonProperty(PropertyName = "zones_allow_external_fillets")]
    public bool ZonesAllowExternalFillets
    {

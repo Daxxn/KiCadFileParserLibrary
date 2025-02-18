@@ -8,33 +8,39 @@ using MVVMLibrary;
 
 using Newtonsoft.Json;
 
-namespace KiCadFileParserLibrary.KiCad.Project.SubModels
+namespace KiCadFileParserLibrary.KiCad.Project.SubModels;
+
+/// <summary>
+/// Zone settings model
+/// </summary>
+public class ZoneSettingsModel : Model
 {
-   public class ZoneSettingsModel : Model
+   #region Local Props
+   private double _minClearance;
+   #endregion
+
+   #region Constructors
+   /// <inheritdoc/>
+   public ZoneSettingsModel() { }
+   #endregion
+
+   #region Methods
+
+   #endregion
+
+   #region Full Props
+   /// <summary>
+   /// Minimum clearance
+   /// </summary>
+   [JsonProperty(PropertyName = "min_clearance")]
+   public double MinClearance
    {
-      #region Local Props
-      private double _minClearance;
-      #endregion
-
-      #region Constructors
-      public ZoneSettingsModel() { }
-      #endregion
-
-      #region Methods
-
-      #endregion
-
-      #region Full Props
-      [JsonProperty(PropertyName = "min_clearance")]
-      public double MinClearance
+      get => _minClearance;
+      set
       {
-         get => _minClearance;
-         set
-         {
-            _minClearance = value;
-            OnPropertyChanged();
-         }
+         _minClearance = value;
+         OnPropertyChanged();
       }
-      #endregion
    }
+   #endregion
 }
